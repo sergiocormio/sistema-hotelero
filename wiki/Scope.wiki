@@ -2,7 +2,12 @@
 
 = El sistema hará =
 
-  * blabla
+  * Calculará la mayor cantidad de combinaciones de estadías posibles en un tiempo no mayor a 20 segundos. Dado un rango de fechas y una cantidad de personas.
+  * Calculará un presupuesto dado a una combinación de estadía más varias variables asociadas que se sumarán. (las variables están en el spreadsheet)
+  * El sistema administrará automáticamente el mantenimiento (limpieza) que se tenga que hacer cada día a cada habitación, de acuerdo a distintos niveles de limpieza.
+  * Agenda de transportes (?)
+  * El sistema llevará el consumo por cada habitación/cliente.
+  * Podrá mandar publicidad via email a un conjunto de clientes
 
 
 
