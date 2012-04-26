@@ -21,9 +21,9 @@
 
   * Otra opcion seria, en la solapa de Presupuesto, generar un formulario para ingresar:
     
-    # cantidad de noche (o rango de fechas)
+    * cantidad de noche (o rango de fechas)
     # cantidad de personas
-    # Numero de habitacion
+    * Numero de habitacion
     # Tipo de moneda
 
   * Se pueden implementar las dos cosas.
