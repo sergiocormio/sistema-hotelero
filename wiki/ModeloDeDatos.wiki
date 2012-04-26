@@ -1,0 +1,22 @@
+#summary Esquema relacional
+
+= Habitaciones =
+
+  * *PK* Numero 
+  * Cant de personas
+  * Precio Dic
+  * Precio Enero
+  * Precio Febrero
+  * Precio Marzo
+  * Precio Abril
+  
+
+= Reservas =
+
+= Clientes  =
+
+= Consumos  =
+
+= Transportes  =
+
+=   =
