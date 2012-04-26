@@ -45,3 +45,11 @@
   * Boton de Imprimir.
 
   
+
+== Configuracion ==
+
+  * De que forma vamos a mostrar las constantes asociadas al precio de las habitaciones? Se podria armar una tabla con:
+    * Numero de habitacion, como fila
+    * Mes, como columna
+
+
