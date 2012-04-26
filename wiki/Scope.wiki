@@ -1,0 +1,11 @@
+#summary Lo que el sistema hará y lo que el sistema NO hará
+
+= El sistema hará =
+
+  * blabla
+
+
+
+= El sistema NO hará =
+
+  * blabla
