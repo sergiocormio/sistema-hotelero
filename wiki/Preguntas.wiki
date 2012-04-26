@@ -1,0 +1,16 @@
+#summary Preguntas sobre "User Experience"
+
+==Estado de las Habitaciones==
+
+  * ¿La grilla es solo a nivel informativo? No veo que tenga ninguna funcionalidad a nivel de interaccion con el usuario.
+
+  * ¿Sobre la barra lateral izquierda deberia haber un boton para visualizar esa grilla?
+
+  * Cuando se presiona sobre "verificar disponibilidad, aparece una pantalla para ingresar un rango de fechas y cantidad de personas. Esto va en una popup o se actualiza el frame principal?
+
+  * Cuando se ejecuta esta consulta, se corre el algoritmo y se despliega el resultado. El boton de reservar, iria en esta pantalla 
+
+  * Al presionar sobre Reservar, tiene que aparecer una pantalla con un formulario que refleje la "ficha de la reserva".
+
+  * La fiche debe tener los botones de guardar e imprimir.
+
