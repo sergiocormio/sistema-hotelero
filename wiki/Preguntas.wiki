@@ -32,3 +32,16 @@
   * Deberia poder mofificarse el tipo de moneda en el resultado del presupuesto (para no ingresar todos los datos de nuevo). 
 
   * Ver si se puede meter un boton para el envio de mail, desde la misma aplicacion. Sino, que haga copy paste a gmail o yahoo.
+
+
+== Mantenimiento de habitaciones == 
+  
+  * Se puede tener una grilla como la de "Estado de las habitaciones" para poder seleccionar el dia. Al seleccionar el dia, mostrar por pantala el reporte.
+
+  * o
+ 
+  * Al tocar en esta solapa, que se despliegue el reporte por pantalla, con la informacion asociada a cada habitacion, para ese dia en cuestion.
+
+  * Boton de Imprimir.
+
+  
