@@ -36,7 +36,7 @@
 
 == Mantenimiento de habitaciones == 
   
-  * Se puede tener una grilla como la de "Estado de las habitaciones" para poder seleccionar el dia. Al seleccionar el dia, mostrar por pantala el reporte.
+  * Se puede tener un date picker, para poder seleccionar el dia. Al seleccionar el dia, mostrar por pantala el reporte.
 
   * o
  
@@ -51,5 +51,3 @@
   * De que forma vamos a mostrar las constantes asociadas al precio de las habitaciones? Se podria armar una tabla con:
     * Numero de habitacion, como fila
     * Mes, como columna
-
-
