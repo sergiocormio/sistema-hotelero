@@ -20,10 +20,9 @@
   * Cuando el algoritmo de Disponibilidad de habitaciones, devuelve el resultado, cada alternativa podria tener un boton de "Presupuestar". Al hacer click, cambiariamos a la solapa de Presupuesto, y mostramos el presupuesto de esa determinada alternativa elegida.
 
   * Otra opcion seria, en la solapa de Presupuesto, generar un formulario para ingresar:
-    
-    * cantidad de noche (o rango de fechas)
+    # cantidad de noche (o rango de fechas)
     # cantidad de personas
-    * Numero de habitacion
+    # Numero de habitacion
     # Tipo de moneda
 
   * Se pueden implementar las dos cosas.
