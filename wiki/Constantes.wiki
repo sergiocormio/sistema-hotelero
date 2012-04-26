@@ -19,3 +19,7 @@
   * limpieza extra, por vez
 
   * Tipos de cambio (ver como definir esto)
+
+  * Frecuencia de limpieza basica (en dias)
+ 
+  * Frecuencia de cambio de ropa de cama (en dias). Esta ultima puede no ser una cantidad fija de dias. *VER*
