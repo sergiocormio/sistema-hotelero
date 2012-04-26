@@ -12,5 +12,23 @@
 
   * Al presionar sobre Reservar, tiene que aparecer una pantalla con un formulario que refleje la "ficha de la reserva".
 
-  * La fiche debe tener los botones de guardar e imprimir.
+  * La ficha de la reserva debe tener los botones de guardar e imprimir.
 
+
+==Presupuesto==
+
+  * Cuando el algoritmo de Disponibilidad de habitaciones, devuelve el resultado, cada alternativa podria tener un boton de "Presupuestar". Al hacer click, cambiariamos a la solapa de Presupuesto, y mostramos el presupuesto de esa determinada alternativa elegida.
+
+  * Otra opcion seria, en la solapa de Presupuesto, generar un formulario para ingresar:
+    - cantidad de noche (o rango de fechas)
+    - cantidad de personas
+    - Numero de habitacion
+    - Tipo de moneda
+
+  * Se pueden implementar las dos cosas.
+
+  * En la primera opcion, el tipo de moneda seria el default.
+
+  * Deberia poder mofificarse el tipo de moneda en el resultado del presupuesto (para no ingresar todos los datos de nuevo). 
+
+  * Ver si se puede meter un boton para el envio de mail, desde la misma aplicacion. Sino, que haga copy paste a gmail o yahoo.
