@@ -8,4 +8,4 @@
 
 = El sistema NO hará =
 
-  * blabla
+  * No calculará ningún tipo de descuento ni promociones.
