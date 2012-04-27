@@ -1,5 +1,14 @@
 #Conjunto de entregables que componen el sistema entero
 
-
 Sistema Hotelero
-  * (Completar mañana)
+  * Instalador
+  * ABMs # Habitaciones (deben tener un rango de fechas de vigencia)
+         # Clientes
+         # Precios (puede ir dentro de habitaciones)
+         # Mercaderías de consumo
+  * Algoritmo
+  * Mantenimiento (Reportes de limpieza)
+  * Publicidad ("emails")
+  * Consumo
+  * Cobros por estadías (presupuestación y cobro)
+  * Reservas
