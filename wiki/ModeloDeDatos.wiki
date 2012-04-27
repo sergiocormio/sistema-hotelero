@@ -9,14 +9,51 @@
   * Precio Febrero
   * Precio Marzo
   * Precio Abril
-  
+  * Descripcion (aca podria ir en que piso esta, y que caracteristicas tiene, o sino poner todo esto en atributos separados)
+    
 
-= Reservas =
 
 = Clientes  =
+  
+  * *PK* DNI
+  * Nombre
+  * Apellido
+  * Nacionalidad
+  * Email
+
+
+= Reservas = Vincula clientes von habitaciones
+
+  * *PK* Numero 
+  * fecha inicial
+  * fecha final
+  * fecha de la reserva
+  * estado (pre-reserva - confirmada - ocupada - etc)
+  * *FK* nro habitacion
+  * *FK* cliente
+  * cant de personas
+  * Precio por dia
+  * banco
+  * faltan mas datos, ver planilla de reserva
+  * *FK* Transporte
+
 
 = Consumos  =
 
+  * *PK* ID
+  * *FK* DNI cliente
+  * Descripcion
+  * Precio
+  * Fecha
+
+
 = Transportes  =
+
+  * *PK* ID
+  * *FK* CNI cliente
+  * Fecha
+  * Hora inicial ?
+  * Hora final ?
+
 
 =   =
