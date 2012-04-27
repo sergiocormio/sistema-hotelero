@@ -1,0 +1,10 @@
+#summary Tema a investigar
+
+= Trial versions and Licensing =
+
+  * http://truelicense.java.net/tutorial.html
+
+
+= Resportes =
+
+  *
