@@ -2,6 +2,7 @@
 
 Sistema Hotelero
   * Instalador
+  * Seguridad
   * ABMs:
          # Habitaciones (deben tener un rango de fechas de vigencia)
          # Clientes
