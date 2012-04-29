@@ -14,3 +14,7 @@
 = Reportes =
 
   * Jasper Report: http://chuwiki.chuidiang.org/index.php?title=Ejemplo_b%C3%A1sico_con_Jasper_Report
+
+= Java UI =
+
+  * http://stackoverflow.com/questions/7358775/java-gui-frameworks-what-to-choose-swing-swt-awt-swingx-jgoodies-javafx
