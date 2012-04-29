@@ -19,13 +19,18 @@
 
   * ¿Sobre la barra lateral izquierda deberia haber un boton para visualizar esa grilla?
 
-  * Cuando se presiona sobre "verificar disponibilidad, aparece una pantalla para ingresar un rango de fechas y cantidad de personas. Esto va en una popup o se actualiza el frame principal?
+  * Cuando se presiona sobre "consultar disponibilidad, aparece una pantalla para ingresar un rango de fechas y cantidad de personas. Esto va en una popup o se actualiza el frame principal?
 
   * Cuando se ejecuta esta consulta, se corre el algoritmo y se despliega el resultado. El boton de reservar, iria en esta pantalla 
 
   * Al presionar sobre Reservar, tiene que aparecer una pantalla con un formulario que refleje la "ficha de la reserva".
 
   * La ficha de la reserva debe tener los botones de guardar e imprimir.
+
+  * La ficha de reserva se hace cuando se "pre-reserva" o cuando se CONFIRMA?
+
+  * La ficha de reserva tiene estados? (en pre-reserva, confirmada)
+
 
 
 ==Presupuesto==
@@ -40,7 +45,7 @@
 
   * Se pueden implementar las dos cosas.
 
-  * En la primera opcion, el tipo de moneda seria el default.
+  * En la primera opcion, el tipo de moneda seria el default?.
 
   * Deberia poder mofificarse el tipo de moneda en el resultado del presupuesto (para no ingresar todos los datos de nuevo). 
 
@@ -64,3 +69,5 @@
   * De que forma vamos a mostrar las constantes asociadas al precio de las habitaciones? Se podria armar una tabla con:
     * Numero de habitacion, como fila
     * Mes, como columna
+
+  * De que forma vamos a mostrar las demas constantes?
