@@ -1,5 +1,18 @@
 #summary Preguntas sobre "User Experience"
 
+== Generales ==
+
+  * Definir dia y horario de reuniones en persona (útiles al ppio)
+  * Definir dia y horario de trabajo semanal (c/u desde su casa)
+  * Tomar nota de la cantidad de hs que se trabaja en esto.
+  * Definir duracion del proyecto, segun el scope que tenemos (esto es, para hacerlo seriamente y tomar compromiso)
+  * Definir "arquitectura" y tecnologias.
+  * Definir WBS
+  * Asignar tareas a recursos.
+  * Definir calendario.
+  * Definir entregas incrementales
+  * Definir metodos y frecuencia de comunicacion con el cliente.
+
 ==Estado de las Habitaciones==
 
   * ¿La grilla es solo a nivel informativo? No veo que tenga ninguna funcionalidad a nivel de interaccion con el usuario.
