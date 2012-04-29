@@ -1,4 +1,4 @@
-#summary Tema a investigar
+#summary Temas a investigar
 
 
 = Instalador =
