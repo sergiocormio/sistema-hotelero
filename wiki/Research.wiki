@@ -1,7 +1,7 @@
 #summary Temas a investigar
 
 
-= Instalador (DB)=
+= Instalador ( desktop app with DB )=
 
   * http://stackoverflow.com/questions/6150146/how-to-create-installer-once-finished-with-java-desktop-application-with-mysql-d
 
