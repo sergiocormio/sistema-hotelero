@@ -1,16 +1,16 @@
 #summary Temas a investigar
 
 
-= Instalador =
+= Instalador (DB)=
 
   * http://stackoverflow.com/questions/6150146/how-to-create-installer-once-finished-with-java-desktop-application-with-mysql-d
 
 
 = Trial versions and Licensing =
 
-  * http://truelicense.java.net/tutorial.html
+  * TrueLicense: http://truelicense.java.net/tutorial.html
 
 
 = Reportes =
 
-  *
+  * Jasper Report: http://chuwiki.chuidiang.org/index.php?title=Ejemplo_b%C3%A1sico_con_Jasper_Report
