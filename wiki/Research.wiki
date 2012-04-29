@@ -8,7 +8,7 @@
 
 = Trial versions and Licensing =
 
-  * TrueLicense: http://truelicense.java.net/tutorial.html
+  * True License: http://truelicense.java.net/tutorial.html
 
 
 = Reportes =
