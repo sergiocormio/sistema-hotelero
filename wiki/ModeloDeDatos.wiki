@@ -22,8 +22,8 @@
   * Email
 
 
-= Reservas = Vincula clientes von habitaciones
-
+= Reservas = 
+Vincula clientes con habitaciones
   * *PK* Numero 
   * fecha inicial
   * fecha final
