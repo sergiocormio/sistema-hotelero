@@ -90,10 +90,15 @@
         <text>Consultar</text>
       </controlProperties>
     </control>
-    <control controlID="57" controlTypeID="com.balsamiq.mockups::DataGrid" x="676" y="343" w="463" h="117" measuredW="362" measuredH="115" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::DataGrid" x="676" y="343" w="463" h="117" measuredW="446" measuredH="115" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
         <align>center</align>
-        <text>Nro%20de%20ficha%2C%20Fecha%20de%20emicion%2C%20Cliente%2C%20Ver%0A1%2C%203/4/2012%2C%20%20Pedro%20Gonzalez%2C%20-VER%0A2%2C%203/4/2012%2C%20%20Juana%20Ramirez%2C%20-VER%0A3%2C%203/4/2012%2C%20%20Martin%20Perez%2C%20-VER</text>
+        <text>Nro%20de%20ficha%2C%20Fecha%20de%20emicion%2C%20Cliente%2C%20Ver%2C%20Seleccionar%0A1%2C%203/4/2012%2C%20%20Pedro%20Gonzalez%2C%20-VER%2C%20%28%29%0A2%2C%203/4/2012%2C%20%20Juana%20Ramirez%2C%20-VER%2C%20%28x%29%0A3%2C%203/4/2012%2C%20%20Martin%20Perez%2C%20-VER%2C%28%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::Button" x="1009" y="487" w="130" h="29" measuredW="130" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancelar%20Reserva</text>
       </controlProperties>
     </control>
   </controls>
