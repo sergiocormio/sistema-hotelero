@@ -1,0 +1,50 @@
+<mockup version="1.0" skin="sketch" measuredW="1310" measuredH="643" mockupW="857" mockupH="576">
+  <controls>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::TitleWindow" x="453" y="67" w="857" h="576" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Dellosky%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="468" y="101" w="827" h="508" measuredW="717" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hrefs>Pantalla%20Inicial%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%2CTransporte%26bm%3BTransporte.bmml%26bm%3BTransporte.bmml%26bm%3BTransporte.bmml%2CMantenimiento%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%2CConsumos%20-%20Ver%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml%2CPublicidad%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%2CConfiguracion%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%2C</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2235%2C34%2C201%2C59%22%20href%3D%22Pantalla%2520Inicial.bmml%22%20alt%3D%22Pantalla%20Inicial%22%20id%3D%2241_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22201%2C34%2C276%2C59%22%20href%3D%22Transporte.bmml%22%20alt%3D%22Transporte%22%20id%3D%2241_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22276%2C34%2C434%2C59%22%20href%3D%22Mantenimiento.bmml%22%20alt%3D%22Mantenimiento%22%20id%3D%2241_2%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22434%2C34%2C504%2C59%22%20href%3D%22Consumos%2520-%2520Ver.bmml%22%20alt%3D%22Consumos%20-%20Ver%22%20id%3D%2241_3%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22504%2C34%2C572%2C59%22%20href%3D%22Publicidad.bmml%22%20alt%3D%22Publicidad%22%20id%3D%2241_4%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22572%2C34%2C658%2C59%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2241_5%22/%3E%0A</map>
+        <selectedIndex>3</selectedIndex>
+        <text>Estado%20de%20las%20Habitaciones%2C%20Transporte%2C%20Mantenimiento%20y%20Limpieza%2C%20Consumos%2C%20Publicidad%2C%20Configuraci%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::VRule" x="640" y="130" w="-1" h="464" measuredW="5" measuredH="100" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::Label" x="674" y="148" w="-1" h="-1" measuredW="68" measuredH="22" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>14</size>
+        <text>Consumos</text>
+        <underline>true</underline>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::IconLabel" x="518" y="186" w="-1" h="-1" measuredW="89" measuredH="45" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <href>Consumos%20-%20Ver%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml</href>
+        <icon>EyeIcon%7Csmall</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2265%2C119%2C154%2C164%22%20href%3D%22Consumos%2520-%2520Ver.bmml%22%20alt%3D%22Consumos%20-%20Ver%22%20id%3D%2254%22/%3E</map>
+        <text>Ver%20Consumos</text>
+        <underline>true</underline>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::IconLabel" x="511" y="276" w="-1" h="-1" measuredW="101" measuredH="45" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>Consumos%20-%20Agregar%26bm%3BConsumos%20-%20Agregar.bmml%26bm%3BConsumos%20-%20Agregar.bmml%26bm%3BConsumos%20-%20Agregar.bmml</href>
+        <icon>CircledPlusIcon%7Csmall</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2258%2C209%2C159%2C254%22%20href%3D%22Consumos%2520-%2520Agregar.bmml%22%20alt%3D%22Consumos%20-%20Agregar%22%20id%3D%2255%22/%3E</map>
+        <text>Aregar%20Consumo</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::DataGrid" x="674" y="219" w="463" h="117" measuredW="230" measuredH="115" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <text>Cliente%2C%20Total%2C%20%20Detalle%0APedro%20Gonzalez%2C%20R%24%20321%2C%20%20-VER%0AJuana%20Ramirez%2C%20R%24%20235%2C%20-VER%0AMartin%20Perez%2C%20R%24%20123%2C%20-VER</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
