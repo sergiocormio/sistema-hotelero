@@ -1,16 +1,18 @@
 #Conjunto de entregables que componen el sistema entero
 
 Sistema Hotelero
+  * Algoritmo
   * Instalador
   * Seguridad
-  * ABMs:
+  * Configuración (ABMs):
          # Habitaciones (deben tener un rango de fechas de vigencia)
          # Clientes
-         # Precios (puede ir dentro de habitaciones)
-         # Mercaderías de consumo
-  * Algoritmo
+         # Tarifas (por habitación por noche + adicionales con su ABM)
+         # Promociones
+         # Tipo de cambio y cotizaciones.
   * Mantenimiento (Reportes de limpieza)
   * Publicidad ("emails")
   * Consumo
-  * Cobros por estadías (presupuestación y cobro)
-  * Reservas
+  * Cobros por estadías (presupuestación (manual o automática - precargada) y cobro)
+  * Reservas (La carga puede ser manual o automática si viene del algoritmo)
+  * Agenda de Transportes
