@@ -3,16 +3,32 @@
 == Generales ==
 
   * Definir dia y horario de reuniones en persona (útiles al ppio)
+    Martes desp del trabajo
+
   * Definir dia y horario de trabajo semanal (c/u desde su casa)
+    8 hs semanales en ppio
+   
   * Tomar nota de la cantidad de hs que se trabaja en esto (para luego poder sacar un costo aproximado).
+   
   * Definir duracion del proyecto, segun el scope que tenemos (esto es, para hacerlo seriamente y tomar compromiso)
+   En ocvtubre deberia estar andando/cocinado//
+
   * Definir "arquitectura" y tecnologias.
+    Java con Swing y (SQLite o Derby)
+
   * Definir WBS
-  * Asignar tareas a recursos.
-  * Definir calendario.
+
   * Definir entregas incrementales
+
+  * Asignar tareas a recursos.
+
+  * Definir calendario.
+
   * Definir metodos y frecuencia de comunicacion con el cliente.
+    Cada 2 semanas mandarle un status y/o preguntas. Si es necesario, armar una call por skype
+
   * Patentamiento de la idea? (antes de arrancar con el proceso de desarrollo)
+    Hablar con Gerardo
 
 ==Estado de las Habitaciones==
 
