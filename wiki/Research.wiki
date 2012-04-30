@@ -18,3 +18,7 @@
 = Java UI =
 
   * http://stackoverflow.com/questions/7358775/java-gui-frameworks-what-to-choose-swing-swt-awt-swingx-jgoodies-javafx
+
+= Java Email =
+
+link aca!
