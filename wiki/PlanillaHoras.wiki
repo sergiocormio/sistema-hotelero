@@ -1,5 +1,0 @@
-#summary Horas trabajadas en el proyecto
-
-  * Fede: 4 hs
-
-  * Sergio: 4 hs
