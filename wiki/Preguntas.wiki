@@ -12,6 +12,7 @@
   * Definir calendario.
   * Definir entregas incrementales
   * Definir metodos y frecuencia de comunicacion con el cliente.
+  * Patentamiento de la idea? (antes de arrancar con el proceso de desarrollo)
 
 ==Estado de las Habitaciones==
 
