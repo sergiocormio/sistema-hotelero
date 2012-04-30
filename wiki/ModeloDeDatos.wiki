@@ -15,7 +15,7 @@
 
 = Clientes  =
   
-  * *PK* DNI
+  * *PK* DNI o Identificación o Social Security Number
   * Nombre
   * Apellido
   * Nacionalidad
