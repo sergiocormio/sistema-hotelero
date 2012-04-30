@@ -2,6 +2,8 @@
 
 Sistema Hotelero
   * Algoritmo "Consulta de Disponibilidad"
+     * Vista general
+     * Vista detallada por solución (Tabla habitaciones por días, y en cada campo iría la cantidad de personas que la ocupan)
   * Instalador
   * Seguridad
   * Configuración (ABMs):
