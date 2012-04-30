@@ -22,16 +22,37 @@
         <underline>true</underline>
       </controlProperties>
     </control>
-    <control controlID="58" controlTypeID="com.balsamiq.mockups::Button" x="1186" y="539" w="-1" h="-1" measuredW="79" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::DateChooser" x="812" y="199" w="-1" h="-1" measuredW="104" measuredH="25" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
-        <href>Form%20-%20Ficha%20de%20reserva%26bm%3BForm%20-%20Ficha%20de%20reserva.bmml%26bm%3BForm%20-%20Ficha%20de%20reserva.bmml%26bm%3BForm%20-%20Ficha%20de%20reserva.bmml</href>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22733%2C472%2C812%2C499%22%20href%3D%22Form%2520-%2520Ficha%2520de%2520reserva.bmml%22%20alt%3D%22Form%20-%20Ficha%20de%20reserva%22%20id%3D%2258%22/%3E</map>
-        <text>Reservar</text>
+        <text>3/4/2012</text>
       </controlProperties>
     </control>
-    <control controlID="59" controlTypeID="com.balsamiq.mockups::Button" x="1080" y="538" w="-1" h="-1" measuredW="100" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="729" y="200" w="-1" h="-1" measuredW="42" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Presupuestar</text>
+        <text>Fecha</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::VSplitter" x="674" y="252" w="582" h="-1" measuredW="100" measuredH="12" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::Button" x="1026" y="196" w="-1" h="-1" measuredW="103" measuredH="30" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>RightTriangleIcon%7Csmall</icon>
+        <text>Consultar</text>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::DataGrid" x="674" y="310" w="580" h="119" measuredW="460" measuredH="115" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <text>Habitacion%2C%20Limpieza%20General%2C%20Limpieza%20B%E1sica%2C%20Cambio%20de%20ropa%20de%20cama%0A1%2C%20X%2C%20%2C%20%0A4%2C%20%2C%20X%2C%20X%0A5%2C%20%2C%20X%2C%20X</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::Label" x="674" y="274" w="-1" h="-1" measuredW="104" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fecha%3A%203/4/2012</text>
+      </controlProperties>
+    </control>
+    <control controlID="70" controlTypeID="com.balsamiq.mockups::Button" x="1190" y="458" w="69" h="27" measuredW="69" measuredH="27" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Imprimir</text>
       </controlProperties>
     </control>
   </controls>
