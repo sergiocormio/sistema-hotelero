@@ -86,7 +86,7 @@
     </control>
     <control controlID="57" controlTypeID="com.balsamiq.mockups::DataGrid" x="682" y="386" w="580" h="119" measuredW="598" measuredH="115" zOrder="14" locked="false" isInGroup="-1">
       <controlProperties>
-        <align>left</align>
+        <align>center</align>
         <text>Alternativa%2C%20Habitaciones%20Involucradas%2C%20Precio%2C%20Desde%2C%20Hasta%2C%20Detalle%2C%20Seleccionar%0A1%2C%201%2C%20800R%24%2C%203/4/2012%2C%2010/4/2012%2C%20VER%2C%20%28%29%0A2%2C%204%20y%205%2C%20900R%24%2C%202/4/2012%2C%209/4/2012%2C%20VER%2C%20%28x%29%0A3%2C%207%20y%208%2C%201000R%24%2C%204/4/2012%2C%2011/4/2012%2CVER%2C%20%28%29</text>
       </controlProperties>
     </control>
