@@ -1,7 +1,7 @@
 #Conjunto de entregables que componen el sistema entero
 
 Sistema Hotelero
-  * Algoritmo
+  * Algoritmo "Consulta de Disponibilidad"
   * Instalador
   * Seguridad
   * Configuración (ABMs):
