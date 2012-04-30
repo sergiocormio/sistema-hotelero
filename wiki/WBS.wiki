@@ -14,5 +14,7 @@ Sistema Hotelero
   * Publicidad ("emails")
   * Consumo
   * Cobros por estadías (presupuestación (manual o automática - precargada) y cobro)
-  * Reservas (La carga puede ser manual o automática si viene del algoritmo)
+  * Reservas: (La carga puede ser manual o automática si viene del algoritmo)
+     * Formulario de Reserva
+     * Fichas de Reserva
   * Agenda de Transportes
