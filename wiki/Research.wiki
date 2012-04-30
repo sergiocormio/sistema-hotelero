@@ -26,3 +26,7 @@ link aca!
 = Internacionalización =
 
 link aca!
+
+= Imprimir =
+
+link acá!
