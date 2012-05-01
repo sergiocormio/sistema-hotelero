@@ -40,5 +40,65 @@
         <underline>true</underline>
       </controlProperties>
     </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::Label" x="696" y="197" w="-1" h="-1" measuredW="46" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cliente</text>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::Label" x="947" y="255" w="-1" h="-1" measuredW="42" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fecha</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::ComboBox" x="800" y="196" w="-1" h="-1" measuredW="99" measuredH="23" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Juan%20Perez</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::DateChooser" x="1039" y="253" w="-1" h="-1" measuredW="104" measuredH="25" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>3/4/2012</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::Label" x="696" y="315" w="-1" h="-1" measuredW="78" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Horas%20desde</text>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::TextInput" x="822" y="311" w="-1" h="-1" measuredW="47" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>10%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="947" y="314" w="-1" h="-1" measuredW="67" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Hora%20hasta</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::TextInput" x="1039" y="311" w="-1" h="-1" measuredW="48" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>12%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::Button" x="699" y="382" w="-1" h="-1" measuredW="71" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Agregar</text>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::Label" x="947" y="197" w="-1" h="-1" measuredW="38" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Lugar</text>
+      </controlProperties>
+    </control>
+    <control controlID="66" controlTypeID="com.balsamiq.mockups::ComboBox" x="1039" y="197" w="137" h="-1" measuredW="97" measuredH="48" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Aeropuerto%0ATerminal%20de%20omnibus</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::RadioButtonGroup" x="696" y="245" w="-1" h="-1" measuredW="97" measuredH="42" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%28o%29%20Ida%0A%28%20%29%20Ida%20y%20Vuelta</text>
+      </controlProperties>
+    </control>
   </controls>
 </mockup>

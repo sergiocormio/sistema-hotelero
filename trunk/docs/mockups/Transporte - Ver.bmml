@@ -42,5 +42,28 @@
         <underline>false</underline>
       </controlProperties>
     </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::DataGrid" x="676" y="186" w="480" h="408" measuredW="506" measuredH="745" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>true</hasHeader>
+        <hLines>false</hLines>
+        <rowHeight>30</rowHeight>
+        <selectedIndex>-1</selectedIndex>
+        <text>Horas%2C%2020-may%2C%2021-may%2C%2022-may%2C%2023-may%2C%2024-may%2C%2025-may%2C26-may%0A1%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A2%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A3%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2COcupado%2COcupado%0A4%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A5%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A6%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A7%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A8%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A9%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A10%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A11%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A12%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A13%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A14%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A15%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A16%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A17%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A18%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A19%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A20%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A21%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A22%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A23%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%0A24%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre%2CLibre</text>
+        <verticalScrollbar>true</verticalScrollbar>
+        <vLines>true</vLines>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::PointyButton" x="1171" y="567" w="-1" h="-1" measuredW="26" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>left</direction>
+        <text>-</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::PointyButton" x="1206" y="567" w="-1" h="-1" measuredW="30" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>+</text>
+      </controlProperties>
+    </control>
   </controls>
 </mockup>
