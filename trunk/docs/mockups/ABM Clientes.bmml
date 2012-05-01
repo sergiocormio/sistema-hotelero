@@ -5,10 +5,10 @@
         <text>Dellosky%20</text>
       </controlProperties>
     </control>
-    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="468" y="101" w="827" h="508" measuredW="675" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="468" y="101" w="827" h="508" measuredW="717" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <hrefs>Pantalla%20Inicial%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%2CTransporte%26bm%3BTransporte.bmml%26bm%3BTransporte.bmml%26bm%3BTransporte.bmml%2CMantenimiento%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%2CConsumos%26bm%3BConsumos.bmml%26bm%3BConsumos.bmml%26bm%3BConsumos.bmml%2CPublicidad%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%2CConfiguracion%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml</hrefs>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2235%2C34%2C205%2C59%22%20href%3D%22Pantalla%2520Inicial.bmml%22%20alt%3D%22Pantalla%20Inicial%22%20id%3D%2241_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22205%2C34%2C284%2C59%22%20href%3D%22Transporte.bmml%22%20alt%3D%22Transporte%22%20id%3D%2241_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22284%2C34%2C446%2C59%22%20href%3D%22Mantenimiento.bmml%22%20alt%3D%22Mantenimiento%22%20id%3D%2241_2%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22446%2C34%2C520%2C59%22%20href%3D%22Consumos.bmml%22%20alt%3D%22Consumos%22%20id%3D%2241_3%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22520%2C34%2C592%2C59%22%20href%3D%22Publicidad.bmml%22%20alt%3D%22Publicidad%22%20id%3D%2241_4%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22592%2C34%2C682%2C59%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2241_5%22/%3E%0A</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2235%2C34%2C201%2C59%22%20href%3D%22Pantalla%2520Inicial.bmml%22%20alt%3D%22Pantalla%20Inicial%22%20id%3D%2241_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22201%2C34%2C276%2C59%22%20href%3D%22Transporte.bmml%22%20alt%3D%22Transporte%22%20id%3D%2241_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22276%2C34%2C434%2C59%22%20href%3D%22Mantenimiento.bmml%22%20alt%3D%22Mantenimiento%22%20id%3D%2241_2%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22434%2C34%2C504%2C59%22%20href%3D%22Consumos.bmml%22%20alt%3D%22Consumos%22%20id%3D%2241_3%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22504%2C34%2C572%2C59%22%20href%3D%22Publicidad.bmml%22%20alt%3D%22Publicidad%22%20id%3D%2241_4%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22572%2C34%2C658%2C59%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2241_5%22/%3E%0A</map>
         <selectedIndex>5</selectedIndex>
         <text>Estado%20de%20las%20Habitaciones%2C%20Transporte%2C%20Mantenimiento%20y%20Limpieza%2C%20Consumos%2C%20Publicidad%2C%20Configuraci%F3n</text>
       </controlProperties>
@@ -86,7 +86,7 @@
         <underline>false</underline>
       </controlProperties>
     </control>
-    <control controlID="67" controlTypeID="com.balsamiq.mockups::Button" x="1135" y="188" w="-1" h="-1" measuredW="145" measuredH="30" zOrder="11" locked="false" isInGroup="-1">
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::Button" x="1135" y="188" w="-1" h="-1" measuredW="144" measuredH="30" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>PencilIcon%7Csmall</icon>
         <text>Modificar%20Cliente</text>
@@ -98,7 +98,7 @@
         <text>Modificar%20Cliente</text>
       </controlProperties>
     </control>
-    <control controlID="82" controlTypeID="com.balsamiq.mockups::Button" x="1057" y="542" w="-1" h="-1" measuredW="98" measuredH="30" zOrder="13" locked="false" isInGroup="-1">
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::Button" x="1057" y="542" w="-1" h="-1" measuredW="96" measuredH="30" zOrder="13" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>CheckMarkIcon%7Csmall</icon>
         <text>Guardar</text>
@@ -110,11 +110,14 @@
         <text>Cancelar</text>
       </controlProperties>
     </control>
-    <control controlID="84" controlTypeID="com.balsamiq.mockups::DataGrid" x="655" y="133" w="465" h="224" measuredW="524" measuredH="145" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::DataGrid" x="655" y="133" w="465" h="224" measuredW="492" measuredH="144" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
+        <hLines>false</hLines>
         <selectedIndex>1</selectedIndex>
+        <size>12</size>
         <text>DNI%2C%20Apellido%2CNombre%2C%20Idioma%2C%20Pais%2C%20Email%0A198239123%2C%20Perez%2C%20Juan%2C%20espa%F1ol%2CArgentina%2Cjuanperez@gmail.com%0A13313453%2C%20Kennedy%2C%20Robert%2C%20ingl%E9s%2CInglaterra%2Crkennedy@gmail.com%0A23313453%2C%20Sanchez%2CLucia%2C%20portugues%2CBrasil%2Csanchez.lucia@gmail.com%0A75123453%2C%20Rodriguez%2CJulio%2C%20espa%F1ol%2CEspa%F1a%2Cjuliorodriguez@gmail.com</text>
         <verticalScrollbar>false</verticalScrollbar>
+        <vLines>true</vLines>
       </controlProperties>
     </control>
     <control controlID="85" controlTypeID="com.balsamiq.mockups::TextInput" x="757" y="446" w="134" h="-1" measuredW="53" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
@@ -167,9 +170,9 @@
         <text>Pa%EDs%3A</text>
       </controlProperties>
     </control>
-    <control controlID="95" controlTypeID="com.balsamiq.mockups::TextInput" x="1033" y="480" w="134" h="-1" measuredW="73" measuredH="27" zOrder="26" locked="false" isInGroup="-1">
+    <control controlID="95" controlTypeID="com.balsamiq.mockups::TextInput" x="1033" y="480" w="144" h="-1" measuredW="135" measuredH="27" zOrder="26" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>13313453</text>
+        <text>rkennedy@gmail.com</text>
       </controlProperties>
     </control>
     <control controlID="96" controlTypeID="com.balsamiq.mockups::Label" x="975" y="484" w="41" h="18" measuredW="40" measuredH="21" zOrder="27" locked="false" isInGroup="-1">

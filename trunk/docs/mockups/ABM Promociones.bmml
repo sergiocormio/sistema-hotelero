@@ -5,16 +5,16 @@
         <text>Dellosky%20</text>
       </controlProperties>
     </control>
-    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="468" y="101" w="827" h="508" measuredW="675" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="468" y="101" w="827" h="508" measuredW="717" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <hrefs>Pantalla%20Inicial%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%2CTransporte%26bm%3BTransporte.bmml%26bm%3BTransporte.bmml%26bm%3BTransporte.bmml%2CMantenimiento%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%2CConsumos%26bm%3BConsumos.bmml%26bm%3BConsumos.bmml%26bm%3BConsumos.bmml%2CPublicidad%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%2CConfiguracion%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml</hrefs>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2235%2C34%2C205%2C59%22%20href%3D%22Pantalla%2520Inicial.bmml%22%20alt%3D%22Pantalla%20Inicial%22%20id%3D%2241_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22205%2C34%2C284%2C59%22%20href%3D%22Transporte.bmml%22%20alt%3D%22Transporte%22%20id%3D%2241_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22284%2C34%2C446%2C59%22%20href%3D%22Mantenimiento.bmml%22%20alt%3D%22Mantenimiento%22%20id%3D%2241_2%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22446%2C34%2C520%2C59%22%20href%3D%22Consumos.bmml%22%20alt%3D%22Consumos%22%20id%3D%2241_3%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22520%2C34%2C592%2C59%22%20href%3D%22Publicidad.bmml%22%20alt%3D%22Publicidad%22%20id%3D%2241_4%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22592%2C34%2C682%2C59%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2241_5%22/%3E%0A</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2235%2C34%2C201%2C59%22%20href%3D%22Pantalla%2520Inicial.bmml%22%20alt%3D%22Pantalla%20Inicial%22%20id%3D%2241_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22201%2C34%2C276%2C59%22%20href%3D%22Transporte.bmml%22%20alt%3D%22Transporte%22%20id%3D%2241_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22276%2C34%2C434%2C59%22%20href%3D%22Mantenimiento.bmml%22%20alt%3D%22Mantenimiento%22%20id%3D%2241_2%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22434%2C34%2C504%2C59%22%20href%3D%22Consumos.bmml%22%20alt%3D%22Consumos%22%20id%3D%2241_3%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22504%2C34%2C572%2C59%22%20href%3D%22Publicidad.bmml%22%20alt%3D%22Publicidad%22%20id%3D%2241_4%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22572%2C34%2C658%2C59%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2241_5%22/%3E%0A</map>
         <selectedIndex>5</selectedIndex>
         <text>Estado%20de%20las%20Habitaciones%2C%20Transporte%2C%20Mantenimiento%20y%20Limpieza%2C%20Consumos%2C%20Publicidad%2C%20Configuraci%F3n</text>
       </controlProperties>
     </control>
     <control controlID="42" controlTypeID="com.balsamiq.mockups::VRule" x="640" y="130" w="-1" h="464" measuredW="5" measuredH="100" zOrder="2" locked="false" isInGroup="-1"/>
-    <control controlID="58" controlTypeID="com.balsamiq.mockups::Button" x="1183" y="226" w="-1" h="-1" measuredW="94" measuredH="30" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::Button" x="1183" y="226" w="-1" h="-1" measuredW="93" measuredH="30" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>CircledXIcon%7Csmall</icon>
         <text>Eliminar</text>
@@ -86,7 +86,7 @@
         <underline>false</underline>
       </controlProperties>
     </control>
-    <control controlID="67" controlTypeID="com.balsamiq.mockups::Button" x="1183" y="184" w="-1" h="-1" measuredW="102" measuredH="30" zOrder="11" locked="false" isInGroup="-1">
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::Button" x="1183" y="184" w="-1" h="-1" measuredW="100" measuredH="30" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>PencilIcon%7Csmall</icon>
         <text>Modificar</text>
@@ -98,7 +98,7 @@
         <text>Modificar%20Promoci%F3n</text>
       </controlProperties>
     </control>
-    <control controlID="82" controlTypeID="com.balsamiq.mockups::Button" x="1057" y="554" w="-1" h="-1" measuredW="98" measuredH="30" zOrder="13" locked="false" isInGroup="-1">
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::Button" x="1057" y="554" w="-1" h="-1" measuredW="96" measuredH="30" zOrder="13" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>CheckMarkIcon%7Csmall</icon>
         <text>Guardar</text>
@@ -110,10 +110,11 @@
         <text>Cancelar</text>
       </controlProperties>
     </control>
-    <control controlID="84" controlTypeID="com.balsamiq.mockups::DataGrid" x="655" y="133" w="522" h="162" measuredW="630" measuredH="69" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::DataGrid" x="655" y="133" w="522" h="162" measuredW="556" measuredH="67" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>0</selectedIndex>
-        <text>Nombre%2C%20Descripci%F3n%2C%20Habitaci%F3n%2C%20V%E1lido%20desde%2C%20V%E1lido%20hasta%2C%20Cantidad%5Crde%20Noches%2C%20Precio%0ASol%202013%2C%20Sol%202013%20-%208%20d%EDas%20/%207%20noches%2C%20Sol%2C%201/1/2013%2C1/2/2013%2C7%2C2500%0A%7B10%2C10%2C9%2C17%2C17%2C17%2C10%7D</text>
+        <size>12</size>
+        <text>Nombre%2C%20Descripci%F3n%2C%20Habitaci%F3n%2C%20V%E1lido%5Cr%20desde%2C%20V%E1lido%5Cr%20hasta%2C%20Cantidad%5Crde%20Noches%2C%20Precio%0ASol%202013%2C%20Sol%202013%20-%208%20d%EDas%20/%207%20noches%2C%20Sol%2C%201/1/2013%2C1/2/2013%2C7%2C2500%0A%7B10%2C10%2C9%2C17%2C17%2C17%2C10%7D</text>
         <verticalScrollbar>false</verticalScrollbar>
       </controlProperties>
     </control>
@@ -192,7 +193,7 @@
         <text>7</text>
       </controlProperties>
     </control>
-    <control controlID="126" controlTypeID="com.balsamiq.mockups::DataGrid" x="790" y="474" w="192" h="110" measuredW="178" measuredH="115" zOrder="31" locked="false" isInGroup="-1">
+    <control controlID="126" controlTypeID="com.balsamiq.mockups::DataGrid" x="790" y="474" w="192" h="110" measuredW="179" measuredH="115" zOrder="31" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Adicional%2C%20Inclu%EDdo%0ACaf%E9%2C%5Bx%5D%0AToalla%2C%5B%5D%0ALimpieza%20Extra%2C%5B%5D</text>
         <verticalScrollbar>true</verticalScrollbar>
