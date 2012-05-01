@@ -1,0 +1,158 @@
+<mockup version="1.0" skin="sketch" measuredW="1310" measuredH="643" mockupW="857" mockupH="576">
+  <controls>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::TitleWindow" x="453" y="67" w="857" h="576" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Dellosky%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="468" y="101" w="827" h="508" measuredW="675" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hrefs>Pantalla%20Inicial%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%2CTransporte%26bm%3BTransporte.bmml%26bm%3BTransporte.bmml%26bm%3BTransporte.bmml%2CMantenimiento%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%2CConsumos%26bm%3BConsumos.bmml%26bm%3BConsumos.bmml%26bm%3BConsumos.bmml%2CPublicidad%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%2CConfiguracion%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2235%2C34%2C205%2C59%22%20href%3D%22Pantalla%2520Inicial.bmml%22%20alt%3D%22Pantalla%20Inicial%22%20id%3D%2241_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22205%2C34%2C284%2C59%22%20href%3D%22Transporte.bmml%22%20alt%3D%22Transporte%22%20id%3D%2241_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22284%2C34%2C446%2C59%22%20href%3D%22Mantenimiento.bmml%22%20alt%3D%22Mantenimiento%22%20id%3D%2241_2%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22446%2C34%2C520%2C59%22%20href%3D%22Consumos.bmml%22%20alt%3D%22Consumos%22%20id%3D%2241_3%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22520%2C34%2C592%2C59%22%20href%3D%22Publicidad.bmml%22%20alt%3D%22Publicidad%22%20id%3D%2241_4%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22592%2C34%2C682%2C59%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2241_5%22/%3E%0A</map>
+        <selectedIndex>5</selectedIndex>
+        <text>Estado%20de%20las%20Habitaciones%2C%20Transporte%2C%20Mantenimiento%20y%20Limpieza%2C%20Consumos%2C%20Publicidad%2C%20Configuraci%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::VRule" x="640" y="130" w="-1" h="464" measuredW="5" measuredH="100" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::Button" x="1088" y="258" w="-1" h="-1" measuredW="143" measuredH="30" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledXIcon%7Csmall</icon>
+        <text>Eliminar%20Moneda</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::Button" x="1088" y="176" w="-1" h="-1" measuredW="147" measuredH="30" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledPlusIcon%7Csmall</icon>
+        <text>Agregar%20Moneda</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::IconLabel" x="514" y="148" w="-1" h="-1" measuredW="78" measuredH="53" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <borderStyle>square</borderStyle>
+        <color>0</color>
+        <href>Configuracion%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml</href>
+        <icon>HomeIcon%7Cmedium</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2261%2C81%2C139%2C134%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2260%22/%3E</map>
+        <text>Habitaciones</text>
+        <underline>false</underline>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::IconLabel" x="532" y="319" w="-1" h="-1" measuredW="52" measuredH="53" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <borderStyle>square</borderStyle>
+        <color>0</color>
+        <href>ABM%20Clientes%26bm%3BABM%20Clientes.bmml%26bm%3BABM%20Clientes.bmml%26bm%3BABM%20Clientes.bmml</href>
+        <icon>ContactsIcon%7Cmedium</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2279%2C252%2C131%2C305%22%20href%3D%22ABM%2520Clientes.bmml%22%20alt%3D%22ABM%20Clientes%22%20id%3D%2261%22/%3E</map>
+        <text>Clientes</text>
+        <underline>false</underline>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::IconLabel" x="532" y="235" w="-1" h="-1" measuredW="45" measuredH="53" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <borderStyle>square</borderStyle>
+        <color>0</color>
+        <href>ABM%20Tarifas%26bm%3BABM%20Tarifas.bmml%26bm%3BABM%20Tarifas.bmml%26bm%3BABM%20Tarifas.bmml</href>
+        <icon>DollarIcon%7Cmedium</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2279%2C168%2C124%2C221%22%20href%3D%22ABM%2520Tarifas.bmml%22%20alt%3D%22ABM%20Tarifas%22%20id%3D%2262%22/%3E</map>
+        <text>Tarifas</text>
+        <underline>false</underline>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::IconLabel" x="514" y="406" w="-1" h="-1" measuredW="78" measuredH="53" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <borderStyle>square</borderStyle>
+        <color>0</color>
+        <href>ABM%20Promociones%26bm%3BABM%20Promociones.bmml%26bm%3BABM%20Promociones.bmml%26bm%3BABM%20Promociones.bmml</href>
+        <icon>EmoticonIcon%7Cmedium</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2261%2C339%2C139%2C392%22%20href%3D%22ABM%2520Promociones.bmml%22%20alt%3D%22ABM%20Promociones%22%20id%3D%2263%22/%3E</map>
+        <text>Promociones</text>
+        <underline>false</underline>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::IconLabel" x="500" y="494" w="-1" h="-1" measuredW="111" measuredH="53" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <borderStyle>square</borderStyle>
+        <color>0</color>
+        <href>ABM%20Tipos%20de%20Moneda%26bm%3BABM%20Tipos%20de%20Moneda.bmml%26bm%3BABM%20Tipos%20de%20Moneda.bmml%26bm%3BABM%20Tipos%20de%20Moneda.bmml</href>
+        <icon>EuroIcon%7Cmedium</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2247%2C427%2C158%2C480%22%20href%3D%22ABM%2520Tipos%2520de%2520Moneda.bmml%22%20alt%3D%22ABM%20Tipos%20de%20Moneda%22%20id%3D%2264%22/%3E</map>
+        <text>Tipos%20de%20Cambio%20</text>
+        <underline>true</underline>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::DataGrid" x="728" y="160" w="323" h="159" measuredW="217" measuredH="145" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>Moneda%2C%20S%EDmbolo%2CCotizaci%F3n%0AReal%2C%20R%24%2C%201%0AD%F3lar%2C%20u%24s%2C%204.50%0APesos%2C%20%24%2C%202.50%0AEuro%2C%20E%2C%205.60</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::Button" x="1088" y="216" w="-1" h="-1" measuredW="151" measuredH="30" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>PencilIcon%7Csmall</icon>
+        <text>Modificar%20Moneda</text>
+      </controlProperties>
+    </control>
+    <control controlID="69" controlTypeID="com.balsamiq.mockups::VSplitter" x="645" y="372" w="644" h="-1" measuredW="100" measuredH="12" zOrder="13" locked="false" isInGroup="-1"/>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::FieldSet" x="655" y="391" w="625" h="196" measuredW="200" measuredH="170" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Modificar%20Moneda</text>
+      </controlProperties>
+    </control>
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::Button" x="1057" y="542" w="-1" h="-1" measuredW="98" measuredH="30" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CheckMarkIcon%7Csmall</icon>
+        <text>Guardar</text>
+      </controlProperties>
+    </control>
+    <control controlID="83" controlTypeID="com.balsamiq.mockups::Button" x="1164" y="542" w="-1" h="-1" measuredW="102" measuredH="30" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>DashIcon%7Csmall</icon>
+        <text>Cancelar</text>
+      </controlProperties>
+    </control>
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::TextInput" x="790" y="426" w="134" h="-1" measuredW="44" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>D%F3lar</text>
+      </controlProperties>
+    </control>
+    <control controlID="85" controlTypeID="com.balsamiq.mockups::Label" x="713" y="429" w="62" h="18" measuredW="57" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nombre%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="86" controlTypeID="com.balsamiq.mockups::TextInput" x="790" y="464" w="134" h="-1" measuredW="34" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>u%24s</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::Label" x="713" y="467" w="62" h="18" measuredW="57" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>S%EDmbolo%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::TextInput" x="1105" y="426" w="134" h="-1" measuredW="42" measuredH="27" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>4.50</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::Label" x="979" y="428" w="118" h="23" measuredW="107" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cotizaci%F3n%20actual%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::Label" x="1057" y="345" w="-1" h="-1" measuredW="218" measuredH="21" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <italic>true</italic>
+        <text>%28La%20cotizaci%F3n%20est%E1%20en%20base%20al%20Real%29</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
