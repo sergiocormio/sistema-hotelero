@@ -26,21 +26,21 @@
         <underline>false</underline>
       </controlProperties>
     </control>
-    <control controlID="45" controlTypeID="com.balsamiq.mockups::IconLabel" x="493" y="216" w="-1" h="-1" measuredW="146" measuredH="53" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::IconLabel" x="486" y="216" w="-1" h="-1" measuredW="146" measuredH="53" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>true</bold>
         <href>Consultar%20Disponibilidad%26bm%3BConsultar%20Disponibilidad.bmml%26bm%3BConsultar%20Disponibilidad.bmml%26bm%3BConsultar%20Disponibilidad.bmml</href>
         <icon>HelpIcon%7Cmedium</icon>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2240%2C149%2C186%2C202%22%20href%3D%22Consultar%2520Disponibilidad.bmml%22%20alt%3D%22Consultar%20Disponibilidad%22%20id%3D%2245%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2233%2C149%2C179%2C202%22%20href%3D%22Consultar%2520Disponibilidad.bmml%22%20alt%3D%22Consultar%20Disponibilidad%22%20id%3D%2245%22/%3E</map>
         <text>Consultar%20disponibilidad</text>
         <underline>true</underline>
       </controlProperties>
     </control>
-    <control controlID="46" controlTypeID="com.balsamiq.mockups::IconLabel" x="504" y="293" w="-1" h="-1" measuredW="110" measuredH="53" zOrder="4" locked="false" isInGroup="-1">
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::IconLabel" x="504" y="291" w="-1" h="-1" measuredW="110" measuredH="53" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
         <href>Fichas%20de%20reserva%26bm%3BFichas%20de%20reserva.bmml%26bm%3BFichas%20de%20reserva.bmml%26bm%3BFichas%20de%20reserva.bmml</href>
         <icon>CopyIcon%7Cmedium</icon>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2251%2C226%2C161%2C279%22%20href%3D%22Fichas%2520de%2520reserva.bmml%22%20alt%3D%22Fichas%20de%20reserva%22%20id%3D%2246%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2251%2C224%2C161%2C277%22%20href%3D%22Fichas%2520de%2520reserva.bmml%22%20alt%3D%22Fichas%20de%20reserva%22%20id%3D%2246%22/%3E</map>
         <text>Fichas%20de%20reserva</text>
       </controlProperties>
     </control>
