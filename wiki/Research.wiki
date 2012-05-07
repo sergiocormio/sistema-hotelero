@@ -5,6 +5,7 @@
 
   * http://stackoverflow.com/questions/6150146/how-to-create-installer-once-finished-with-java-desktop-application-with-mysql-d
 
+  * SQLJet: http://sqljet.com/
 
 = Trial versions and Licensing =
 
@@ -21,12 +22,16 @@
 
 = Java Email =
 
-link aca!
+  * jar: http://www.oracle.com/technetwork/java/javamail/index.html
+  * doc: http://javamail.kenai.com/nonav/javadocs/index.html
+  * e.g: http://usuarios.multimania.es/manualesjava/manuales/javamail/javamail.pdf
+
 
 = Internacionalización =
 
-link aca!
+  * http://stackoverflow.com/questions/3321768/what-are-the-best-practices-for-internationalizing-a-java-swing-desktop-applicat
+
 
 = Imprimir =
 
-link acá!
+  * Si usamos Jasper Report, al pasar la info a pdf, ya tenemos la posibilidad de imprimir el pdf.
