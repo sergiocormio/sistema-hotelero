@@ -2,15 +2,15 @@
   <controls>
     <control controlID="36" controlTypeID="com.balsamiq.mockups::TitleWindow" x="453" y="67" w="857" h="576" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Dellosky%20</text>
+        <text>Dell%27Osky%20</text>
       </controlProperties>
     </control>
-    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="468" y="101" w="827" h="508" measuredW="717" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="468" y="101" w="827" h="508" measuredW="727" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
-        <hrefs>Pantalla%20Inicial%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%2CTransporte%20-%20Ver%26bm%3BTransporte%20-%20Ver.bmml%26bm%3BTransporte%20-%20Ver.bmml%26bm%3BTransporte%20-%20Ver.bmml%2CMantenimiento%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%2CConsumos%20-%20Ver%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml%2CPublicidad%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%2CConfiguracion%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%2C%2C</hrefs>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2235%2C34%2C201%2C59%22%20href%3D%22Pantalla%2520Inicial.bmml%22%20alt%3D%22Pantalla%20Inicial%22%20id%3D%2241_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22201%2C34%2C276%2C59%22%20href%3D%22Transporte%2520-%2520Ver.bmml%22%20alt%3D%22Transporte%20-%20Ver%22%20id%3D%2241_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22276%2C34%2C434%2C59%22%20href%3D%22Mantenimiento.bmml%22%20alt%3D%22Mantenimiento%22%20id%3D%2241_2%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22434%2C34%2C504%2C59%22%20href%3D%22Consumos%2520-%2520Ver.bmml%22%20alt%3D%22Consumos%20-%20Ver%22%20id%3D%2241_3%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22504%2C34%2C572%2C59%22%20href%3D%22Publicidad.bmml%22%20alt%3D%22Publicidad%22%20id%3D%2241_4%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22572%2C34%2C658%2C59%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2241_5%22/%3E%0A</map>
+        <hrefs>Pantalla%20Inicial%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%2CABM%20Clientes%26bm%3BABM%20Clientes.bmml%26bm%3BABM%20Clientes.bmml%26bm%3BABM%20Clientes.bmml%2CTransporte%20-%20Ver%26bm%3BTransporte%20-%20Ver.bmml%26bm%3BTransporte%20-%20Ver.bmml%26bm%3BTransporte%20-%20Ver.bmml%2CMantenimiento%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%2CConsumos%20-%20Ver%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml%2CPublicidad%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%2CConfiguracion%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2235%2C34%2C205%2C59%22%20href%3D%22Pantalla%2520Inicial.bmml%22%20alt%3D%22Pantalla%20Inicial%22%20id%3D%2241_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22205%2C34%2C268%2C59%22%20href%3D%22ABM%2520Clientes.bmml%22%20alt%3D%22ABM%20Clientes%22%20id%3D%2241_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22268%2C34%2C347%2C59%22%20href%3D%22Transporte%2520-%2520Ver.bmml%22%20alt%3D%22Transporte%20-%20Ver%22%20id%3D%2241_2%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22347%2C34%2C509%2C59%22%20href%3D%22Mantenimiento.bmml%22%20alt%3D%22Mantenimiento%22%20id%3D%2241_3%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22509%2C34%2C583%2C59%22%20href%3D%22Consumos%2520-%2520Ver.bmml%22%20alt%3D%22Consumos%20-%20Ver%22%20id%3D%2241_4%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22583%2C34%2C655%2C59%22%20href%3D%22Publicidad.bmml%22%20alt%3D%22Publicidad%22%20id%3D%2241_5%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22655%2C34%2C745%2C59%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2241_6%22/%3E%0A</map>
         <selectedIndex>0</selectedIndex>
-        <text>Estado%20de%20las%20Habitaciones%2C%20Transporte%2C%20Mantenimiento%20y%20Limpieza%2C%20Consumos%2C%20Publicidad%2C%20Configuraci%F3n</text>
+        <text>Estado%20de%20las%20Habitaciones%2C%20Clientes%2CTransporte%2C%20Mantenimiento%20y%20Limpieza%2C%20Consumos%2C%20Publicidad%2C%20Configuraci%F3n</text>
       </controlProperties>
     </control>
     <control controlID="42" controlTypeID="com.balsamiq.mockups::VRule" x="640" y="130" w="-1" h="464" measuredW="5" measuredH="100" zOrder="2" locked="false" isInGroup="-1"/>
@@ -78,26 +78,26 @@
       </controlProperties>
     </control>
     <control controlID="55" controlTypeID="com.balsamiq.mockups::VSplitter" x="682" y="346" w="582" h="-1" measuredW="100" measuredH="12" zOrder="12" locked="false" isInGroup="-1"/>
-    <control controlID="56" controlTypeID="com.balsamiq.mockups::Button" x="929" y="298" w="-1" h="-1" measuredW="103" measuredH="30" zOrder="13" locked="false" isInGroup="-1">
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::Button" x="929" y="298" w="-1" h="-1" measuredW="105" measuredH="30" zOrder="13" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>RightTriangleIcon%7Csmall</icon>
         <text>Consultar</text>
       </controlProperties>
     </control>
-    <control controlID="57" controlTypeID="com.balsamiq.mockups::DataGrid" x="682" y="386" w="580" h="119" measuredW="598" measuredH="115" zOrder="14" locked="false" isInGroup="-1">
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::DataGrid" x="682" y="386" w="580" h="119" measuredW="599" measuredH="115" zOrder="14" locked="false" isInGroup="-1">
       <controlProperties>
         <align>center</align>
         <text>Alternativa%2C%20Habitaciones%20Involucradas%2C%20Precio%2C%20Desde%2C%20Hasta%2C%20Detalle%2C%20Seleccionar%0A1%2C%201%2C%20800R%24%2C%203/4/2012%2C%2010/4/2012%2C%20VER%2C%20%28%29%0A2%2C%204%20y%205%2C%20900R%24%2C%202/4/2012%2C%209/4/2012%2C%20VER%2C%20%28x%29%0A3%2C%207%20y%208%2C%201000R%24%2C%204/4/2012%2C%2011/4/2012%2CVER%2C%20%28%29</text>
       </controlProperties>
     </control>
-    <control controlID="58" controlTypeID="com.balsamiq.mockups::Button" x="1186" y="539" w="-1" h="-1" measuredW="79" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::Button" x="1186" y="539" w="-1" h="-1" measuredW="78" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
         <href>Form%20-%20Ficha%20de%20reserva%26bm%3BForm%20-%20Ficha%20de%20reserva.bmml%26bm%3BForm%20-%20Ficha%20de%20reserva.bmml%26bm%3BForm%20-%20Ficha%20de%20reserva.bmml</href>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22733%2C472%2C812%2C499%22%20href%3D%22Form%2520-%2520Ficha%2520de%2520reserva.bmml%22%20alt%3D%22Form%20-%20Ficha%20de%20reserva%22%20id%3D%2258%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22733%2C472%2C811%2C499%22%20href%3D%22Form%2520-%2520Ficha%2520de%2520reserva.bmml%22%20alt%3D%22Form%20-%20Ficha%20de%20reserva%22%20id%3D%2258%22/%3E</map>
         <text>Reservar</text>
       </controlProperties>
     </control>
-    <control controlID="59" controlTypeID="com.balsamiq.mockups::Button" x="1080" y="538" w="-1" h="-1" measuredW="100" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::Button" x="1080" y="538" w="-1" h="-1" measuredW="101" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Presupuestar</text>
       </controlProperties>
@@ -107,7 +107,7 @@
         <text>Desv%EDo</text>
       </controlProperties>
     </control>
-    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="1109" y="247" w="31" h="21" measuredW="31" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="1109" y="247" w="31" h="21" measuredW="30" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
       <controlProperties>
         <text>d%EDas</text>
       </controlProperties>
