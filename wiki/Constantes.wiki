@@ -1,24 +1,11 @@
 #summary Constantes para el usuario.
 
-  * Habitacion 1 Diciembre
-  * Habitacion 1 Enero
-  * Habitacion 1 Febrero
-  * Habitacion 1 Marzo
-  * Habitacion 1 Abril
-
-  * Idem para cada numero de habitacion (son 10)
-
   * Desayuno (es por dia por persona)
   * Estacionamineto (es por persona)
   * Las toallas (por unidad, toalla individual, por vez
   * el transporte es por vez
-  * el transporte es por vez
-  * el transporte es por vez
-  * el transporte es por vez
   * ropa de cama, por unidad (juego) por vez
   * limpieza extra, por vez
-
-  * Tipos de cambio (ver como definir esto)
 
   * Frecuencia de limpieza basica (en dias)
  
