@@ -16,7 +16,7 @@
 
   * Jasper Report: http://chuwiki.chuidiang.org/index.php?title=Ejemplo_b%C3%A1sico_con_Jasper_Report
   * IReports(jrxml designer UI): http://www.adictosaltrabajo.com/tutoriales/tutoriales.php?pagina=ireport
-  * JR DataSource Samples: http://jasperforge.org/uploads/publish/jasperreportswebsite/trunk/sample.reference/datasource/index.html
+  * JR Data Source Samples: http://jasperforge.org/uploads/publish/jasperreportswebsite/trunk/sample.reference/datasource/index.html
 
 = Java UI =
 
