@@ -7,17 +7,17 @@
 
   * _Derby_*
 
-  * What is Derby?: http://db.apache.org/derby/
+    * What is Derby?: http://db.apache.org/derby/
 
-  * Derby manuales: http://db.apache.org/derby/manuals/index.html
+    * Derby manuales: http://db.apache.org/derby/manuals/index.html
 
-  * Derby en memoria, muy util para JUnit!: http://wiki.apache.org/db-derby/InMemoryBackEndPrimer
+    * Derby en memoria, muy util para JUnit!: http://wiki.apache.org/db-derby/InMemoryBackEndPrimer
 
-  * Hole Mundo de Derby en Java: http://db.apache.org/derby/integrate/plugin_help/derby_app.html  
+    * Hole Mundo de Derby en Java: http://db.apache.org/derby/integrate/plugin_help/derby_app.html  
 
-  *_SQLJet (SQLite Java implementation)_*
+  * _SQLJet (SQLite Java implementation)_ *
 
-  * SQLJet: http://sqljet.com/
+    * SQLJet: http://sqljet.com/
 
 
 
