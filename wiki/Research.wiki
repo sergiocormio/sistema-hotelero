@@ -5,7 +5,7 @@
 
  * NOTA:* * SQLJet no sirve porque si bien la API que provee es simple de usar, tiene muchas limitaciones para consulta y manejo del lenguaje SQL standard.*
 
-  * Derby*
+  * _Derby_*
 
   * What is Derby?: http://db.apache.org/derby/
 
