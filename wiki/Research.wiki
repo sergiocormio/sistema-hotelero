@@ -15,7 +15,7 @@
 
   * Hole Mundo de Derby en Java: http://db.apache.org/derby/integrate/plugin_help/derby_app.html  
 
- *SQLJet (SQLite Java implementation)*
+ * SQLJet (SQLite Java implementation)*
 
   * SQLJet: http://sqljet.com/
 
