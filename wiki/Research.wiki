@@ -3,9 +3,23 @@
 
 = Instalador ( desktop app with DB )=
 
-  * http://stackoverflow.com/questions/6150146/how-to-create-installer-once-finished-with-java-desktop-application-with-mysql-d
+ *NOTA: SQLJet no sirve porque si bien la API que provee es simple de usar, tiene muchas limitaciones para consulta y manejo del lenguaje SQL standard.*
+
+  *Derby*
+
+  * What is Derby?: http://db.apache.org/derby/
+
+  * Derby manuales: http://db.apache.org/derby/manuals/index.html
+
+  * Derby en memoria, muy util para JUnit!: http://wiki.apache.org/db-derby/InMemoryBackEndPrimer
+
+  * Hole Mundo de Derby en Java: http://db.apache.org/derby/integrate/plugin_help/derby_app.html  
+
+ *SQLJet (SQLite Java implementation)*
 
   * SQLJet: http://sqljet.com/
+
+
 
 = Trial versions and Licensing =
 
