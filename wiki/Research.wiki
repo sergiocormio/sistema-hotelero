@@ -16,7 +16,7 @@
 
     * Derby en memoria, muy util para JUnit!: http://wiki.apache.org/db-derby/InMemoryBackEndPrimer
 
-    * Hole Mundo de Derby en Java: http://db.apache.org/derby/integrate/plugin_help/derby_app.html  
+    * Hole Mundo de Derby en Java(jdbc): http://db.apache.org/derby/integrate/plugin_help/derby_app.html  
 
   * _SQLJet (SQLite Java implementation)_ *
 
