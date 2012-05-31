@@ -5,6 +5,9 @@
 
  * NOTA:* * SQLJet no sirve porque si bien la API que provee es simple de usar, tiene muchas limitaciones para consulta y manejo del lenguaje SQL standard.*
 
+  * _Hibernate con embebed Derby!!!_ *
+    * http://practicinggeek.blogspot.com.ar/2008/12/using-apache-derby-with-hibernate.html
+
   * _Derby_*
 
     * What is Derby?: http://db.apache.org/derby/
