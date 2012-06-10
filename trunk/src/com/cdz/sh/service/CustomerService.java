@@ -1,13 +1,15 @@
 package com.cdz.sh.service;
 
-import com.cdz.sh.dao.impl.CustomerDao;
+import com.cdz.sh.model.Customer;
 
-public class CustomerService {
+/**
+ * Facade for Customer entity
+ * 
+ * @author fede
+ *
+ */
+public interface CustomerService extends CrudService<Customer, Long>{
 	
-	private CustomerDao customerDao;
 	
-	public CustomerService(){
-		this.customerDao = new CustomerDao();
-	}
 
 }
