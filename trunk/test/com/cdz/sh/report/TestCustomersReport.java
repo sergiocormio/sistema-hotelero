@@ -37,7 +37,7 @@ public class TestCustomersReport {
 		this.customers.add(c2);
 		
 		this.params = new HashMap<String, Object>();
-		params.put("LOGO_URL", "Brasil-2014.jpg");		
+		params.put("LOGO_URL", "report/Brasil-2014.jpg");		
 	    params.put("P_TITULO", "Reporte de Clientes");
 	    params.put("P_SUBTITULO", "Clientes actuales");
 	    
