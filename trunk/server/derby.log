@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Wed Jun 20 17:09:47 ART 2012:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0138-0b83-db57-0000008a8ac8 
+on database directory C:\Users\fede\freelance\Sistema hotelero\server\dellosky  with class loader sun.misc.Launcher$AppClassLoader@1bac748 
+Loaded from file:/C:/Users/fede/freelance/Sistema%20hotelero/server/libs/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_04-b22
+user.dir=C:\Users\fede\freelance\Sistema hotelero\server
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
