@@ -1,0 +1,124 @@
+<mockup version="1.0" skin="sketch" measuredW="1310" measuredH="643" mockupW="857" mockupH="576">
+  <controls>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::TitleWindow" x="453" y="67" w="857" h="576" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Dell%27Osky%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="468" y="101" w="827" h="508" measuredW="727" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hrefs>Pantalla%20Inicial%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%26bm%3BPantalla%20Inicial.bmml%2CABM%20Clientes%26bm%3BABM%20Clientes.bmml%26bm%3BABM%20Clientes.bmml%26bm%3BABM%20Clientes.bmml%2CTransporte%20-%20Ver%26bm%3BTransporte%20-%20Ver.bmml%26bm%3BTransporte%20-%20Ver.bmml%26bm%3BTransporte%20-%20Ver.bmml%2CMantenimiento%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%26bm%3BMantenimiento.bmml%2CConsumos%20-%20Ver%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml%26bm%3BConsumos%20-%20Ver.bmml%2CPublicidad%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%26bm%3BPublicidad.bmml%2CConfiguracion%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml%26bm%3BConfiguracion.bmml</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2235%2C34%2C205%2C59%22%20href%3D%22Pantalla%2520Inicial.bmml%22%20alt%3D%22Pantalla%20Inicial%22%20id%3D%2241_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22205%2C34%2C268%2C59%22%20href%3D%22ABM%2520Clientes.bmml%22%20alt%3D%22ABM%20Clientes%22%20id%3D%2241_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22268%2C34%2C347%2C59%22%20href%3D%22Transporte%2520-%2520Ver.bmml%22%20alt%3D%22Transporte%20-%20Ver%22%20id%3D%2241_2%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22347%2C34%2C509%2C59%22%20href%3D%22Mantenimiento.bmml%22%20alt%3D%22Mantenimiento%22%20id%3D%2241_3%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22509%2C34%2C583%2C59%22%20href%3D%22Consumos%2520-%2520Ver.bmml%22%20alt%3D%22Consumos%20-%20Ver%22%20id%3D%2241_4%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22583%2C34%2C655%2C59%22%20href%3D%22Publicidad.bmml%22%20alt%3D%22Publicidad%22%20id%3D%2241_5%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22655%2C34%2C745%2C59%22%20href%3D%22Configuracion.bmml%22%20alt%3D%22Configuracion%22%20id%3D%2241_6%22/%3E%0A</map>
+        <selectedIndex>1</selectedIndex>
+        <text>Estado%20de%20las%20Habitaciones%2C%20Clientes%2CTransporte%2C%20Mantenimiento%20y%20Limpieza%2C%20Consumos%2C%20Publicidad%2C%20Configuraci%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::VRule" x="640" y="130" w="-1" h="464" measuredW="5" measuredH="100" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::Button" x="1135" y="230" w="-1" h="-1" measuredW="137" measuredH="30" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledXIcon%7Csmall</icon>
+        <text>Eliminar%20Cliente</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::Button" x="1135" y="148" w="-1" h="-1" measuredW="142" measuredH="30" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledPlusIcon%7Csmall</icon>
+        <text>Agregar%20Cliente</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::Button" x="1135" y="188" w="-1" h="-1" measuredW="145" measuredH="30" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>PencilIcon%7Csmall</icon>
+        <text>Modificar%20Cliente</text>
+      </controlProperties>
+    </control>
+    <control controlID="69" controlTypeID="com.balsamiq.mockups::VSplitter" x="645" y="372" w="644" h="-1" measuredW="100" measuredH="12" zOrder="7" locked="false" isInGroup="-1"/>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::FieldSet" x="655" y="391" w="625" h="196" measuredW="200" measuredH="170" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Modificar%20Cliente</text>
+      </controlProperties>
+    </control>
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::Button" x="1057" y="542" w="-1" h="-1" measuredW="98" measuredH="30" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CheckMarkIcon%7Csmall</icon>
+        <text>Guardar</text>
+      </controlProperties>
+    </control>
+    <control controlID="83" controlTypeID="com.balsamiq.mockups::Button" x="1164" y="542" w="-1" h="-1" measuredW="102" measuredH="30" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>DashIcon%7Csmall</icon>
+        <text>Cancelar</text>
+      </controlProperties>
+    </control>
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::DataGrid" x="655" y="133" w="465" h="224" measuredW="492" measuredH="144" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hLines>false</hLines>
+        <selectedIndex>1</selectedIndex>
+        <size>12</size>
+        <text>DNI%2C%20Apellido%2CNombre%2C%20Idioma%2C%20Pais%2C%20Email%0A198239123%2C%20Perez%2C%20Juan%2C%20espa%F1ol%2CArgentina%2Cjuanperez@gmail.com%0A13313453%2C%20Kennedy%2C%20Robert%2C%20ingl%E9s%2CInglaterra%2Crkennedy@gmail.com%0A23313453%2C%20Sanchez%2CLucia%2C%20portugues%2CBrasil%2Csanchez.lucia@gmail.com%0A75123453%2C%20Rodriguez%2CJulio%2C%20espa%F1ol%2CEspa%F1a%2Cjuliorodriguez@gmail.com</text>
+        <verticalScrollbar>false</verticalScrollbar>
+        <vLines>true</vLines>
+      </controlProperties>
+    </control>
+    <control controlID="85" controlTypeID="com.balsamiq.mockups::TextInput" x="757" y="446" w="134" h="-1" measuredW="53" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Robert</text>
+      </controlProperties>
+    </control>
+    <control controlID="86" controlTypeID="com.balsamiq.mockups::Label" x="680" y="449" w="62" h="18" measuredW="57" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nombre%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::TextInput" x="757" y="480" w="134" h="-1" measuredW="63" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Kennedy</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::Label" x="680" y="482" w="62" h="23" measuredW="54" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Apellido%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::TextInput" x="757" y="414" w="134" h="-1" measuredW="73" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>13313453</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::Label" x="680" y="417" w="62" h="18" measuredW="30" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>DNI%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::Label" x="980" y="417" w="62" h="18" measuredW="47" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Idioma%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="92" controlTypeID="com.balsamiq.mockups::ComboBox" x="1034" y="415" w="-1" h="-1" measuredW="64" measuredH="23" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>ingl%E9s</text>
+      </controlProperties>
+    </control>
+    <control controlID="93" controlTypeID="com.balsamiq.mockups::TextInput" x="1034" y="448" w="134" h="-1" measuredW="70" measuredH="27" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Inglaterra</text>
+      </controlProperties>
+    </control>
+    <control controlID="94" controlTypeID="com.balsamiq.mockups::Label" x="980" y="450" w="62" h="18" measuredW="34" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Pa%EDs%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="95" controlTypeID="com.balsamiq.mockups::TextInput" x="1033" y="480" w="144" h="-1" measuredW="135" measuredH="27" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>rkennedy@gmail.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="96" controlTypeID="com.balsamiq.mockups::Label" x="975" y="484" w="41" h="18" measuredW="40" measuredH="21" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Email%3A</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
