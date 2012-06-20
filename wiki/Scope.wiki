@@ -9,8 +9,6 @@
   * El sistema llevará el consumo por cada habitación/cliente.
   * Podrá mandar publicidad via email a un conjunto de clientes
 
-
-
 = El sistema NO hará =
 
-  * No calculará ningún tipo de descuento ni promociones.
+  * No se contempla la parte de pagos, tanto de consumos como de reservas de habiataciones
