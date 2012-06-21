@@ -39,6 +39,9 @@
 
   * http://stackoverflow.com/questions/7358775/java-gui-frameworks-what-to-choose-swing-swt-awt-swingx-jgoodies-javafx
 
+= AIR con BlazeDS =
+  * http://www.brightworks.com/flex_ability/?p=74
+
 = Java Email =
 
   * jar: http://www.oracle.com/technetwork/java/javamail/index.html
