@@ -12,16 +12,11 @@
 
    
 	<destination id="customerService">
-	
 		<properties>
-		
 			<source>com.cdz.sh.service.impl.CustomerServiceImpl</source>
-		
 			<scope>application</scope>
-	
 		</properties>
-    
-	</destination>
+    </destination>
 	
 	
 </service>

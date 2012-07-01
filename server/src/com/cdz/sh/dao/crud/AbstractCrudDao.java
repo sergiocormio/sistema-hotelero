@@ -2,8 +2,10 @@ package com.cdz.sh.dao.crud;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 
 /**
@@ -63,6 +65,18 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
         entityManager.getTransaction().commit();
 	    
         return entity;
+	}
+	
+	public Collection<Entity> retrieveAll() {
+		
+		entityManager.getTransaction().begin();
+		
+		TypedQuery<Entity> query = entityManager.createQuery("SELECT e FROM " + this.entityClass.getName() + " e", this.entityClass);
+		Collection<Entity> entities = query.getResultList();
+        
+		entityManager.getTransaction().commit();
+	    
+        return entities;
 	}
 
 }

@@ -1,21 +1,20 @@
 package com.cdz.sh.report;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.UniqueConstraint;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.cdz.sh.model.Country;
 import com.cdz.sh.model.Customer;
+import com.cdz.sh.model.CustomerPK;
+import com.cdz.sh.model.DocumentType;
+import com.cdz.sh.model.Region;
 
 public class TestCustomersReport {
 
@@ -25,15 +24,44 @@ public class TestCustomersReport {
 
 	@Before
 	public void setUp() throws Exception {
-		//genero la coleccion de customers
+
+		DocumentType docType = new DocumentType();
+		docType.setId(1L);
+		docType.setName("DNI");
+		docType.setRegExp("ACA VA LA REGEXP");
+		
+		/**
+		 * customer 1: Fede
+		 */
+		
+		CustomerPK customerPK1 = new CustomerPK();
+		customerPK1.setDocType(docType);
+		customerPK1.setIdNumber("33103189");
+		
 		Customer c1 = new Customer();
-		c1.setId(1L);
+		c1.setCustomerPK(customerPK1);
 		c1.setFirstName("Federico");
 		c1.setLastName("De Seta");
 		c1.setDateOfBirth(new Date());
 		
+		Country country = new Country();
+		country.setName("Argentina");
+		
+		Region region = new Region();
+		region.setName("Centro");
+		region.setCountry(country);
+		
+		c1.setRegion(region);
+		
+		/**
+		 * customer 2: Sergio
+		 */
+		CustomerPK customerPK2 = new CustomerPK();
+		customerPK2.setDocType(docType);
+		customerPK2.setIdNumber("32XXXXXX");
+		
 		Customer c2 = new Customer();
-		c2.setId(2L);
+		c2.setCustomerPK(customerPK2);
 		c2.setFirstName("Sergio");
 		c2.setLastName("Cormio");
 		c2.setDateOfBirth(new Date());
@@ -45,8 +73,9 @@ public class TestCustomersReport {
 		//genero el mapa de parametros para pasar al reporte
 		this.params = new HashMap<String, Object>();
 		
-		URL image = getClass().getResource("/resources/report/Brasil-2014.jpg");
-		params.put("LOGO_URL", image.getPath());		
+//		URL image = getClass().getResource("resources/report/Brasil-2014.jpg");
+//		params.put("LOGO_URL", image.getPath());		
+		params.put("LOGO_URL", "resources/report/Brasil-2014.jpg");
 	    
 		params.put("P_TITULO", "Reporte de Clientes");
 	    params.put("P_SUBTITULO", "Clientes actuales");
@@ -61,11 +90,13 @@ public class TestCustomersReport {
 	public void test() {
 		
 		
-		URL templateFile = getClass().getResource("/resources/report/plantilla.jrxml");
+//		URL templateFile = getClass().getResource("/../resources/report/plantilla.jrxml");
+		String templateFileName = "resources/report/plantilla.jrxml";
 		
 		String pdfFileName = "C:\\pdf\\pdf.pdf";
 		
-		PDFReportManager pdfReportManager = new PDFReportManager(templateFile.getPath(), pdfFileName, params);
+		//	PDFReportManager pdfReportManager = new PDFReportManager(templateFile.getPath(), pdfFileName, params);
+			PDFReportManager pdfReportManager = new PDFReportManager(templateFileName, pdfFileName, params);
 		pdfReportManager.createReport(customers);
 	}
 
