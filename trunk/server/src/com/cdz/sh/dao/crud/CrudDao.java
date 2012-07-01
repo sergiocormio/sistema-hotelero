@@ -1,6 +1,7 @@
 package com.cdz.sh.dao.crud;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * 
@@ -18,5 +19,7 @@ public interface CrudDao<Entity, Id extends Serializable> {
 	public void deleteRecord(Entity e);
 	
 	public Entity getRecordById(Id id);
+	
+	public Collection<Entity> retrieveAll();
 
 }

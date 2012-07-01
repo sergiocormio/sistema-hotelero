@@ -1,8 +1,7 @@
 package com.cdz.sh.service;
 
-import java.util.Collection;
-
 import com.cdz.sh.model.Customer;
+import com.cdz.sh.model.CustomerPK;
 
 /**
  * Facade for Customer entity
@@ -10,9 +9,9 @@ import com.cdz.sh.model.Customer;
  * @author fede
  *
  */
-public interface CustomerService extends CrudService<Customer, Long>{
+public interface CustomerService extends CrudService<Customer, CustomerPK>{
 	
 	
-	public Collection<Customer> retrieveAll();
+	
 
 }

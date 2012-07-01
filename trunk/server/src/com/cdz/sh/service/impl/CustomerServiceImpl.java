@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.cdz.sh.dao.CustomerDao;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.model.Customer;
+import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.service.CustomerService;
 /**
  * Implementation of CustomerService facade
@@ -36,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer getRecordById(Long id) {
+	public Customer getRecordById(CustomerPK id) {
 		return this.customerDao.getRecordById(id);
 	}
 
