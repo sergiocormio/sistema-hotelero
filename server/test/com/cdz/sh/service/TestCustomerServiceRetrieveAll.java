@@ -1,13 +1,13 @@
 package com.cdz.sh.service;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Collection;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.cdz.sh.dao.CustomerDao;
+import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.service.impl.CustomerServiceImpl;
 
