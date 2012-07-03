@@ -1,8 +1,9 @@
 package com.cdz.sh.service;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public interface CrudService<Entity, Id> {
+public interface CrudService<Entity, Id extends Serializable> {
 	
 public void createRecord(Entity e);
 	
