@@ -6,8 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cdz.sh.dao.CustomerDao;
-import com.cdz.sh.dao.impl.CustomerDaoImpl;
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.service.impl.CustomerServiceImpl;
 
@@ -27,7 +26,7 @@ public class TestCustomerServiceRetrieveAll {
 
 	
 	@Test
-	public void retrieveAllCustomers() {
+	public void retrieveAllCustomers() throws DaoException {
 		/**
 		 * esto solo fue para ver si andaba bien el retrieve
 		 */

@@ -7,6 +7,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.cdz.sh.util.DateUtil;
+
 @Embeddable
 public class OccupationPK implements Serializable{
 
@@ -37,7 +39,7 @@ public class OccupationPK implements Serializable{
 	
 	
 	public int hashCode() {
-		String strDate = this.getDate().getYear() + "-" + this.getDate().getMonth() + "-" + this.date.getDay();
+		String strDate = DateUtil.dateToStringYYYYmmDD(this.getDate());
         return (int) room.hashCode() + strDate.hashCode();
 	}
 
@@ -46,8 +48,8 @@ public class OccupationPK implements Serializable{
     	if(obj instanceof OccupationPK){
         	
     		OccupationPK pk = (OccupationPK) obj;
-    		String thisStrDate = this.getDate().getYear() + "-" + this.getDate().getMonth() + "-" + this.date.getDay();
-    		String pkStrDate = pk.getDate().getYear() + "-" + pk.getDate().getMonth() + "-" + pk.date.getDay();
+    		String thisStrDate = DateUtil.dateToStringYYYYmmDD(this.getDate());
+    		String pkStrDate = DateUtil.dateToStringYYYYmmDD(pk.getDate());
         	
     		return pk.getRoom().equals(room) && pkStrDate.equals(thisStrDate);
         }

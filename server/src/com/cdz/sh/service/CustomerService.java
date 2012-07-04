@@ -12,6 +12,8 @@ import com.cdz.sh.model.CustomerPK;
 public interface CustomerService extends CrudService<Customer, CustomerPK>{
 	
 	
-	
+	/**
+	 * TODO: declare specific behavior
+	 */
 
 }

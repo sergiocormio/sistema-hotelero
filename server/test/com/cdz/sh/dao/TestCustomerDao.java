@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
@@ -57,7 +58,7 @@ public class TestCustomerDao {
 	}
 
 	@Test
-	public void testCreateUpdateCustomers() {
+	public void testCreateUpdateCustomers() throws DaoException {
 		/**
 		 * customer 1: Fede
 		 */
@@ -108,9 +109,10 @@ public class TestCustomerDao {
 	
 	/**
 	 * to check if the customers created on the test above, were properly persisted on DB
+	 * @throws DaoException 
 	 */
 	@Test
-	public void testFindDeleteCustomers() {
+	public void testFindDeleteCustomers() throws DaoException {
 		
 		Customer c1Found = this.customerDao.getRecordById(this.customerPK1);
 		assertNotNull(c1Found);
