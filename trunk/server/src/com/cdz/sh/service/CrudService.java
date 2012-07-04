@@ -3,15 +3,17 @@ package com.cdz.sh.service;
 import java.io.Serializable;
 import java.util.Collection;
 
+import com.cdz.sh.dao.exception.DaoException;
+
 public interface CrudService<Entity, Id extends Serializable> {
 	
-public void createRecord(Entity e);
+public void createRecord(Entity e) throws DaoException;
 	
-	public void updateRecord(Entity e);
+	public void updateRecord(Entity e) throws DaoException;
 	
-	public void deleteRecord(Entity e);
+	public void deleteRecord(Entity e) throws DaoException;
 	
-	public Entity getRecordById(Id id);
+	public Entity getRecordById(Id id) throws DaoException;
 
-	public Collection<Entity> retrieveAll();
+	public Collection<Entity> retrieveAll() throws DaoException;
 }

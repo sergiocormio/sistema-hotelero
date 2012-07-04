@@ -3,6 +3,8 @@ package com.cdz.sh.dao.crud;
 import java.io.Serializable;
 import java.util.Collection;
 
+import com.cdz.sh.dao.exception.DaoException;
+
 /**
  * 
  * @author fede
@@ -12,14 +14,14 @@ import java.util.Collection;
  */
 public interface CrudDao<Entity, Id extends Serializable> {
 	
-	public void createRecord(Entity e);
+	public void createRecord(Entity e) throws DaoException;
 	
-	public void updateRecord(Entity e);
+	public void updateRecord(Entity e) throws DaoException;
 	
-	public void deleteRecord(Entity e);
+	public void deleteRecord(Entity e) throws DaoException;
 	
-	public Entity getRecordById(Id id);
+	public Entity getRecordById(Id id) throws DaoException;
 	
-	public Collection<Entity> retrieveAll();
+	public Collection<Entity> retrieveAll() throws DaoException;
 
 }
