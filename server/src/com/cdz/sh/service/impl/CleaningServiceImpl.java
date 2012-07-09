@@ -3,6 +3,7 @@ package com.cdz.sh.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.impl.CleaningDaoImpl;
 import com.cdz.sh.model.Cleaning;
 import com.cdz.sh.service.AbstractCrudService;
@@ -16,10 +17,13 @@ import com.cdz.sh.service.CleaningService;
  */
 public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> implements CleaningService {
 
-	public CleaningServiceImpl() {
-		this.crudDao = new CleaningDaoImpl();
+	
+	@Override
+	protected CrudDao<Cleaning, Long> createDao() {
+		return new CleaningDaoImpl();
 	}
-
+	
+	
 	@Override
 	public List<Cleaning> retrieveRoomsToClean(Date date) {
 		// TODO Auto-generated method stub
@@ -31,6 +35,8 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 	
 	

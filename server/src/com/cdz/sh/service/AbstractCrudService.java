@@ -13,7 +13,18 @@ public abstract class AbstractCrudService<Entity, Id extends Serializable> imple
 	 */
 	protected CrudDao<Entity, Id> crudDao;
 	
+	protected AbstractCrudService(){
+		this.crudDao = createDao();
+	}
 		
+	/**
+	 * to be implemented on each specific dao
+	 * 
+	 * @return
+	 */
+	protected abstract CrudDao<Entity, Id> createDao();
+
+	
 	@Override
 	public void createRecord(Entity e) throws DaoException {
 		this.crudDao.createRecord(e);

@@ -1,5 +1,6 @@
 package com.cdz.sh.service.impl;
 
+import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.impl.PromotionDaoImpl;
 import com.cdz.sh.model.Promotion;
 import com.cdz.sh.service.AbstractCrudService;
@@ -13,10 +14,12 @@ import com.cdz.sh.service.PromotionService;
  */
 public class PromotionServiceImpl extends AbstractCrudService<Promotion, Long> implements PromotionService {
 
-	public PromotionServiceImpl() {
-		this.crudDao = new PromotionDaoImpl();
+	@Override
+	protected CrudDao<Promotion, Long> createDao() {
+		return new PromotionDaoImpl();
 	}
 
+	
 	
 	
 	
