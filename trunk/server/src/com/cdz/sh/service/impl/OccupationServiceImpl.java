@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.crud.CrudDao;
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
@@ -40,8 +41,14 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 	@Override
 	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) {
-		
-		return this.occupationDao.retrieveOccupations(dateFrom, dateTo);
+		List<Occupation> occupations = null;
+		try {
+			occupations = this.occupationDao.retrieveOccupations(dateFrom, dateTo);
+		} catch (DaoException e) {
+			// TODO ver que hacer con la excepcion
+			e.printStackTrace();
+		}
+		return occupations;
 	}
 
 	@Override
