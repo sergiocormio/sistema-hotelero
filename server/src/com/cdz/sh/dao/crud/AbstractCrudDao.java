@@ -2,6 +2,7 @@ package com.cdz.sh.dao.crud;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.cdz.sh.dao.exception.DaoException;
+
 
 
 /**
@@ -37,10 +39,12 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(e);
-			entityManager.getTransaction().commit();
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getCause().getMessage());
+		}
+		finally{
+			entityManager.getTransaction().commit();
 		}
 	}
 
@@ -49,10 +53,13 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(e);
-			entityManager.getTransaction().commit();
+			
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.getTransaction().commit();
 		}
 	}
 
@@ -61,37 +68,47 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.remove(e);
-			entityManager.getTransaction().commit();
+			
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.getTransaction().commit();
 		}
 	}
 
 	@Override
 	public Entity getRecordById(Id id) throws DaoException {
+		Entity entity = null;
 		try {
 			entityManager.getTransaction().begin();
-			Entity entity = entityManager.find(this.entityClass, id);
-			entityManager.getTransaction().commit();
-			return entity;
+			entity = entityManager.find(this.entityClass, id);
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
+		finally{
+			entityManager.getTransaction().commit();
+		}
+		return entity;
 	}
 	
 	public Collection<Entity> retrieveAll() throws DaoException{
+		Collection<Entity> entities = new ArrayList<Entity>();
 		try {
 			entityManager.getTransaction().begin();
 			TypedQuery<Entity> query = entityManager.createQuery("SELECT e FROM " + this.entityClass.getName() + " e", this.entityClass);
-			Collection<Entity> entities = query.getResultList();
-			entityManager.getTransaction().commit();
-			return entities;
+			entities = query.getResultList();
+			
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
+		finally{
+			entityManager.getTransaction().commit();
+		}
+		return entities;
 	}
 
 }
