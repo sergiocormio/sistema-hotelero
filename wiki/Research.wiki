@@ -42,6 +42,7 @@
 = AIR con BlazeDS =
   * http://www.brightworks.com/flex_ability/?p=74
   * Buen Ejemplo: http://www.adobe.com/devnet/flex/articles/flashbuilder_blazeds.html
+  * Buenas slides, cortita y al pie: http://www.slideshare.net/Priyank/blaze-ds
 
 = Java Email =
 
