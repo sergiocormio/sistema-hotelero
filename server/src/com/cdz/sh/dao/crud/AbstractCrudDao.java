@@ -63,6 +63,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 		}
 	}
 
+	
 	@Override
 	public void deleteRecord(Entity e) throws DaoException {
 		try {
