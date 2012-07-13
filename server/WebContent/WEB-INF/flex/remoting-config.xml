@@ -17,6 +17,13 @@
 			<scope>application</scope>
 		</properties>
     </destination>
+    
+    <destination id="documentTypeService">
+		<properties>
+			<source>com.cdz.sh.service.impl.DocumentTypeServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 	
 	
 </service>

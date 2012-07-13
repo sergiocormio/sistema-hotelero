@@ -1,9 +1,7 @@
 package com.cdz.sh.dao;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
@@ -13,15 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.cdz.sh.dao.exception.DaoException;
-import com.cdz.sh.dao.impl.CustomerDaoImpl;
-import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
-import com.cdz.sh.dao.impl.RegionDaoImpl;
-import com.cdz.sh.model.Customer;
-import com.cdz.sh.model.CustomerPK;
-import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.Occupation;
-import com.cdz.sh.model.Region;
 
 public class TestOccupationDao {
 
