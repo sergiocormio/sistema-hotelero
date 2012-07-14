@@ -53,7 +53,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				}
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again   
-					entityManager.detach(e);
+					entityManager.clear();
 					throw new DaoException(persistenceException.getCause().getMessage());
 				}
 			}
@@ -79,7 +79,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				}
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again
-					entityManager.detach(e);
+					entityManager.clear();
 					throw new DaoException(persistenceException.getCause().getMessage());
 				}
 			}
@@ -106,7 +106,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				}
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again
-					entityManager.detach(e);
+					entityManager.clear();
 					throw new DaoException(persistenceException.getCause().getMessage());
 				}
 			}
