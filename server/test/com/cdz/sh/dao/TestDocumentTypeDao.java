@@ -54,15 +54,6 @@ public class TestDocumentTypeDao {
 		c1.setDateOfBirth(new Date());
 		
 		
-//		DocumentType documentType = new DocumentType();
-//		/*
-//		 *  Sets the ID so as to throw a DaoException on the first catch
-//		 *  This is to see if the first Tx was rolled back successfully or not (it should...)
-//		 */
-//		documentType.setId(0L);
-//		
-//		documentType.setName("DNI");
-//		documentType.setRegExp("*");
 		
 		try{
 			customerDao.createRecord(c1);
@@ -71,9 +62,19 @@ public class TestDocumentTypeDao {
 			e.printStackTrace();
 		}
 		
+		DocumentType documentType = new DocumentType();
+		/*
+		 *  Sets the ID so as to throw a DaoException on the first catch
+		 *  This is to see if the first Tx was rolled back successfully or not (it should...)
+		 */
+		//documentType.setId(0L);
+		
+		documentType.setName("DNI");
+		documentType.setRegExp("*");
+		
 		try{
-			Collection<DocumentType> docTypes = documentTypeDao.retrieveAll();
-			assertTrue(docTypes.isEmpty());
+			documentTypeDao.createRecord(documentType);
+			
 		}
 		catch (DaoException e) {
 			e.printStackTrace();
