@@ -48,7 +48,14 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				entityManager.getTransaction().rollback();	
 			}
 			else{
-				entityManager.getTransaction().commit();
+				try {
+					entityManager.getTransaction().commit();
+				}
+				catch(PersistenceException persistenceException){
+					// disassociate the object from the current session, hence it will not attempt this action again   
+					entityManager.detach(e);
+					throw new DaoException(persistenceException.getCause().getMessage());
+				}
 			}
 		}
 	}
@@ -67,7 +74,14 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				entityManager.getTransaction().rollback();	
 			}
 			else{
-				entityManager.getTransaction().commit();
+				try {
+					entityManager.getTransaction().commit();
+				}
+				catch(PersistenceException persistenceException){
+					// disassociate the object from the current session, hence it will not attempt this action again
+					entityManager.detach(e);
+					throw new DaoException(persistenceException.getCause().getMessage());
+				}
 			}
 		}
 	}
@@ -87,7 +101,14 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				entityManager.getTransaction().rollback();	
 			}
 			else{
-				entityManager.getTransaction().commit();
+				try {
+					entityManager.getTransaction().commit();
+				}
+				catch(PersistenceException persistenceException){
+					// disassociate the object from the current session, hence it will not attempt this action again
+					entityManager.detach(e);
+					throw new DaoException(persistenceException.getCause().getMessage());
+				}
 			}
 		}
 	}
@@ -107,7 +128,12 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				entityManager.getTransaction().rollback();	
 			}
 			else{
-				entityManager.getTransaction().commit();
+				try {
+					entityManager.getTransaction().commit();
+				}
+				catch(PersistenceException persistenceException){
+					throw new DaoException(persistenceException.getCause().getMessage());
+				}
 			}
 		}
 		return entity;
@@ -129,7 +155,12 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				entityManager.getTransaction().rollback();	
 			}
 			else{
-				entityManager.getTransaction().commit();
+				try {
+					entityManager.getTransaction().commit();
+				}
+				catch(PersistenceException persistenceException){
+					throw new DaoException(persistenceException.getCause().getMessage());
+				}
 			}
 		}
 		return entities;
