@@ -44,7 +44,12 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 			throw new DaoException(persistenceException.getCause().getMessage());
 		}
 		finally{
-			entityManager.getTransaction().commit();
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
+			}
+			else{
+				entityManager.getTransaction().commit();
+			}
 		}
 	}
 
@@ -53,13 +58,17 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(e);
-			
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
 		finally{
-			entityManager.getTransaction().commit();
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
+			}
+			else{
+				entityManager.getTransaction().commit();
+			}
 		}
 	}
 
@@ -69,13 +78,17 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.remove(e);
-			
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
 		finally{
-			entityManager.getTransaction().commit();
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
+			}
+			else{
+				entityManager.getTransaction().commit();
+			}
 		}
 	}
 
@@ -90,7 +103,12 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 			throw new DaoException(persistenceException.getMessage());
 		}
 		finally{
-			entityManager.getTransaction().commit();
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
+			}
+			else{
+				entityManager.getTransaction().commit();
+			}
 		}
 		return entity;
 	}
@@ -107,7 +125,12 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 			throw new DaoException(persistenceException.getMessage());
 		}
 		finally{
-			entityManager.getTransaction().commit();
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
+			}
+			else{
+				entityManager.getTransaction().commit();
+			}
 		}
 		return entities;
 	}
