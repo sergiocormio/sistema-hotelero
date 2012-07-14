@@ -24,6 +24,7 @@ import com.cdz.sh.model.Region;
 public class TestDocumentTypeDao {
 
 	private DocumentTypeDaoImpl documentTypeDao;
+	private CustomerDao customerDao;
 	
 	
 	@Before
@@ -33,24 +34,38 @@ public class TestDocumentTypeDao {
 //		dataFactory.createMasterData();		
 		
 		documentTypeDao = new DocumentTypeDaoImpl();
+		customerDao = new CustomerDaoImpl();
 	}
 
 
 	@Test
 	public void testExceptionRetrieved() {
 		
-		DocumentType documentType = new DocumentType();
-		/*
-		 *  Sets the ID so as to throw a DaoException on the first catch
-		 *  This is to see if the first Tx was rolled back successfully or not (it should...)
-		 */
-		documentType.setId(0L);
 		
-		documentType.setName("DNI");
-		documentType.setRegExp("*");
+		
+		CustomerPK customerPK = new CustomerPK();
+		customerPK.setDocType(null);
+		customerPK.setIdNumber("33103189");
+		
+		Customer c1 = new Customer();
+		c1.setCustomerPK(customerPK);
+		c1.setFirstName("Federico");
+		c1.setLastName("De Seta");
+		c1.setDateOfBirth(new Date());
+		
+		
+//		DocumentType documentType = new DocumentType();
+//		/*
+//		 *  Sets the ID so as to throw a DaoException on the first catch
+//		 *  This is to see if the first Tx was rolled back successfully or not (it should...)
+//		 */
+//		documentType.setId(0L);
+//		
+//		documentType.setName("DNI");
+//		documentType.setRegExp("*");
 		
 		try{
-			documentTypeDao.createRecord(documentType);
+			customerDao.createRecord(c1);
 		}
 		catch (DaoException e) {
 			e.printStackTrace();
