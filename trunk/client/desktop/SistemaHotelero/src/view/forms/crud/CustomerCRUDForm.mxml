@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  width="100%" height="100%" creationComplete="init(event)" xmlns:ns="http://www.adobe.com/2006/fc" xmlns:crud="view.forms.crud.*" >
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import model.Customer;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.rpc.AsyncResponder;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.icons.Icons;
+			
+			import services.CustomerService;
+			import services.DocumentTypeService;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			private var customers:ArrayCollection = new ArrayCollection();
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				trace("Received fault: " + event.fault + "\n");
+			}
+			
+			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedItem = null;
+				customers.removeAll();
+				customers.addAll(event.result as ArrayCollection);
+			}
+
+		protected function init(event:FlexEvent):void
+			{
+				refreshGrid();
+			}
+			
+			protected function refreshGrid():void
+			{
+				var token:AsyncToken = new CustomerService().retrieveAll();
+				token.addResponder(new AsyncResponder(retrieveAll_resultHandler,faultHandler));
+			}
+			
+			protected function modifyCustomer():void
+			{
+				individual.enabled=true;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:HGroup width="100%" height="100%">
+		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{customers}" >
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn dataField="firstName" headerText="{loc.customer.firstName}"></s:GridColumn>
+					<s:GridColumn dataField="lastName" headerText="{loc.customer.lastName}"></s:GridColumn>
+					<s:GridColumn dataField="customerPK.idNumber" headerText="{loc.customerPK.idNumber}"></s:GridColumn>
+					<s:GridColumn dataField="customerPK.docType.name" headerText="{loc.documentType.singular}"></s:GridColumn>
+					<s:GridColumn dataField="dateOfBirth" headerText="{loc.customer.dateOfBirth}"></s:GridColumn>
+					<s:GridColumn dataField="lastLodgementDate" headerText="{loc.customer.lastLodgementDate}"></s:GridColumn>
+					<s:GridColumn dataField="profession" headerText="{loc.customer.profession}"></s:GridColumn>
+					<s:GridColumn dataField="email" headerText="{loc.customer.email}"></s:GridColumn>
+				</s:ArrayList>
+			</s:columns>
+		</s:DataGrid>
+		<s:VGroup height="100%" paddingRight="10">
+			<s:Button id="refresh" label="{loc.button.refresh}" icon="{Icons.refresh}" click="refreshGrid()"/>
+			<s:Button id="add" label="{loc.button.add}" icon="{Icons.add}"/>
+			<s:Button id="modify" label="{loc.button.modify}" enabled="{grid.selectedItem!=null}" icon="{Icons.modify}" click="modifyCustomer()"/>
+			<s:Button id="remove" label="{loc.button.remove}" enabled="{grid.selectedItem!=null}" icon="{Icons.remove}"/>
+		</s:VGroup>
+	</s:HGroup>
+	<crud:CustomerIndividualCRUDForm id="individual" height="100%" width="30%" loc="{loc}" currentCustomer="{grid.selectedItem as Customer}" enabled="false"/>
+</s:VGroup>

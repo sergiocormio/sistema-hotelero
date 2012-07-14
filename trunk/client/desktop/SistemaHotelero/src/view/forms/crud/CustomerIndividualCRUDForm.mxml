@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
+		  creationComplete="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import model.Customer;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.rpc.AsyncResponder;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.icons.Icons;
+			
+			import services.DocumentTypeService;
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			public var currentCustomer:Customer;
+			
+			[Bindable]
+			private var documentTypes:ArrayCollection = new ArrayCollection();
+			
+			
+			
+			protected function init(event:FlexEvent):void
+			{
+				var at:AsyncToken = new DocumentTypeService().retrieveAll();
+				at.addResponder(new AsyncResponder(retrieveDocumentTypes_resultHandler,faultHandler));
+			}
+			
+			//fill the documentTypes ComboBox
+			private function retrieveDocumentTypes_resultHandler(event:ResultEvent,token:Object=null):void {
+				documentTypes.removeAll();
+				documentTypes.addAll(event.result as ArrayCollection);
+			}
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				trace("Received fault: " + event.fault + "\n");
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:HGroup verticalAlign="middle" width="100%">
+		<s:Label text="{loc.customerPK.idNumber}:"/>
+		<s:HGroup width="100%" horizontalAlign="right">
+			<s:TextInput id="idNumberText" text="{currentCustomer.customerPK.idNumber}"/>
+		</s:HGroup>
+	</s:HGroup>
+	<s:HGroup verticalAlign="middle">
+		<s:Label text="{loc.documentType.singular}:"/>
+		<s:ComboBox dataProvider="{documentTypes}" labelField="name" selectedItem="{currentCustomer.customerPK.docType}"/>
+	</s:HGroup>
+	<s:HGroup verticalAlign="middle">
+		<s:Label text="{loc.customer.firstName}:"/>
+		<s:TextInput id="firstNameText" text="{currentCustomer.firstName}"/>
+	</s:HGroup>
+	<s:HGroup verticalAlign="middle">
+		<s:Label text="{loc.customer.email}:"/>
+		<s:TextInput id="emailText" text="{currentCustomer.email}"/>
+	</s:HGroup>
+	<s:HGroup verticalAlign="middle">
+		<s:Label text="{loc.customer.profession}:"/>
+		<s:TextInput id="professionText" text="{currentCustomer.profession}"/>
+	</s:HGroup>
+	
+	<!-- BUTTONS -->
+	<s:HGroup width="100%">
+		<s:Button label="{loc.button.save}" icon="{Icons.save}"/>
+		<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}"/>
+	</s:HGroup>
+</s:VGroup>

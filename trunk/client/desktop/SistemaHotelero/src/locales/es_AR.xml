@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<locale>
+	<country>
+	    <singular>País</singular>
+	    <plural>Países</plural>
+	    <name>Nombre</name>
+	</country>
+    <customer>
+	    <singular>Cliente</singular>
+	    <plural>Clientes</plural>
+	    <dateOfBirth>Fecha de Nacimiento</dateOfBirth>
+	    <region>Región</region>
+	    <firstName>Nombre</firstName>
+	    <lastName>Apellido</lastName>
+	    <lastLodgementDate>Última Fecha de Alojamiento</lastLodgementDate>
+	    <email>E-Mail</email>
+	    <profession>Profesión</profession>
+    </customer>
+    <customerPK>
+    	<idNumber>Número de Documento</idNumber>
+    </customerPK>
+    <documentType>
+    	<singular>Tipo de Documento</singular>
+	    <plural>Tipos de Documento</plural>
+	    <name>Nombre</name>
+	    <regExp>Expresión Regular</regExp>
+    </documentType>
+</locale>

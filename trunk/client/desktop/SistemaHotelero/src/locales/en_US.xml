@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<locale>
+    <button>
+    	<add>Add</add>
+    	<modify>Modify</modify>
+    	<refresh>Refresh</refresh>
+    	<remove>Remove</remove>
+    	<save>Save</save>
+    	<cancel>Cancel</cancel>
+    </button>
+	<country>
+	    <singular>Country</singular>
+	    <plural>Countries</plural>
+	    <name>Name</name>
+	</country>
+    <customer>
+	    <singular>Customer</singular>
+	    <plural>Customers</plural>
+	    <dateOfBirth>Date of Birth</dateOfBirth>
+	    <region>Region</region>
+	    <firstName>First Name</firstName>
+	    <lastName>Last Name</lastName>
+	    <lastLodgementDate>Last Lodgement Date</lastLodgementDate>
+	    <email>E-Mail</email>
+	    <profession>Profession</profession>
+    </customer>
+    <customerPK>
+    	<idNumber>Id Number</idNumber>
+    </customerPK>
+    <documentType>
+    	<singular>Document Type</singular>
+	    <plural>Document Types</plural>
+	    <name>Name</name>
+	    <regExp>Regular Expression</regExp>
+    </documentType>
+</locale>
