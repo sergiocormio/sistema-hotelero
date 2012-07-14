@@ -54,6 +54,7 @@
 = Internacionalización =
 
   * http://stackoverflow.com/questions/3321768/what-are-the-best-practices-for-internationalizing-a-java-swing-desktop-applicat
+  * Internacionalización en Adobe Flex/Air de todas las formas que leí la alternativa 2 me pareció la mejor: http://mannu.livejournal.com/300260.html
 
 
 = Imprimir =
