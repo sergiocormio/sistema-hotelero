@@ -15,7 +15,7 @@ public class EntityManagerSingleton {
 	
 	private static EntityManager entityManager;
 	
-	public static EntityManager getInstance(){
+	public static synchronized EntityManager getInstance(){
 		if(entityManager == null){
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory(PROVIDER_UNIT_NAME);
 			entityManager = emf.createEntityManager();
