@@ -34,13 +34,13 @@ public abstract class AbstractCrudService<Entity, Id extends Serializable> imple
 
 	@Override
 	public void updateRecord(Entity e) throws DaoException {
-		this.updateRecord(e);
+		this.crudDao.updateRecord(e);
 	}
 
 
 	@Override
 	public void deleteRecord(Entity e) throws DaoException {
-		this.deleteRecord(e);
+		this.crudDao.deleteRecord(e);
 	}
 
 
