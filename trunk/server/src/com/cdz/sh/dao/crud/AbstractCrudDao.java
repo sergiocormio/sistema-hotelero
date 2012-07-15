@@ -35,7 +35,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 	}
 	
 	@Override
-	public void createRecord(Entity e) throws DaoException{
+	public Entity createRecord(Entity e) throws DaoException{
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(e);
@@ -58,6 +58,8 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				}
 			}
 		}
+		// retrieves the entity created, with its generated id 
+		return e;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.cdz.sh.dao;
 
+import static org.junit.Assert.*;
+
 import java.util.Date;
 
 import org.junit.Before;
@@ -29,6 +31,20 @@ public class TestDocumentTypeDao {
 	}
 
 
+	@Test
+	public void testGetGeneratedID() throws DaoException {
+		
+		DocumentType documentType = new DocumentType();
+		documentType.setName("DNI");
+		documentType.setRegExp("*");
+		
+		this.documentTypeDao.createRecord(documentType);
+		
+		assertEquals(documentType.getId(), new Long(1L));
+			
+		this.documentTypeDao.deleteRecord(documentType);
+	}
+	
 	@Test
 	public void testExceptionRetrieved() {
 		
