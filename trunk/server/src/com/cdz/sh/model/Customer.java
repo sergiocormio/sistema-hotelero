@@ -25,11 +25,15 @@ public class Customer {
 	@JoinColumn(name="REGION_ID")
     private Region region;
     
+    @ManyToOne
+	@JoinColumn(name="LANGUAGE_ID")
+    private Language language;
+    
     private String email;
     
     private String profession;
     
-    private Date lastLodgmentDate;
+    private Date lastLodgementDate;
     
         
     
@@ -91,12 +95,21 @@ public class Customer {
 		this.profession = profession;
 	}
 	
-	public Date getLastLodgmentDate() {
-		return lastLodgmentDate;
+	public Date getLastLodgementDate() {
+		return lastLodgementDate;
 	}
 	
-	public void setLastLodgmentDate(Date lastLodgmentDate) {
-		this.lastLodgmentDate = lastLodgmentDate;
+	public void setLastLodgementDate(Date lastLodgementDate) {
+		this.lastLodgementDate = lastLodgementDate;
+	}
+
+			
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 
 	@Override
@@ -108,9 +121,12 @@ public class Customer {
 				"Email: " + this.getEmail() + "\n" +
 				"Date of birth: " + this.getDateOfBirth() + "\n" + 
 				"Profession: " + this.getProfession() + "\n" +
-				"Last lodgement date: " + this.getLastLodgmentDate() + "\n";
+				"Last lodgement date: " + this.getLastLodgementDate() + "\n";
 		if(this.getRegion() != null){
-			toString = toString.concat("Region: \n " + this.getRegion().toString());
+			toString = toString.concat("Region: \n " + this.getRegion().toString() + "\n");
+		}
+		if(this.getLanguage() != null){
+			toString = toString.concat("Language: \n " + this.getLanguage().toString());
 		}
 		return toString;
 	}

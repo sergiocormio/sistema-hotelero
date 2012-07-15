@@ -13,10 +13,12 @@ import org.junit.Test;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
+import com.cdz.sh.dao.impl.LanguageDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
+import com.cdz.sh.model.Language;
 import com.cdz.sh.model.Region;
 
 public class TestCustomerDao {
@@ -28,6 +30,7 @@ public class TestCustomerDao {
 	
 	private DocumentTypeDaoImpl documentTypeDao;
 	private RegionDao regionDao;
+	private LanguageDao languageDao;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -37,6 +40,7 @@ public class TestCustomerDao {
 		
 		this.documentTypeDao = new DocumentTypeDaoImpl();
 		this.regionDao = new RegionDaoImpl();
+		this.languageDao = new LanguageDaoImpl();
 		
 		DocumentType docTypeDNI = this.documentTypeDao.getRecordById(1L);
 		
@@ -58,7 +62,15 @@ public class TestCustomerDao {
 	}
 
 	@Test
-	public void testCreateUpdateCustomers() throws DaoException {
+	public void testCRUD() throws DaoException {
+		
+		this.testCreateUpdateCustomers();
+		
+		this.testFindDeleteCustomers();
+	}
+	
+	
+	private void testCreateUpdateCustomers() throws DaoException {
 		/**
 		 * customer 1: Fede
 		 */
@@ -71,6 +83,9 @@ public class TestCustomerDao {
 		Region region = this.regionDao.getRecordById(1L);
 		c1.setRegion(region);
 		
+		Language language = this.languageDao.getRecordById(1L);
+		c1.setLanguage(language);
+		
 		/**
 		 * customer 2: Sergio
 		 */
@@ -81,9 +96,11 @@ public class TestCustomerDao {
 		c2.setLastName("Cormio");
 		c2.setDateOfBirth(new Date());
 		
+		c2.setLanguage(language);
 		
 		this.customerDao.createRecord(c1);
 		this.customerDao.createRecord(c2);
+		
 		
 		Customer c1Found = this.customerDao.getRecordById(customerPK1);
 		assertNotNull(c1Found);
@@ -111,8 +128,7 @@ public class TestCustomerDao {
 	 * to check if the customers created on the test above, were properly persisted on DB
 	 * @throws DaoException 
 	 */
-	@Test
-	public void testFindDeleteCustomers() throws DaoException {
+	private void testFindDeleteCustomers() throws DaoException {
 		
 		Customer c1Found = this.customerDao.getRecordById(this.customerPK1);
 		assertNotNull(c1Found);

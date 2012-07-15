@@ -6,6 +6,7 @@ import com.cdz.sh.dao.impl.CleaningTypeDaoImpl;
 import com.cdz.sh.dao.impl.CountryDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.ExchangeRateDaoImpl;
+import com.cdz.sh.dao.impl.LanguageDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
 import com.cdz.sh.dao.impl.RoomTypeDaoImpl;
 import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
@@ -14,6 +15,7 @@ import com.cdz.sh.model.CleaningType;
 import com.cdz.sh.model.Country;
 import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.ExchangeRate;
+import com.cdz.sh.model.Language;
 import com.cdz.sh.model.Region;
 import com.cdz.sh.model.RoomType;
 import com.cdz.sh.model.StateReservationForm;
@@ -23,6 +25,7 @@ public class MasterDataFactory {
 	private DocumentTypeDao documentTypeDao;
 	private CountryDao countryDao;
 	private RegionDao regionDao;
+	private LanguageDao languageDao;
 	private RoomTypeDao roomTypeDao;
 	private StateReservationFormDao stateReservationFormDao;
 	private BankDao bankDao;
@@ -34,6 +37,7 @@ public class MasterDataFactory {
 		this.documentTypeDao = new DocumentTypeDaoImpl();
 		this.countryDao = new CountryDaoImpl();
 		this.regionDao = new RegionDaoImpl();
+		this.languageDao = new LanguageDaoImpl();
 		this.roomTypeDao = new RoomTypeDaoImpl();
 		this.stateReservationFormDao = new StateReservationFormDaoImpl();
 		this.bankDao = new BankDaoImpl();
@@ -75,6 +79,16 @@ public class MasterDataFactory {
 				region.setName("Centro");
 				region.setCountry(country);
 				this.regionDao.createRecord(region);
+			}
+			
+			/**
+			 * Languages
+			 */
+			Language language = this.languageDao.getRecordById(1L);
+			if(language == null){
+				language = new Language();
+				language.setName("Castellano");
+				this.languageDao.createRecord(language);
 			}
 			
 			/**
