@@ -26,8 +26,9 @@ public abstract class AbstractCrudService<Entity, Id extends Serializable> imple
 
 	
 	@Override
-	public void createRecord(Entity e) throws DaoException {
-		this.crudDao.createRecord(e);
+	public Entity createRecord(Entity e) throws DaoException {
+		Entity createdEntity = this.crudDao.createRecord(e);
+		return createdEntity;
 	}
 
 

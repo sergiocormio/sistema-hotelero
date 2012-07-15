@@ -14,7 +14,7 @@ import com.cdz.sh.dao.exception.DaoException;
  */
 public interface CrudDao<Entity, Id extends Serializable> {
 	
-	public void createRecord(Entity e) throws DaoException;
+	public Entity createRecord(Entity e) throws DaoException;
 	
 	public void updateRecord(Entity e) throws DaoException;
 	
