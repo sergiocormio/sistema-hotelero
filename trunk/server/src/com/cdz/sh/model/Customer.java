@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 public class Customer {
 	
     @EmbeddedId
-	private CustomerPK customerPK;
+	private CustomerPK id;
     
     private String firstName;
 
@@ -39,12 +39,12 @@ public class Customer {
     
 	
 
-	public CustomerPK getCustomerPK() {
-		return customerPK;
+	public CustomerPK getId() {
+		return id;
 	}
 
-	public void setCustomerPK(CustomerPK customerPK) {
-		this.customerPK = customerPK;
+	public void setId(CustomerPK customerPK) {
+		this.id = customerPK;
 	}
 
 	public void setFirstName(final String name) {
@@ -132,12 +132,12 @@ public class Customer {
 	}
 		
 	@Transient
-	public String getId(){
-		return this.getCustomerPK().getDocType().getName() + " - " + this.getCustomerPK().getIdNumber();
+	public String getDisplayableId(){
+		return this.getId().getDocType().getName() + " - " + this.getId().getIdNumber();
 	}
 	    
 	public int hashCode() {
-        return (int)this.getCustomerPK().hashCode();
+        return (int)this.getId().hashCode();
 	}
 
     public boolean equals(Object obj) {
@@ -146,7 +146,7 @@ public class Customer {
         	
         	Customer pk = (Customer) obj;
         	
-        	return pk.getCustomerPK().equals(customerPK);
+        	return pk.getId().equals(id);
         }
     	else{
     		return false;

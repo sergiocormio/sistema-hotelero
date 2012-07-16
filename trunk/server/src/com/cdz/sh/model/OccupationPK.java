@@ -58,4 +58,17 @@ public class OccupationPK implements Serializable{
     	}
     	
     }
+    
+    @Override
+	public String toString() {
+		
+		String toString = "";
+		if(date != null){
+			toString = toString.concat("Date: " + this.getDate().toString() + "\n" );
+		}
+		if(room != null)
+		toString = toString.concat("Room: " + this.getRoom().getId() + "\n");
+		
+		return toString;
+	}
 }

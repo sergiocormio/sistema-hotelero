@@ -168,7 +168,7 @@ public class MasterDataFactory {
 			ExchangeRate excUsd = this.exchangeRateDao.getRecordById("USD");
 			if(excUsd == null){
 				excUsd = new ExchangeRate();
-				excUsd.setCurrencyCode("USD");
+				excUsd.setId("USD");
 				excUsd.setCurrencySymbol("Us$");
 				excUsd.setName("Dollar");
 				excUsd.setValueAgainstReal((float)0.45);

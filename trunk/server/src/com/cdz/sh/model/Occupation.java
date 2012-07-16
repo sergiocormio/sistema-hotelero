@@ -9,19 +9,19 @@ import javax.persistence.ManyToOne;
 public class Occupation {
 	
 	@EmbeddedId
-	private OccupationPK occupationPK; 
+	private OccupationPK id; 
 	
 	@ManyToOne
 	@JoinColumn(name="RESERVATION_FORM_ID")
 	private ReservationForm reservationForm;
 
 	
-	public OccupationPK getOccupationPK() {
-		return occupationPK;
+	public OccupationPK getId() {
+		return id;
 	}
 
-	public void setOccupationPK(OccupationPK occupationPK) {
-		this.occupationPK = occupationPK;
+	public void setId(OccupationPK id) {
+		this.id = id;
 	}
 
 	public ReservationForm getReservationForm() {

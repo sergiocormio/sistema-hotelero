@@ -32,4 +32,9 @@ public class DaoException extends Exception {
 	public DaoException(String detail){
 		super(detail);
 	}
+
+
+	public DaoException(String simpleName, String id) {
+		super(simpleName + " with Id: " + id + " was not found.");
+	}
 }
