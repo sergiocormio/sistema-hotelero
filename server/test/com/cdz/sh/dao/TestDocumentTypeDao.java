@@ -1,6 +1,8 @@
 package com.cdz.sh.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
@@ -32,6 +34,87 @@ public class TestDocumentTypeDao {
 
 
 	@Test
+	public void testFindSuccessfully() throws DaoException{
+		DocumentType documentType = new DocumentType();
+//		documentType.setId(999L);
+		documentType.setName("DNI");
+		documentType.setRegExp("*");
+		
+		this.documentTypeDao.createRecord(documentType);
+				
+		DocumentType docFound = this.documentTypeDao.getRecordById(documentType.getId());
+		
+		assertEquals(documentType.getName(), docFound.getName());
+		assertEquals(documentType.getRegExp(), docFound.getRegExp());
+		assertEquals(documentType.getId(), docFound.getId());
+				
+	}
+	
+	@Test
+	public void testFindNotExist() throws DaoException{
+		DocumentType documentType = this.documentTypeDao.getRecordById(345L);
+		assertNull(documentType);
+	}
+	
+	@Test
+	public void testUpdateSuccessfully() throws DaoException{
+		DocumentType documentType = new DocumentType();
+//		documentType.setId(999L);
+		documentType.setName("DNI");
+		documentType.setRegExp("*");
+		
+		this.documentTypeDao.createRecord(documentType);
+		
+		documentType.setRegExp("lala");
+		this.documentTypeDao.updateRecord(documentType);
+		
+		DocumentType docFound = this.documentTypeDao.getRecordById(1L);
+		
+		assertEquals(documentType.getName(), docFound.getName());
+		assertEquals(documentType.getRegExp(), docFound.getRegExp());
+		assertEquals(documentType.getId(), docFound.getId());
+	}
+	
+	@Test(expected=DaoException.class)
+	public void testUpdateNotExist() throws DaoException {
+		
+		DocumentType documentType = new DocumentType();
+		documentType.setId(999L);
+		documentType.setName("DNI");
+		documentType.setRegExp("*");
+		
+		this.documentTypeDao.updateRecord(documentType);
+		
+	}
+	
+	@Test
+	public void testDeleteSuccessfully() throws DaoException{
+		DocumentType documentType = new DocumentType();
+//		documentType.setId(999L);
+		documentType.setName("DNI");
+		documentType.setRegExp("*");
+		
+		this.documentTypeDao.createRecord(documentType);
+		Long idToFind = documentType.getId();
+		
+		this.documentTypeDao.deleteRecord(documentType);
+		
+		DocumentType docFound = this.documentTypeDao.getRecordById(idToFind);
+		assertNull(docFound);
+				
+	}
+	
+	@Test(expected=DaoException.class)
+	public void testDeleteNotExist() throws DaoException{
+		DocumentType documentType = new DocumentType();
+		documentType.setId(999L);
+		documentType.setName("DNI");
+		documentType.setRegExp("*");
+		this.documentTypeDao.deleteRecord(documentType);
+	}
+	
+	
+	@Test
 	public void testGetGeneratedID() throws DaoException {
 		
 		DocumentType documentType = new DocumentType();
@@ -40,16 +123,16 @@ public class TestDocumentTypeDao {
 		
 		this.documentTypeDao.createRecord(documentType);
 		
-		assertEquals(documentType.getId(), new Long(1L));
+		assertTrue(documentType.getId().longValue() > 0 );
 			
 		this.documentTypeDao.deleteRecord(documentType);
 	}
 	
+	
+	
 	@Test
 	public void testExceptionRetrieved() {
-		
-		
-		
+			
 		CustomerPK customerPK1 = new CustomerPK();
 		customerPK1.setDocType(null);
 		customerPK1.setIdNumber("33103189");
@@ -59,13 +142,13 @@ public class TestDocumentTypeDao {
 		customerPK2.setIdNumber("33103189");
 		
 		Customer c1 = new Customer();
-		c1.setCustomerPK(customerPK1);
+		c1.setId(customerPK1);
 		c1.setFirstName("Federico");
 		c1.setLastName("De Seta");
 		c1.setDateOfBirth(new Date());
 		
 		Customer c2 = new Customer();
-		c2.setCustomerPK(customerPK1);
+		c2.setId(customerPK1);
 		c2.setFirstName("Federico");
 		c2.setLastName("De Seta");
 		c2.setDateOfBirth(new Date());
@@ -93,10 +176,10 @@ public class TestDocumentTypeDao {
 			DocumentType documentType2 = documentTypeDao.getRecordById(1L);
 			
 			customerPK1.setDocType(documentType2);
-			c1.setCustomerPK(customerPK1);
+			c1.setId(customerPK1);
 			
 			customerPK2.setDocType(documentType2);
-			c2.setCustomerPK(customerPK2);
+			c2.setId(customerPK2);
 			
 			customerDao.createRecord(c1);
 			

@@ -6,8 +6,11 @@ import javax.persistence.Id;
 @Entity
 public class ExchangeRate {
 
+	/*
+	 * Is the currencyCode 
+	 */
 	@Id
-	private String currencyCode;
+	private String id;
 	
 	private String name;
 	
@@ -17,12 +20,12 @@ public class ExchangeRate {
 
 	
 	
-	public String getCurrencyCode() {
-		return currencyCode;
+	public String getId() {
+		return id;
 	}
 
-	public void setCurrencyCode(String currencyCode) {
-		this.currencyCode = currencyCode;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {

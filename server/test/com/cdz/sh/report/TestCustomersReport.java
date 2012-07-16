@@ -39,7 +39,7 @@ public class TestCustomersReport {
 		customerPK1.setIdNumber("33103189");
 		
 		Customer c1 = new Customer();
-		c1.setCustomerPK(customerPK1);
+		c1.setId(customerPK1);
 		c1.setFirstName("Federico");
 		c1.setLastName("De Seta");
 		c1.setDateOfBirth(new Date());
@@ -61,7 +61,7 @@ public class TestCustomersReport {
 		customerPK2.setIdNumber("32XXXXXX");
 		
 		Customer c2 = new Customer();
-		c2.setCustomerPK(customerPK2);
+		c2.setId(customerPK2);
 		c2.setFirstName("Sergio");
 		c2.setLastName("Cormio");
 		c2.setDateOfBirth(new Date());

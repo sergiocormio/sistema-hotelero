@@ -1,6 +1,7 @@
 package com.cdz.sh.dao.crud;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,14 +23,17 @@ import com.cdz.sh.dao.exception.DaoException;
  */
 public abstract class AbstractCrudDao<Entity, Id extends Serializable> implements CrudDao<Entity, Id> {
 
+	private static final String GETTER_FOR_ID = "getId";
 	protected Class<Entity> entityClass;
+	protected Class<Id> idClass;
 
 	protected EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
-	protected AbstractCrudDao(){
+	protected AbstractCrudDao() {
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
 	    this.entityClass = (Class<Entity>) genericSuperclass.getActualTypeArguments()[0];
+	    this.idClass = (Class<Id>) genericSuperclass.getActualTypeArguments()[1];
 	    
 	    this.entityManager = EntityManagerSingleton.getInstance();
 	}
@@ -64,8 +68,14 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 
 	@Override
 	public void updateRecord(Entity e) throws DaoException {
+		//check if the entity already exists
+		Id entityId = extractId(e);
 		try {
 			entityManager.getTransaction().begin();
+			Entity entityFound = entityManager.find(this.entityClass, entityId);
+			if(entityFound == null){
+				throw new DaoException(this.entityClass.getSimpleName(), entityId.toString());
+			}
 			entityManager.merge(e);
 		}
 		catch(PersistenceException persistenceException){
@@ -88,11 +98,29 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	private Id extractId(Entity e) {
+		Id entityId = null;
+		try {
+			Method method = e.getClass().getMethod(GETTER_FOR_ID);
+			entityId = (Id)method.invoke(e);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return entityId;
+	}
+
 	
 	@Override
 	public void deleteRecord(Entity e) throws DaoException {
+		//check if the entity already exists
+		Id entityId = extractId(e);
 		try {
 			entityManager.getTransaction().begin();
+			Entity entityFound = entityManager.find(this.entityClass, entityId);
+			if(entityFound == null){
+				throw new DaoException(this.entityClass.getSimpleName(), entityId.toString());
+			}
 			entityManager.remove(e);
 		}
 		catch(PersistenceException persistenceException){
@@ -117,6 +145,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 
 	@Override
 	public Entity getRecordById(Id id) throws DaoException {
+						
 		Entity entity = null;
 		try {
 			entityManager.getTransaction().begin();

@@ -59,7 +59,7 @@ public class CustomerPK implements Serializable{
 		
 		String toString = "";
 		if(docType != null){
-			toString = toString.concat("docType: " + this.getDocType().toString() + "\n" );
+			toString = toString.concat("DocumentType: " + this.getDocType().toString() + "\n" );
 		}
 		toString = toString.concat("IdNumber: " + this.getIdNumber() + "\n");
 		

@@ -32,6 +32,9 @@ public class TestCustomerDao {
 	private RegionDao regionDao;
 	private LanguageDao languageDao;
 	
+	private Customer c1;
+	private Customer c2;
+	
 	@Before
 	public void setUp() throws Exception {
 		
@@ -74,8 +77,8 @@ public class TestCustomerDao {
 		/**
 		 * customer 1: Fede
 		 */
-		Customer c1 = new Customer();
-		c1.setCustomerPK(customerPK1);
+		c1 = new Customer();
+		c1.setId(customerPK1);
 		c1.setFirstName("Federico");
 		c1.setLastName("De Seta");
 		c1.setDateOfBirth(new Date());
@@ -90,8 +93,8 @@ public class TestCustomerDao {
 		 * customer 2: Sergio
 		 */
 			
-		Customer c2 = new Customer();
-		c2.setCustomerPK(customerPK2);
+		c2 = new Customer();
+		c2.setId(customerPK2);
 		c2.setFirstName("Sergio");
 		c2.setLastName("Cormio");
 		c2.setDateOfBirth(new Date());
@@ -143,8 +146,8 @@ public class TestCustomerDao {
 		System.out.println("Last Name: " + c2Found.getLastName());
 		System.out.println("Date of Birth: " + c2Found.getDateOfBirth());
 		
-		this.customerDao.deleteRecord(c2Found);
-		this.customerDao.deleteRecord(c1Found);
+		this.customerDao.deleteRecord(c1);
+		this.customerDao.deleteRecord(c2);
 		
 		Customer c1NotFound = this.customerDao.getRecordById(this.customerPK1);
 		assertNull(c1NotFound);
