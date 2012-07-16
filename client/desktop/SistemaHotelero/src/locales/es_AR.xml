@@ -19,10 +19,55 @@
     <customerPK>
     	<idNumber>Número de Documento</idNumber>
     </customerPK>
+    <day>
+    	<monday>
+    		<name>Lunes</name>
+    		<abbr>Lun</abbr>
+    	</monday>
+    	<tuesday>
+    		<name>Martes</name>
+    		<abbr>Mar</abbr>
+   		</tuesday>
+    	<wednesday>
+    		<name>Miércoles</name>
+    		<abbr>Mie</abbr>
+   		</wednesday>
+    	<thursday>
+    		<name>Jueves</name>
+    		<abbr>Jue</abbr>
+   		</thursday>
+    	<friday>
+    		<name>Viernes</name>
+    		<abbr>Vie</abbr>
+		</friday>
+    	<saturday>
+    		<name>Sábado</name>
+    		<abbr>Sáb</abbr>
+   		</saturday>
+    	<sunday>
+    		<name>Domingo</name>
+    		<abbr>Dom</abbr>
+   		</sunday>
+    </day>
+    <dateFormat>DD/MM/YYYY</dateFormat>
     <documentType>
     	<singular>Tipo de Documento</singular>
 	    <plural>Tipos de Documento</plural>
 	    <name>Nombre</name>
 	    <regExp>Expresión Regular</regExp>
     </documentType>
+    <month>
+    	<january>Enero</january>
+    	<february>Febrero</february>
+    	<march>Marzo</march>
+    	<april>Abril</april>
+    	<may>Mayo</may>
+    	<june>Junio</june>
+    	<july>Julio</july>
+    	<august>Agosto</august>
+    	<september>Septiembre</september>
+    	<october>Octubre</october>
+    	<november>Noviembre</november>
+    	<december>Deciembre</december>
+    </month>
 </locale>

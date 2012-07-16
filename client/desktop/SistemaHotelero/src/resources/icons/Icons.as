@@ -27,6 +27,19 @@ package resources.icons
 		[Embed(source='resources/icons/cancel.png')]
 		public static var cancel:Class;
 		
+		//------- Flag Icons -----------
+		[Bindable]
+		[Embed(source='resources/icons/Argentina Flag 24x24.png')]
+		public static var es_AR:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/Brazil Flag 24x24.png')]
+		public static var pt_BR:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/United States Flag 24x24.png')]
+		public static var en_US:Class;
+		
 		public function Icons()
 		{
 		}

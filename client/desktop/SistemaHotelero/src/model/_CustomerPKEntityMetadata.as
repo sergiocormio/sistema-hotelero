@@ -6,10 +6,12 @@ package model
 {
 import com.adobe.fiber.styles.IStyle;
 import com.adobe.fiber.styles.Style;
+import com.adobe.fiber.styles.StyleValidator;
 import com.adobe.fiber.valueobjects.AbstractEntityMetadata;
 import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 import com.adobe.fiber.valueobjects.IPropertyIterator;
 import model.DocumentType;
+import mx.events.ValidationResultEvent;
 import com.adobe.fiber.core.model_internal;
 import com.adobe.fiber.valueobjects.IModelType;
 import mx.events.PropertyChangeEvent;
@@ -23,7 +25,7 @@ internal class _CustomerPKEntityMetadata extends com.adobe.fiber.valueobjects.Ab
 
     model_internal static var allProperties:Array = new Array("docType", "idNumber");
     model_internal static var allAssociationProperties:Array = new Array();
-    model_internal static var allRequiredProperties:Array = new Array();
+    model_internal static var allRequiredProperties:Array = new Array("docType", "idNumber");
     model_internal static var allAlwaysAvailableProperties:Array = new Array("docType", "idNumber");
     model_internal static var guardedProperties:Array = new Array();
     model_internal static var dataProperties:Array = new Array("docType", "idNumber");
@@ -37,6 +39,16 @@ internal class _CustomerPKEntityMetadata extends com.adobe.fiber.valueobjects.Ab
     model_internal static var dependedOnServices:Array = new Array();
     model_internal static var propertyTypeMap:Object;
 
+    
+    model_internal var _docTypeIsValid:Boolean;
+    model_internal var _docTypeValidator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _docTypeIsValidCacheInitialized:Boolean = false;
+    model_internal var _docTypeValidationFailureMessages:Array;
+    
+    model_internal var _idNumberIsValid:Boolean;
+    model_internal var _idNumberValidator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _idNumberIsValidCacheInitialized:Boolean = false;
+    model_internal var _idNumberValidationFailureMessages:Array;
 
     model_internal var _instance:_Super_CustomerPK;
     model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
@@ -57,10 +69,20 @@ internal class _CustomerPKEntityMetadata extends com.adobe.fiber.valueobjects.Ab
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["docType"] = "valueObjects.DocumentType";
+        model_internal::propertyTypeMap["docType"] = "model.DocumentType";
         model_internal::propertyTypeMap["idNumber"] = "String";
 
         model_internal::_instance = value;
+        model_internal::_docTypeValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForDocType);
+        model_internal::_docTypeValidator.required = true;
+        model_internal::_docTypeValidator.requiredFieldError = "docType is required";
+        //model_internal::_docTypeValidator.source = model_internal::_instance;
+        //model_internal::_docTypeValidator.property = "docType";
+        model_internal::_idNumberValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForIdNumber);
+        model_internal::_idNumberValidator.required = true;
+        model_internal::_idNumberValidator.requiredFieldError = "idNumber is required";
+        //model_internal::_idNumberValidator.source = model_internal::_instance;
+        //model_internal::_idNumberValidator.property = "idNumber";
     }
 
     override public function getEntityName():String
@@ -303,6 +325,22 @@ internal class _CustomerPKEntityMetadata extends com.adobe.fiber.valueobjects.Ab
     /**
      * derived property recalculation
      */
+    public function invalidateDependentOnDocType():void
+    {
+        if (model_internal::_docTypeIsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfDocType = null;
+            model_internal::calculateDocTypeIsValid();
+        }
+    }
+    public function invalidateDependentOnIdNumber():void
+    {
+        if (model_internal::_idNumberIsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfIdNumber = null;
+            model_internal::calculateIdNumberIsValid();
+        }
+    }
 
     model_internal function fireChangeEvent(propertyName:String, oldValue:Object, newValue:Object):void
     {
@@ -315,10 +353,198 @@ internal class _CustomerPKEntityMetadata extends com.adobe.fiber.valueobjects.Ab
         return model_internal::_nullStyle;
     }
 
+    public function get docTypeValidator() : StyleValidator
+    {
+        return model_internal::_docTypeValidator;
+    }
+
+    model_internal function set _docTypeIsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_docTypeIsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_docTypeIsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "docTypeIsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get docTypeIsValid():Boolean
+    {
+        if (!model_internal::_docTypeIsValidCacheInitialized)
+        {
+            model_internal::calculateDocTypeIsValid();
+        }
+
+        return model_internal::_docTypeIsValid;
+    }
+
+    model_internal function calculateDocTypeIsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_docTypeValidator.validate(model_internal::_instance.docType)
+        model_internal::_docTypeIsValid_der = (valRes.results == null);
+        model_internal::_docTypeIsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::docTypeValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::docTypeValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get docTypeValidationFailureMessages():Array
+    {
+        if (model_internal::_docTypeValidationFailureMessages == null)
+            model_internal::calculateDocTypeIsValid();
+
+        return _docTypeValidationFailureMessages;
+    }
+
+    model_internal function set docTypeValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_docTypeValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_docTypeValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "docTypeValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
     [Bindable(event="propertyChange")]   
     public function get idNumberStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
+    }
+
+    public function get idNumberValidator() : StyleValidator
+    {
+        return model_internal::_idNumberValidator;
+    }
+
+    model_internal function set _idNumberIsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_idNumberIsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_idNumberIsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "idNumberIsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get idNumberIsValid():Boolean
+    {
+        if (!model_internal::_idNumberIsValidCacheInitialized)
+        {
+            model_internal::calculateIdNumberIsValid();
+        }
+
+        return model_internal::_idNumberIsValid;
+    }
+
+    model_internal function calculateIdNumberIsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_idNumberValidator.validate(model_internal::_instance.idNumber)
+        model_internal::_idNumberIsValid_der = (valRes.results == null);
+        model_internal::_idNumberIsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::idNumberValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::idNumberValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get idNumberValidationFailureMessages():Array
+    {
+        if (model_internal::_idNumberValidationFailureMessages == null)
+            model_internal::calculateIdNumberIsValid();
+
+        return _idNumberValidationFailureMessages;
+    }
+
+    model_internal function set idNumberValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_idNumberValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_idNumberValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "idNumberValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
     }
 
 
@@ -346,6 +572,14 @@ internal class _CustomerPKEntityMetadata extends com.adobe.fiber.valueobjects.Ab
      {
          switch(propertyName)
          {
+            case("docType"):
+            {
+                return docTypeValidationFailureMessages;
+            }
+            case("idNumber"):
+            {
+                return idNumberValidationFailureMessages;
+            }
             default:
             {
                 return emptyArray;

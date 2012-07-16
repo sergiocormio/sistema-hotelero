@@ -29,32 +29,32 @@
     </customerPK>
     <day>
     	<monday>
-    		<name>Monday</name>
-    		<abbr>Mon</abbr>
+    		<name>Primera</name>
+    		<abbr>Pri</abbr>
     	</monday>
     	<tuesday>
-    		<name>Tuesday</name>
-    		<abbr>Tue</abbr>
+    		<name>Segunda</name>
+    		<abbr>Seg</abbr>
    		</tuesday>
     	<wednesday>
-    		<name>Wednesday</name>
-    		<abbr>Wed</abbr>
+    		<name>Tercera</name>
+    		<abbr>Ter</abbr>
    		</wednesday>
     	<thursday>
-    		<name>Thursday</name>
-    		<abbr>Thu</abbr>
+    		<name>Cuarta</name>
+    		<abbr>Cua</abbr>
    		</thursday>
     	<friday>
-    		<name>Friday</name>
-    		<abbr>Fri</abbr>
+    		<name>Quinta</name>
+    		<abbr>Qui</abbr>
 		</friday>
     	<saturday>
-    		<name>Saturday</name>
-    		<abbr>Sat</abbr>
+    		<name>Sexta</name>
+    		<abbr>Sex</abbr>
    		</saturday>
     	<sunday>
-    		<name>Sunday</name>
-    		<abbr>Sun</abbr>
+    		<name>Septima</name>
+    		<abbr>Sep</abbr>
    		</sunday>
     </day>
     <dateFormat>MM/DD/YYYY</dateFormat>
@@ -83,10 +83,4 @@
     	<november>November</november>
     	<december>December</december>
     </month>
-    <validator>
-    	<requiredFieldError>The field is required</requiredFieldError>
-    	<regExp>
-    		<noMatchError>The field is invalid</noMatchError>
-    	</regExp>
-    </validator>
 </locale>
