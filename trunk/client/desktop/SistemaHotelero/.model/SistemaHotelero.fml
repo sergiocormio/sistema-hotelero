@@ -3,15 +3,15 @@
   <annotation name="ActionScriptGeneration">
     <item name="FullyQualifyReferences">true</item>
   </annotation>
-  <service name="CustomerService">
+  <service name="DocumentTypeService">
     <annotation name="ActionScriptGeneration">
       <item name="ServiceType">RemoteObject</item>
       <item name="Package">services</item>
       <item name="Endpoint">http://localhost:8400/SistemaHotelero/messagebroker/amf</item>
-      <item name="Destination">customerService</item>
+      <item name="Destination">documentTypeService</item>
     </annotation>
     <annotation name="ServiceConfig">
-      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">model</item>
       <item name="contextRoot">/SistemaHotelero</item>
       <item name="rootUrl">http://localhost:8400/SistemaHotelero</item>
       <item name="LINKED_FILE"></item>
@@ -21,6 +21,15 @@
       <item name="ServiceBackendType">BlazeDS</item>
     </annotation>
     <function name="createRecord" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+      </annotation>
+      <parameter name="arg0" type="opaque"/>
+    </function>
+    <function name="deleteRecord" return-type="void">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
@@ -39,13 +48,59 @@
       </annotation>
       <parameter name="arg0" type="Serializable"/>
     </function>
-    <function name="retrieveAll" return-type="Customer[]">
+    <function name="retrieveAll" return-type="opaque[]">
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+    </function>
+    <function name="updateRecord" return-type="void">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
       <annotation name="original signature">
-        <item name="returnType">Customer</item>
+        <item name="inputParams">opaque</item>
       </annotation>
+      <parameter name="arg0" type="opaque"/>
+    </function>
+  </service>
+  <service name="CustomerService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">services</item>
+      <item name="Endpoint">http://localhost:8400/SistemaHotelero/messagebroker/amf</item>
+      <item name="Destination">customerService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">model</item>
+      <item name="contextRoot">/SistemaHotelero</item>
+      <item name="rootUrl">http://localhost:8400/SistemaHotelero</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8400/SistemaHotelero/messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="createRecord" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="arg0" type="opaque"/>
+    </function>
+    <function name="getRecordById" return-type="opaque">
+      <annotation name="original signature">
+        <item name="inputParams">Serializable</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <parameter name="arg0" type="Serializable"/>
     </function>
     <function name="deleteRecord" return-type="void">
       <annotation name="analyze group">
@@ -55,6 +110,17 @@
         <item name="inputParams">opaque</item>
       </annotation>
       <parameter name="arg0" type="opaque"/>
+    </function>
+    <function name="retrieveAll" return-type="Customer[]">
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">dateOfBirth,region,lastName,email,profession,customerPK,language,firstName,lastLodgementDate</item>
+      </annotation>
     </function>
     <function name="updateRecord" return-type="void">
       <annotation name="analyze group">
@@ -75,139 +141,24 @@
       <item name="IncludeRemoteClass">nonempty</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">CustomerService</item>
+      <item name="service">CustomerService,CustomerServiceDummy</item>
+    </annotation>
+    <annotation name="retrieveAll">
+      <item name="propertySpecifier">dateOfBirth,region,lastName,email,profession,customerPK,language,firstName,lastLodgementDate</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
+      <item name="Package">model</item>
     </annotation>
-    <property name="dateOfBirth" type="date"/>
-    <property name="id" type="string"/>
-    <property name="region" type="Region"/>
-    <property name="lastName" type="string"/>
-    <property name="lastLodgmentDate" type="date"/>
-    <property name="email" type="string"/>
-    <property name="profession" type="string"/>
-    <property name="customerPK" type="CustomerPK"/>
-    <property name="firstName" type="string"/>
+    <property name="dateOfBirth" type="date" required="true"/>
+    <property name="region" type="opaque" required="true"/>
+    <property name="lastName" type="string" required="true"/>
+    <property name="email" type="string" required="true"/>
+    <property name="profession" type="string" required="true"/>
+    <property name="customerPK" type="CustomerPK" required="true"/>
+    <property name="language" type="opaque" required="true"/>
+    <property name="firstName" type="string" required="true"/>
+    <property name="lastLodgementDate" type="date" required="true"/>
   </entity>
-  <entity name="Region">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Region</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="RemoteClass">com.cdz.sh.model.Region</item>
-      <item name="IncludeRemoteClass">nonempty</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">CustomerService</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <property name="id" type="long"/>
-    <property name="name" type="string"/>
-    <property name="country" type="Country"/>
-  </entity>
-  <entity name="Country">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Country</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="RemoteClass">com.cdz.sh.model.Country</item>
-      <item name="IncludeRemoteClass">nonempty</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">CustomerService</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <property name="id" type="long"/>
-    <property name="name" type="string"/>
-  </entity>
-  <entity name="CustomerPK">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">CustomerPK</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="RemoteClass">com.cdz.sh.model.CustomerPK</item>
-      <item name="IncludeRemoteClass">nonempty</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">CustomerService</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <property name="docType" type="DocumentType"/>
-    <property name="idNumber" type="string"/>
-  </entity>
-  <service name="DocumentTypeService">
-    <annotation name="ActionScriptGeneration">
-      <item name="ServiceType">RemoteObject</item>
-      <item name="Package">services</item>
-      <item name="Endpoint">http://localhost:8400/SistemaHotelero/messagebroker/amf</item>
-      <item name="Destination">documentTypeService</item>
-    </annotation>
-    <annotation name="ServiceConfig">
-      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
-      <item name="contextRoot">/SistemaHotelero</item>
-      <item name="rootUrl">http://localhost:8400/SistemaHotelero</item>
-      <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">http://localhost:8400/SistemaHotelero/messagebroker/amf</item>
-    </annotation>
-    <annotation name="ServiceTypeGroup">
-      <item name="ServiceBackendType">BlazeDS</item>
-    </annotation>
-    <function name="createRecord" return-type="void">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">opaque</item>
-      </annotation>
-      <parameter name="arg0" type="opaque"/>
-    </function>
-    <function name="getRecordById" return-type="opaque">
-      <annotation name="original signature">
-        <item name="inputParams">Serializable</item>
-        <item name="returnType">opaque</item>
-      </annotation>
-      <annotation name="analyze group">
-        <item name="analyzed">false</item>
-      </annotation>
-      <parameter name="arg0" type="Serializable"/>
-    </function>
-    <function name="deleteRecord" return-type="void">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">opaque</item>
-      </annotation>
-      <parameter name="arg0" type="opaque"/>
-    </function>
-    <function name="retrieveAll" return-type="DocumentType[]">
-      <annotation name="original signature">
-        <item name="returnType">opaque</item>
-      </annotation>
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="ValidProperties">
-        <item name="propertySpecifier">id,regExp,name</item>
-      </annotation>
-    </function>
-    <function name="updateRecord" return-type="void">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">opaque</item>
-      </annotation>
-      <parameter name="arg0" type="opaque"/>
-    </function>
-  </service>
   <entity name="Serializable">
     <annotation name="EntityProperties">
       <item name="EntityOriginalName">Serializable</item>
@@ -217,31 +168,45 @@
       <item name="IncludeRemoteClass">nonempty</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">CustomerService,DocumentTypeService</item>
+      <item name="service">DocumentTypeService,CustomerService</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
+      <item name="Package">model</item>
     </annotation>
   </entity>
   <entity name="DocumentType">
     <annotation name="EntityProperties">
-      <item name="EntityOriginalName">DocumentType</item>
+      <item name="EntityOriginalName">com.cdz.sh.model.DocumentType</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="RemoteClass">com.cdz.sh.model.DocumentType</item>
       <item name="IncludeRemoteClass">nonempty</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">CustomerService,DocumentTypeService</item>
+      <item name="service">CustomerService</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
+      <item name="Package">model</item>
     </annotation>
-    <annotation name="retrieveAll">
-      <item name="propertySpecifier">id,regExp,name</item>
+    <property name="id" type="double" required="true" default="0"/>
+    <property name="regExp" type="string" required="true"/>
+    <property name="name" type="string" required="true"/>
+  </entity>
+  <entity name="CustomerPK">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">com.cdz.sh.model.CustomerPK</item>
     </annotation>
-    <property name="id" type="long"/>
-    <property name="regExp" type="string"/>
-    <property name="name" type="string"/>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.cdz.sh.model.CustomerPK</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">CustomerService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">model</item>
+    </annotation>
+    <property name="docType" type="DocumentType" required="true"/>
+    <property name="idNumber" type="string" required="true"/>
   </entity>
 </model>

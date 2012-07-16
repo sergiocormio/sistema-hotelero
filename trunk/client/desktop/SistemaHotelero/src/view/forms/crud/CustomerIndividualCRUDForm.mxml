@@ -3,81 +3,254 @@
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
 		  creationComplete="init(event)">
+	<fx:Metadata> 
+		[Event(name="cancelClicked", type="flash.events.Event")]
+		[Event(name="saveSuccess", type="flash.events.Event")]
+	</fx:Metadata> 
 	<fx:Script>
 		<![CDATA[
 			import locales.Locale;
 			
 			import model.Customer;
+			import model.CustomerPK;
 			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
 			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
 			import mx.rpc.AsyncResponder;
 			import mx.rpc.AsyncToken;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
+			import mx.validators.RegExpValidationResult;
+			import mx.validators.ValidationResult;
 			
 			import resources.icons.Icons;
 			
+			import services.CustomerService;
 			import services.DocumentTypeService;
 			[Bindable]
 			public var loc:Object;
 			
 			[Bindable]
-			public var currentCustomer:Customer;
+			public var isUpdate:Boolean;
+			
+			private var _currentCustomer:Customer;
 			
 			[Bindable]
 			private var documentTypes:ArrayCollection = new ArrayCollection();
 			
 			
+			public function get currentCustomer():Customer
+			{
+				return _currentCustomer;
+			}
 			
+			
+			//TODO: this is an Util Method!
+			private function autoSelectComboBox(combo:ComboBox,obj:Object,idFieldName:String):void{
+				var found:Boolean = false;
+				var i:int = 0;	
+				for each (var objAux:Object in combo.dataProvider){
+					if(objAux[idFieldName] == obj[idFieldName]){
+						combo.selectedItem = objAux;
+						combo.selectedIndex = i;
+						found = true;
+						break;
+					}
+					i++;
+				}
+				if(!found){
+					combo.selectedItem = obj;
+				}
+			}
+
+			public function set currentCustomer(value:Customer):void
+			{
+				_currentCustomer = value;
+				//load whole form
+				if(_currentCustomer.customerPK!=null){
+					idNumberText.text = _currentCustomer.customerPK.idNumber;
+					autoSelectComboBox(documentTypesCombo,_currentCustomer.customerPK.docType,"id");
+				}else{
+					idNumberText.text = null;
+					documentTypesCombo.selectedItem = null;
+				}
+				firstNameText.text = _currentCustomer.firstName;
+				lastNameText.text = _currentCustomer.lastName;
+				emailText.text = _currentCustomer.email;
+				professionText.text = _currentCustomer.profession;
+				dateOfBirthChooser.selectedDate = _currentCustomer.dateOfBirth;
+				lastLodgementDateChooser.selectedDate = _currentCustomer.lastLodgementDate;
+			}
+
 			protected function init(event:FlexEvent):void
 			{
+				retrieveDocumentTypes();
+			}
+			
+			private function retrieveDocumentTypes():void{
 				var at:AsyncToken = new DocumentTypeService().retrieveAll();
 				at.addResponder(new AsyncResponder(retrieveDocumentTypes_resultHandler,faultHandler));
 			}
-			
-			//fill the documentTypes ComboBox
+				
+				
 			private function retrieveDocumentTypes_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the documentTypes ComboBox
 				documentTypes.removeAll();
 				documentTypes.addAll(event.result as ArrayCollection);
 			}
 			
+			private function customerSaved_resultHandler(event:ResultEvent,token:Object=null):void {
+				dispatchEvent(new Event("saveSuccess"));
+			}
+			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				trace("Received fault: " + event.fault + "\n");
+				Alert.show("Received fault: " + event.fault + "\n");
 			}
+			
+			private function allFieldsAreValid():Boolean{
+				var valid:Boolean = true;
+				comboboxValidator.enabled = true;
+				if(comboboxValidator.validate().type == "valid"){
+					regExpV.expression = documentTypesCombo.selectedItem.regExp;
+					regExpV.enabled = true;
+					if(regExpV.validate().type != "valid"){
+						valid = false;
+					}
+				}else{
+					valid = false;
+				}
+				enabledValidators(false);
+				return valid;
+			}
+			
+			private function enabledValidators(enabled:Boolean):void{
+				comboboxValidator.enabled = enabled;
+				regExpV.enabled = enabled;
+			}
+			
+			protected function save():void
+			{
+				//TODO: validate all data
+				if(!allFieldsAreValid()){
+					return;
+				}
+				//fills all fields
+				if(currentCustomer.customerPK == null){
+					currentCustomer.customerPK = new CustomerPK();
+				}
+				currentCustomer.customerPK.idNumber = idNumberText.text;
+				currentCustomer.customerPK.docType = documentTypesCombo.selectedItem;
+				currentCustomer.firstName = firstNameText.text;
+				currentCustomer.lastName = lastNameText.text;
+				currentCustomer.email = emailText.text;
+				currentCustomer.lastLodgementDate = lastLodgementDateChooser.selectedDate;
+				currentCustomer.dateOfBirth = dateOfBirthChooser.selectedDate;
+				currentCustomer.profession = professionText.text;
+				
+				//calls service
+				var at:AsyncToken = null;
+				if(isUpdate){
+					at = new CustomerService().updateRecord(currentCustomer);
+				}else{
+					at = new CustomerService().createRecord(currentCustomer);
+				}
+				at.addResponder(new AsyncResponder(customerSaved_resultHandler,faultHandler));
+			}
+			
+			protected function cancel():void
+			{
+				dispatchEvent(new Event("cancelClicked"));
+			}
+			
+			private function handleResult(event:ValidationResultEvent):void {
+				if (event.type == "valid")
+				{
+					// For valid events, the results Array contains
+					// RegExpValidationResult objects.
+					var xResult:RegExpValidationResult;
+					
+					for (var i:uint = 0; i < event.results.length; i++)
+					{
+						xResult = event.results[i];
+						trace(xResult.matchedIndex + " " +
+							xResult.matchedString + "\n");
+					}
+				}
+				else
+				{
+					// Not necessary, but if you needed to access it, 
+					// the results array contains ValidationResult objects. 
+					var result:ValidationResult =event.results[0];
+				}       
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:RegExpValidator id="regExpV" 
+							source="{idNumberText}" property="text" 
+							flags="g" 
+							expression="{documentTypesCombo.selectedItem.regExp}" 
+							valid="handleResult(event);" 
+							invalid="handleResult(event);"
+							noMatchError="{loc.validator.regExp.noMatchError}"
+							enabled="false"
+							/>
+		<mx:EmailValidator id="emV" source="{emailText}" property="text" required="false" />
+		<mx:NumberValidator id="comboboxValidator" source="{documentTypesCombo}" property="selectedIndex" minValue="0" lowerThanMinError="{loc.validator.requiredFieldError}" enabled="false"/>
 	</fx:Declarations>
+	<s:HGroup width="100%" horizontalAlign="center">
+		<s:Form>
+			<s:layout>
+				<s:FormLayout gap="-14"/>
+			</s:layout>  
 	
-	<s:HGroup verticalAlign="middle" width="100%">
-		<s:Label text="{loc.customerPK.idNumber}:"/>
-		<s:HGroup width="100%" horizontalAlign="right">
-			<s:TextInput id="idNumberText" text="{currentCustomer.customerPK.idNumber}"/>
-		</s:HGroup>
+			<s:FormItem label="{loc.customerPK.idNumber}:" required="true">
+				<s:TextInput id="idNumberText"/>
+			</s:FormItem>
+			<s:FormItem label="{loc.documentType.singular}:" id="docTypeItem">
+				<s:HGroup>
+					<s:ComboBox id="documentTypesCombo" dataProvider="{documentTypes}" labelField="name"/>
+					<s:Button icon="{Icons.refresh}" width="16" height="16" toolTip="{loc.button.refresh}" click="retrieveDocumentTypes();"/>
+				</s:HGroup>
+			</s:FormItem>
+			<s:FormItem label="{loc.customer.firstName}:">
+				<s:TextInput id="firstNameText"/>
+			</s:FormItem>
+			<s:FormItem label="{loc.customer.lastName}:">
+				<s:TextInput id="lastNameText"/>
+			</s:FormItem>
+			<s:FormItem label="{loc.customer.email}:">
+				<s:TextInput id="emailText" widthInChars="15"/>
+			</s:FormItem>
+			<s:FormItem label="{loc.customer.profession}:">
+				<s:TextInput id="professionText"/>
+			</s:FormItem>
+		</s:Form>
+		<s:Form>
+			<s:layout>
+				<s:FormLayout gap="-14"/>
+			</s:layout>  
+			
+			<s:FormItem label="{loc.customer.dateOfBirth}:">
+				<mx:DateField id="dateOfBirthChooser" editable="true" 
+							  dayNames="{Locale.getInstance().dayNamesAbbr}" monthNames="{Locale.getInstance().monthNames}"
+							  formatString="{loc.dateFormat}" width="120"/>
+			</s:FormItem>
+			<s:FormItem label="{loc.customer.lastLodgementDate}:">
+				<mx:DateField id="lastLodgementDateChooser" editable="true" 
+							  dayNames="{Locale.getInstance().dayNamesAbbr}" monthNames="{Locale.getInstance().monthNames}"
+							  formatString="{loc.dateFormat}" width="120"/>
+			</s:FormItem>
+		</s:Form>
 	</s:HGroup>
-	<s:HGroup verticalAlign="middle">
-		<s:Label text="{loc.documentType.singular}:"/>
-		<s:ComboBox dataProvider="{documentTypes}" labelField="name" selectedItem="{currentCustomer.customerPK.docType}"/>
-	</s:HGroup>
-	<s:HGroup verticalAlign="middle">
-		<s:Label text="{loc.customer.firstName}:"/>
-		<s:TextInput id="firstNameText" text="{currentCustomer.firstName}"/>
-	</s:HGroup>
-	<s:HGroup verticalAlign="middle">
-		<s:Label text="{loc.customer.email}:"/>
-		<s:TextInput id="emailText" text="{currentCustomer.email}"/>
-	</s:HGroup>
-	<s:HGroup verticalAlign="middle">
-		<s:Label text="{loc.customer.profession}:"/>
-		<s:TextInput id="professionText" text="{currentCustomer.profession}"/>
-	</s:HGroup>
-	
 	<!-- BUTTONS -->
-	<s:HGroup width="100%">
-		<s:Button label="{loc.button.save}" icon="{Icons.save}"/>
-		<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}"/>
+	<s:HGroup width="100%" horizontalAlign="center">
+		<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
+		<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
 	</s:HGroup>
 </s:VGroup>

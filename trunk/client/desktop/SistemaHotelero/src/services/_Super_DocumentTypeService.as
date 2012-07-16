@@ -7,12 +7,11 @@ package services
 import com.adobe.fiber.core.model_internal;
 import com.adobe.fiber.services.wrapper.RemoteObjectServiceWrapper;
 import com.adobe.serializers.utility.TypeUtility;
+import model.Serializable;
 import mx.rpc.AbstractOperation;
 import mx.rpc.AsyncToken;
 import mx.rpc.remoting.Operation;
 import mx.rpc.remoting.RemoteObject;
-import model.DocumentType;
-import model.Serializable;
 
 import mx.collections.ItemResponder;
 import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
@@ -28,20 +27,19 @@ internal class _Super_DocumentTypeService extends com.adobe.fiber.services.wrapp
         _serviceControl = new mx.rpc.remoting.RemoteObject();
 
         // initialize RemoteClass alias for all entities returned by functions of this service
-        model.DocumentType._initRemoteClassAlias();
 
         var operations:Object = new Object();
         var operation:mx.rpc.remoting.Operation;
 
         operation = new mx.rpc.remoting.Operation(null, "createRecord");
         operations["createRecord"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "deleteRecord");
+        operations["deleteRecord"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getRecordById");
          operation.resultType = Object;
         operations["getRecordById"] = operation;
-        operation = new mx.rpc.remoting.Operation(null, "deleteRecord");
-        operations["deleteRecord"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "retrieveAll");
-         operation.resultElementType = model.DocumentType;
+         operation.resultElementType = Object;
         operations["retrieveAll"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "updateRecord");
         operations["updateRecord"] = operation;
@@ -82,24 +80,6 @@ internal class _Super_DocumentTypeService extends com.adobe.fiber.services.wrapp
     }
      
     /**
-      * This method is a generated wrapper used to call the 'getRecordById' operation. It returns an mx.rpc.AsyncToken whose 
-      * result property will be populated with the result of the operation when the server response is received. 
-      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
-      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
-      *
-      * @see mx.rpc.AsyncToken
-      * @see mx.rpc.CallResponder 
-      *
-      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
-      */
-    public function getRecordById(arg0:model.Serializable) : mx.rpc.AsyncToken
-    {
-        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getRecordById");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
-        return _internal_token;
-    }
-     
-    /**
       * This method is a generated wrapper used to call the 'deleteRecord' operation. It returns an mx.rpc.AsyncToken whose 
       * result property will be populated with the result of the operation when the server response is received. 
       * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
@@ -113,6 +93,24 @@ internal class _Super_DocumentTypeService extends com.adobe.fiber.services.wrapp
     public function deleteRecord(arg0:Object) : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("deleteRecord");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'getRecordById' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function getRecordById(arg0:model.Serializable) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getRecordById");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
         return _internal_token;
     }

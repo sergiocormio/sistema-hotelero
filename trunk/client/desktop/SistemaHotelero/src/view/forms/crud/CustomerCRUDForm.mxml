@@ -10,6 +10,7 @@
 			import model.Customer;
 			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
 			import mx.events.FlexEvent;
 			import mx.rpc.AsyncResponder;
 			import mx.rpc.AsyncToken;
@@ -21,6 +22,8 @@
 			import services.CustomerService;
 			import services.DocumentTypeService;
 			
+			import spark.events.GridSelectionEvent;
+			
 			[Bindable]
 			public var loc:Object;
 			
@@ -29,7 +32,7 @@
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				trace("Received fault: " + event.fault + "\n");
+				Alert.show("CRUD Form: Received fault: " + event.fault + "\n");
 			}
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -38,21 +41,53 @@
 				customers.addAll(event.result as ArrayCollection);
 			}
 
-		protected function init(event:FlexEvent):void
+			
+			private function delete_resultHandler(event:ResultEvent,token:Object=null):void {
+				refreshGrid();
+			}
+
+			
+			protected function init(event:FlexEvent):void
 			{
 				refreshGrid();
 			}
 			
 			protected function refreshGrid():void
 			{
+				individual.enabled = false;
+				grid.selectedItem = null;
 				var token:AsyncToken = new CustomerService().retrieveAll();
 				token.addResponder(new AsyncResponder(retrieveAll_resultHandler,faultHandler));
 			}
 			
 			protected function modifyCustomer():void
 			{
+				individual.currentCustomer = grid.selectedItem as Customer;
+				individual.isUpdate = true;
 				individual.enabled=true;
 				
+			}
+			
+			protected function deleteCustomer():void
+			{
+				var token:AsyncToken = new CustomerService().deleteRecord(grid.selectedItem as Customer);
+				token.addResponder(new AsyncResponder(delete_resultHandler,faultHandler));
+			}
+			
+			protected function addCustomer():void
+			{
+				grid.selectedItem = null;
+				individual.currentCustomer = new Customer();
+				individual.isUpdate = false;
+				individual.enabled = true;
+			}
+			
+			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
+			{
+				if(grid.selectedItem !=null){
+					individual.currentCustomer = grid.selectedItem as Customer;
+				}
+				individual.enabled = false;
 			}
 			
 		]]>
@@ -61,7 +96,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:HGroup width="100%" height="100%">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{customers}" >
+		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{customers}" selectionChange="grid_selectionChangeHandler(event)">
 			<s:columns>
 				<s:ArrayList>
 					<s:GridColumn dataField="firstName" headerText="{loc.customer.firstName}"></s:GridColumn>
@@ -75,12 +110,15 @@
 				</s:ArrayList>
 			</s:columns>
 		</s:DataGrid>
-		<s:VGroup height="100%" paddingRight="10">
+		<s:VGroup height="100%">
 			<s:Button id="refresh" label="{loc.button.refresh}" icon="{Icons.refresh}" click="refreshGrid()"/>
-			<s:Button id="add" label="{loc.button.add}" icon="{Icons.add}"/>
+			<s:Button id="add" label="{loc.button.add}" icon="{Icons.add}" click="addCustomer()"/>
 			<s:Button id="modify" label="{loc.button.modify}" enabled="{grid.selectedItem!=null}" icon="{Icons.modify}" click="modifyCustomer()"/>
-			<s:Button id="remove" label="{loc.button.remove}" enabled="{grid.selectedItem!=null}" icon="{Icons.remove}"/>
+			<s:Button id="remove" label="{loc.button.remove}" enabled="{grid.selectedItem!=null}" icon="{Icons.remove}" click="deleteCustomer()"/>
 		</s:VGroup>
 	</s:HGroup>
-	<crud:CustomerIndividualCRUDForm id="individual" height="100%" width="30%" loc="{loc}" currentCustomer="{grid.selectedItem as Customer}" enabled="false"/>
+	<crud:CustomerIndividualCRUDForm id="individual" height="100%" width="100%" 
+									 loc="{loc}" enabled="false" 
+									 cancelClicked="individual.enabled=false;"
+									 saveSuccess="refreshGrid();"/>
 </s:VGroup>

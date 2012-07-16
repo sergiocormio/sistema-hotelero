@@ -2,8 +2,8 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
 					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
-					   xmlns:services="services.*"
-					   creationComplete="init(event)" xmlns:crud="view.forms.crud.*"
+					   xmlns:services="services.*" width="800" height="600"
+					   creationComplete="init(event)" xmlns:crud="view.forms.crud.*" xmlns:components="view.components.*"
 					   >
 
 	<fx:Script>
@@ -51,47 +51,30 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				/*
 				//TODO retrieve channel information from an external file
 				var myChannel:AMFChannel = new AMFChannel("my-amf", "http://localhost:8400/SistemaHotelero/messagebroker/amf");
 				var cs:ChannelSet = new ChannelSet();
 				cs.addChannel(myChannel);
 				customerService.channelSet = cs;
 				documentTypeService.channelSet = cs;
-				
+				*/
 			}
 			
 			protected function createDocumentType():void{
 				if(lastDocumentType == null){
 					var docType:DocumentType = new DocumentType();
-					docType.id = null;
+					//docType.id = null;
 					docType.name="DNI";
-					docType.regExp = "*";
+					docType.regExp = "^[0-9]";
 					var docServ:DocumentTypeService = new DocumentTypeService();
 					docServ.showBusyCursor=true;
 					var token:AsyncToken = docServ.createRecord(docType);
 					token.addResponder(new AsyncResponder(createDocumentType_resultHandler,faultHandler));
 					
-					//documentTypeService.createRecord(docType);
 				}
 			}
 			
-			protected function createCustomer():void
-			{
-				var c:Customer = new Customer();
-				var cpk:CustomerPK = new CustomerPK();
-				
-				cpk.docType = lastDocumentType; //aca le esta asignando null!
-				cpk.idNumber = "32391884";
-				c.customerPK = cpk;
-				c.firstName = "Sergio";
-				c.lastName = "Cormio";
-				customerService.createRecord(c);
-			}
-			
-			protected function createCustomer_resultHandler(event:ResultEvent):void
-			{
-				resultHandler(event);
-			}
 			
 			protected function retrieveAllCustomers_resultHandler(event:ResultEvent):void
 			{
@@ -115,28 +98,17 @@
 	</fx:Script>
 	
 	<fx:Declarations>
-		<s:RemoteObject id="customerService" destination="customerService" fault="faultHandler(event);">
-			<s:method name="createRecord" result="createCustomer_resultHandler(event)"/>
-			<s:method name="retrieveAll" result="retrieveAllCustomers_resultHandler(event)"/>
-		</s:RemoteObject>
-		<s:RemoteObject id="documentTypeService" destination="documentTypeService" fault="faultHandler(event);">
-			<s:method name="createRecord" result="createDocumentType_resultHandler(event)"/>
-			<s:method name="retrieveAll" result="retrieveAllDocumentTypes_resultHandler(event)"/>
-		</s:RemoteObject>
-		
+
 	</fx:Declarations>
 	
 	<s:VGroup width="100%">
-		<s:Button label="{loc.customer.plural}" click="customerService.retrieveAll()"/>
-		<s:Button label="{loc.documentType.plural}" click="documentTypeService.retrieveAll()"/>
-		<s:Button label="Create DNI" click="createDocumentType()"/>
-		<s:Button label="Create Customer" click="createCustomer()"/>
-		<s:Button label="Clean Area" click="ta.text=''"/>
 		<s:HGroup>
-			<s:TextInput id="localeTextInput" text="en_US"/>
-			<s:Button label="set locale" click="Locale.getInstance().setCurrentLocale(localeTextInput.text); loc = Locale.getInstance().getCurrentLocale();"/>
+			<s:Button label="Create DNI" click="createDocumentType()"/>
+			<s:Button label="Clean Area" click="ta.text=''"/>
+			<components:LocaleChooser loc="{loc}" localeChanged="loc = Locale.getInstance().getCurrentLocale();"/>
 		</s:HGroup>
-		<s:TextArea id="ta" width="100%" editable="false" />
+
+		<s:TextArea id="ta" width="100%" height="50" editable="false" />
 		
 		<crud:CustomerCRUDForm loc="{loc}"/>
 	</s:VGroup>

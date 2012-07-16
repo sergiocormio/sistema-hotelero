@@ -6,11 +6,15 @@
 package model
 {
 import com.adobe.fiber.services.IFiberManagingService;
+import com.adobe.fiber.util.FiberUtils;
 import com.adobe.fiber.valueobjects.IValueObject;
+import flash.events.Event;
 import flash.events.EventDispatcher;
+import model.DocumentType;
+import mx.binding.utils.ChangeWatcher;
 import mx.collections.ArrayCollection;
 import mx.events.PropertyChangeEvent;
-import model.DocumentType;
+import mx.validators.ValidationResult;
 
 import flash.net.registerClassAlias;
 import flash.net.getClassByAlias;
@@ -78,6 +82,8 @@ public class _Super_CustomerPK extends flash.events.EventDispatcher implements c
         _model = new _CustomerPKEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "docType", model_internal::setterListenerDocType));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "idNumber", model_internal::setterListenerIdNumber));
 
     }
 
@@ -137,6 +143,16 @@ public class _Super_CustomerPK extends flash.events.EventDispatcher implements c
      *  - the validity of the property (and the containing entity) if the given data property is required.
      */
 
+    model_internal function setterListenerDocType(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnDocType();
+    }
+
+    model_internal function setterListenerIdNumber(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnIdNumber();
+    }
+
 
     /**
      * valid related derived properties
@@ -158,6 +174,16 @@ public class _Super_CustomerPK extends flash.events.EventDispatcher implements c
         var validationFailureMessages:Array = new Array();
 
         var propertyValidity:Boolean = true;
+        if (!_model.docTypeIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_docTypeValidationFailureMessages);
+        }
+        if (!_model.idNumberIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_idNumberValidationFailureMessages);
+        }
 
         model_internal::_cacheInitialized_isValid = true;
         model_internal::invalidConstraints_der = violatedConsts;
@@ -237,6 +263,60 @@ public class _Super_CustomerPK extends flash.events.EventDispatcher implements c
         }
     }
 
+    model_internal var _doValidationCacheOfDocType : Array = null;
+    model_internal var _doValidationLastValOfDocType : model.DocumentType;
+
+    model_internal function _doValidationForDocType(valueIn:Object):Array
+    {
+        var value : model.DocumentType = valueIn as model.DocumentType;
+
+        if (model_internal::_doValidationCacheOfDocType != null && model_internal::_doValidationLastValOfDocType == value)
+           return model_internal::_doValidationCacheOfDocType ;
+
+        _model.model_internal::_docTypeIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isDocTypeAvailable && _internal_docType == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "docType is required"));
+        }
+
+        model_internal::_doValidationCacheOfDocType = validationFailures;
+        model_internal::_doValidationLastValOfDocType = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfIdNumber : Array = null;
+    model_internal var _doValidationLastValOfIdNumber : String;
+
+    model_internal function _doValidationForIdNumber(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfIdNumber != null && model_internal::_doValidationLastValOfIdNumber == value)
+           return model_internal::_doValidationCacheOfIdNumber ;
+
+        _model.model_internal::_idNumberIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isIdNumberAvailable && _internal_idNumber == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "idNumber is required"));
+        }
+
+        model_internal::_doValidationCacheOfIdNumber = validationFailures;
+        model_internal::_doValidationLastValOfIdNumber = value;
+
+        return validationFailures;
+    }
+    
 
 }
 

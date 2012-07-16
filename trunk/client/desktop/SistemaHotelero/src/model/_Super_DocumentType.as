@@ -7,16 +7,20 @@ package model
 {
 import com.adobe.fiber.core.model_internal;
 import com.adobe.fiber.services.IFiberManagingService;
+import com.adobe.fiber.util.FiberUtils;
 import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 import com.adobe.fiber.valueobjects.IPropertyIterator;
 import com.adobe.fiber.valueobjects.IValueObject;
 
+import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.net.getClassByAlias;
 import flash.net.registerClassAlias;
 
+import mx.binding.utils.ChangeWatcher;
 import mx.collections.ArrayCollection;
 import mx.events.PropertyChangeEvent;
+import mx.validators.ValidationResult;
 
 use namespace model_internal;
 
@@ -65,6 +69,8 @@ public class _Super_DocumentType extends flash.events.EventDispatcher implements
 
     private static var emptyArray:Array = new Array();
 
+    // Change this value according to your application's floating-point precision
+    private static var epsilon:Number = 0.0001;
 
     /**
      * derived property cache initialization
@@ -78,6 +84,8 @@ public class _Super_DocumentType extends flash.events.EventDispatcher implements
         _model = new _DocumentTypeEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "regExp", model_internal::setterListenerRegExp));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "name", model_internal::setterListenerName));
 
     }
 
@@ -114,7 +122,7 @@ public class _Super_DocumentType extends flash.events.EventDispatcher implements
     public function set id(value:Object) : void
     {
         var oldValue:Number = _internal_id as Number;
-        if (oldValue !== value)
+        if (isNaN(_internal_id as Number) == true || Math.abs(oldValue - (value as Number)) > epsilon)
         {
             _internal_id = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "id", oldValue, _internal_id));
@@ -153,6 +161,16 @@ public class _Super_DocumentType extends flash.events.EventDispatcher implements
      *  - the validity of the property (and the containing entity) if the given data property is required.
      */
 
+    model_internal function setterListenerRegExp(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnRegExp();
+    }
+
+    model_internal function setterListenerName(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnName();
+    }
+
 
     /**
      * valid related derived properties
@@ -174,6 +192,16 @@ public class _Super_DocumentType extends flash.events.EventDispatcher implements
         var validationFailureMessages:Array = new Array();
 
         var propertyValidity:Boolean = true;
+        if (!_model.regExpIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_regExpValidationFailureMessages);
+        }
+        if (!_model.nameIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_nameValidationFailureMessages);
+        }
 
         model_internal::_cacheInitialized_isValid = true;
         model_internal::invalidConstraints_der = violatedConsts;
@@ -253,6 +281,60 @@ public class _Super_DocumentType extends flash.events.EventDispatcher implements
         }
     }
 
+    model_internal var _doValidationCacheOfRegExp : Array = null;
+    model_internal var _doValidationLastValOfRegExp : String;
+
+    model_internal function _doValidationForRegExp(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfRegExp != null && model_internal::_doValidationLastValOfRegExp == value)
+           return model_internal::_doValidationCacheOfRegExp ;
+
+        _model.model_internal::_regExpIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isRegExpAvailable && _internal_regExp == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "regExp is required"));
+        }
+
+        model_internal::_doValidationCacheOfRegExp = validationFailures;
+        model_internal::_doValidationLastValOfRegExp = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfName : Array = null;
+    model_internal var _doValidationLastValOfName : String;
+
+    model_internal function _doValidationForName(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfName != null && model_internal::_doValidationLastValOfName == value)
+           return model_internal::_doValidationCacheOfName ;
+
+        _model.model_internal::_nameIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isNameAvailable && _internal_name == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "name is required"));
+        }
+
+        model_internal::_doValidationCacheOfName = validationFailures;
+        model_internal::_doValidationLastValOfName = value;
+
+        return validationFailures;
+    }
+    
 
 }
 

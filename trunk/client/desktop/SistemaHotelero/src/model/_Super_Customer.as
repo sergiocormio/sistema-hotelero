@@ -6,12 +6,15 @@
 package model
 {
 import com.adobe.fiber.services.IFiberManagingService;
+import com.adobe.fiber.util.FiberUtils;
 import com.adobe.fiber.valueobjects.IValueObject;
+import flash.events.Event;
 import flash.events.EventDispatcher;
+import model.CustomerPK;
+import mx.binding.utils.ChangeWatcher;
 import mx.collections.ArrayCollection;
 import mx.events.PropertyChangeEvent;
-import model.CustomerPK;
-import model.Region;
+import mx.validators.ValidationResult;
 
 import flash.net.registerClassAlias;
 import flash.net.getClassByAlias;
@@ -41,8 +44,6 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
 
     model_internal static function initRemoteClassAliasAllRelated() : void
     {
-        model.Region.initRemoteClassAliasSingleChild();
-        model.Country.initRemoteClassAliasSingleChild();
         model.CustomerPK.initRemoteClassAliasSingleChild();
         model.DocumentType.initRemoteClassAliasSingleChild();
     }
@@ -65,14 +66,14 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
      * properties
      */
     private var _internal_dateOfBirth : Date;
-    private var _internal_id : String;
-    private var _internal_region : model.Region;
+    private var _internal_region : Object;
     private var _internal_lastName : String;
-    private var _internal_lastLodgmentDate : Date;
     private var _internal_email : String;
     private var _internal_profession : String;
     private var _internal_customerPK : model.CustomerPK;
+    private var _internal_language : Object;
     private var _internal_firstName : String;
+    private var _internal_lastLodgementDate : Date;
 
     private static var emptyArray:Array = new Array();
 
@@ -89,6 +90,15 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
         _model = new _CustomerEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "dateOfBirth", model_internal::setterListenerDateOfBirth));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "region", model_internal::setterListenerRegion));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "lastName", model_internal::setterListenerLastName));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "email", model_internal::setterListenerEmail));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "profession", model_internal::setterListenerProfession));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "customerPK", model_internal::setterListenerCustomerPK));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "language", model_internal::setterListenerLanguage));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "firstName", model_internal::setterListenerFirstName));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "lastLodgementDate", model_internal::setterListenerLastLodgementDate));
 
     }
 
@@ -103,13 +113,7 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
-    public function get id() : String
-    {
-        return _internal_id;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get region() : model.Region
+    public function get region() : Object
     {
         return _internal_region;
     }
@@ -118,12 +122,6 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
     public function get lastName() : String
     {
         return _internal_lastName;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get lastLodgmentDate() : Date
-    {
-        return _internal_lastLodgmentDate;
     }
 
     [Bindable(event="propertyChange")]
@@ -145,9 +143,21 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
+    public function get language() : Object
+    {
+        return _internal_language;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get firstName() : String
     {
         return _internal_firstName;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get lastLodgementDate() : Date
+    {
+        return _internal_lastLodgementDate;
     }
 
     public function clearAssociations() : void
@@ -168,19 +178,9 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
         }
     }
 
-    public function set id(value:String) : void
+    public function set region(value:Object) : void
     {
-        var oldValue:String = _internal_id;
-        if (oldValue !== value)
-        {
-            _internal_id = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "id", oldValue, _internal_id));
-        }
-    }
-
-    public function set region(value:model.Region) : void
-    {
-        var oldValue:model.Region = _internal_region;
+        var oldValue:Object = _internal_region;
         if (oldValue !== value)
         {
             _internal_region = value;
@@ -195,16 +195,6 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
         {
             _internal_lastName = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "lastName", oldValue, _internal_lastName));
-        }
-    }
-
-    public function set lastLodgmentDate(value:Date) : void
-    {
-        var oldValue:Date = _internal_lastLodgmentDate;
-        if (oldValue !== value)
-        {
-            _internal_lastLodgmentDate = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "lastLodgmentDate", oldValue, _internal_lastLodgmentDate));
         }
     }
 
@@ -238,6 +228,16 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
         }
     }
 
+    public function set language(value:Object) : void
+    {
+        var oldValue:Object = _internal_language;
+        if (oldValue !== value)
+        {
+            _internal_language = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "language", oldValue, _internal_language));
+        }
+    }
+
     public function set firstName(value:String) : void
     {
         var oldValue:String = _internal_firstName;
@@ -245,6 +245,16 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
         {
             _internal_firstName = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "firstName", oldValue, _internal_firstName));
+        }
+    }
+
+    public function set lastLodgementDate(value:Date) : void
+    {
+        var oldValue:Date = _internal_lastLodgementDate;
+        if (oldValue !== value)
+        {
+            _internal_lastLodgementDate = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "lastLodgementDate", oldValue, _internal_lastLodgementDate));
         }
     }
 
@@ -259,6 +269,51 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
      *  - the validity of the property (and the containing entity) if the given data property has a length restriction.
      *  - the validity of the property (and the containing entity) if the given data property is required.
      */
+
+    model_internal function setterListenerDateOfBirth(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnDateOfBirth();
+    }
+
+    model_internal function setterListenerRegion(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnRegion();
+    }
+
+    model_internal function setterListenerLastName(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnLastName();
+    }
+
+    model_internal function setterListenerEmail(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnEmail();
+    }
+
+    model_internal function setterListenerProfession(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnProfession();
+    }
+
+    model_internal function setterListenerCustomerPK(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnCustomerPK();
+    }
+
+    model_internal function setterListenerLanguage(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnLanguage();
+    }
+
+    model_internal function setterListenerFirstName(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnFirstName();
+    }
+
+    model_internal function setterListenerLastLodgementDate(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnLastLodgementDate();
+    }
 
 
     /**
@@ -281,6 +336,51 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
         var validationFailureMessages:Array = new Array();
 
         var propertyValidity:Boolean = true;
+        if (!_model.dateOfBirthIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_dateOfBirthValidationFailureMessages);
+        }
+        if (!_model.regionIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_regionValidationFailureMessages);
+        }
+        if (!_model.lastNameIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_lastNameValidationFailureMessages);
+        }
+        if (!_model.emailIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_emailValidationFailureMessages);
+        }
+        if (!_model.professionIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_professionValidationFailureMessages);
+        }
+        if (!_model.customerPKIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_customerPKValidationFailureMessages);
+        }
+        if (!_model.languageIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_languageValidationFailureMessages);
+        }
+        if (!_model.firstNameIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_firstNameValidationFailureMessages);
+        }
+        if (!_model.lastLodgementDateIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_lastLodgementDateValidationFailureMessages);
+        }
 
         model_internal::_cacheInitialized_isValid = true;
         model_internal::invalidConstraints_der = violatedConsts;
@@ -360,6 +460,249 @@ public class _Super_Customer extends flash.events.EventDispatcher implements com
         }
     }
 
+    model_internal var _doValidationCacheOfDateOfBirth : Array = null;
+    model_internal var _doValidationLastValOfDateOfBirth : Date;
+
+    model_internal function _doValidationForDateOfBirth(valueIn:Object):Array
+    {
+        var value : Date = valueIn as Date;
+
+        if (model_internal::_doValidationCacheOfDateOfBirth != null && model_internal::_doValidationLastValOfDateOfBirth == value)
+           return model_internal::_doValidationCacheOfDateOfBirth ;
+
+        _model.model_internal::_dateOfBirthIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isDateOfBirthAvailable && _internal_dateOfBirth == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "dateOfBirth is required"));
+        }
+
+        model_internal::_doValidationCacheOfDateOfBirth = validationFailures;
+        model_internal::_doValidationLastValOfDateOfBirth = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfRegion : Array = null;
+    model_internal var _doValidationLastValOfRegion : Object;
+
+    model_internal function _doValidationForRegion(valueIn:Object):Array
+    {
+        var value : Object = valueIn as Object;
+
+        if (model_internal::_doValidationCacheOfRegion != null && model_internal::_doValidationLastValOfRegion == value)
+           return model_internal::_doValidationCacheOfRegion ;
+
+        _model.model_internal::_regionIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isRegionAvailable && _internal_region == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "region is required"));
+        }
+
+        model_internal::_doValidationCacheOfRegion = validationFailures;
+        model_internal::_doValidationLastValOfRegion = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfLastName : Array = null;
+    model_internal var _doValidationLastValOfLastName : String;
+
+    model_internal function _doValidationForLastName(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfLastName != null && model_internal::_doValidationLastValOfLastName == value)
+           return model_internal::_doValidationCacheOfLastName ;
+
+        _model.model_internal::_lastNameIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isLastNameAvailable && _internal_lastName == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "lastName is required"));
+        }
+
+        model_internal::_doValidationCacheOfLastName = validationFailures;
+        model_internal::_doValidationLastValOfLastName = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfEmail : Array = null;
+    model_internal var _doValidationLastValOfEmail : String;
+
+    model_internal function _doValidationForEmail(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfEmail != null && model_internal::_doValidationLastValOfEmail == value)
+           return model_internal::_doValidationCacheOfEmail ;
+
+        _model.model_internal::_emailIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isEmailAvailable && _internal_email == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "email is required"));
+        }
+
+        model_internal::_doValidationCacheOfEmail = validationFailures;
+        model_internal::_doValidationLastValOfEmail = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfProfession : Array = null;
+    model_internal var _doValidationLastValOfProfession : String;
+
+    model_internal function _doValidationForProfession(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfProfession != null && model_internal::_doValidationLastValOfProfession == value)
+           return model_internal::_doValidationCacheOfProfession ;
+
+        _model.model_internal::_professionIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isProfessionAvailable && _internal_profession == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "profession is required"));
+        }
+
+        model_internal::_doValidationCacheOfProfession = validationFailures;
+        model_internal::_doValidationLastValOfProfession = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfCustomerPK : Array = null;
+    model_internal var _doValidationLastValOfCustomerPK : model.CustomerPK;
+
+    model_internal function _doValidationForCustomerPK(valueIn:Object):Array
+    {
+        var value : model.CustomerPK = valueIn as model.CustomerPK;
+
+        if (model_internal::_doValidationCacheOfCustomerPK != null && model_internal::_doValidationLastValOfCustomerPK == value)
+           return model_internal::_doValidationCacheOfCustomerPK ;
+
+        _model.model_internal::_customerPKIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isCustomerPKAvailable && _internal_customerPK == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "customerPK is required"));
+        }
+
+        model_internal::_doValidationCacheOfCustomerPK = validationFailures;
+        model_internal::_doValidationLastValOfCustomerPK = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfLanguage : Array = null;
+    model_internal var _doValidationLastValOfLanguage : Object;
+
+    model_internal function _doValidationForLanguage(valueIn:Object):Array
+    {
+        var value : Object = valueIn as Object;
+
+        if (model_internal::_doValidationCacheOfLanguage != null && model_internal::_doValidationLastValOfLanguage == value)
+           return model_internal::_doValidationCacheOfLanguage ;
+
+        _model.model_internal::_languageIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isLanguageAvailable && _internal_language == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "language is required"));
+        }
+
+        model_internal::_doValidationCacheOfLanguage = validationFailures;
+        model_internal::_doValidationLastValOfLanguage = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfFirstName : Array = null;
+    model_internal var _doValidationLastValOfFirstName : String;
+
+    model_internal function _doValidationForFirstName(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfFirstName != null && model_internal::_doValidationLastValOfFirstName == value)
+           return model_internal::_doValidationCacheOfFirstName ;
+
+        _model.model_internal::_firstNameIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isFirstNameAvailable && _internal_firstName == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "firstName is required"));
+        }
+
+        model_internal::_doValidationCacheOfFirstName = validationFailures;
+        model_internal::_doValidationLastValOfFirstName = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfLastLodgementDate : Array = null;
+    model_internal var _doValidationLastValOfLastLodgementDate : Date;
+
+    model_internal function _doValidationForLastLodgementDate(valueIn:Object):Array
+    {
+        var value : Date = valueIn as Date;
+
+        if (model_internal::_doValidationCacheOfLastLodgementDate != null && model_internal::_doValidationLastValOfLastLodgementDate == value)
+           return model_internal::_doValidationCacheOfLastLodgementDate ;
+
+        _model.model_internal::_lastLodgementDateIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isLastLodgementDateAvailable && _internal_lastLodgementDate == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "lastLodgementDate is required"));
+        }
+
+        model_internal::_doValidationCacheOfLastLodgementDate = validationFailures;
+        model_internal::_doValidationLastValOfLastLodgementDate = value;
+
+        return validationFailures;
+    }
+    
 
 }
 
