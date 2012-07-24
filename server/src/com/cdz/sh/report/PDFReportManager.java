@@ -1,14 +1,17 @@
 package com.cdz.sh.report;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
 
 /**
  * Assumptions:
@@ -50,7 +53,17 @@ public class PDFReportManager {
 	        
 	    	JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 	
-	        JasperExportManager.exportReportToPdfFile(jasperPrint, this.pdfFileName);
+	    	/* */
+//	    	JRCsvExporter exporter = new JRCsvExporter();
+//            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+//
+//            File destFile = new File("output.csv");
+//
+//			exporter.setParameter(JRExporterParameter.OUTPUT_FILE, destFile);
+//            exporter.exportReport();
+            /* */
+            
+	    	JasperExportManager.exportReportToPdfFile(jasperPrint, this.pdfFileName);
 	        
 	        System.out.println("Done!");
 	    }
