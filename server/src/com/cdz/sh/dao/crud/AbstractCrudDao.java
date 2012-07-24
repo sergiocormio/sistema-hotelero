@@ -8,6 +8,7 @@ import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.cdz.sh.dao.exception.DaoException;
@@ -43,6 +44,11 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(e);
+			
+			Query createNativeQuery = entityManager.createNativeQuery("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(:foldername)");
+			createNativeQuery.setParameter("foldername", "c:/mybackups/2012-07-18");
+			createNativeQuery.executeUpdate();
+
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
