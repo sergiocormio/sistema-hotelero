@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1"  ?>
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" 
+"http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<!--======================================================================================== -->
+<!--===================================== Por Crysfel Villa==================================== -->
+<!--======================================================================================== -->
+<jasperReport
+		 name="plantilla"
+		 pageWidth="595"
+		 pageHeight="842"
+		 leftMargin="20"
+		 rightMargin="20"
+		 topMargin="20"
+		 bottomMargin="20">
+
+	<parameter name="P_TITULO" class="java.lang.String"/>
+	<parameter name="P_SUBTITULO" class="java.lang.String"/>
+	<parameter name="LOGO_URL" class="java.lang.String"/>
+
+  	
+	<field name="displayableId" class="java.lang.String"/>
+	<field name="firstName" class="java.lang.String"/>
+	<field name="lastName" class="java.lang.String"/>
+		
+		<background>
+			<band height="67">
+				<image>
+					<reportElement
+						x="470"
+						y="0"
+						width="100"
+						height="67"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{LOGO_URL}]]></imageExpression>
+				</image>
+			</band>
+		</background>
+		<title>
+			<band height="90">
+				<textField>
+					<reportElement
+						x="0"
+						y="40"
+						width="530"
+						height="30"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="20" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{P_TITULO}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="69"
+						width="530"
+						height="0"
+						key="line"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField>
+					<reportElement
+						x="0"
+						y="70"
+						width="250"
+						height="20"
+						key="textField"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{P_SUBTITULO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement
+						x="260"
+						y="70"
+						width="270"
+						height="20"
+						key="textField"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<columnHeader>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="200" height="13" key="staticText"/>
+					<text><![CDATA[Id]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="205" y="0" width="150" height="13"/>
+					<text><![CDATA[Nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="360" y="0" width="150" height="13"/>
+					<text><![CDATA[Apellido]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="15">
+				<textField>
+					<reportElement x="0" y="0" width="200" height="13"/>
+					<textFieldExpression class="java.lang.Long">
+						<![CDATA[$F{displayableId}]]>
+					</textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="205" y="0" width="150" height="13"/>
+					<textFieldExpression class="java.lang.String">
+						<![CDATA[$F{firstName}]]>
+					</textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="360" y="0" width="150" height="13"/>
+					<textFieldExpression class="java.lang.String">
+						<![CDATA[$F{lastName}]]>
+					</textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+
+</jasperReport>
