@@ -21,7 +21,7 @@ public class Room {
 	private String description;
     
 	@ManyToOne
-	@JoinColumn(name="ID")
+	@JoinColumn(name="ROOM_TYPE_ID")
     private RoomType roomType;
     
     private int adultsQuantity;

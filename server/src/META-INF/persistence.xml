@@ -16,7 +16,7 @@
 				value="create" Drops database and creates the whole schema again 
 				value="update" Updates database (structure level)
 				-->
-			<property name="hibernate.hbm2ddl.auto" value="update" /> 
+			<property name="hibernate.hbm2ddl.auto" value="create" /> 
 			<property name="hibernate.connection.username" value="" />
 			<property name="hibernate.connection.password" value="" />
 			

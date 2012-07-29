@@ -9,12 +9,14 @@ public class ServiceType {
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long id;	//we have to know the id of serviceTypes such as Breakfast and Parking
 	
 	private String name;
 	
 	private String description;
-    
+	
+	private boolean additionalFixed;
+	
 	private float price;
 
 	public Long getId() {
@@ -48,6 +50,15 @@ public class ServiceType {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+
+	public boolean isAdditionalFixed() {
+		return additionalFixed;
+	}
+
+	public void setAdditionalFixed(boolean additionalFixed) {
+		this.additionalFixed = additionalFixed;
+	}
+
 	
 	
 }

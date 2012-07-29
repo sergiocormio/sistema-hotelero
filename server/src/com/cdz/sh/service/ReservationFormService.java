@@ -3,8 +3,12 @@ package com.cdz.sh.service;
 import java.util.Date;
 import java.util.List;
 
+import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.model.Alternative;
+import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.StateReservationForm;
 
 /**
  * Facade for ReservationForm entity
@@ -15,23 +19,30 @@ import com.cdz.sh.model.ReservationForm;
 public interface ReservationFormService extends CrudService<ReservationForm, Long>{
 	
 	/**
-	 * retrieves reservation forms given a range of dates. ReservationFormNumber is optional
+	 * Retrieves reservation forms given a range of dates and/or a selected customer and/or a given state.
+	 * All fields could be optional however at least one of them must be mandatory.
 	 * 
 	 * @param dateFrom
 	 * @param dateTo
-	 * @param reservationFormNumber
+	 * @param customer
+	 * @param state 
 	 * @return
 	 */
-	public List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, int reservationFormNumber);
+	public List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, Customer customer, StateReservationForm state) 
+			throws InvalidParameterException, DaoException;
 	
 	/**
 	 * Books a room or set of rooms related to the given range of dates. In other words, creates the ReservationForm
-	 * and all related occupations with the chosenAlternative data.
+	 * and all related occupations. 
+	 * When the user choose an alternative, it will be displayed the new reservationForm with some fields automatically filled.
+	 * The remaining ones have to be filled by the user who is going to create the reservation form (e.g: client from a combo-box).
+	 * Finally when the user clicks "create", this method will be invoked. 
 	 * 
 	 * @param chosenAlternative
+	 * @param reservationForm
 	 * @return
 	 */
-	public boolean book(Alternative chosenAlternative);
+	public void book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException;
 	
 	
 	/**
@@ -40,5 +51,5 @@ public interface ReservationFormService extends CrudService<ReservationForm, Lon
 	 * @param reservationForm
 	 * @return the absolute path to the report generated
 	 */
-	public String exportData(ReservationForm reservationForm);
+	public String exportData(ReservationForm reservationForm, String path);
 }

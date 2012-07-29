@@ -8,37 +8,52 @@ import javax.persistence.Id;
 @Entity
 public class RoomType {
 	
-	    @Id
-	    @GeneratedValue
-	    private long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	    private String name;
+    private String name;
 
-		private String description;
+	private String description;
 
-		public long getId() {
-			return id;
-		}
+	public Long getId() {
+		return id;
+	}
 
-		public void setId(long id) {
-			this.id = id;
-		}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-		public String getName() {
-			return name;
-		}
+	public String getName() {
+		return name;
+	}
 
-		public void setName(String name) {
-			this.name = name;
-		}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-		public String getDescription() {
-			return description;
-		}
+	public String getDescription() {
+		return description;
+	}
 
-		public void setDescription(String description) {
-			this.description = description;
-		}
-	    	    		
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj != null && obj instanceof RoomType){
+        	
+			RoomType anotherRoomType = (RoomType) obj;
+    		
+    		return anotherRoomType.getId().equals(this.getId());
+        }
+    	else{
+    		return false;
+    	}
+	}
+    	    		
+	
+	
 		
 }

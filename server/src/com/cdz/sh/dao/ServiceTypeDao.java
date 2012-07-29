@@ -1,6 +1,9 @@
 package com.cdz.sh.dao;
 
+import java.util.List;
+
 import com.cdz.sh.dao.crud.CrudDao;
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.ServiceType;
 
 /**
@@ -11,8 +14,7 @@ import com.cdz.sh.model.ServiceType;
  */
 public interface ServiceTypeDao extends CrudDao<ServiceType, Long> {
 
-	/**
-	 * TODO: declare specific query methods
-	 */
+	public List<ServiceType> retrieveAdditionalServices() throws DaoException;
 
+	
 }
