@@ -1,7 +1,11 @@
 package com.cdz.sh.dao;
 
+import java.util.Date;
+
 import com.cdz.sh.dao.crud.CrudDao;
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Rate;
+import com.cdz.sh.model.RoomType;
 
 /**
  * Declares specific functionality for customers access data, in addition to the CRUD methods.
@@ -11,8 +15,8 @@ import com.cdz.sh.model.Rate;
  */
 public interface RateDao extends CrudDao<Rate, Long> {
 
-	/**
-	 * TODO: declare specific query methods
-	 */
+	public Rate retrieveRate(RoomType roomType, Date date) throws DaoException;
+
+	
 
 }

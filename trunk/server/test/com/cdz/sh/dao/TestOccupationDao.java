@@ -26,8 +26,10 @@ public class TestOccupationDao {
 	@After
 	public void tearDown() throws Exception {}
 
+	
+	
 	@Test
-	public void testRetrieveOccupationsByDateRange() throws DaoException {
+	public void testRetrieveOccupationsShouldBeEmpty() throws DaoException {
 		
 		List<Occupation> occupations = this.occupationDao.retrieveOccupations(new Date(), new Date());
 		assertNotNull(occupations);
@@ -35,6 +37,32 @@ public class TestOccupationDao {
 	
 	}
 	
+	@Test
+	public void testRetrieveOccupationLowerLimit() throws DaoException {
+		
+		List<Occupation> occupations = this.occupationDao.retrieveOccupations(new Date(), new Date());
+		assertNotNull(occupations);
+		assertTrue(occupations.size() == 1);
+	
+	}
+	
+	@Test
+	public void testRetrieveOccupationUpperLimit() throws DaoException {
+		
+		List<Occupation> occupations = this.occupationDao.retrieveOccupations(new Date(), new Date());
+		assertNotNull(occupations);
+		assertTrue(occupations.size() == 1);
+	
+	}
+	
+	@Test
+	public void testRetrieveOccupationLowerUpperLimit() throws DaoException {
+		
+		List<Occupation> occupations = this.occupationDao.retrieveOccupations(new Date(), new Date());
+		assertNotNull(occupations);
+		assertTrue(occupations.size() == 2);
+	
+	}
 	
 
 }

@@ -52,7 +52,7 @@ public class TestCustomerDao {
 				
 		this.customerPK1 = new CustomerPK();
 		this.customerPK1.setDocType(docTypeDNI);
-		this.customerPK1.setIdNumber("33103189");
+		this.customerPK1.setIdNumber("33333333");
 		
 		this.customerPK2 = new CustomerPK();
 		this.customerPK2.setDocType(docTypeDNI);

@@ -28,13 +28,12 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 	@Override
 	protected CrudDao<Occupation, OccupationPK> createDao() {
-		OccupationDaoImpl occupationDaoImpl = new OccupationDaoImpl();
-		
+				
 		// to be able to access specific occupationDao methods
-		this.occupationDao = occupationDaoImpl;
-		
+		this.occupationDao = new OccupationDaoImpl();
+				
 		//to have CRUD operations
-		return occupationDaoImpl;
+		return this.occupationDao;
 	}
 	
 	
@@ -42,7 +41,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	@Override
 	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) {
 		List<Occupation> occupations = null;
-		try {
+	try {
 			occupations = this.occupationDao.retrieveOccupations(dateFrom, dateTo);
 		} catch (DaoException e) {
 			// TODO ver que hacer con la excepcion
