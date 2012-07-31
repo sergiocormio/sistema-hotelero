@@ -47,8 +47,8 @@ public class SeasonDaoImpl extends AbstractCrudDao<Season, Long> implements Seas
 		try {
 			entityManager.getTransaction().begin();
 			
-			String strQuery = "SELECT s FROM Season s WHERE (s.dateFrom >= :dateFrom and s.dateTo <= :dateFrom) OR" +
-					" (s.dateFrom >= :dateTo and s.dateTo <= :dateTo) OR" +
+			String strQuery = "SELECT s FROM Season s WHERE (s.dateFrom <= :dateFrom and s.dateTo >= :dateFrom) OR" +
+					" (s.dateFrom <= :dateTo and s.dateTo >= :dateTo) OR" +
 					" (s.dateFrom >= :dateFrom and s.dateTo <= :dateTo)";
 			
 			TypedQuery<Season> query = entityManager.createQuery( strQuery, Season.class);
@@ -59,8 +59,8 @@ public class SeasonDaoImpl extends AbstractCrudDao<Season, Long> implements Seas
 			List<Season> seasons = query.getResultList();
 			entityManager.getTransaction().commit();
 			
-			if(seasons == null || !seasons.isEmpty()){
-				throw new DaoException("The season can not be created because the range of dates could overlap an axisting season.");
+			if(seasons != null && !seasons.isEmpty()){
+				throw new DaoException("The season can not be created or updated because the range of dates could overlap an axisting season.");
 			}
 		}
 		catch(PersistenceException persistenceException){
