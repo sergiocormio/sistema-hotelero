@@ -1,7 +1,6 @@
 package com.cdz.sh.dao;
 
 import java.util.Date;
-
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,10 +10,12 @@ import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.LanguageDaoImpl;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
+import com.cdz.sh.dao.impl.RateDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
 import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.dao.impl.RoomTypeDaoImpl;
+import com.cdz.sh.dao.impl.SeasonDaoImpl;
 import com.cdz.sh.dao.impl.ServiceTypeDaoImpl;
 import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
 import com.cdz.sh.model.Customer;
@@ -23,10 +24,12 @@ import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.Language;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
+import com.cdz.sh.model.Rate;
 import com.cdz.sh.model.Region;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.model.RoomType;
+import com.cdz.sh.model.Season;
 import com.cdz.sh.model.ServiceType;
 
 /**
@@ -61,6 +64,16 @@ import com.cdz.sh.model.ServiceType;
 			b) 1 al 6
 			c) 10 al 19
 			d) no hay, porque esta vencida (simulo que ya se borro de la tabla "Occupations")
+		
+		1 temporada (season) del 1 de agosto al 31 del mismo mes, 2012
+		
+		5 tarifas
+			a) season 1 , roomType 1, $150
+			a) season 1 , roomType 2, $180
+			c) season 1 , roomType 3, $210
+			d) season 1 , roomType 4, $240
+			e) season 1 , roomType 5, $270
+			
  * 
  * 
  * @author fede
@@ -85,7 +98,11 @@ public class DummyScenarioBuilder {
 	private CustomerPK customerPKSergio;
 	
 	private StateReservationFormDaoImpl stateReservationFormDao;
-	private OccupationDaoImpl occupationDao;
+	private OccupationDao occupationDao;
+	
+	private SeasonDao seasonDao;
+	
+	private RateDao rateDao;
 	
 		
 	public DummyScenarioBuilder() throws DaoException {
@@ -114,6 +131,9 @@ public class DummyScenarioBuilder {
 		this.stateReservationFormDao = new StateReservationFormDaoImpl();
 		
 		this.occupationDao = new OccupationDaoImpl();
+		
+		this.seasonDao = new SeasonDaoImpl();
+		this.rateDao = new RateDaoImpl();
 	}
 
 	
@@ -137,6 +157,12 @@ public class DummyScenarioBuilder {
 			
 			//ReservationForms
 			createReservationForms();
+
+			//seasons
+			createSeasons();
+				
+			//rates
+			createRates();
 			
 		}
 		catch (DaoException daoException) {
@@ -144,6 +170,40 @@ public class DummyScenarioBuilder {
 		}
 		
 	}
+
+	private void createRates() throws DaoException {
+		
+		float price = 150;
+		for(long i = 1; i <= 5; i++){
+			Rate rate = this.rateDao.getRecordById(i);
+			if(rate == null){
+				rate = new Rate();
+				rate.setSeason(this.seasonDao.getRecordById(1L));
+				rate.setRoomType(this.roomTypeDao.getRecordById(i));
+				rate.setPrice(price);
+				this.rateDao.createRecord(rate);
+				price += 30;
+			}
+		}
+	}
+
+
+	private void createSeasons() throws DaoException {
+
+		Season season1 = this.seasonDao.getRecordById(1L);
+		if(season1 == null){
+			season1 = new Season();
+			season1.setDateFrom(new GregorianCalendar(2012, 8, 1).getTime());
+			season1.setDateTo(new GregorianCalendar(2012, 8, 31).getTime());
+			season1.setName("Agosto 2012");
+			this.seasonDao.createRecord(season1);
+		}
+		
+	}
+
+
+
+
 
 	private void createReservationForms() throws DaoException {
 		// del 1 al 3
