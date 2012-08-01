@@ -211,7 +211,7 @@ public class DummyScenarioBuilder {
 		if(reservationForm1 == null){
 			reservationForm1 = new ReservationForm();
 			
-			GregorianCalendar calendar = new GregorianCalendar(2012, 8, 1);
+			GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
 			reservationForm1.setDateFrom(calendar.getTime());
 			
 			calendar.add(GregorianCalendar.DATE, 2);
@@ -232,7 +232,7 @@ public class DummyScenarioBuilder {
 		if(reservationForm2 == null){
 			reservationForm2 = new ReservationForm();
 			
-			GregorianCalendar calendar = new GregorianCalendar(2012, 8, 1);
+			GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
 			reservationForm2.setDateFrom(calendar.getTime());
 			
 			calendar.add(GregorianCalendar.DATE, 5);
@@ -252,7 +252,7 @@ public class DummyScenarioBuilder {
 		if(reservationForm3 == null){
 			reservationForm3 = new ReservationForm();
 			
-			GregorianCalendar calendar = new GregorianCalendar(2012, 8, 10);
+			GregorianCalendar calendar = new GregorianCalendar(2012, 7, 10);
 			reservationForm3.setDateFrom(calendar.getTime());
 			
 			calendar.add(GregorianCalendar.DATE, 9);
@@ -265,14 +265,14 @@ public class DummyScenarioBuilder {
 			this.reservationFormDao.createRecord(reservationForm3);
 		}
 		
-		createOccupationWithTwoRoomChanges(reservationForm2);
+		createOccupationWithTwoRoomChanges(reservationForm3);
 		
 		// del 20 al 21 
 		ReservationForm reservationForm4 = this.reservationFormDao.getRecordById(4L);
 		if(reservationForm4 == null){
 			reservationForm4 = new ReservationForm();
 			
-			GregorianCalendar calendar = new GregorianCalendar(2012, 8, 10);
+			GregorianCalendar calendar = new GregorianCalendar(2012, 7, 20);
 			reservationForm4.setDateFrom(calendar.getTime());
 			
 			calendar.add(GregorianCalendar.DATE, 1);
