@@ -48,26 +48,38 @@ public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Lon
 
 	private String createJpql(Date dateFrom, Date dateTo, Customer customer,StateReservationForm state) throws InvalidParameterException {
 		
-		boolean oneParameterNotNull = false;
+		int parametersQty = 0;
 		
 		String jpql = "select rf from ReservationForm rf where ";
 		if(dateFrom != null){
-			oneParameterNotNull = true;
+			if(parametersQty > 0){
+				jpql = jpql.concat(" and ");
+			}
+			parametersQty++;
 			jpql = jpql.concat("rf.dateFrom >= :dateFrom");
 		}
 		if(dateTo != null){
-			oneParameterNotNull = true;
+			if(parametersQty > 0){
+				jpql = jpql.concat(" and ");
+			}
+			parametersQty++;
 			jpql = jpql.concat("rf.dateTo <= :dateTo");
 		}
 		if(customer != null){
-			oneParameterNotNull = true;
+			if(parametersQty > 0){
+				jpql = jpql.concat(" and ");
+			}
+			parametersQty++;
 			jpql = jpql.concat("rf.customer = :customer");
 		}
 		if(state != null){
-			oneParameterNotNull = true;
+			if(parametersQty > 0){
+				jpql = jpql.concat(" and ");
+			}
+			parametersQty++;
 			jpql = jpql.concat("rf.state = :state");
 		}
-		if(!oneParameterNotNull){
+		if(parametersQty == 0){
 			throw new InvalidParameterException("Al least one parameter should be specified");
 		}
 		return jpql;

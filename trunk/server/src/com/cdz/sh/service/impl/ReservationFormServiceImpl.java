@@ -61,14 +61,15 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	
 
 	@Override
-	public void book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException {
+	public ReservationForm book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException {
 		
-		this.crudDao.createRecord(reservationForm);
+		ReservationForm createdReservationForm = this.crudDao.createRecord(reservationForm);
 		
 		for (Occupation occupation : chosenAlternative.getOccupations()) {
 			occupation.setReservationForm(reservationForm);
 			this.occupationDao.createRecord(occupation);
 		}
+		return createdReservationForm;
 	}
 
 	@Override
