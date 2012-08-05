@@ -63,15 +63,15 @@ public class TestDocumentTypeDao {
 		documentType.setName("DNI");
 		documentType.setRegExp("*");
 		
-		this.documentTypeDao.createRecord(documentType);
+		DocumentType docCreated = this.documentTypeDao.createRecord(documentType);
 		
 		documentType.setRegExp("lala");
 		this.documentTypeDao.updateRecord(documentType);
 		
-		DocumentType docFound = this.documentTypeDao.getRecordById(1L);
+		DocumentType docFound = this.documentTypeDao.getRecordById(docCreated.getId());
 		
-		assertEquals(documentType.getName(), docFound.getName());
-		assertEquals(documentType.getRegExp(), docFound.getRegExp());
+		assertTrue(documentType.getName().equals(docFound.getName()));
+		assertTrue(documentType.getRegExp().equals(docFound.getRegExp()));
 		assertEquals(documentType.getId(), docFound.getId());
 	}
 	
