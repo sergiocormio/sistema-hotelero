@@ -27,7 +27,7 @@ public class RateDaoImpl extends AbstractCrudDao<Rate, Long> implements RateDao 
 		try {	
 			entityManager.getTransaction().begin();
 			
-			String strQuery = "SELECT r FROM Rate r WHERE r.roomType = :roomType and r.season.dateFrom <= :date r.season.dateTo >= :date";
+			String strQuery = "SELECT r FROM Rate r WHERE r.roomType = :roomType and r.season.dateFrom <= :date and r.season.dateTo >= :date";
 			
 			TypedQuery<Rate> query = entityManager.createQuery(strQuery, Rate.class);
 			
@@ -36,7 +36,10 @@ public class RateDaoImpl extends AbstractCrudDao<Rate, Long> implements RateDao 
 			
 			List<Rate> rates = query.getResultList();
 			entityManager.getTransaction().commit();
-			return rates.get(0);
+			if(rates != null && rates.size() == 1){
+				return rates.get(0);
+			}
+			return null;
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
