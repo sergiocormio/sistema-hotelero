@@ -11,7 +11,6 @@ import com.cdz.sh.dao.crud.AbstractCrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.model.Customer;
-import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.StateReservationForm;
 
