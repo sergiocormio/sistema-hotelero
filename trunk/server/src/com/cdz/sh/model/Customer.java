@@ -144,9 +144,9 @@ public class Customer {
         
     	if(obj instanceof Customer){
         	
-        	Customer pk = (Customer) obj;
+        	Customer anotherCustomer = (Customer) obj;
         	
-        	return pk.getId().equals(id);
+        	return anotherCustomer.getId().equals(id);
         }
     	else{
     		return false;

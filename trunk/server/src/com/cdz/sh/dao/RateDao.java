@@ -5,6 +5,7 @@ import java.util.Date;
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Rate;
+import com.cdz.sh.model.RatePK;
 import com.cdz.sh.model.RoomType;
 
 /**
@@ -13,7 +14,7 @@ import com.cdz.sh.model.RoomType;
  * @author fede
  *
  */
-public interface RateDao extends CrudDao<Rate, Long> {
+public interface RateDao extends CrudDao<Rate, RatePK> {
 
 	public Rate retrieveRate(RoomType roomType, Date date) throws DaoException;
 

@@ -25,6 +25,7 @@ import com.cdz.sh.model.Language;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.Rate;
+import com.cdz.sh.model.RatePK;
 import com.cdz.sh.model.Region;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
@@ -174,16 +175,22 @@ public class DummyScenarioBuilder {
 	private void createRates() throws DaoException {
 		
 		float price = 150;
-		for(long i = 1; i <= 5; i++){
-			Rate rate = this.rateDao.getRecordById(i);
+		long i = 1;
+		
+		RatePK ratePK = new RatePK();
+		ratePK.setSeason(this.seasonDao.getRecordById(1L));
+					
+		for(i = 1; i <= 5; i++){
+			
+			ratePK.setRoomType(this.roomTypeDao.getRecordById(i));
+			Rate rate = this.rateDao.getRecordById(ratePK);
 			if(rate == null){
 				rate = new Rate();
-				rate.setSeason(this.seasonDao.getRecordById(1L));
-				rate.setRoomType(this.roomTypeDao.getRecordById(i));
+				rate.setId(ratePK);
 				rate.setPrice(price);
 				this.rateDao.createRecord(rate);
-				price += 30;
 			}
+			price += 30;
 		}
 	}
 

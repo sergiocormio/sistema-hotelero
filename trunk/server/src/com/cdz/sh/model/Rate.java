@@ -1,10 +1,7 @@
 package com.cdz.sh.model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -12,27 +9,22 @@ import javax.persistence.UniqueConstraint;
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"ROOM_TYPE_ID","SEASON_ID"}), name="RATE")
 public class Rate {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+//	@Id
+//	@GeneratedValue
+//	private Long id;
 
+	@EmbeddedId
+	private RatePK id;
+	
+	
 	private float price;
 	
-	@ManyToOne
-	@JoinColumn(name="ROOM_TYPE_ID")
-	private RoomType roomType;
-	
-	@ManyToOne
-	@JoinColumn(name="SEASON_ID")
-	private Season season;
-
-	
-	
-	public Long getId() {
+		
+	public RatePK getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(RatePK id) {
 		this.id = id;
 	}
 
@@ -44,22 +36,23 @@ public class Rate {
 		this.price = price;
 	}
 
-	public RoomType getRoomType() {
-		return roomType;
-	}
-
-	public void setRoomType(RoomType roomType) {
-		this.roomType = roomType;
-	}
-
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
-	}
 	
-	
+	public int hashCode() {
+        return (int)this.getId().hashCode();
+	}
+
+    public boolean equals(Object obj) {
+        
+    	if(obj instanceof Rate){
+        	
+        	Rate anotherRate = (Rate) obj;
+        	
+        	return anotherRate.getId().equals(id);
+        }
+    	else{
+    		return false;
+    	}
+    	
+    }
 	
 }
