@@ -52,9 +52,10 @@ public class TestSeasonDao {
 		Season season2 = new Season();
 		season2.setDateFrom(new GregorianCalendar(2044, 7, 5).getTime());
 		season2.setDateTo(new GregorianCalendar(2044, 7, 7).getTime());
-		this.seasonDao.createRecord(season2);
+		Season createdSeason2 = this.seasonDao.createRecord(season2);
 		
 		this.seasonDao.deleteRecord(createdSeason);
+		this.seasonDao.deleteRecord(createdSeason2);
 	}
 	
 	/**
