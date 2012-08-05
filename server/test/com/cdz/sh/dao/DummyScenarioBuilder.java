@@ -193,8 +193,8 @@ public class DummyScenarioBuilder {
 		Season season1 = this.seasonDao.getRecordById(1L);
 		if(season1 == null){
 			season1 = new Season();
-			season1.setDateFrom(new GregorianCalendar(2012, 8, 1).getTime());
-			season1.setDateTo(new GregorianCalendar(2012, 8, 31).getTime());
+			season1.setDateFrom(new GregorianCalendar(2012, 7, 1).getTime());
+			season1.setDateTo(new GregorianCalendar(2012, 7, 31).getTime());
 			season1.setName("Agosto 2012");
 			this.seasonDao.createRecord(season1);
 		}
@@ -451,7 +451,25 @@ public class DummyScenarioBuilder {
 	}
 
 	private void createServiceTypes() throws DaoException {
-		ServiceType serviceTypeAeroIda = this.serviceTypeDao.getRecordById(1L);
+		
+		ServiceType serviceTypeBreakfast = this.serviceTypeDao.getRecordById(1L);
+		if (serviceTypeBreakfast == null){
+			serviceTypeBreakfast = new ServiceType();
+			serviceTypeBreakfast.setName("Desayuno");
+			serviceTypeBreakfast.setPrice(10);
+			serviceTypeBreakfast.setAdditionalFixed(false);
+			this.serviceTypeDao.createRecord(serviceTypeBreakfast);
+		}
+		ServiceType serviceTypeParking = this.serviceTypeDao.getRecordById(2L);
+		if (serviceTypeParking == null){
+			serviceTypeParking = new ServiceType();
+			serviceTypeParking.setName("Estacionamiento");
+			serviceTypeParking.setPrice(15);
+			serviceTypeParking.setAdditionalFixed(false);
+			this.serviceTypeDao.createRecord(serviceTypeParking);
+		}
+		
+		ServiceType serviceTypeAeroIda = this.serviceTypeDao.getRecordById(3L);
 		if (serviceTypeAeroIda == null){
 			serviceTypeAeroIda = new ServiceType();
 			serviceTypeAeroIda.setName("Ida al Aeropuerto");
@@ -459,7 +477,7 @@ public class DummyScenarioBuilder {
 			serviceTypeAeroIda.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeAeroIda);
 		}
-		ServiceType serviceTypeAreoBoth = this.serviceTypeDao.getRecordById(2L);
+		ServiceType serviceTypeAreoBoth = this.serviceTypeDao.getRecordById(4L);
 		if (serviceTypeAreoBoth == null){
 			serviceTypeAreoBoth = new ServiceType();
 			serviceTypeAreoBoth.setName("Aeropuerto ida y vuelta");
@@ -467,7 +485,7 @@ public class DummyScenarioBuilder {
 			serviceTypeAreoBoth.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeAreoBoth);
 		}
-		ServiceType serviceTypeBusIda = this.serviceTypeDao.getRecordById(3L);
+		ServiceType serviceTypeBusIda = this.serviceTypeDao.getRecordById(5L);
 		if (serviceTypeBusIda == null){
 			serviceTypeBusIda = new ServiceType();
 			serviceTypeBusIda.setName("Bus Ida");
@@ -475,7 +493,7 @@ public class DummyScenarioBuilder {
 			serviceTypeBusIda.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeBusIda);
 		}
-		ServiceType serviceTypeBusBoth = this.serviceTypeDao.getRecordById(4L);
+		ServiceType serviceTypeBusBoth = this.serviceTypeDao.getRecordById(6L);
 		if (serviceTypeBusBoth == null){
 			serviceTypeBusBoth = new ServiceType();
 			serviceTypeBusBoth.setName("Bus ida y vuelta");
@@ -483,7 +501,7 @@ public class DummyScenarioBuilder {
 			serviceTypeBusBoth.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeBusBoth);
 		}
-		ServiceType serviceTypeTowels = this.serviceTypeDao.getRecordById(5L);
+		ServiceType serviceTypeTowels = this.serviceTypeDao.getRecordById(7L);
 		if (serviceTypeTowels == null){
 			serviceTypeTowels = new ServiceType();
 			serviceTypeTowels.setName("Toallas");
@@ -491,7 +509,7 @@ public class DummyScenarioBuilder {
 			serviceTypeTowels.setAdditionalFixed(true);
 			this.serviceTypeDao.createRecord(serviceTypeTowels);
 		}
-		ServiceType serviceTypeBedClothe = this.serviceTypeDao.getRecordById(6L);
+		ServiceType serviceTypeBedClothe = this.serviceTypeDao.getRecordById(8L);
 		if (serviceTypeBedClothe == null){
 			serviceTypeBedClothe = new ServiceType();
 			serviceTypeBedClothe.setName("Ropa de cama");
@@ -499,7 +517,7 @@ public class DummyScenarioBuilder {
 			serviceTypeBedClothe.setAdditionalFixed(true);
 			this.serviceTypeDao.createRecord(serviceTypeBedClothe);
 		}
-		ServiceType serviceTypeExtraCleaning = this.serviceTypeDao.getRecordById(7L);
+		ServiceType serviceTypeExtraCleaning = this.serviceTypeDao.getRecordById(9L);
 		if (serviceTypeExtraCleaning == null){
 			serviceTypeExtraCleaning = new ServiceType();
 			serviceTypeExtraCleaning.setName("Limpieza Extra");

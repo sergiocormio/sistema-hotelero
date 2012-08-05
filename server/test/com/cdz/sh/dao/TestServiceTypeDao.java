@@ -15,6 +15,7 @@ import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.RateDaoImpl;
 import com.cdz.sh.dao.impl.ServiceTypeDaoImpl;
 import com.cdz.sh.model.Occupation;
+import com.cdz.sh.model.ServiceType;
 
 public class TestServiceTypeDao {
 
@@ -40,7 +41,10 @@ public class TestServiceTypeDao {
 	@Test
 	public void testRetrieveAdditionalServiceTypes() throws DaoException {
 		
+		List<ServiceType> additionalServices = this.serviceTypeDao.retrieveAdditionalServices();
 		
+		assertNotNull(additionalServices);
+		assertTrue(additionalServices.size() == 3);
 	
 	}
 	
