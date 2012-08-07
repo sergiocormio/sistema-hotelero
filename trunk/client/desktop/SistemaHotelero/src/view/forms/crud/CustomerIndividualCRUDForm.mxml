@@ -69,9 +69,9 @@
 			{
 				_currentCustomer = value;
 				//load whole form
-				if(_currentCustomer.customerPK!=null){
-					idNumberText.text = _currentCustomer.customerPK.idNumber;
-					autoSelectComboBox(documentTypesCombo,_currentCustomer.customerPK.docType,"id");
+				if(_currentCustomer.id!=null){
+					idNumberText.text = _currentCustomer.id.idNumber;
+					autoSelectComboBox(documentTypesCombo,_currentCustomer.id.docType,"id");
 				}else{
 					idNumberText.text = null;
 					documentTypesCombo.selectedItem = null;
@@ -138,11 +138,11 @@
 					return;
 				}
 				//fills all fields
-				if(currentCustomer.customerPK == null){
-					currentCustomer.customerPK = new CustomerPK();
+				if(currentCustomer.id == null){
+					currentCustomer.id = new CustomerPK();
 				}
-				currentCustomer.customerPK.idNumber = idNumberText.text;
-				currentCustomer.customerPK.docType = documentTypesCombo.selectedItem;
+				currentCustomer.id.idNumber = idNumberText.text;
+				currentCustomer.id.docType = documentTypesCombo.selectedItem;
 				currentCustomer.firstName = firstNameText.text;
 				currentCustomer.lastName = lastNameText.text;
 				currentCustomer.email = emailText.text;

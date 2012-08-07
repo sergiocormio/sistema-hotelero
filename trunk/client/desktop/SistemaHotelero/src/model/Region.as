@@ -1,52 +1,43 @@
-/**
- * This is a generated sub-class of _Region.as and is intended for behavior
- * customization.  This class is only generated when there is no file already present
- * at its target location.  Thus custom behavior that you add here will survive regeneration
- * of the super-class. 
- *
- * NOTE: Do not manually modify the RemoteClass mapping unless
- * your server representation of this class has changed and you've 
- * updated your ActionScriptGeneration,RemoteClass annotation on the
- * corresponding entity 
- **/ 
- 
 package model
 {
 
-import com.adobe.fiber.core.model_internal;
-
 [RemoteClass (alias="com.cdz.sh.model.Region")]
-public class Region extends _Super_Region
+public class Region
 {
-    /** 
-     * DO NOT MODIFY THIS STATIC INITIALIZER - IT IS NECESSARY
-     * FOR PROPERLY SETTING UP THE REMOTE CLASS ALIAS FOR THIS CLASS
-     *
-     **/
-     
-    /**
-     * Calling this static function will initialize RemoteClass aliases
-     * for this value object as well as all of the value objects corresponding
-     * to entities associated to this value object's entity.  
-     */     
-    public static function _initRemoteClassAlias() : void
-    {
-        _Super_Region.model_internal::initRemoteClassAliasSingle(model.Region);
-        _Super_Region.model_internal::initRemoteClassAliasAllRelated();
-    }
-     
-    model_internal static function initRemoteClassAliasSingleChild() : void
-    {
-        _Super_Region.model_internal::initRemoteClassAliasSingle(model.Region);
-    }
-    
-    {
-        _Super_Region.model_internal::initRemoteClassAliasSingle(model.Region);
-    }
-    /** 
-     * END OF DO NOT MODIFY SECTION
-     *
-     **/    
+	private var _id:Object;
+	private var _name:String;
+	private var _country:Country;
+	
+	public function get country():Country
+	{
+		return _country;
+	}
+
+	public function set country(value:Country):void
+	{
+		_country = value;
+	}
+
+	public function get name():String
+	{
+		return _name;
+	}
+
+	public function set name(value:String):void
+	{
+		_name = value;
+	}
+
+	public function get id():Object
+	{
+		return _id;
+	}
+
+	public function set id(value:Object):void
+	{
+		_id = value;
+	}
+
 }
 
 }

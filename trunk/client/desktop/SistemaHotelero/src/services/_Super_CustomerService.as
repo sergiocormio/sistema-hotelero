@@ -28,7 +28,7 @@ internal class _Super_CustomerService extends com.adobe.fiber.services.wrapper.R
         _serviceControl = new mx.rpc.remoting.RemoteObject();
 
         // initialize RemoteClass alias for all entities returned by functions of this service
-        model.Customer._initRemoteClassAlias();
+        //model.Customer._initRemoteClassAlias();
 
         var operations:Object = new Object();
         var operation:mx.rpc.remoting.Operation;

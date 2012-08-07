@@ -1,52 +1,117 @@
-/**
- * This is a generated sub-class of _Customer.as and is intended for behavior
- * customization.  This class is only generated when there is no file already present
- * at its target location.  Thus custom behavior that you add here will survive regeneration
- * of the super-class. 
- *
- * NOTE: Do not manually modify the RemoteClass mapping unless
- * your server representation of this class has changed and you've 
- * updated your ActionScriptGeneration,RemoteClass annotation on the
- * corresponding entity 
- **/ 
- 
 package model
 {
 
-import com.adobe.fiber.core.model_internal;
-
 [RemoteClass (alias="com.cdz.sh.model.Customer")]
-public class Customer extends _Super_Customer
+public class Customer
 {
-    /** 
-     * DO NOT MODIFY THIS STATIC INITIALIZER - IT IS NECESSARY
-     * FOR PROPERLY SETTING UP THE REMOTE CLASS ALIAS FOR THIS CLASS
-     *
-     **/
-     
-    /**
-     * Calling this static function will initialize RemoteClass aliases
-     * for this value object as well as all of the value objects corresponding
-     * to entities associated to this value object's entity.  
-     */     
-    public static function _initRemoteClassAlias() : void
-    {
-        _Super_Customer.model_internal::initRemoteClassAliasSingle(model.Customer);
-        _Super_Customer.model_internal::initRemoteClassAliasAllRelated();
-    }
-     
-    model_internal static function initRemoteClassAliasSingleChild() : void
-    {
-        _Super_Customer.model_internal::initRemoteClassAliasSingle(model.Customer);
-    }
-    
-    {
-        _Super_Customer.model_internal::initRemoteClassAliasSingle(model.Customer);
-    }
-    /** 
-     * END OF DO NOT MODIFY SECTION
-     *
-     **/    
+	private var _id:CustomerPK;
+	
+	private var _firstName:String;
+	
+	private var _lastName:String;
+	
+	private var _dateOfBirth:Date;
+	
+	private var _region:Region;
+	
+	private var _language:Language;
+	
+	private var _email:String;
+	
+	private var _profession:String;
+	
+	private var _lastLodgementDate:Date;
+
+	public function get lastLodgementDate():Date
+	{
+		return _lastLodgementDate;
+	}
+
+	public function set lastLodgementDate(value:Date):void
+	{
+		_lastLodgementDate = value;
+	}
+
+	public function get profession():String
+	{
+		return _profession;
+	}
+
+	public function set profession(value:String):void
+	{
+		_profession = value;
+	}
+
+	public function get email():String
+	{
+		return _email;
+	}
+
+	public function set email(value:String):void
+	{
+		_email = value;
+	}
+
+	public function get language():Language
+	{
+		return _language;
+	}
+
+	public function set language(value:Language):void
+	{
+		_language = value;
+	}
+
+	public function get region():Region
+	{
+		return _region;
+	}
+
+	public function set region(value:Region):void
+	{
+		_region = value;
+	}
+
+	public function get dateOfBirth():Date
+	{
+		return _dateOfBirth;
+	}
+
+	public function set dateOfBirth(value:Date):void
+	{
+		_dateOfBirth = value;
+	}
+
+	public function get lastName():String
+	{
+		return _lastName;
+	}
+
+	public function set lastName(value:String):void
+	{
+		_lastName = value;
+	}
+
+	public function get firstName():String
+	{
+		return _firstName;
+	}
+
+	public function set firstName(value:String):void
+	{
+		_firstName = value;
+	}
+
+	public function get id():CustomerPK
+	{
+		return _id;
+	}
+
+	public function set id(value:CustomerPK):void
+	{
+		_id = value;
+	}
+
 }
 
 }

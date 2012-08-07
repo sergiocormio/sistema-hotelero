@@ -113,13 +113,13 @@
     </function>
     <function name="retrieveAll" return-type="Customer[]">
       <annotation name="original signature">
-        <item name="returnType">opaque</item>
+        <item name="returnType">Customer</item>
       </annotation>
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
       <annotation name="ValidProperties">
-        <item name="propertySpecifier">dateOfBirth,region,lastName,email,profession,customerPK,language,firstName,lastLodgementDate</item>
+        <item name="propertySpecifier">dateOfBirth,id,displayableId,region,lastName,email,profession,language,firstName,lastLodgementDate</item>
       </annotation>
     </function>
     <function name="updateRecord" return-type="void">
@@ -141,23 +141,60 @@
       <item name="IncludeRemoteClass">nonempty</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">CustomerService,CustomerServiceDummy</item>
+      <item name="service">CustomerService,Dummy,CustomerServiceDummy</item>
     </annotation>
     <annotation name="retrieveAll">
-      <item name="propertySpecifier">dateOfBirth,region,lastName,email,profession,customerPK,language,firstName,lastLodgementDate</item>
+      <item name="propertySpecifier">dateOfBirth,id,displayableId,region,lastName,email,profession,language,firstName,lastLodgementDate</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
       <item name="Package">model</item>
     </annotation>
-    <property name="dateOfBirth" type="date" required="true"/>
-    <property name="region" type="opaque" required="true"/>
-    <property name="lastName" type="string" required="true"/>
-    <property name="email" type="string" required="true"/>
-    <property name="profession" type="string" required="true"/>
     <property name="customerPK" type="CustomerPK" required="true"/>
-    <property name="language" type="opaque" required="true"/>
-    <property name="firstName" type="string" required="true"/>
-    <property name="lastLodgementDate" type="date" required="true"/>
+    <property name="dateOfBirth" type="date"/>
+    <property name="id" type="CustomerPK"/>
+    <property name="displayableId" type="string"/>
+    <property name="region" type="Region"/>
+    <property name="lastName" type="string"/>
+    <property name="email" type="string"/>
+    <property name="profession" type="string"/>
+    <property name="language" type="Language"/>
+    <property name="firstName" type="string"/>
+    <property name="lastLodgementDate" type="date"/>
+  </entity>
+  <entity name="Region">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Region</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.cdz.sh.model.Region</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,CustomerService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">model</item>
+    </annotation>
+    <property name="id" type="long"/>
+    <property name="name" type="string"/>
+    <property name="country" type="Country"/>
+  </entity>
+  <entity name="Language">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Language</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.cdz.sh.model.Language</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,CustomerService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">model</item>
+    </annotation>
+    <property name="id" type="long"/>
+    <property name="name" type="string"/>
   </entity>
   <entity name="Serializable">
     <annotation name="EntityProperties">
@@ -183,14 +220,31 @@
       <item name="IncludeRemoteClass">nonempty</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">CustomerService</item>
+      <item name="service">CustomerService,Dummy</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
       <item name="Package">model</item>
     </annotation>
-    <property name="id" type="double" required="true" default="0"/>
-    <property name="regExp" type="string" required="true"/>
-    <property name="name" type="string" required="true"/>
+    <property name="id" type="long"/>
+    <property name="regExp" type="string"/>
+    <property name="name" type="string"/>
+  </entity>
+  <entity name="Country">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Country</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.cdz.sh.model.Country</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,CustomerService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">model</item>
+    </annotation>
+    <property name="id" type="long"/>
+    <property name="name" type="string"/>
   </entity>
   <entity name="CustomerPK">
     <annotation name="EntityProperties">
@@ -201,12 +255,12 @@
       <item name="IncludeRemoteClass">nonempty</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">CustomerService</item>
+      <item name="service">CustomerService,Dummy</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
       <item name="Package">model</item>
     </annotation>
-    <property name="docType" type="DocumentType" required="true"/>
-    <property name="idNumber" type="string" required="true"/>
+    <property name="docType" type="DocumentType"/>
+    <property name="idNumber" type="string"/>
   </entity>
 </model>
