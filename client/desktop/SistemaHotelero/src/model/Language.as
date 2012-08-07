@@ -1,8 +1,6 @@
 package model
 {
-
-[RemoteClass (alias="com.cdz.sh.model.Country")]
-public class Country
+public class Language
 {
 	private var _id : Object;
 	private var _name : String;
