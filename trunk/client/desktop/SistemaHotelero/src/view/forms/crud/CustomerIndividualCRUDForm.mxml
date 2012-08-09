@@ -90,8 +90,8 @@
 			}
 			
 			private function retrieveDocumentTypes():void{
-				var at:AsyncToken = new DocumentTypeService().retrieveAll();
-				at.addResponder(new AsyncResponder(retrieveDocumentTypes_resultHandler,faultHandler));
+				new DocumentTypeService().retrieveAll(retrieveDocumentTypes_resultHandler,faultHandler);
+				
 			}
 				
 				
@@ -151,13 +151,12 @@
 				currentCustomer.profession = professionText.text;
 				
 				//calls service
-				var at:AsyncToken = null;
 				if(isUpdate){
-					at = new CustomerService().updateRecord(currentCustomer);
+					new CustomerService().updateRecord(currentCustomer,customerSaved_resultHandler,faultHandler);
 				}else{
-					at = new CustomerService().createRecord(currentCustomer);
+					new CustomerService().createRecord(currentCustomer,customerSaved_resultHandler,faultHandler);
 				}
-				at.addResponder(new AsyncResponder(customerSaved_resultHandler,faultHandler));
+				
 			}
 			
 			protected function cancel():void
