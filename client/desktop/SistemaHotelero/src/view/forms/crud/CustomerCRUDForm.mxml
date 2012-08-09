@@ -56,8 +56,7 @@
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
-				var token:AsyncToken = new CustomerService().retrieveAll();
-				token.addResponder(new AsyncResponder(retrieveAll_resultHandler,faultHandler));
+				new CustomerService().retrieveAll(retrieveAll_resultHandler,faultHandler);
 			}
 			
 			protected function modifyCustomer():void
@@ -70,8 +69,7 @@
 			
 			protected function deleteCustomer():void
 			{
-				var token:AsyncToken = new CustomerService().deleteRecord(grid.selectedItem as Customer);
-				token.addResponder(new AsyncResponder(delete_resultHandler,faultHandler));
+				new CustomerService().deleteRecord(grid.selectedItem as Customer,delete_resultHandler,faultHandler);
 			}
 			
 			protected function addCustomer():void
@@ -101,8 +99,8 @@
 				<s:ArrayList>
 					<s:GridColumn dataField="firstName" headerText="{loc.customer.firstName}"></s:GridColumn>
 					<s:GridColumn dataField="lastName" headerText="{loc.customer.lastName}"></s:GridColumn>
-					<s:GridColumn dataField="customerPK.idNumber" headerText="{loc.customerPK.idNumber}"></s:GridColumn>
-					<s:GridColumn dataField="customerPK.docType.name" headerText="{loc.documentType.singular}"></s:GridColumn>
+					<s:GridColumn dataField="id.idNumber" headerText="{loc.customerPK.idNumber}"></s:GridColumn>
+					<s:GridColumn dataField="id.docType.name" headerText="{loc.documentType.singular}"></s:GridColumn>
 					<s:GridColumn dataField="dateOfBirth" headerText="{loc.customer.dateOfBirth}"></s:GridColumn>
 					<s:GridColumn dataField="lastLodgementDate" headerText="{loc.customer.lastLodgementDate}"></s:GridColumn>
 					<s:GridColumn dataField="profession" headerText="{loc.customer.profession}"></s:GridColumn>
