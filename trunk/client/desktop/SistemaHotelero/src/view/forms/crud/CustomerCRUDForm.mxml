@@ -24,6 +24,8 @@
 			
 			import spark.events.GridSelectionEvent;
 			
+			import utils.DateTimeUtils;
+			
 			[Bindable]
 			public var loc:Object;
 			
@@ -88,6 +90,11 @@
 				individual.enabled = false;
 			}
 			
+			private function dateFormat(item:Object,column:GridColumn):String
+			{
+				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateFormat);
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -101,8 +108,8 @@
 					<s:GridColumn dataField="lastName" headerText="{loc.customer.lastName}"></s:GridColumn>
 					<s:GridColumn dataField="id.idNumber" headerText="{loc.customerPK.idNumber}"></s:GridColumn>
 					<s:GridColumn dataField="id.docType.name" headerText="{loc.documentType.singular}"></s:GridColumn>
-					<s:GridColumn dataField="dateOfBirth" headerText="{loc.customer.dateOfBirth}"></s:GridColumn>
-					<s:GridColumn dataField="lastLodgementDate" headerText="{loc.customer.lastLodgementDate}"></s:GridColumn>
+					<s:GridColumn dataField="dateOfBirth" headerText="{loc.customer.dateOfBirth}" labelFunction="dateFormat"></s:GridColumn>
+					<s:GridColumn dataField="lastLodgementDate" headerText="{loc.customer.lastLodgementDate}" labelFunction="dateFormat"></s:GridColumn>
 					<s:GridColumn dataField="profession" headerText="{loc.customer.profession}"></s:GridColumn>
 					<s:GridColumn dataField="email" headerText="{loc.customer.email}"></s:GridColumn>
 				</s:ArrayList>

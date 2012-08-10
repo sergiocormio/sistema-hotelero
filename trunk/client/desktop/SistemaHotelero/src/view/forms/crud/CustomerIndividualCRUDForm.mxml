@@ -91,7 +91,6 @@
 			
 			private function retrieveDocumentTypes():void{
 				new DocumentTypeService().retrieveAll(retrieveDocumentTypes_resultHandler,faultHandler);
-				
 			}
 				
 				
@@ -238,12 +237,12 @@
 			<s:FormItem label="{loc.customer.dateOfBirth}:">
 				<mx:DateField id="dateOfBirthChooser" editable="true" 
 							  dayNames="{Locale.getInstance().dayNamesAbbr}" monthNames="{Locale.getInstance().monthNames}"
-							  formatString="{loc.dateFormat}" width="120"/>
+							  formatString="{loc.dateFormat.toUpperCase()}" width="120"/>
 			</s:FormItem>
 			<s:FormItem label="{loc.customer.lastLodgementDate}:">
 				<mx:DateField id="lastLodgementDateChooser" editable="true" 
 							  dayNames="{Locale.getInstance().dayNamesAbbr}" monthNames="{Locale.getInstance().monthNames}"
-							  formatString="{loc.dateFormat}" width="120"/>
+							  formatString="{loc.dateFormat.toUpperCase()}" width="120"/>
 			</s:FormItem>
 		</s:Form>
 	</s:HGroup>

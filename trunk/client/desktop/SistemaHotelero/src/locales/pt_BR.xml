@@ -57,7 +57,7 @@
     		<abbr>Sep</abbr>
    		</sunday>
     </day>
-    <dateFormat>MM/DD/YYYY</dateFormat>
+    <dateFormat>MM/dd/yyyy</dateFormat>
     <documentType>
     	<singular>Document Type</singular>
 	    <plural>Document Types</plural>
