@@ -49,7 +49,7 @@
     		<abbr>Dom</abbr>
    		</sunday>
     </day>
-    <dateFormat>DD/MM/YYYY</dateFormat>
+    <dateFormat>dd/MM/yyyy</dateFormat>
     <documentType>
     	<singular>Tipo de Documento</singular>
 	    <plural>Tipos de Documento</plural>

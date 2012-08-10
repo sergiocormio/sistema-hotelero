@@ -9,6 +9,7 @@ package locales
 	public class Locale
 	{
 		static private var instance:Locale;
+		private var localeName:String;
 		[Bindable]
 		private var currentLocaleXML:XML;
 		[Bindable]
@@ -35,6 +36,7 @@ package locales
 		}
 		
 		public function setCurrentLocale(locale:String):void{
+			localeName = locale;
 			//loads corresponding xml file
 			var file:File = File.applicationDirectory.resolvePath("locales/"+locale+".xml");
 			var fileStream:FileStream = new FileStream();
@@ -61,6 +63,10 @@ package locales
 				currentLocaleXML.month.april,currentLocaleXML.month.may,currentLocaleXML.month.june,
 				currentLocaleXML.month.july,currentLocaleXML.month.august,currentLocaleXML.month.september,
 				currentLocaleXML.month.october, currentLocaleXML.month.november,currentLocaleXML.month.december];
+		}
+		
+		public function getLocaleName():String{
+			return localeName;
 		}
 	}
 }
