@@ -1,7 +1,14 @@
 package com.cdz.sh.dao.impl;
 
+import java.util.List;
+
+import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
+
 import com.cdz.sh.dao.RegionDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
+import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.model.Country;
 import com.cdz.sh.model.Region;
 
 /**
@@ -13,9 +20,26 @@ import com.cdz.sh.model.Region;
  */
 public class RegionDaoImpl extends AbstractCrudDao<Region, Long> implements RegionDao {
 
-	/**
-	 * TODO implement specific queries
-	 */
+	@Override
+	public List<Region> retrieveRegions(Country country) throws DaoException {
+		try {
+			entityManager.getTransaction().begin();
+			
+			String strQuery = "SELECT r FROM Region r WHERE r.country = :country";
+			
+			TypedQuery<Region> query = entityManager.createQuery( strQuery, Region.class);
+			
+			query = query.setParameter("country", country);
+						
+			List<Region> regions = query.getResultList();
+			entityManager.getTransaction().commit();
+			return regions;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+	}
+
 
 
 	
