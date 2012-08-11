@@ -4,7 +4,7 @@ import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.model.Language;
 
 /**
- * Declares specific functionality for customers access data, in addition to the CRUD methods.
+ * Declares specific functionality for Language access data, in addition to the CRUD methods.
  * 
  * @author fede
  *

@@ -1,6 +1,10 @@
 package com.cdz.sh.dao;
 
+import java.util.List;
+
 import com.cdz.sh.dao.crud.CrudDao;
+import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.model.Country;
 import com.cdz.sh.model.Region;
 
 /**
@@ -11,8 +15,16 @@ import com.cdz.sh.model.Region;
  */
 public interface RegionDao extends CrudDao<Region, Long> {
 
+	
 	/**
-	 * TODO: declare specific query methods
+	 * Retrieves all regions related to a given country
+	 * 
+	 * @param country
+	 * @return
+	 * @throws DaoException
 	 */
+	public List<Region> retrieveRegions(Country country) throws DaoException;
+
+	
 
 }
