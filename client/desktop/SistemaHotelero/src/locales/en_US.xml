@@ -65,6 +65,8 @@
 	    <regExp>Regular Expression</regExp>
     </documentType>
     <language>
+   		<singular>Language</singular>
+	    <plural>Languages</plural>
     	<english>English</english>
     	<portuguese>Portuguese</portuguese>
     	<spanish>Spanish</spanish>
@@ -89,4 +91,8 @@
     		<noMatchError>The field is invalid</noMatchError>
     	</regExp>
     </validator>
+    <region>
+   		<singular>Region</singular>
+	    <plural>Regions</plural>
+    </region>
 </locale>
