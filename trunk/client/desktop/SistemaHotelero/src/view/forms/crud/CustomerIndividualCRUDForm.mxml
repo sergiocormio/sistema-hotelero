@@ -27,8 +27,11 @@
 			
 			import resources.icons.Icons;
 			
+			import services.CountryService;
 			import services.CustomerService;
 			import services.DocumentTypeService;
+			import services.LanguageService;
+			import services.RegionService;
 			[Bindable]
 			public var loc:Object;
 			
@@ -39,6 +42,12 @@
 			
 			[Bindable]
 			private var documentTypes:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			private var countries:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			private var regions:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			private var languages:ArrayCollection = new ArrayCollection();
 			
 			
 			public function get currentCustomer():Customer
@@ -90,7 +99,8 @@
 			}
 			
 			private function retrieveDocumentTypes():void{
-				new DocumentTypeService().retrieveAll(retrieveDocumentTypes_resultHandler,faultHandler);
+				var docTypeServ:DocumentTypeService = new DocumentTypeService();
+				docTypeServ.retrieveAll(retrieveDocumentTypes_resultHandler,faultHandler);
 			}
 				
 				
@@ -102,6 +112,40 @@
 			
 			private function customerSaved_resultHandler(event:ResultEvent,token:Object=null):void {
 				dispatchEvent(new Event("saveSuccess"));
+			}
+			
+			private function retrieveCountries():void{
+				var countryServ:CountryService = new CountryService();
+				countryServ.retrieveAll(retrieveCountries_resultHandler,faultHandler);
+			}
+			
+			private function retrieveCountries_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				countries.removeAll();
+				countries.addAll(event.result as ArrayCollection);
+			}
+			
+			private function retrieveRegions():void{
+				var regionServ:RegionService = new RegionService();
+				regionServ.retrieveAll(retrieveRegions_resultHandler,faultHandler);
+			}
+			
+			private function retrieveRegions_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				regions.removeAll();
+				regions.addAll(event.result as ArrayCollection);
+			}
+			
+			//LANGUAGES
+			private function retrieveLanguages():void{
+				var langServ:LanguageService = new LanguageService();
+				langServ.retrieveAll(retrieveLanguages_resultHandler,faultHandler);
+			}
+			
+			private function retrieveLanguages_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				languages.removeAll();
+				languages.addAll(event.result as ArrayCollection);
 			}
 			
 			// Handle a message fault.
@@ -148,6 +192,8 @@
 				currentCustomer.lastLodgementDate = lastLodgementDateChooser.selectedDate;
 				currentCustomer.dateOfBirth = dateOfBirthChooser.selectedDate;
 				currentCustomer.profession = professionText.text;
+				currentCustomer.language = langugagesCombo.selectedItem;
+				currentCustomer.region = regionsCombo.selectedItem;
 				
 				//calls service
 				if(isUpdate){
@@ -243,6 +289,24 @@
 				<mx:DateField id="lastLodgementDateChooser" editable="true" 
 							  dayNames="{Locale.getInstance().dayNamesAbbr}" monthNames="{Locale.getInstance().monthNames}"
 							  formatString="{loc.dateFormat.toUpperCase()}" width="120"/>
+			</s:FormItem>
+			<s:FormItem label="{loc.country.singular}:" id="countryItem">
+				<s:HGroup>
+					<s:ComboBox id="countriesCombo" dataProvider="{countries}" labelField="name"/>
+					<s:Button icon="{Icons.refresh}" width="16" height="16" toolTip="{loc.button.refresh}" click="retrieveCountries();"/>
+				</s:HGroup>
+			</s:FormItem>
+			<s:FormItem label="{loc.region.singular}:" id="regionItem">
+				<s:HGroup>
+					<s:ComboBox id="regionsCombo" dataProvider="{regions}" labelField="name"/>
+					<s:Button icon="{Icons.refresh}" width="16" height="16" toolTip="{loc.button.refresh}" click="retrieveRegions();"/>
+				</s:HGroup>
+			</s:FormItem>
+			<s:FormItem label="{loc.language.singular}:" id="languageItem">
+				<s:HGroup>
+					<s:ComboBox id="langugagesCombo" dataProvider="{languages}" labelField="name"/>
+					<s:Button icon="{Icons.refresh}" width="16" height="16" toolTip="{loc.button.refresh}" click="retrieveLanguages();"/>
+				</s:HGroup>
 			</s:FormItem>
 		</s:Form>
 	</s:HGroup>
