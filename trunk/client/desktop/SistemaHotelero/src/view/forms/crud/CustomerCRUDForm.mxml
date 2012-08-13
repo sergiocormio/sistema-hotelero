@@ -112,6 +112,9 @@
 					<s:GridColumn dataField="lastLodgementDate" headerText="{loc.customer.lastLodgementDate}" labelFunction="dateFormat"></s:GridColumn>
 					<s:GridColumn dataField="profession" headerText="{loc.customer.profession}"></s:GridColumn>
 					<s:GridColumn dataField="email" headerText="{loc.customer.email}"></s:GridColumn>
+					<s:GridColumn dataField="region.country.name" headerText="{loc.country.singular}"></s:GridColumn>
+					<s:GridColumn dataField="region.name" headerText="{loc.region.singular}"></s:GridColumn>
+					<s:GridColumn dataField="language.name" headerText="{loc.language.singular}"></s:GridColumn>
 				</s:ArrayList>
 			</s:columns>
 		</s:DataGrid>

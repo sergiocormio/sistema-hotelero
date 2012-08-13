@@ -2,11 +2,12 @@
 <locale>
     <button>
     	<add>Add</add>
+    	<cancel>Cancel</cancel>
     	<modify>Modify</modify>
+    	<newLabel>New</newLabel>
     	<refresh>Refresh</refresh>
     	<remove>Remove</remove>
     	<save>Save</save>
-    	<cancel>Cancel</cancel>
     </button>
 	<country>
 	    <singular>Country</singular>
@@ -94,5 +95,6 @@
     <region>
    		<singular>Region</singular>
 	    <plural>Regions</plural>
+	    <name>Name</name>
     </region>
 </locale>
