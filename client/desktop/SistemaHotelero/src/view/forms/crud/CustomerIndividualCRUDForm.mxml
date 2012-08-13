@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
-		  creationComplete="init(event)">
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  width="100%" height="100%" creationComplete="init(event)">
 	<fx:Metadata> 
 		[Event(name="cancelClicked", type="flash.events.Event")]
 		[Event(name="saveSuccess", type="flash.events.Event")]
@@ -15,9 +15,12 @@
 			import model.CustomerPK;
 			
 			import mx.collections.ArrayCollection;
+			import mx.containers.TitleWindow;
 			import mx.controls.Alert;
+			import mx.events.CloseEvent;
 			import mx.events.FlexEvent;
 			import mx.events.ValidationResultEvent;
+			import mx.managers.PopUpManager;
 			import mx.rpc.AsyncResponder;
 			import mx.rpc.AsyncToken;
 			import mx.rpc.events.FaultEvent;
@@ -32,6 +35,8 @@
 			import services.DocumentTypeService;
 			import services.LanguageService;
 			import services.RegionService;
+			
+			import utils.WindowsUtils;
 			[Bindable]
 			public var loc:Object;
 			
@@ -49,38 +54,23 @@
 			[Bindable]
 			private var languages:ArrayCollection = new ArrayCollection();
 			
+			private var titleWindow:TitleWindow;
+			private var docTypeForm:DocumentTypeIndividualCRUDForm;
+			private var countryForm:CountryIndividualCRUDForm;
+			private var regionForm:RegionIndividualCRUDForm;
 			
 			public function get currentCustomer():Customer
 			{
 				return _currentCustomer;
 			}
 			
-			
-			//TODO: this is an Util Method!
-			private function autoSelectComboBox(combo:ComboBox,obj:Object,idFieldName:String):void{
-				var found:Boolean = false;
-				var i:int = 0;	
-				for each (var objAux:Object in combo.dataProvider){
-					if(objAux[idFieldName] == obj[idFieldName]){
-						combo.selectedItem = objAux;
-						combo.selectedIndex = i;
-						found = true;
-						break;
-					}
-					i++;
-				}
-				if(!found){
-					combo.selectedItem = obj;
-				}
-			}
-
 			public function set currentCustomer(value:Customer):void
 			{
 				_currentCustomer = value;
 				//load whole form
 				if(_currentCustomer.id!=null){
 					idNumberText.text = _currentCustomer.id.idNumber;
-					autoSelectComboBox(documentTypesCombo,_currentCustomer.id.docType,"id");
+					WindowsUtils.autoSelectComboBox(documentTypesCombo,_currentCustomer.id.docType);
 				}else{
 					idNumberText.text = null;
 					documentTypesCombo.selectedItem = null;
@@ -91,18 +81,82 @@
 				professionText.text = _currentCustomer.profession;
 				dateOfBirthChooser.selectedDate = _currentCustomer.dateOfBirth;
 				lastLodgementDateChooser.selectedDate = _currentCustomer.lastLodgementDate;
+				if(_currentCustomer.region!=null){
+					WindowsUtils.autoSelectComboBox(countriesCombo,_currentCustomer.region.country);
+					WindowsUtils.autoSelectComboBox(regionsCombo,_currentCustomer.region);
+				}else{
+					countriesCombo.selectedItem = null;
+					regionsCombo.selectedItem = null;
+				}
 			}
 
 			protected function init(event:FlexEvent):void
 			{
+				//autoloads all combos
 				retrieveDocumentTypes();
+				retrieveCountries();
+				retrieveRegions();
+				retrieveLanguages();
 			}
 			
 			private function retrieveDocumentTypes():void{
 				var docTypeServ:DocumentTypeService = new DocumentTypeService();
 				docTypeServ.retrieveAll(retrieveDocumentTypes_resultHandler,faultHandler);
 			}
+			
+			private function addDocumentType():void{
+				docTypeForm = new DocumentTypeIndividualCRUDForm();
+				docTypeForm.loc = loc;
+				docTypeForm.isUpdate = false;
+				docTypeForm.addEventListener("saveSuccess",docType_saveSuccess);
+				docTypeForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.documentType.singular,docTypeForm,this);
+			}
+			
+			private function titleWindow_close(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
+			private function docType_saveSuccess(evt:Object):void {
+				documentTypes.addItem(docTypeForm.currentDocType);
+				WindowsUtils.autoSelectComboBox(documentTypesCombo, docTypeForm.currentDocType);
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
+			private function addCountry():void{
+				countryForm = new CountryIndividualCRUDForm();
+				countryForm.loc = loc;
+				countryForm.isUpdate = false;
+				countryForm.addEventListener("saveSuccess",country_saveSuccess);
+				countryForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.country.singular,countryForm,this);
+			}
+			
+			private function country_saveSuccess(evt:Object):void {
+				countries.addItem(countryForm.currentCountry);
+				WindowsUtils.autoSelectComboBox(countriesCombo, countryForm.currentCountry);
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
+			private function addLanguage():void{
 				
+			}
+			
+			private function addRegion():void{
+				regionForm = new RegionIndividualCRUDForm();
+				regionForm.loc = loc;
+				regionForm.isUpdate = false;
+				regionForm.addEventListener("saveSuccess",region_saveSuccess);
+				regionForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.region.singular,regionForm,this);
+			}
+			
+			private function region_saveSuccess(evt:Object):void {
+				regions.addItem(regionForm.currentRegion);
+				WindowsUtils.autoSelectComboBox(regionsCombo, regionForm.currentRegion);
+				PopUpManager.removePopUp(titleWindow);
+			}
+
 				
 			private function retrieveDocumentTypes_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the documentTypes ComboBox
@@ -192,7 +246,7 @@
 				currentCustomer.lastLodgementDate = lastLodgementDateChooser.selectedDate;
 				currentCustomer.dateOfBirth = dateOfBirthChooser.selectedDate;
 				currentCustomer.profession = professionText.text;
-				currentCustomer.language = langugagesCombo.selectedItem;
+				currentCustomer.language = languagesCombo.selectedItem;
 				currentCustomer.region = regionsCombo.selectedItem;
 				
 				//calls service
@@ -235,17 +289,15 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
-		<mx:RegExpValidator id="regExpV" 
-							source="{idNumberText}" property="text" 
-							flags="g" 
-							expression="{documentTypesCombo.selectedItem.regExp}" 
-							valid="handleResult(event);" 
+		<mx:RegExpValidator id="regExpV" enabled="false"
+							expression="{documentTypesCombo.selectedItem.regExp}" flags="g"
 							invalid="handleResult(event);"
-							noMatchError="{loc.validator.regExp.noMatchError}"
-							enabled="false"
-							/>
-		<mx:EmailValidator id="emV" source="{emailText}" property="text" required="false" />
-		<mx:NumberValidator id="comboboxValidator" source="{documentTypesCombo}" property="selectedIndex" minValue="0" lowerThanMinError="{loc.validator.requiredFieldError}" enabled="false"/>
+							noMatchError="{loc.validator.regExp.noMatchError}" property="text"
+							source="{idNumberText}" valid="handleResult(event);"/>
+		<mx:EmailValidator id="emV" property="text" required="false" source="{emailText}"/>
+		<mx:NumberValidator id="comboboxValidator" enabled="false"
+							lowerThanMinError="{loc.validator.requiredFieldError}" minValue="0"
+							property="selectedIndex" source="{documentTypesCombo}"/>
 	</fx:Declarations>
 	<s:HGroup width="100%" horizontalAlign="center">
 		<s:Form>
@@ -256,10 +308,14 @@
 			<s:FormItem label="{loc.customerPK.idNumber}:" required="true">
 				<s:TextInput id="idNumberText"/>
 			</s:FormItem>
-			<s:FormItem label="{loc.documentType.singular}:" id="docTypeItem">
+			<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:">
 				<s:HGroup>
-					<s:ComboBox id="documentTypesCombo" dataProvider="{documentTypes}" labelField="name"/>
-					<s:Button icon="{Icons.refresh}" width="16" height="16" toolTip="{loc.button.refresh}" click="retrieveDocumentTypes();"/>
+					<s:ComboBox id="documentTypesCombo" dataProvider="{documentTypes}"
+								labelField="name"/>
+					<s:Button width="24" height="24" click="retrieveDocumentTypes();"
+							  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+					<s:Button width="24" height="24" click="addDocumentType();" icon="{Icons.add}"
+							  toolTip="{loc.button.add}"/>
 				</s:HGroup>
 			</s:FormItem>
 			<s:FormItem label="{loc.customer.firstName}:">
@@ -281,38 +337,49 @@
 			</s:layout>  
 			
 			<s:FormItem label="{loc.customer.dateOfBirth}:">
-				<mx:DateField id="dateOfBirthChooser" editable="true" 
-							  dayNames="{Locale.getInstance().dayNamesAbbr}" monthNames="{Locale.getInstance().monthNames}"
-							  formatString="{loc.dateFormat.toUpperCase()}" width="120"/>
+				<mx:DateField id="dateOfBirthChooser" width="120"
+							  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+							  formatString="{loc.dateFormat.toUpperCase()}"
+							  monthNames="{Locale.getInstance().monthNames}"/>
 			</s:FormItem>
 			<s:FormItem label="{loc.customer.lastLodgementDate}:">
-				<mx:DateField id="lastLodgementDateChooser" editable="true" 
-							  dayNames="{Locale.getInstance().dayNamesAbbr}" monthNames="{Locale.getInstance().monthNames}"
-							  formatString="{loc.dateFormat.toUpperCase()}" width="120"/>
+				<mx:DateField id="lastLodgementDateChooser" width="120"
+							  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+							  formatString="{loc.dateFormat.toUpperCase()}"
+							  monthNames="{Locale.getInstance().monthNames}"/>
 			</s:FormItem>
-			<s:FormItem label="{loc.country.singular}:" id="countryItem">
+			<s:FormItem id="countryItem" label="{loc.country.singular}:">
 				<s:HGroup>
 					<s:ComboBox id="countriesCombo" dataProvider="{countries}" labelField="name"/>
-					<s:Button icon="{Icons.refresh}" width="16" height="16" toolTip="{loc.button.refresh}" click="retrieveCountries();"/>
+					<s:Button width="24" height="24" click="retrieveCountries();"
+							  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+					<s:Button width="24" height="24" click="addCountry();" icon="{Icons.add}"
+							  toolTip="{loc.button.add}"/>
 				</s:HGroup>
 			</s:FormItem>
-			<s:FormItem label="{loc.region.singular}:" id="regionItem">
+			<s:FormItem id="regionItem" label="{loc.region.singular}:">
 				<s:HGroup>
 					<s:ComboBox id="regionsCombo" dataProvider="{regions}" labelField="name"/>
-					<s:Button icon="{Icons.refresh}" width="16" height="16" toolTip="{loc.button.refresh}" click="retrieveRegions();"/>
+					<s:Button width="24" height="24" click="retrieveRegions();"
+							  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+					<s:Button width="24" height="24" click="addRegion();" icon="{Icons.add}"
+							  toolTip="{loc.button.add}"/>
 				</s:HGroup>
 			</s:FormItem>
-			<s:FormItem label="{loc.language.singular}:" id="languageItem">
+			<s:FormItem id="languageItem" label="{loc.language.singular}:">
 				<s:HGroup>
-					<s:ComboBox id="langugagesCombo" dataProvider="{languages}" labelField="name"/>
-					<s:Button icon="{Icons.refresh}" width="16" height="16" toolTip="{loc.button.refresh}" click="retrieveLanguages();"/>
+					<s:ComboBox id="languagesCombo" dataProvider="{languages}" labelField="name"/>
+					<s:Button width="24" height="24" click="retrieveLanguages();"
+							  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+					<s:Button width="24" height="24" click="addLanguage();" icon="{Icons.add}"
+							  toolTip="{loc.button.add}"/>
 				</s:HGroup>
 			</s:FormItem>
 		</s:Form>
 	</s:HGroup>
 	<!-- BUTTONS -->
 	<s:HGroup width="100%" horizontalAlign="center">
-		<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
-		<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
+		<s:Button label="{loc.button.save}" click="save()" icon="{Icons.save}"/>
+		<s:Button label="{loc.button.cancel}" click="cancel()" icon="{Icons.cancel}"/>
 	</s:HGroup>
 </s:VGroup>

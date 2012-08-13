@@ -60,40 +60,6 @@
 				*/
 			}
 			
-			protected function createDocumentType():void{
-				if(lastDocumentType == null){
-					var docType:DocumentType = new DocumentType();
-					docType.id = null;
-					docType.name="DNI";
-					docType.regExp = "^[0-9]";
-					
-					//var docServ:DocumentTypeService = new DocumentTypeService();
-					//docServ.showBusyCursor=true;
-					//var token:AsyncToken = docServ.createRecord(docType);
-					//token.addResponder(new AsyncResponder(createDocumentType_resultHandler,faultHandler));
-					new DocumentTypeService().createRecord(docType,createDocumentType_resultHandler,faultHandler);
-				}
-			}
-			
-			
-			protected function retrieveAllCustomers_resultHandler(event:ResultEvent):void
-			{
-				resultHandler(event);
-			}
-			
-			protected function createDocumentType_resultHandler(event:ResultEvent,token:Object=null):void
-			{
-				ta.text +="succesfully\n";
-			}
-			
-			protected function retrieveAllDocuementTypes_resultHandler(event:ResultEvent):void
-			{
-				resultHandler(event);
-				for each (var dt:DocumentType in event.result){
-					lastDocumentType = dt;
-				}
-			}
-			
 		]]>
 	</fx:Script>
 	
@@ -108,7 +74,6 @@
 	
 	<s:VGroup width="100%">
 		<s:HGroup>
-			<s:Button label="Create DNI" click="createDocumentType()"/>
 			<s:Button label="Clean Area" click="ta.text=''"/>
 			<components:LocaleChooser loc="{loc}" localeChanged="loc = Locale.getInstance().getCurrentLocale();"/>
 		</s:HGroup>
