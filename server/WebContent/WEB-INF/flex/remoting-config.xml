@@ -24,6 +24,25 @@
 			<scope>application</scope>
 		</properties>
     </destination>
-	
+    
+    <destination id="regionService">
+		<properties>
+			<source>com.cdz.sh.service.impl.RegionServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+	<destination id="countryService">
+		<properties>
+			<source>com.cdz.sh.service.impl.CountryServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+    <destination id="languageService">
+		<properties>
+			<source>com.cdz.sh.service.impl.LanguageServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 	
 </service>
