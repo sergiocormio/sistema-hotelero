@@ -58,6 +58,7 @@
 			private var docTypeForm:DocumentTypeIndividualCRUDForm;
 			private var countryForm:CountryIndividualCRUDForm;
 			private var regionForm:RegionIndividualCRUDForm;
+			private var languageForm:LanguageIndividualCRUDForm;
 			
 			public function get currentCustomer():Customer
 			{
@@ -139,7 +140,18 @@
 			}
 			
 			private function addLanguage():void{
-				
+				languageForm = new LanguageIndividualCRUDForm();
+				languageForm.loc = loc;
+				languageForm.isUpdate = false;
+				languageForm.addEventListener("saveSuccess",language_saveSuccess);
+				languageForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.language.singular,languageForm,this);
+			}
+			
+			private function language_saveSuccess(evt:Object):void {
+				languages.addItem(languageForm.currentLanguage);
+				WindowsUtils.autoSelectComboBox(languagesCombo, languageForm.currentLanguage);
+				PopUpManager.removePopUp(titleWindow);
 			}
 			
 			private function addRegion():void{
