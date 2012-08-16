@@ -146,8 +146,15 @@ public class TestCustomerDao {
 		System.out.println("Last Name: " + c2Found.getLastName());
 		System.out.println("Date of Birth: " + c2Found.getDateOfBirth());
 		
-		this.customerDao.deleteRecord(c1);
-		this.customerDao.deleteRecord(c2);
+		/***********/
+		
+		Customer customerToDelete1 = new Customer();
+		customerToDelete1.setId(this.customerPK1);
+		Customer customerToDelete2 = new Customer();
+		customerToDelete2.setId(this.customerPK2);
+		
+		this.customerDao.deleteRecord(customerToDelete1);
+		this.customerDao.deleteRecord(customerToDelete2);
 		
 		Customer c1NotFound = this.customerDao.getRecordById(this.customerPK1);
 		assertNull(c1NotFound);

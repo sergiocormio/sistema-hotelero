@@ -43,7 +43,8 @@ public class ReservationForm {
     private Bank bank;
     
     private String bankDocumentNumber;
-    
+
+	    
     
     
     public Long getId() {
@@ -142,5 +143,6 @@ public class ReservationForm {
 		this.bankDocumentNumber = bankDocumentNumber;
 	}
 
+	
 	
 }

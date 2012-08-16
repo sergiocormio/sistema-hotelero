@@ -19,6 +19,7 @@ import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.RoomType;
 import com.cdz.sh.model.StateReservationForm;
 import com.cdz.sh.report.PDFReportManager;
 import com.cdz.sh.service.AbstractCrudService;
@@ -62,7 +63,7 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 
 	@Override
 	public ReservationForm book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException {
-		
+						
 		ReservationForm createdReservationForm = this.crudDao.createRecord(reservationForm);
 		
 		for (Occupation occupation : chosenAlternative.getOccupations()) {
@@ -73,7 +74,7 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	}
 
 	@Override
-	public String exportData(ReservationForm reservationForm, String absolutePath) {
+	public String exportData(ReservationForm reservationForm, String absolutePath) throws DaoException {
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		
@@ -81,6 +82,54 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	    
 		params.put("P_TITULO", "Ficha de Reserva");
 	    params.put("P_SUBTITULO", "");
+	    
+	    params.put("P_ID", reservationForm.getId().toString());
+	    params.put("P_CREATION_DATE", reservationForm.getCreationDate());
+	    
+//	    params.put("P_CUSTOMER_FULL_NAME", reservationForm.getCustomer().getFullName());
+//	    params.put("P_CUSTOMER_EMAIL", reservationForm.getCustomer().getEmail());
+//	    
+//	    List<Occupation> occupations = this.occupationDao.retrieveOccupations(reservationForm);
+//	    
+//	    params.put("P_DAYS", occupations.size()+1);
+//	    params.put("P_NIGHTS", occupations.size());
+//	    
+//	    /**
+//	     * FIXME REVIEW THIS
+//	     */
+//	    String strRoomTypes = "";
+//	    RoomType roomType = null;
+//	    for (Occupation occupation : occupations) {
+//	    	RoomType nextRoomType = occupation.getId().getRoom().getRoomType();
+//	    	if(!nextRoomType.equals(roomType)){
+//	    		strRoomTypes = strRoomTypes.concat(nextRoomType.getName() + " - ");
+//	    		roomType = nextRoomType;
+//	    	}
+//		}
+//	    if(strRoomTypes.endsWith(" - ")){
+//	    	strRoomTypes.subSequence(0, strRoomTypes.length() - 3);
+//	    }
+//	    
+//	    params.put("P_ROOM_TYPES", strRoomTypes);
+//	    
+//	    params.put("P_DATE_FROM", reservationForm.getDateFrom());
+//	    params.put("P_DATE_TO", reservationForm.getDateTo());
+//	    
+//	    params.put("P_STATE", reservationForm.getState().getState());
+//	    
+//	    params.put("P_ADULTS", reservationForm.getAdultsQuantity());
+//	    params.put("P_CHILDREN", reservationForm.getChildrenQuantity());
+//	    
+//	    /**
+//	     * FIXME REVIEW THIS
+//	     */
+//	    params.put("P_PRICE_PER_DAY", reservationForm.getPricePerDay());
+//	    params.put("P_TOTAL_PRICE", "precio total");
+//	    params.put("P_MONETARY_RESERVE", reservationForm.getMonetaryReserve());
+//	    
+//	    params.put("P_BANK_NAME", reservationForm.getBank().getName());
+//	    params.put("P_BANK_DOCUMENT_NUMBER", reservationForm.getBankDocumentNumber());
+//	    
 		
 		PDFReportManager pdfReportManager = new PDFReportManager(RESERVATION_FORM_TEMPLATE, absolutePath, params);
 		
