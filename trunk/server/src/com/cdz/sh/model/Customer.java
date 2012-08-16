@@ -111,6 +111,12 @@ public class Customer {
 	public void setLanguage(Language language) {
 		this.language = language;
 	}
+	
+	@Transient
+	public String getFullName() {
+		return this.getFirstName() + " " + this.getLastName();
+	}
+	
 
 	@Override
 	public String toString() {

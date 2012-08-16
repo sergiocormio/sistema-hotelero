@@ -75,7 +75,7 @@ public class TestCustomersReport {
 		
 //		URL image = getClass().getResource("resources/report/Brasil-2014.jpg");
 //		params.put("LOGO_URL", image.getPath());		
-		params.put("LOGO_URL", "resources/report/Brasil-2014.jpg");
+		params.put("LOGO_URL", "resources/report/dellosky_logo.png");
 	    
 		params.put("P_TITULO", "Reporte de Clientes");
 	    params.put("P_SUBTITULO", "Clientes actuales");

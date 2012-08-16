@@ -7,6 +7,7 @@ import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
+import com.cdz.sh.model.ReservationForm;
 
 /**
  * Declares specific functionality for customers access data, in addition to the CRUD methods.
@@ -17,7 +18,9 @@ import com.cdz.sh.model.OccupationPK;
 public interface OccupationDao extends CrudDao<Occupation, OccupationPK> {
 
 	
-	List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException;
+	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException;
+
+	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException;
 
 
 }

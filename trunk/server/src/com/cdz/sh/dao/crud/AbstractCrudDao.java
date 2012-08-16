@@ -121,7 +121,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 			if(entityFound == null){
 				throw new DaoException(this.entityClass.getSimpleName(), entityId.toString());
 			}
-			entityManager.remove(e);
+			entityManager.remove(entityFound);
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
