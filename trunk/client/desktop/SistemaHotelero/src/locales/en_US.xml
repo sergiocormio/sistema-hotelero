@@ -68,6 +68,7 @@
     <language>
    		<singular>Language</singular>
 	    <plural>Languages</plural>
+	    <name>Name</name>
     	<english>English</english>
     	<portuguese>Portuguese</portuguese>
     	<spanish>Spanish</spanish>

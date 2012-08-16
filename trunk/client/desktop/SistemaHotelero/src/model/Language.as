@@ -1,5 +1,6 @@
 package model
 {
+[RemoteClass (alias="com.cdz.sh.model.Language")]
 public class Language
 {
 	private var _id : Object;
