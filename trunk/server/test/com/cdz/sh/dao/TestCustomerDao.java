@@ -160,6 +160,10 @@ public class TestCustomerDao {
 		assertNull(c1NotFound);
 		Customer c2NotFound = this.customerDao.getRecordById(this.customerPK2);
 		assertNull(c2NotFound);	
+		
+		//check that the DocumentType was not deleted
+		DocumentType docTypeDNI = this.documentTypeDao.getRecordById(1L);
+		assertNotNull(docTypeDNI);
 	}
 
 
