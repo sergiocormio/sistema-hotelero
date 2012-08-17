@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import com.cdz.sh.dao.RateDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
+import com.cdz.sh.dao.crud.EntityManagerSingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Rate;
 import com.cdz.sh.model.RatePK;
@@ -25,17 +26,17 @@ public class RateDaoImpl extends AbstractCrudDao<Rate, RatePK> implements RateDa
 	@Override
 	public Rate retrieveRate(RoomType roomType, Date date) throws DaoException {
 		try {	
-			entityManager.getTransaction().begin();
+			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
 			String strQuery = "SELECT r FROM Rate r WHERE r.id.roomType = :roomType and r.id.season.dateFrom <= :date and r.id.season.dateTo >= :date";
 			
-			TypedQuery<Rate> query = entityManager.createQuery(strQuery, Rate.class);
+			TypedQuery<Rate> query = EntityManagerSingleton.getInstance().createQuery(strQuery, Rate.class);
 			
 			query = query.setParameter("roomType", roomType);
 			query = query.setParameter("date", date);
 			
 			List<Rate> rates = query.getResultList();
-			entityManager.getTransaction().commit();
+			EntityManagerSingleton.getInstance().getTransaction().commit();
 			if(rates != null && rates.size() == 1){
 				return rates.get(0);
 			}

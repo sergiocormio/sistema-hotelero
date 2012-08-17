@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 
 import com.cdz.sh.dao.SeasonDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
+import com.cdz.sh.dao.crud.EntityManagerSingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Season;
 
@@ -45,19 +46,19 @@ public class SeasonDaoImpl extends AbstractCrudDao<Season, Long> implements Seas
 	private void checkOverlaping(Season season) throws DaoException {
 	
 		try {
-			entityManager.getTransaction().begin();
+			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
 			String strQuery = "SELECT s FROM Season s WHERE (s.dateFrom <= :dateFrom and s.dateTo >= :dateFrom) OR" +
 					" (s.dateFrom <= :dateTo and s.dateTo >= :dateTo) OR" +
 					" (s.dateFrom >= :dateFrom and s.dateTo <= :dateTo)";
 			
-			TypedQuery<Season> query = entityManager.createQuery( strQuery, Season.class);
+			TypedQuery<Season> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Season.class);
 			
 			query = query.setParameter("dateFrom", season.getDateFrom());
 			query = query.setParameter("dateTo", season.getDateTo());
 			
 			List<Season> seasons = query.getResultList();
-			entityManager.getTransaction().commit();
+			EntityManagerSingleton.getInstance().getTransaction().commit();
 			
 			if(seasons != null && !seasons.isEmpty()){
 				throw new DaoException("The season can not be created or updated because the range of dates could overlap an axisting season.");
