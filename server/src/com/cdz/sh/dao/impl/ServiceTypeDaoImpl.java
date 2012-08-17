@@ -21,7 +21,7 @@ import com.cdz.sh.model.ServiceType;
 public class ServiceTypeDaoImpl extends AbstractCrudDao<ServiceType, Long> implements ServiceTypeDao {
 
 	@Override
-	public List<ServiceType> retrieveAdditionalServices() throws DaoException {
+	public synchronized List<ServiceType> retrieveAdditionalServices() throws DaoException {
 		try {
 			EntityManagerSingleton.getInstance().getTransaction().begin();
 			

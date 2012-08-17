@@ -22,7 +22,7 @@ public class SeasonDaoImpl extends AbstractCrudDao<Season, Long> implements Seas
 
 	
 	@Override
-	public Season createRecord(Season season) throws DaoException {
+	public synchronized Season createRecord(Season season) throws DaoException {
 		
 		// check if we can create the season
 		checkOverlaping(season);
@@ -33,7 +33,7 @@ public class SeasonDaoImpl extends AbstractCrudDao<Season, Long> implements Seas
 	
 
 	@Override
-	public void updateRecord(Season season) throws DaoException {
+	public synchronized void updateRecord(Season season) throws DaoException {
 		
 		// check if we can update the season
 		checkOverlaping(season);
