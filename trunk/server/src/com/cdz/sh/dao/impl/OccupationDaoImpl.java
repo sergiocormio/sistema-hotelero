@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
+import com.cdz.sh.dao.crud.EntityManagerSingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
@@ -25,17 +26,17 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 	@Override
 	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException {
 		try {
-			entityManager.getTransaction().begin();
+			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date >= :dateFrom and oc.id.date <= :dateTo";
 			
-			TypedQuery<Occupation> query = entityManager.createQuery( strQuery, Occupation.class);
+			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Occupation.class);
 			
 			query = query.setParameter("dateFrom", dateFrom);
 			query = query.setParameter("dateTo", dateTo);
 			
 			List<Occupation> occupations = query.getResultList();
-			entityManager.getTransaction().commit();
+			EntityManagerSingleton.getInstance().getTransaction().commit();
 			return occupations;
 		}
 		catch(PersistenceException persistenceException){
@@ -46,16 +47,16 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 	@Override
 	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException {
 		try {
-			entityManager.getTransaction().begin();
+			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.reservationForm = :reservationForm";
 			
-			TypedQuery<Occupation> query = entityManager.createQuery(strQuery, Occupation.class);
+			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery(strQuery, Occupation.class);
 			
 			query = query.setParameter("reservationForm", reservationForm);
 						
 			List<Occupation> occupations = query.getResultList();
-			entityManager.getTransaction().commit();
+			EntityManagerSingleton.getInstance().getTransaction().commit();
 			return occupations;
 		}
 		catch(PersistenceException persistenceException){

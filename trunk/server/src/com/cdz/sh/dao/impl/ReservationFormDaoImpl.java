@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import com.cdz.sh.dao.ReservationFormDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
+import com.cdz.sh.dao.crud.EntityManagerSingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.model.Customer;
@@ -28,13 +29,13 @@ public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Lon
 
 		String jpql = createJpql(dateFrom, dateTo, customer, state);
 		try{
-			entityManager.getTransaction().begin();
-			TypedQuery<ReservationForm> query = entityManager.createQuery(jpql, ReservationForm.class);
+			EntityManagerSingleton.getInstance().getTransaction().begin();
+			TypedQuery<ReservationForm> query = EntityManagerSingleton.getInstance().createQuery(jpql, ReservationForm.class);
 			
 			query = setParameters(query, dateFrom, dateTo, customer, state);
 			
 			List<ReservationForm> reservationForms = query.getResultList();
-			entityManager.getTransaction().commit();
+			EntityManagerSingleton.getInstance().getTransaction().commit();
 			
 			return reservationForms;
 		}

@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 
 import com.cdz.sh.dao.ServiceTypeDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
+import com.cdz.sh.dao.crud.EntityManagerSingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.ServiceType;
 
@@ -22,16 +23,16 @@ public class ServiceTypeDaoImpl extends AbstractCrudDao<ServiceType, Long> imple
 	@Override
 	public List<ServiceType> retrieveAdditionalServices() throws DaoException {
 		try {
-			entityManager.getTransaction().begin();
+			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
 			String strQuery = "SELECT st FROM ServiceType st WHERE st.additionalFixed = :addFixed";
 			
-			TypedQuery<ServiceType> query = entityManager.createQuery( strQuery, ServiceType.class);
+			TypedQuery<ServiceType> query = EntityManagerSingleton.getInstance().createQuery( strQuery, ServiceType.class);
 			
 			query = query.setParameter("addFixed", Boolean.TRUE);
 						
 			List<ServiceType> serviceTypes = query.getResultList();
-			entityManager.getTransaction().commit();
+			EntityManagerSingleton.getInstance().getTransaction().commit();
 			return serviceTypes;
 		}
 		catch(PersistenceException persistenceException){
