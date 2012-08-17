@@ -19,5 +19,4 @@ public class DocumentTypeServiceImpl extends AbstractCrudService<DocumentType, L
 		return new DocumentTypeDaoImpl();
 	}
 
-	
 }
