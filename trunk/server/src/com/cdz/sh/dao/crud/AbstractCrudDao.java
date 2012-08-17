@@ -38,25 +38,26 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 	}
 	
 	@Override
-	public Entity createRecord(Entity e) throws DaoException{
+	public synchronized Entity createRecord(Entity e) throws DaoException{
+		EntityManager entityManager = EntityManagerSingleton.getInstance();
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
-			EntityManagerSingleton.getInstance().persist(e);
+			entityManager.getTransaction().begin();
+			entityManager.persist(e);
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
 		finally{
-			if(EntityManagerSingleton.getInstance().getTransaction().getRollbackOnly()){
-				EntityManagerSingleton.getInstance().getTransaction().rollback();	
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
 			}
 			else{
 				try {
-					EntityManagerSingleton.getInstance().getTransaction().commit();
+					entityManager.getTransaction().commit();
 				}
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again   
-					EntityManagerSingleton.getInstance().clear();
+					entityManager.clear();
 					throw new DaoException(persistenceException.getMessage());
 				}
 			}
@@ -66,31 +67,32 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 	}
 
 	@Override
-	public void updateRecord(Entity e) throws DaoException {
+	public synchronized void updateRecord(Entity e) throws DaoException {
+		EntityManager entityManager = EntityManagerSingleton.getInstance();
 		//check if the entity already exists
 		Id entityId = extractId(e);
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
-			Entity entityFound = EntityManagerSingleton.getInstance().find(this.entityClass, entityId);
+			entityManager.getTransaction().begin();
+			Entity entityFound = entityManager.find(this.entityClass, entityId);
 			if(entityFound == null){
 				throw new DaoException(this.entityClass.getSimpleName(), entityId.toString());
 			}
-			EntityManagerSingleton.getInstance().merge(e);
+			entityManager.merge(e);
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
 		finally{
-			if(EntityManagerSingleton.getInstance().getTransaction().getRollbackOnly()){
-				EntityManagerSingleton.getInstance().getTransaction().rollback();	
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
 			}
 			else{
 				try {
-					EntityManagerSingleton.getInstance().getTransaction().commit();
+					entityManager.getTransaction().commit();
 				}
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again
-					EntityManagerSingleton.getInstance().clear();
+					entityManager.clear();
 					throw new DaoException(persistenceException.getMessage());
 				}
 			}
@@ -111,31 +113,32 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 
 	
 	@Override
-	public void deleteRecord(Entity e) throws DaoException {
+	public synchronized void deleteRecord(Entity e) throws DaoException {
+		EntityManager entityManager = EntityManagerSingleton.getInstance();
 		//check if the entity already exists
 		Id entityId = extractId(e);
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
-			Entity entityFound = EntityManagerSingleton.getInstance().find(this.entityClass, entityId);
+			entityManager.getTransaction().begin();
+			Entity entityFound = entityManager.find(this.entityClass, entityId);
 			if(entityFound == null){
 				throw new DaoException(this.entityClass.getSimpleName(), entityId.toString());
 			}
-			EntityManagerSingleton.getInstance().remove(entityFound);
+			entityManager.remove(entityFound);
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
 		finally{
-			if(EntityManagerSingleton.getInstance().getTransaction().getRollbackOnly()){
-				EntityManagerSingleton.getInstance().getTransaction().rollback();	
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
 			}
 			else{
 				try {
-					EntityManagerSingleton.getInstance().getTransaction().commit();
+					entityManager.getTransaction().commit();
 				}
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again
-					EntityManagerSingleton.getInstance().clear();
+					entityManager.clear();
 					throw new DaoException(persistenceException.getMessage());
 				}
 			}
@@ -143,23 +146,23 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 	}
 
 	@Override
-	public Entity getRecordById(Id id) throws DaoException {
-						
+	public synchronized Entity getRecordById(Id id) throws DaoException {
+		EntityManager entityManager = EntityManagerSingleton.getInstance();						
 		Entity entity = null;
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
-			entity = EntityManagerSingleton.getInstance().find(this.entityClass, id);
+			entityManager.getTransaction().begin();
+			entity = entityManager.find(this.entityClass, id);
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
 		finally{
-			if(EntityManagerSingleton.getInstance().getTransaction().getRollbackOnly()){
-				EntityManagerSingleton.getInstance().getTransaction().rollback();	
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
 			}
 			else{
 				try {
-					EntityManagerSingleton.getInstance().getTransaction().commit();
+					entityManager.getTransaction().commit();
 				}
 				catch(PersistenceException persistenceException){
 					throw new DaoException(persistenceException.getMessage());
@@ -169,11 +172,13 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 		return entity;
 	}
 	
-	public Collection<Entity> retrieveAll() throws DaoException{
+	@Override
+	public synchronized Collection<Entity> retrieveAll() throws DaoException{
+		EntityManager entityManager = EntityManagerSingleton.getInstance();
 		Collection<Entity> entities = new ArrayList<Entity>();
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
-			TypedQuery<Entity> query = EntityManagerSingleton.getInstance().createQuery("SELECT e FROM " + this.entityClass.getName() + " e", this.entityClass);
+			entityManager.getTransaction().begin();
+			TypedQuery<Entity> query = entityManager.createQuery("SELECT e FROM " + this.entityClass.getName() + " e", this.entityClass);
 			entities = query.getResultList();
 			
 		}
@@ -181,12 +186,12 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 			throw new DaoException(persistenceException.getMessage());
 		}
 		finally{
-			if(EntityManagerSingleton.getInstance().getTransaction().getRollbackOnly()){
-				EntityManagerSingleton.getInstance().getTransaction().rollback();	
+			if(entityManager.getTransaction().getRollbackOnly()){
+				entityManager.getTransaction().rollback();	
 			}
 			else{
 				try {
-					EntityManagerSingleton.getInstance().getTransaction().commit();
+					entityManager.getTransaction().commit();
 				}
 				catch(PersistenceException persistenceException){
 					throw new DaoException(persistenceException.getMessage());

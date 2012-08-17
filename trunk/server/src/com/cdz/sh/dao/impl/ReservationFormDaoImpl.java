@@ -25,7 +25,7 @@ import com.cdz.sh.model.StateReservationForm;
 public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Long> implements ReservationFormDao {
 
 	@Override
-	public List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, Customer customer, StateReservationForm state) throws InvalidParameterException, DaoException {
+	public synchronized List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, Customer customer, StateReservationForm state) throws InvalidParameterException, DaoException {
 
 		String jpql = createJpql(dateFrom, dateTo, customer, state);
 		try{

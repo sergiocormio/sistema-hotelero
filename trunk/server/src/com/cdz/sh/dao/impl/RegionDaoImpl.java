@@ -22,7 +22,7 @@ import com.cdz.sh.model.Region;
 public class RegionDaoImpl extends AbstractCrudDao<Region, Long> implements RegionDao {
 
 	@Override
-	public List<Region> retrieveRegions(Country country) throws DaoException {
+	public synchronized List<Region> retrieveRegions(Country country) throws DaoException {
 		try {
 			EntityManagerSingleton.getInstance().getTransaction().begin();
 			

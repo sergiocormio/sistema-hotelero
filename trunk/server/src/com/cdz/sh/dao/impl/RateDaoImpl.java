@@ -24,7 +24,7 @@ import com.cdz.sh.model.RoomType;
 public class RateDaoImpl extends AbstractCrudDao<Rate, RatePK> implements RateDao {
 
 	@Override
-	public Rate retrieveRate(RoomType roomType, Date date) throws DaoException {
+	public synchronized Rate retrieveRate(RoomType roomType, Date date) throws DaoException {
 		try {	
 			EntityManagerSingleton.getInstance().getTransaction().begin();
 			

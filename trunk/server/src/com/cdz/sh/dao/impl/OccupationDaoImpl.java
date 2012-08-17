@@ -24,7 +24,7 @@ import com.cdz.sh.model.ReservationForm;
 public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK> implements OccupationDao {
 
 	@Override
-	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException {
+	public synchronized List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException {
 		try {
 			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
@@ -45,7 +45,7 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 	}
 
 	@Override
-	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException {
+	public synchronized List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException {
 		try {
 			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
