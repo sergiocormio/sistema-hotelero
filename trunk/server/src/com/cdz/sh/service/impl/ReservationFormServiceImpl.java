@@ -19,7 +19,6 @@ import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.ReservationForm;
-import com.cdz.sh.model.RoomType;
 import com.cdz.sh.model.StateReservationForm;
 import com.cdz.sh.report.PDFReportManager;
 import com.cdz.sh.service.AbstractCrudService;
