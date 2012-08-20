@@ -51,11 +51,11 @@ public class TestBudgetService {
 				
 		Alternative alternative = new Alternative();
 		
-		alternative.setDateFrom(new GregorianCalendar(2012, 7, 1).getTime());
+		Date dateFrom  = new GregorianCalendar(2012, 7, 1).getTime();
 	
-		alternative.setDateTo(new GregorianCalendar(2012, 7, 3).getTime());
+		Date dateTo = new GregorianCalendar(2012, 7, 3).getTime();
 		
-		List<Occupation> occupations = createOccupationWithoutRoomChange(alternative.getDateFrom(), alternative.getDateTo());
+		List<Occupation> occupations = createOccupationWithoutRoomChange(dateFrom, dateTo);
 		
 		alternative.setOccupations(occupations);
 		
@@ -75,11 +75,11 @@ public class TestBudgetService {
 		
 		Alternative alternative = new Alternative();
 		
-		alternative.setDateFrom(new GregorianCalendar(2012, 7, 1).getTime());
+		Date dateFrom  = new GregorianCalendar(2012, 7, 1).getTime();
 	
-		alternative.setDateTo(new GregorianCalendar(2012, 7, 6).getTime());
+		Date dateTo = new GregorianCalendar(2012, 7, 6).getTime();
 		
-		List<Occupation> occupations = createOccupationWithOneRoomChange(alternative.getDateFrom(), alternative.getDateTo());
+		List<Occupation> occupations = createOccupationWithOneRoomChange(dateFrom, dateTo);
 		
 		alternative.setOccupations(occupations);
 		
@@ -101,11 +101,11 @@ public class TestBudgetService {
 		
 		Alternative alternative = new Alternative();
 		
-		alternative.setDateFrom(new GregorianCalendar(2012, 7, 1).getTime());
+		Date dateFrom  = new GregorianCalendar(2012, 7, 1).getTime();
 	
-		alternative.setDateTo(new GregorianCalendar(2012, 7, 10).getTime());
+		Date dateTo = new GregorianCalendar(2012, 7, 10).getTime();
 		
-		List<Occupation> occupations = createOccupationWithTwoRoomChanges(alternative.getDateFrom(), alternative.getDateTo());
+		List<Occupation> occupations = createOccupationWithTwoRoomChanges(dateFrom, dateTo);
 		
 		alternative.setOccupations(occupations);
 		
