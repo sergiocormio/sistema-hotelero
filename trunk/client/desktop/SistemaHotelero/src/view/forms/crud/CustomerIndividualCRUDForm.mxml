@@ -107,6 +107,7 @@
 				retrieveCountries();
 				retrieveRegions();
 				retrieveLanguages();
+				setInitialFocus();
 			}
 			
 			private function retrieveDocumentTypes():void{
@@ -321,6 +322,17 @@
 				// selects automatically its country
 				var region:Region = regionsCombo.selectedItem as Region;
 				countriesCombo.selectedItem = region.country;
+			}
+			
+			protected function setInitialFocus():void
+			{
+				if(enabled){
+					if(isUpdate){
+						firstNameText.setFocus();
+					}else{
+						idNumberText.setFocus();
+					}
+				}
 			}
 			
 		]]>
