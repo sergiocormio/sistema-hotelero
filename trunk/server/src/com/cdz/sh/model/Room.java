@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -97,6 +98,13 @@ public class Room {
     public void setWithExtraBed(boolean withExtraBed) {
     	this.withExtraBed = withExtraBed;
     }
+    
+    
+    @Transient
+    public int getTotalPeopleQuantity(){
+    	return this.adultsQuantity + this.childrenQuantity;
+    }
+    
     
     public int hashCode() {
         return this.number;

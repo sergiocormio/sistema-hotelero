@@ -1,5 +1,7 @@
 package com.cdz.sh.model;
 
+import java.util.Date;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -14,7 +16,15 @@ public class Occupation {
 	@ManyToOne
 	@JoinColumn(name="RESERVATION_FORM_ID")
 	private ReservationForm reservationForm;
-
+	
+	public Occupation(){}
+	
+	public Occupation(Date date, Room room){
+		OccupationPK occupationId = new OccupationPK();
+		occupationId.setDate(date);
+		occupationId.setRoom(room);
+		this.id = occupationId;
+	}
 	
 	public OccupationPK getId() {
 		return id;

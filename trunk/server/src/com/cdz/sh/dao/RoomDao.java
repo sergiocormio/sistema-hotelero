@@ -1,6 +1,9 @@
 package com.cdz.sh.dao;
 
+import java.util.List;
+
 import com.cdz.sh.dao.crud.CrudDao;
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Room;
 
 /**
@@ -11,8 +14,6 @@ import com.cdz.sh.model.Room;
  */
 public interface RoomDao extends CrudDao<Room, Long> {
 
-	/**
-	 * TODO: declare specific query methods
-	 */
+	public List<Room> retrieveRoomsByCapacity(int capacity) throws DaoException;
 
 }
