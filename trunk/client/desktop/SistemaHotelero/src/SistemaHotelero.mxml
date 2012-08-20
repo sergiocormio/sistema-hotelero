@@ -38,16 +38,6 @@
 			[Bindable]
 			private var loc:Object = Locale.getInstance().getCurrentLocale();
 			
-			// Handle the recevied message.
-			private function resultHandler(event:ResultEvent):void {
-				ta.text += "Server responded: "+ event.result + "\n";
-			}
-
-			// Handle a message fault.
-			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				ta.text += "Received fault: " + event.fault + "\n";
-			}
-			
 			protected function init(event:FlexEvent):void
 			{
 				/*
@@ -72,15 +62,12 @@
 		-->
 	</fx:Declarations>
 	
-	<s:VGroup width="100%">
-		<s:HGroup>
-			<s:Button label="Clean Area" click="ta.text=''"/>
+	<s:VGroup width="100%" height="100%">
+		<s:HGroup width="100%" horizontalAlign="right">
 			<components:LocaleChooser loc="{loc}" localeChanged="loc = Locale.getInstance().getCurrentLocale();"/>
 		</s:HGroup>
 
-		<s:TextArea id="ta" width="100%" height="50" editable="false" />
-		
-		<crud:CustomerCRUDForm loc="{loc}"/>
+		<crud:CustomerCRUDForm loc="{loc}" width="100%" height="100%"/>
 	</s:VGroup>
 	
 </s:WindowedApplication>
