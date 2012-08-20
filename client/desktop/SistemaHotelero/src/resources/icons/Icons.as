@@ -40,6 +40,11 @@ package resources.icons
 		[Embed(source='resources/icons/United States Flag 24x24.png')]
 		public static var en_US:Class;
 		
+		//-------- Main Tabs Icon ----------
+		[Bindable]
+		[Embed(source='resources/icons/users_two_48.png')]
+		public static var customers:Class;
+		
 		public function Icons()
 		{
 		}
