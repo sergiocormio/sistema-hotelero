@@ -5,6 +5,10 @@
 	    <plural>Países</plural>
 	    <name>Nombre</name>
 	</country>
+	<configuration>
+    	<singular>Configuración</singular>
+	    <plural>Configuraciones</plural>
+    </configuration>
     <customer>
 	    <singular>Cliente</singular>
 	    <plural>Clientes</plural>
@@ -56,6 +60,14 @@
 	    <name>Nombre</name>
 	    <regExp>Expresión Regular</regExp>
     </documentType>
+     <language>
+   		<singular>Idioma</singular>
+	    <plural>Idiomas</plural>
+	    <name>Nombre</name>
+    	<english>Inglés</english>
+    	<portuguese>Portugués</portuguese>
+    	<spanish>Español</spanish>
+    </language>
     <month>
     	<january>Enero</january>
     	<february>Febrero</february>
@@ -70,4 +82,9 @@
     	<november>Noviembre</november>
     	<december>Deciembre</december>
     </month>
+    <region>
+   		<singular>Región</singular>
+	    <plural>Regiones</plural>
+	    <name>Nombre</name>
+    </region>
 </locale>

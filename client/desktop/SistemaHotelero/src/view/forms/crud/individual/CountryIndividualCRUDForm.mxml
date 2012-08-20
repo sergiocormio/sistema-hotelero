@@ -25,7 +25,7 @@
 			[Bindable]
 			public var isUpdate:Boolean;
 			
-			private var _currentCountry:Country;
+			private var _currentCountry:Country = new Country(); 
 
 			public function get currentCountry():Country
 			{
@@ -35,6 +35,7 @@
 			public function set currentCountry(value:Country):void
 			{
 				_currentCountry = value;
+				countryText.text = _currentCountry.name;
 			}
 			
 			private function save():void{
@@ -42,7 +43,7 @@
 				//if(!allFieldsAreValid()){
 				//	return;
 				//}
-				_currentCountry = new Country();
+				 
 				_currentCountry.name = countryText.text;
 				
 				//calls service

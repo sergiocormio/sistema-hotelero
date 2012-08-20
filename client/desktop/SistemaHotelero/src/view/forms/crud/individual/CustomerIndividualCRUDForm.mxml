@@ -152,7 +152,6 @@
 			
 			private function addLanguage():void{
 				languageForm = new LanguageIndividualCRUDForm();
-				languageForm.currentLanguage = new Language();
 				languageForm.loc = loc;
 				languageForm.isUpdate = false;
 				languageForm.addEventListener("saveSuccess",language_saveSuccess);
@@ -168,6 +167,7 @@
 			
 			private function addRegion():void{
 				regionForm = new RegionIndividualCRUDForm();
+				regionForm.countryPreSelected = countriesCombo.selectedItem;
 				regionForm.loc = loc;
 				regionForm.isUpdate = false;
 				regionForm.addEventListener("saveSuccess",region_saveSuccess);

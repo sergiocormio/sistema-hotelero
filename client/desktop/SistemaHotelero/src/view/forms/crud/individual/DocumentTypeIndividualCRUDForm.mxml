@@ -25,7 +25,7 @@
 			[Bindable]
 			public var isUpdate:Boolean = false;
 			
-			private var _currentDocType:DocumentType; 
+			private var _currentDocType:DocumentType = new DocumentType(); 
 			
 			public function get currentDocType():DocumentType
 			{
@@ -44,7 +44,7 @@
 				//if(!allFieldsAreValid()){
 				//	return;
 				//}
-				_currentDocType = new DocumentType();
+
 				_currentDocType.name = documentTypeText.text;
 				_currentDocType.regExp = regExpText.text;
 				

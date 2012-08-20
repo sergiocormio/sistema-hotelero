@@ -5,7 +5,7 @@
 		  creationComplete="init(event)">
 	<fx:Script>
 		<![CDATA[
-			import model.Language;
+			import model.DocumentType;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -13,7 +13,7 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
-			import services.LanguageService;
+			import services.DocumentTypeService;
 			
 			import spark.events.GridSelectionEvent;
 			
@@ -21,17 +21,17 @@
 			public var loc:Object;
 			
 			[Bindable]
-			private var languages:ArrayCollection = new ArrayCollection();
+			private var documentTypes:ArrayCollection = new ArrayCollection();
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				Alert.show("Language Form: Received fault: " + event.fault + "\n");
+				Alert.show("DocumentType Form: Received fault: " + event.fault + "\n");
 			}
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
 				grid.selectedItem = null;
-				languages.removeAll();
-				languages.addAll(event.result as ArrayCollection);
+				documentTypes.removeAll();
+				documentTypes.addAll(event.result as ArrayCollection);
 			}
 			
 			
@@ -48,34 +48,34 @@
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
-				new LanguageService().retrieveAll(retrieveAll_resultHandler,faultHandler);
+				new DocumentTypeService().retrieveAll(retrieveAll_resultHandler,faultHandler);
 			}
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
 				if(grid.selectedItem !=null){
-					individual.currentLanguage = grid.selectedItem as Language;
+					individual.currentDocType = grid.selectedItem as DocumentType;
 				}
 				individual.enabled = false;
 			}
 			
-			protected function modifyLanguage():void
+			protected function modifyDocumentType():void
 			{
-				individual.currentLanguage = grid.selectedItem as Language;
+				individual.currentDocType = grid.selectedItem as DocumentType;
 				individual.isUpdate = true;
 				individual.enabled=true;
 				
 			}
 			
-			protected function deleteLanguage():void
+			protected function deleteDocumentType():void
 			{
-				new LanguageService().deleteRecord(grid.selectedItem as Language,delete_resultHandler,faultHandler);
+				new DocumentTypeService().deleteRecord(grid.selectedItem as DocumentType,delete_resultHandler,faultHandler);
 			}
 			
-			protected function addLanguage():void
+			protected function addDocumentType():void
 			{
 				grid.selectedItem = null;
-				individual.currentLanguage = new Language();
+				individual.currentDocType = new DocumentType();
 				individual.isUpdate = false;
 				individual.enabled = true;
 			}
@@ -85,18 +85,19 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:HGroup width="100%" height="70%">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{languages}" selectionChange="grid_selectionChangeHandler(event)">
+		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{documentTypes}" selectionChange="grid_selectionChangeHandler(event)">
 			<s:columns>
 				<s:ArrayList>
-					<s:GridColumn dataField="name" headerText="{loc.language.singular}"></s:GridColumn>
+					<s:GridColumn dataField="name" headerText="{loc.documentType.singular}"></s:GridColumn>
+					<s:GridColumn dataField="regExp" headerText="{loc.documentType.regExp}"></s:GridColumn>
 				</s:ArrayList>
 			</s:columns>
 		</s:DataGrid>
 		<!-- BUTTONS -->
-		<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addLanguage()"
-								modifyClicked="modifyLanguage()" removeClicked="deleteLanguage()"
+		<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addDocumentType()"
+								modifyClicked="modifyDocumentType()" removeClicked="deleteDocumentType()"
 								loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
 								removeButtonEnabled="{grid.selectedItem!=null}"/>
 	</s:HGroup>
-	<individual:LanguageIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" height="30%"/>
+	<individual:DocumentTypeIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" height="30%"/>
 </s:VGroup>
