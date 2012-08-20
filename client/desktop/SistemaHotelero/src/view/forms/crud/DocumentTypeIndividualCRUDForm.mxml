@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" creationComplete="init(event)">
 	<fx:Metadata> 
 		[Event(name="cancelClicked", type="flash.events.Event")]
 		[Event(name="saveSuccess", type="flash.events.Event")]
@@ -11,6 +11,7 @@
 			import model.DocumentType;
 			
 			import mx.controls.Alert;
+			import mx.events.FlexEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
@@ -68,6 +69,12 @@
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
 				Alert.show("Received fault: " + event.fault + "\n");
 			}
+			
+			protected function init(event:FlexEvent):void
+			{
+				documentTypeText.setFocus();
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>

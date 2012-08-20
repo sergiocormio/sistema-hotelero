@@ -44,6 +44,7 @@
 			{
 				//autoloads all combos
 				retrieveCountries();
+				countriesCombo.setFocus();
 			}
 			
 			public function get currentRegion():Region
