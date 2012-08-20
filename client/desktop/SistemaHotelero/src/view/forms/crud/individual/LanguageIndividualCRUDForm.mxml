@@ -34,6 +34,7 @@
 			public function set currentLanguage(value:Language):void
 			{
 				_currentLanguage = value;
+				languageText.text = _currentLanguage.name;
 			}
 			
 			private function save():void{
@@ -41,7 +42,7 @@
 				//if(!allFieldsAreValid()){
 				//	return;
 				//}
-				_currentLanguage = new Language();
+				
 				_currentLanguage.name = languageText.text;
 				
 				//calls service

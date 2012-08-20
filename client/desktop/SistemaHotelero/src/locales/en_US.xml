@@ -9,6 +9,10 @@
     	<remove>Remove</remove>
     	<save>Save</save>
     </button>
+    <configuration>
+    	<singular>Configuration</singular>
+	    <plural>Configurations</plural>
+    </configuration>
 	<country>
 	    <singular>Country</singular>
 	    <plural>Countries</plural>

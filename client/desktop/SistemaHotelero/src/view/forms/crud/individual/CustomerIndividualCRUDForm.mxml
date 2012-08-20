@@ -14,6 +14,7 @@
 			import model.Country;
 			import model.Customer;
 			import model.CustomerPK;
+			import model.Language;
 			import model.Region;
 			
 			import mx.collections.ArrayCollection;
@@ -151,6 +152,7 @@
 			
 			private function addLanguage():void{
 				languageForm = new LanguageIndividualCRUDForm();
+				languageForm.currentLanguage = new Language();
 				languageForm.loc = loc;
 				languageForm.isUpdate = false;
 				languageForm.addEventListener("saveSuccess",language_saveSuccess);
