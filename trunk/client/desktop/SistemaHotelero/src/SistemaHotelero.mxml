@@ -30,6 +30,8 @@
 			import mx.utils.ArrayUtil;
 			import mx.utils.ObjectProxy;
 			
+			import resources.icons.Icons;
+			
 			import services.DocumentTypeService;
 			
 			private	var lastCustomer:Customer;
@@ -61,13 +63,55 @@
 		</s:RemoteObject>
 		-->
 	</fx:Declarations>
-	
 	<s:VGroup width="100%" height="100%">
 		<s:HGroup width="100%" horizontalAlign="right">
 			<components:LocaleChooser loc="{loc}" localeChanged="loc = Locale.getInstance().getCurrentLocale();"/>
 		</s:HGroup>
-
-		<crud:CustomerCRUDForm loc="{loc}" width="100%" height="100%"/>
+		
+		<s:ButtonBar dataProvider="{mainViewStack}" requireSelection="true" iconPlacement="top"/>
+		
+		<mx:ViewStack id="mainViewStack" borderStyle="none" width="100%" height="100%">
+			<s:NavigatorContent id="rooms" label="Rooms" icon="{Icons.save}" width="100%" height="100%">
+				<s:VGroup width="100%" height="100%">
+					<s:Label text="testing new panel"/>
+				</s:VGroup>
+			</s:NavigatorContent>
+			
+			<s:NavigatorContent id="customers" label="{loc.customer.plural}" icon="{Icons.customers}" width="100%" height="100%"> 
+				<crud:CustomerCRUDForm loc="{loc}" width="100%" height="100%"/>
+			</s:NavigatorContent>
+			
+			<s:NavigatorContent id="transports" label="Transports" icon="{Icons.add}" width="100%" height="100%">
+				<s:VGroup width="100%" height="100%">
+					<s:Label text="testing new panel"/>
+				</s:VGroup>
+			</s:NavigatorContent>
+			
+			<s:NavigatorContent id="maintain" label="Maintain" icon="{Icons.cancel}" width="100%" height="100%">
+				<s:VGroup width="100%" height="100%">
+					<s:Label text="testing new panel"/>
+				</s:VGroup>
+			</s:NavigatorContent>
+			
+			<s:NavigatorContent id="consumes" label="Consume" icon="{Icons.modify}" width="100%" height="100%">
+				<s:VGroup width="100%" height="100%">
+					<s:Label text="testing new panel"/>
+				</s:VGroup>
+			</s:NavigatorContent>
+			
+			<s:NavigatorContent id="advertisement" label="Advertisements" icon="{Icons.refresh}" width="100%" height="100%">
+				<s:VGroup width="100%" height="100%">
+					<s:Label text="testing new panel"/>
+				</s:VGroup>
+			</s:NavigatorContent>
+			
+			<s:NavigatorContent id="setup" label="Setup" icon="{Icons.remove}" width="100%" height="100%">
+				<s:VGroup width="100%" height="100%">
+					<s:Label text="testing new panel"/>
+				</s:VGroup>
+			</s:NavigatorContent>
+			
+		</mx:ViewStack>
 	</s:VGroup>
 	
 </s:WindowedApplication>
