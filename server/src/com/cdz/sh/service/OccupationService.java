@@ -3,6 +3,7 @@ package com.cdz.sh.service;
 import java.util.Date;
 import java.util.List;
 
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
@@ -24,7 +25,7 @@ public interface OccupationService extends CrudService<Occupation, OccupationPK>
 	 * @param toDate
 	 * @return occupations ordered by date and roomNumber
 	 */
-	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo);
+	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException;
 	
 	/**
 	 * Retrieves a list a available alternatives order by priority (price, room changes, etc) <br />
@@ -37,7 +38,7 @@ public interface OccupationService extends CrudService<Occupation, OccupationPK>
 	 * @param variance
 	 * @return
 	 */
-	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int peopleQty, int variance);
+	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int peopleQty, int variance) throws DaoException;
 	
 	
 
