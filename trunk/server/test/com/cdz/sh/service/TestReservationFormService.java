@@ -70,9 +70,6 @@ public class TestReservationFormService {
 		
 		ReservationForm reservationForm = buildReservationForm();
 		
-		alternative.setDateFrom(reservationForm.getDateFrom());
-		alternative.setDateTo(reservationForm.getDateTo());
-		
 		List<Occupation> occupations = createOccupationWithoutRoomChange(reservationForm);
 		
 		alternative.setOccupations(occupations);
