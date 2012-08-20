@@ -11,8 +11,10 @@
 		<![CDATA[
 			import locales.Locale;
 			
+			import model.Country;
 			import model.Customer;
 			import model.CustomerPK;
+			import model.Region;
 			
 			import mx.collections.ArrayCollection;
 			import mx.containers.TitleWindow;
@@ -35,6 +37,8 @@
 			import services.DocumentTypeService;
 			import services.LanguageService;
 			import services.RegionService;
+			
+			import spark.events.IndexChangeEvent;
 			
 			import utils.WindowsUtils;
 			[Bindable]
@@ -74,7 +78,7 @@
 					WindowsUtils.autoSelectComboBox(documentTypesCombo,_currentCustomer.id.docType);
 				}else{
 					idNumberText.text = null;
-					documentTypesCombo.selectedItem = null;
+					documentTypesCombo.selectedIndex = 0;
 				}
 				firstNameText.text = _currentCustomer.firstName;
 				lastNameText.text = _currentCustomer.lastName;
@@ -86,8 +90,13 @@
 					WindowsUtils.autoSelectComboBox(countriesCombo,_currentCustomer.region.country);
 					WindowsUtils.autoSelectComboBox(regionsCombo,_currentCustomer.region);
 				}else{
-					countriesCombo.selectedItem = null;
-					regionsCombo.selectedItem = null;
+					countriesCombo.selectedIndex = -1;
+					regionsCombo.selectedIndex = -1;
+				}
+				if(_currentCustomer.language!=null){
+					WindowsUtils.autoSelectComboBox(languagesCombo,_currentCustomer.language);
+				}else{
+					languagesCombo.selectedIndex = -1;	
 				}
 			}
 
@@ -191,9 +200,13 @@
 				countries.addAll(event.result as ArrayCollection);
 			}
 			
-			private function retrieveRegions():void{
+			private function retrieveRegions(country:Country = null):void{
 				var regionServ:RegionService = new RegionService();
-				regionServ.retrieveAll(retrieveRegions_resultHandler,faultHandler);
+				if(country==null){
+					regionServ.retrieveAll(retrieveRegions_resultHandler,faultHandler);
+				}else{
+					regionServ.retrieveRegions(country,retrieveRegions_resultHandler,faultHandler);
+				}
 			}
 			
 			private function retrieveRegions_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -297,6 +310,19 @@
 				}       
 			}
 			
+			protected function countriesCombo_changeHandler(event:IndexChangeEvent):void
+			{
+				//Loads regions to selected country
+				retrieveRegions(countriesCombo.selectedItem as Country);
+			}
+			
+			protected function regionsCombo_changeHandler(event:IndexChangeEvent):void
+			{
+				// selects automatically its country
+				var region:Region = regionsCombo.selectedItem as Region;
+				countriesCombo.selectedItem = region.country;
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -311,16 +337,16 @@
 							lowerThanMinError="{loc.validator.requiredFieldError}" minValue="0"
 							property="selectedIndex" source="{documentTypesCombo}"/>
 	</fx:Declarations>
-	<s:HGroup width="100%" horizontalAlign="center">
+	<s:HGroup width="100%" height="100%" horizontalAlign="center">
 		<s:Form>
 			<s:layout>
 				<s:FormLayout gap="-14"/>
 			</s:layout>  
 	
-			<s:FormItem label="{loc.customerPK.idNumber}:" required="true">
+			<s:FormItem label="{loc.customerPK.idNumber}:" required="true" enabled="{!isUpdate}">
 				<s:TextInput id="idNumberText"/>
 			</s:FormItem>
-			<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:">
+			<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:" enabled="{!isUpdate}">
 				<s:HGroup>
 					<s:ComboBox id="documentTypesCombo" dataProvider="{documentTypes}"
 								labelField="name"/>
@@ -362,7 +388,7 @@
 			</s:FormItem>
 			<s:FormItem id="countryItem" label="{loc.country.singular}:">
 				<s:HGroup>
-					<s:ComboBox id="countriesCombo" dataProvider="{countries}" labelField="name"/>
+					<s:ComboBox id="countriesCombo" dataProvider="{countries}" labelField="name" change="countriesCombo_changeHandler(event)"/>
 					<s:Button width="24" height="24" click="retrieveCountries();"
 							  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 					<s:Button width="24" height="24" click="addCountry();" icon="{Icons.add}"
@@ -371,7 +397,7 @@
 			</s:FormItem>
 			<s:FormItem id="regionItem" label="{loc.region.singular}:">
 				<s:HGroup>
-					<s:ComboBox id="regionsCombo" dataProvider="{regions}" labelField="name"/>
+					<s:ComboBox id="regionsCombo" dataProvider="{regions}" labelField="name" change="regionsCombo_changeHandler(event)"/>
 					<s:Button width="24" height="24" click="retrieveRegions();"
 							  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 					<s:Button width="24" height="24" click="addRegion();" icon="{Icons.add}"
@@ -390,8 +416,9 @@
 		</s:Form>
 	</s:HGroup>
 	<!-- BUTTONS -->
-	<s:HGroup width="100%" horizontalAlign="center">
+	<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
 		<s:Button label="{loc.button.save}" click="save()" icon="{Icons.save}"/>
 		<s:Button label="{loc.button.cancel}" click="cancel()" icon="{Icons.cancel}"/>
 	</s:HGroup>
+	<s:Spacer height="5"/>
 </s:VGroup>

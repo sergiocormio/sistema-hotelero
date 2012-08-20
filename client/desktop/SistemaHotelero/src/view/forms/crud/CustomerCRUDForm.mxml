@@ -100,8 +100,8 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:HGroup width="100%" height="100%">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{customers}" selectionChange="grid_selectionChangeHandler(event)">
+	<s:HGroup width="100%" height="50%">
+		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{customers}" selectionChange="grid_selectionChangeHandler(event)" verticalScrollPolicy="on">
 			<s:columns>
 				<s:ArrayList>
 					<s:GridColumn dataField="firstName" headerText="{loc.customer.firstName}"></s:GridColumn>
@@ -125,7 +125,7 @@
 			<s:Button id="remove" label="{loc.button.remove}" enabled="{grid.selectedItem!=null}" icon="{Icons.remove}" click="deleteCustomer()"/>
 		</s:VGroup>
 	</s:HGroup>
-	<crud:CustomerIndividualCRUDForm id="individual" height="100%" width="100%" 
+	<crud:CustomerIndividualCRUDForm id="individual" height="50%" width="100%" 
 									 loc="{loc}" enabled="false" 
 									 cancelClicked="individual.enabled=false;"
 									 saveSuccess="refreshGrid();"/>
