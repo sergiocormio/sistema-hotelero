@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Metadata> 
+		[Event(name="refreshClicked", type="flash.events.Event")]
+		[Event(name="addClicked", type="flash.events.Event")]
+		[Event(name="modifyClicked", type="flash.events.Event")]
+		[Event(name="removeClicked", type="flash.events.Event")]
+	</fx:Metadata> 
+	<fx:Script>
+		<![CDATA[
+			import resources.icons.Icons;
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			public var modifyButtonEnabled:Boolean = false;
+			
+			[Bindable]
+			public var removeButtonEnabled:Boolean = false;
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Button id="refresh" label="{loc.button.refresh}" icon="{Icons.refresh}" click="dispatchEvent(new Event('refreshClicked'))"/>
+	<s:Button id="add" label="{loc.button.add}" icon="{Icons.add}" click="dispatchEvent(new Event('addClicked'))"/>
+	<s:Button id="modify" label="{loc.button.modify}" enabled="{modifyButtonEnabled}" icon="{Icons.modify}" click="dispatchEvent(new Event('modifyClicked'))"/>
+	<s:Button id="remove" label="{loc.button.remove}" enabled="{removeButtonEnabled}" icon="{Icons.remove}" click="dispatchEvent(new Event('removeClicked'))"/>
+</s:VGroup>
