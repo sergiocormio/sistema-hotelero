@@ -43,6 +43,33 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 			throw new DaoException(persistenceException.getMessage());
 		}
 	}
+	
+	
+	@Override
+	public synchronized List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo, int peopleQuantity) throws DaoException {
+		try {
+			EntityManagerSingleton.getInstance().getTransaction().begin();
+			
+			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date >= :dateFrom and oc.id.date <= :dateTo";
+			strQuery = strQuery.concat(" and oc.id.room.totalPeopleQuantity >= :peopleQuantity");
+			
+			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Occupation.class);
+			
+			query = query.setParameter("dateFrom", dateFrom);
+			query = query.setParameter("dateTo", dateTo);
+			query = query.setParameter("peopleQuantity", peopleQuantity);
+			
+			
+			List<Occupation> occupations = query.getResultList();
+			EntityManagerSingleton.getInstance().getTransaction().commit();
+			return occupations;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+	}
+	
+	
 
 	@Override
 	public synchronized List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException {

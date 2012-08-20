@@ -19,6 +19,8 @@ public interface OccupationDao extends CrudDao<Occupation, OccupationPK> {
 
 	
 	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException;
+	
+	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo, int peopleQuantity) throws DaoException;
 
 	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException;
 
