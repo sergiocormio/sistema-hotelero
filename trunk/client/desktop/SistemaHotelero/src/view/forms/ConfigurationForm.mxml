@@ -46,15 +46,11 @@
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="documentTypes" label="{loc.documentType.plural}" icon="{Icons.save}" width="100%" height="100%">
-			<s:VGroup width="100%" height="100%">
-				<s:Label text="testing new panel"/>
-			</s:VGroup>
+			<crud:DocumentTypeCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="countries" label="{loc.country.plural}" icon="{Icons.save}" width="100%" height="100%">
-			<s:VGroup width="100%" height="100%">
-				<s:Label text="testing new panel"/>
-			</s:VGroup>
+			<crud:CountryCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="regions" label="{loc.region.plural}" icon="{Icons.save}" width="100%" height="100%">

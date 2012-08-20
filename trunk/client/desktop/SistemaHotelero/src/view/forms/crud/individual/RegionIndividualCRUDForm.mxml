@@ -35,10 +35,14 @@
 			[Bindable]
 			private var countries:ArrayCollection = new ArrayCollection();
 			
+			public var countryPreSelected:Country;			
+			
 			private var _currentRegion:Region;
 			
 			private var titleWindow:TitleWindow;
 			private var countryForm:CountryIndividualCRUDForm;
+			
+			
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -118,6 +122,11 @@
 				//fills the ComboBox
 				countries.removeAll();
 				countries.addAll(event.result as ArrayCollection);
+				//preselects a country
+				if(countryPreSelected != null){
+					WindowsUtils.autoSelectComboBox(countriesCombo,countryPreSelected);
+					countryPreSelected = null;
+				}
 			}
 			
 		]]>
