@@ -1,9 +1,7 @@
 package com.cdz.sh.service.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.cdz.sh.dao.OccupationDao;
@@ -13,13 +11,13 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Alternative;
-import com.cdz.sh.model.Budget;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.BudgetService;
 import com.cdz.sh.service.OccupationService;
+import com.cdz.sh.service.exception.NoAvailableAlternativesException;
 import com.cdz.sh.util.DateUtil;
 
 /**
@@ -57,37 +55,60 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	}
 
 	@Override
-	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int peopleQty, int variance) throws DaoException {
+	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int peopleQty, int variance) throws DaoException, NoAvailableAlternativesException {
 		
 		List<Room> roomsByCapacity = this.roomDao.retrieveRoomsByCapacity(peopleQty);
+		/*
+		 * TODO retrieve only occupation with state: confirmada
+		 */
 		List<Occupation> occupations = this.occupationDao.retrieveOccupations(dateFrom, dateTo, peopleQty);
 		
 		List<Occupation> possibleOccupations = createPossibleOccupations(dateFrom, dateTo, roomsByCapacity, occupations);
 		
 		List<Alternative> alternatives = createAlternatives(possibleOccupations, dateFrom, dateTo);
-		/*
-		 * 	TODO
-		 * 
-		 *  add support for searching by other date ranges
-		 * 
-		 */
+		
 		return alternatives;
 	}
 
 
 
-	private List<Occupation> createPossibleOccupations(Date dateFrom, Date dateTo, List<Room> roomsByCapacity, List<Occupation> occupations) {
+	/**
+	 * Creates the list of possible occupations taking into account:
+	 * 
+	 * 		- room capacity
+	 * 		- date range
+	 * 		- room occupation
+	 * 		- has at least one available room to occupate, for each date
+	 * 
+	 * @param dateFrom
+	 * @param dateTo
+	 * @param roomsByCapacity
+	 * @param occupations
+	 * @return
+	 * @throws NoAvailableAlternativesException 
+	 */
+	private List<Occupation> createPossibleOccupations(Date dateFrom, Date dateTo, List<Room> roomsByCapacity, List<Occupation> occupations) throws NoAvailableAlternativesException {
 		List<Occupation> possibleOccupations = new ArrayList<Occupation>();
 		Date date = dateFrom;
-		while(!date.after(dateTo)){
+		
+		boolean hasAtLeastOneAvailableOccupationForThisDate = false;
+		
+		while(!date.after(dateTo) && hasAtLeastOneAvailableOccupationForThisDate){
+			
+			hasAtLeastOneAvailableOccupationForThisDate = false;
+			
 			for (Room room : roomsByCapacity) {
-				Occupation possibleOccupation = new Occupation(date, room);
+				// part of the PK is null, but it does not matter, because it will not be persisted yet.
+				Occupation possibleOccupation = new Occupation(date, room, null);
 				if(!occupations.contains(possibleOccupation)){
 					possibleOccupations.add(possibleOccupation);
+					hasAtLeastOneAvailableOccupationForThisDate = true;
 				}
 			}
 			date = DateUtil.getNextDay(date);
-			
+		}
+		if(!hasAtLeastOneAvailableOccupationForThisDate){
+			throw new NoAvailableAlternativesException("No available alternatives");
 		}
 		return possibleOccupations;
 	}
@@ -116,22 +137,25 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 
 
-	private List<Alternative> createAlternatives(List<Occupation> occupations, Date dateFrom, Date dateTo) throws DaoException {
+	private List<Alternative> createAlternatives(List<Occupation> possibleOccupations, Date dateFrom, Date dateTo) throws DaoException, NoAvailableAlternativesException {
 		
 		Date date = dateFrom;
 		
-		List<Occupation> occupationsOfThisDate = getOccupationsByDate(occupations, date);
+		List<Occupation> occupationsOfThisDate = getOccupationsByDate(possibleOccupations, date);
 		List<Alternative> alternatives = buildRoothAlternatives(occupationsOfThisDate);
 		
-		while(!date.after(dateTo)){
+		while(!date.after(dateTo) && !alternatives.isEmpty()){
 			date = DateUtil.getNextDay(date);
 			
-			occupationsOfThisDate = getOccupationsByDate(occupations, date);
+			occupationsOfThisDate = getOccupationsByDate(possibleOccupations, date);
 			
 			alternatives = updateAlternatives(alternatives, occupationsOfThisDate);
 		}
-		// post validations and sort 
-		alternatives = validateAlternatives(alternatives);
+		if(alternatives.isEmpty()){
+			throw new NoAvailableAlternativesException("No available alternatives");
+		}
+		// post operations after validations 
+		alternatives = addBudgets(alternatives);
 		alternatives = sortAlternatives(alternatives);
 		
 		return alternatives;
@@ -139,23 +163,26 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 
 
-	private List<Alternative> validateAlternatives(List<Alternative> alternatives) throws DaoException {
-		List<Alternative> filteredAlternatives = new ArrayList<Alternative>();
+	private List<Alternative> addBudgets(List<Alternative> alternatives) throws DaoException {
 		BudgetService budgetService = new BudgetServiceImpl();
 		for (Alternative alternative : alternatives) {
-			
-			if(alternative.hasValidRoomChanges()){
-				alternative.setBudget(budgetService.getBudget(alternative));
-				filteredAlternatives.add(alternative);
-			}
-			
+			alternative.setBudget(budgetService.getBudget(alternative));
 		}
-		
-		return filteredAlternatives;
+		return alternatives;
 	}
 
 	
 
+	/**
+	 * While it updates the list of alternatives, it also validates if:
+	 * 
+	 * 		- the number of room changes is less than 3
+	 * 		- the room changes are valid (@see Alternative..hasValidRoomChanges() )
+	 * 
+	 * @param alternatives
+	 * @param occupationsOfThisDate
+	 * @return
+	 */
 	private List<Alternative> updateAlternatives(List<Alternative> alternatives, List<Occupation> occupationsOfThisDate) {
 		List<Alternative> updatedAlternatives = new ArrayList<Alternative>();
 		
@@ -163,7 +190,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 			for (Occupation occupation : occupationsOfThisDate) {
 				Alternative clonedAlternative = alternative.clone();
 				clonedAlternative.addOccupation(occupation);
-				if(clonedAlternative.getRoomChanges() < 3){
+				if(clonedAlternative.getRoomChanges() < 3 && clonedAlternative.hasValidRoomChanges()){
 					updatedAlternatives.add(clonedAlternative);
 				}
 			}
@@ -173,6 +200,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	}
 
 
+	
 
 	private List<Alternative> buildRoothAlternatives(List<Occupation> occupationsOfThisDate) {
 		List<Alternative> roothAlternatives = new ArrayList<Alternative>();

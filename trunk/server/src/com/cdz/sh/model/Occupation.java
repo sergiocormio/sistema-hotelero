@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Occupation {
@@ -13,16 +11,14 @@ public class Occupation {
 	@EmbeddedId
 	private OccupationPK id; 
 	
-	@ManyToOne
-	@JoinColumn(name="RESERVATION_FORM_ID")
-	private ReservationForm reservationForm;
 	
 	public Occupation(){}
 	
-	public Occupation(Date date, Room room){
+	public Occupation(Date date, Room room, ReservationForm form){
 		OccupationPK occupationId = new OccupationPK();
 		occupationId.setDate(date);
 		occupationId.setRoom(room);
+		occupationId.setReservationForm(form);
 		this.id = occupationId;
 	}
 	
@@ -34,14 +30,25 @@ public class Occupation {
 		this.id = id;
 	}
 
-	public ReservationForm getReservationForm() {
-		return reservationForm;
+	
+	public int hashCode() {
+		return (int) this.getId().hashCode();
 	}
-
-	public void setReservationForm(ReservationForm reservationForm) {
-		this.reservationForm = reservationForm;
-	}
-		
     
+	public boolean equals(Object obj) {
+       	if(obj instanceof Occupation){
+        	Occupation anotherOcc = (Occupation) obj;
+    		return this.getId().equals(anotherOcc.getId());
+        }
+    	else{
+    		return false;
+    	}
+    }
+    
+    @Override
+	public String toString() {
+		return this.getId().toString();
+	}
 
+	
 }

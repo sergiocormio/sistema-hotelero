@@ -57,8 +57,10 @@ public class TestBudgetService {
 		
 		List<Occupation> occupations = createOccupationWithoutRoomChange(dateFrom, dateTo);
 		
-		alternative.setOccupations(occupations);
-		
+		for (Occupation occupation : occupations) {
+			alternative.addOccupation(occupation);
+		}
+				
 		Budget budget = this.budgetService.getBudget(alternative);
 		
 		assertNotNull(budget);
@@ -81,7 +83,9 @@ public class TestBudgetService {
 		
 		List<Occupation> occupations = createOccupationWithOneRoomChange(dateFrom, dateTo);
 		
-		alternative.setOccupations(occupations);
+		for (Occupation occupation : occupations) {
+			alternative.addOccupation(occupation);
+		}
 		
 		Budget budget = this.budgetService.getBudget(alternative);
 		
@@ -107,7 +111,9 @@ public class TestBudgetService {
 		
 		List<Occupation> occupations = createOccupationWithTwoRoomChanges(dateFrom, dateTo);
 		
-		alternative.setOccupations(occupations);
+		for (Occupation occupation : occupations) {
+			alternative.addOccupation(occupation);
+		}
 		
 		Budget budget = this.budgetService.getBudget(alternative);
 		

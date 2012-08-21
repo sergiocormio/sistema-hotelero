@@ -9,21 +9,59 @@ public class Alternative implements Comparable<Alternative>{
 	private List<Occupation> occupations;
 	
 	private Budget budget;
+
+	private Room lastRoom;
+	private int roomChanges;
+	private int newRoomAvailableDays;
+	
+	
+	public Alternative(){
+		occupations = new ArrayList<Occupation>();
+		roomChanges = 0;
+		lastRoom = null;
+		newRoomAvailableDays = 0;
+	}
 		
 
 	public List<Occupation> getOccupations() {
 		return occupations;
 	}
 
-	public void setOccupations(List<Occupation> occupations) {
-		this.occupations = occupations;
-	}
-	
 	public void addOccupation(Occupation occupation) {
 		if(this.occupations == null){
 			this.occupations = new ArrayList<Occupation>();
 		}
 		this.occupations.add(occupation);
+		
+		Room room = occupation.getId().getRoom();
+		updateRoomChanges(room);
+		updateValidRoomChange(room);
+	}
+	
+	private void updateValidRoomChange(Room room) {
+		if(lastRoom == null){
+			lastRoom = room;
+		}
+		else if(roomChanges > 0){
+			if(room.equals(lastRoom)){
+				newRoomAvailableDays++;
+			}
+			else{
+				newRoomAvailableDays = 0;	
+			}
+		}
+	}
+
+	private void updateRoomChanges(Room room){
+		if(lastRoom == null){
+			lastRoom = room;
+		}
+		else{
+			if(!room.equals(lastRoom)){
+				roomChanges++;
+				lastRoom= room;
+			}
+		}
 	}
 
 	public Date getDateFrom() {
@@ -49,6 +87,21 @@ public class Alternative implements Comparable<Alternative>{
 	public void setBudget(Budget budget) {
 		this.budget = budget;
 	}
+	
+	public int getRoomChanges() {
+		return roomChanges;
+	}
+	
+	
+	/**
+	 * A room change is valid when the target room is empty for no more than 3 days. If the target room is empty for more than
+	 * 3 days, Nacho prefers to keep it for future customers. The idea is to minimize the gaps between reservations.
+	 * 
+	 * @return
+	 */
+	public boolean hasValidRoomChanges(){
+		return (this.newRoomAvailableDays <= 3);
+	}
 
 	@Override
 	public Alternative clone() {
@@ -61,23 +114,6 @@ public class Alternative implements Comparable<Alternative>{
 		return clonedAlternative;
 	}
 
-	public int getRoomChanges() {
-		int roomChanges = 0;
-		int lastRoomNumber = -1;
-		for (Occupation occupation : this.occupations) {
-			int currentRoomNumber = occupation.getId().getRoom().getNumber();
-			if(lastRoomNumber == -1){
-				lastRoomNumber = currentRoomNumber;
-			}
-			else{
-				if(currentRoomNumber != lastRoomNumber){
-					roomChanges++;
-					lastRoomNumber = currentRoomNumber;
-				}
-			}
-		}
-		return roomChanges;
-	}
 
 	@Override
 	public int compareTo(Alternative anotherAlternative) {
@@ -100,17 +136,26 @@ public class Alternative implements Comparable<Alternative>{
 		}
 	}
 
-	/*
-	 * A room change is valid when the target room is empty for no more than 3 days. If the target room is empty for more than
-	 * 3 days, Nacho prefers to keep it for future customers. The idea is to minimize the gaps between reservations.
-	 * 
-	 */
-	public boolean hasValidRoomChanges() {
-		// now it does not filter alternatives		
-		return true;
-	}
 	
 	
+
+//	public int calculateRoomChanges() {
+//		int roomChanges = 0;
+//		int lastRoomNumber = -1;
+//		for (Occupation occupation : this.occupations) {
+//			int currentRoomNumber = occupation.getId().getRoom().getNumber();
+//			if(lastRoomNumber == -1){
+//				lastRoomNumber = currentRoomNumber;
+//			}
+//			else{
+//				if(currentRoomNumber != lastRoomNumber){
+//					roomChanges++;
+//					lastRoomNumber = currentRoomNumber;
+//				}
+//			}
+//		}
+//		return roomChanges;
+//	}
 	
 	
 		

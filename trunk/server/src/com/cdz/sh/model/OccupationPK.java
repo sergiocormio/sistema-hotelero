@@ -21,6 +21,11 @@ public class OccupationPK implements Serializable{
 	@JoinColumn(name="ROOM_ID")
 	private Room room;
 
+	@ManyToOne
+	@JoinColumn(name="RESERVATION_FORM_ID")
+	private ReservationForm reservationForm;
+	
+	
 	public Date getDate() {
 		return date;
 	}
@@ -37,10 +42,21 @@ public class OccupationPK implements Serializable{
 		this.room = room;
 	}
 	
+	public ReservationForm getReservationForm() {
+		return reservationForm;
+	}
+
+	public void setReservationForm(ReservationForm reservationForm) {
+		this.reservationForm = reservationForm;
+	}
 	
 	public int hashCode() {
 		String strDate = DateUtil.dateToStringYYYYmmDD(this.getDate());
-        return (int) room.hashCode() + strDate.hashCode();
+		int rfHashCode = 0;
+		if(reservationForm != null){
+			rfHashCode = this.getReservationForm().hashCode();
+		}
+        return (int) room.hashCode() + strDate.hashCode() + rfHashCode;
 	}
 
     public boolean equals(Object obj) {
@@ -50,8 +66,11 @@ public class OccupationPK implements Serializable{
     		OccupationPK pk = (OccupationPK) obj;
     		String thisStrDate = DateUtil.dateToStringYYYYmmDD(this.getDate());
     		String pkStrDate = DateUtil.dateToStringYYYYmmDD(pk.getDate());
-        	
-    		return pk.getRoom().equals(room) && pkStrDate.equals(thisStrDate);
+    		boolean equalsRfs = true;
+    		if(reservationForm != null && pk.getReservationForm() != null){
+    			equalsRfs = this.getReservationForm().equals(pk.getReservationForm());
+    		}
+    		return pk.getRoom().equals(room) && pkStrDate.equals(thisStrDate) && equalsRfs;
         }
     	else{
     		return false;
@@ -66,9 +85,12 @@ public class OccupationPK implements Serializable{
 		if(date != null){
 			toString = toString.concat("Date: " + this.getDate().toString() + "\n" );
 		}
-		if(room != null)
-		toString = toString.concat("Room: " + this.getRoom().getId() + "\n");
-		
+		if(room != null){
+			toString = toString.concat("Room: " + this.getRoom().getId() + "\n");
+		}
+		if(reservationForm != null){
+			toString = toString.concat("ReservationForm: " + this.getReservationForm().getId() + "\n");
+		}
 		return toString;
 	}
 }

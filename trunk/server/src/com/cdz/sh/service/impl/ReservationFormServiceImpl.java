@@ -66,7 +66,7 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 		ReservationForm createdReservationForm = this.crudDao.createRecord(reservationForm);
 		
 		for (Occupation occupation : chosenAlternative.getOccupations()) {
-			occupation.setReservationForm(reservationForm);
+			occupation.getId().setReservationForm(reservationForm);
 			this.occupationDao.createRecord(occupation);
 		}
 		return createdReservationForm;
