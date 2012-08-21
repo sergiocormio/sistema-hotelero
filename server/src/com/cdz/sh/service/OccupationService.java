@@ -7,6 +7,7 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
+import com.cdz.sh.service.exception.NoAvailableAlternativesException;
 
 
 /**
@@ -38,7 +39,7 @@ public interface OccupationService extends CrudService<Occupation, OccupationPK>
 	 * @param variance
 	 * @return
 	 */
-	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int peopleQty, int variance) throws DaoException;
+	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int peopleQty, int variance) throws DaoException, NoAvailableAlternativesException;
 	
 	
 

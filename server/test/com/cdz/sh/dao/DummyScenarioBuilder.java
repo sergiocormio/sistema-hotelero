@@ -302,12 +302,12 @@ public class DummyScenarioBuilder {
 			OccupationPK occupationPK = new OccupationPK();
 			occupationPK.setDate(date);
 			occupationPK.setRoom(this.roomDao.getRecordById(3L));
+			occupationPK.setReservationForm(reservationForm3);
 			
 			Occupation occupation1 = this.occupationDao.getRecordById(occupationPK);
 			if(occupation1 == null){
 				occupation1 = new Occupation();
 				occupation1.setId(occupationPK);
-				occupation1.setReservationForm(reservationForm3);
 				this.occupationDao.createRecord(occupation1);
 			}
 			GregorianCalendar calendar = new GregorianCalendar();
@@ -320,12 +320,12 @@ public class DummyScenarioBuilder {
 			OccupationPK occupationPK = new OccupationPK();
 			occupationPK.setDate(date);
 			occupationPK.setRoom(this.roomDao.getRecordById(4L));
+			occupationPK.setReservationForm(reservationForm3);
 			
 			Occupation occupation1 = this.occupationDao.getRecordById(occupationPK);
 			if(occupation1 == null){
 				occupation1 = new Occupation();
 				occupation1.setId(occupationPK);
-				occupation1.setReservationForm(reservationForm3);
 				this.occupationDao.createRecord(occupation1);
 			}
 			GregorianCalendar calendar = new GregorianCalendar();
@@ -338,12 +338,12 @@ public class DummyScenarioBuilder {
 			OccupationPK occupationPK = new OccupationPK();
 			occupationPK.setDate(date);
 			occupationPK.setRoom(this.roomDao.getRecordById(5L));
+			occupationPK.setReservationForm(reservationForm3);
 			
 			Occupation occupation1 = this.occupationDao.getRecordById(occupationPK);
 			if(occupation1 == null){
 				occupation1 = new Occupation();
 				occupation1.setId(occupationPK);
-				occupation1.setReservationForm(reservationForm3);
 				this.occupationDao.createRecord(occupation1);
 			}
 			GregorianCalendar calendar = new GregorianCalendar();
@@ -362,12 +362,12 @@ public class DummyScenarioBuilder {
 			OccupationPK occupationPK = new OccupationPK();
 			occupationPK.setDate(date);
 			occupationPK.setRoom(this.roomDao.getRecordById(2L));
+			occupationPK.setReservationForm(reservationForm2);
 			
 			Occupation occupation1 = this.occupationDao.getRecordById(occupationPK);
 			if(occupation1 == null){
 				occupation1 = new Occupation();
 				occupation1.setId(occupationPK);
-				occupation1.setReservationForm(reservationForm2);
 				this.occupationDao.createRecord(occupation1);
 			}
 			GregorianCalendar calendar = new GregorianCalendar();
@@ -380,12 +380,12 @@ public class DummyScenarioBuilder {
 			OccupationPK occupationPK = new OccupationPK();
 			occupationPK.setDate(date);
 			occupationPK.setRoom(this.roomDao.getRecordById(3L));
+			occupationPK.setReservationForm(reservationForm2);
 			
 			Occupation occupation1 = this.occupationDao.getRecordById(occupationPK);
 			if(occupation1 == null){
 				occupation1 = new Occupation();
 				occupation1.setId(occupationPK);
-				occupation1.setReservationForm(reservationForm2);
 				this.occupationDao.createRecord(occupation1);
 			}
 			GregorianCalendar calendar = new GregorianCalendar();
@@ -407,12 +407,12 @@ public class DummyScenarioBuilder {
 			OccupationPK occupationPK = new OccupationPK();
 			occupationPK.setDate(date);
 			occupationPK.setRoom(this.roomDao.getRecordById(1L));
+			occupationPK.setReservationForm(reservationForm1);
 			
 			Occupation occupation1 = this.occupationDao.getRecordById(occupationPK);
 			if(occupation1 == null){
 				occupation1 = new Occupation();
 				occupation1.setId(occupationPK);
-				occupation1.setReservationForm(reservationForm1);
 				this.occupationDao.createRecord(occupation1);
 			}
 			GregorianCalendar calendar = new GregorianCalendar();

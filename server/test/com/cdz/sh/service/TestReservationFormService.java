@@ -72,7 +72,9 @@ public class TestReservationFormService {
 		
 		List<Occupation> occupations = createOccupationWithoutRoomChange(reservationForm);
 		
-		alternative.setOccupations(occupations);
+		for (Occupation occupation : occupations) {
+			alternative.addOccupation(occupation);
+		}
 		
 		ReservationForm createdReservation = this.reservationFormService.book(alternative, reservationForm);
 		
@@ -123,10 +125,10 @@ public class TestReservationFormService {
 			OccupationPK occupationPK = new OccupationPK();
 			occupationPK.setDate(date);
 			occupationPK.setRoom(this.roomDao.getRecordById(1L));
+			occupationPK.setReservationForm(reservationForm);
 						
 			Occupation 	occupation = new Occupation();
 			occupation.setId(occupationPK);
-			occupation.setReservationForm(reservationForm);
 		
 			occupations.add(occupation);
 			

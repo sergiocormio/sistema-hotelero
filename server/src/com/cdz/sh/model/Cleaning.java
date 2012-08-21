@@ -15,7 +15,7 @@ public class Cleaning {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumns(value = {@JoinColumn(name = "OCCUPATION_DATE"), @JoinColumn(name = "OCCUPATION_ROOM_ID")} )
+	@JoinColumns(value = {@JoinColumn(name = "OCCUPATION_DATE"), @JoinColumn(name = "OCCUPATION_ROOM_ID"), @JoinColumn(name = "OCCUPATION_RESERVATION_FORM_ID")} )
 	private Occupation occupation;
 	
 	@ManyToOne

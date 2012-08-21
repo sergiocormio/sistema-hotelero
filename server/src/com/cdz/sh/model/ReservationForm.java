@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 
+import com.cdz.sh.util.DateUtil;
+
 @Entity
 public class ReservationForm {
 	
@@ -144,5 +146,21 @@ public class ReservationForm {
 	}
 
 	
+	public int hashCode() {
+		return this.getId().hashCode();
+	}
+
+    public boolean equals(Object obj) {
+        
+    	if(obj instanceof ReservationForm){
+        	
+    		ReservationForm anotherRf = (ReservationForm)obj;
+    		return this.getId() == anotherRf.getId();
+        }
+    	else{
+    		return false;
+    	}
+    	
+    }
 	
 }
