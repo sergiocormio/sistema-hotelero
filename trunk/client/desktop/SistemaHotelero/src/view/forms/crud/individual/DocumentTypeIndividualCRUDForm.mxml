@@ -91,7 +91,7 @@
 			</s:FormItem>
 			
 			<s:FormItem label="{loc.documentType.regExp}:" required="true">
-				<s:TextInput id="regExpText" text="^[0-9]"/>
+				<s:TextInput id="regExpText" text="{DocumentType.DEFAULT_REGEXP}"/>
 			</s:FormItem>
 		</s:Form>
 	</s:HGroup>

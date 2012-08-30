@@ -5,7 +5,7 @@
 		  creationComplete="init(event)">
 	<fx:Script>
 		<![CDATA[
-			import model.Language;
+			import model.Region;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -13,7 +13,7 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
-			import services.LanguageService;
+			import services.RegionService;
 			
 			import spark.events.GridSelectionEvent;
 			
@@ -21,17 +21,17 @@
 			public var loc:Object;
 			
 			[Bindable]
-			private var languages:ArrayCollection = new ArrayCollection();
+			private var regions:ArrayCollection = new ArrayCollection();
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				Alert.show("Language Form: Received fault: " + event.fault + "\n");
+				Alert.show("Region Form: Received fault: " + event.fault + "\n");
 			}
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
 				grid.selectedItem = null;
-				languages.removeAll();
-				languages.addAll(event.result as ArrayCollection);
+				regions.removeAll();
+				regions.addAll(event.result as ArrayCollection);
 			}
 			
 			
@@ -48,56 +48,56 @@
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
-				new LanguageService().retrieveAll(retrieveAll_resultHandler,faultHandler);
+				new RegionService().retrieveAll(retrieveAll_resultHandler,faultHandler);
 			}
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
 				if(grid.selectedItem !=null){
-					individual.currentLanguage = grid.selectedItem as Language;
+					individual.currentRegion = grid.selectedItem as Region;
 				}
 				individual.enabled = false;
 			}
 			
-			protected function modifyLanguage():void
+			protected function modifyRegion():void
 			{
-				individual.currentLanguage = grid.selectedItem as Language;
+				individual.currentRegion = grid.selectedItem as Region;
 				individual.isUpdate = true;
 				individual.enabled=true;
 				
 			}
 			
-			protected function deleteLanguage():void
+			protected function deleteRegion():void
 			{
-				new LanguageService().deleteRecord(grid.selectedItem as Language,delete_resultHandler,faultHandler);
+				new RegionService().deleteRecord(grid.selectedItem as Region,delete_resultHandler,faultHandler);
 			}
 			
-			protected function addLanguage():void
+			protected function addRegion():void
 			{
 				grid.selectedItem = null;
-				individual.currentLanguage = new Language();
+				individual.currentRegion = new Region();
 				individual.isUpdate = false;
 				individual.enabled = true;
 			}
-			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:HGroup width="100%" height="70%">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{languages}" selectionChange="grid_selectionChangeHandler(event)">
+		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{regions}" selectionChange="grid_selectionChangeHandler(event)">
 			<s:columns>
 				<s:ArrayList>
-					<s:GridColumn dataField="name" headerText="{loc.language.singular}"></s:GridColumn>
+					<s:GridColumn dataField="country.name" headerText="{loc.country.singular}"></s:GridColumn>
+					<s:GridColumn dataField="name" headerText="{loc.region.singular}"></s:GridColumn>
 				</s:ArrayList>
 			</s:columns>
 		</s:DataGrid>
 		<!-- BUTTONS -->
-		<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addLanguage()"
-								modifyClicked="modifyLanguage()" removeClicked="deleteLanguage()"
+		<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addRegion()"
+								modifyClicked="modifyRegion()" removeClicked="deleteRegion()"
 								loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
 								removeButtonEnabled="{grid.selectedItem!=null}"/>
 	</s:HGroup>
-	<individual:LanguageIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
+	<individual:RegionIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
 </s:VGroup>
