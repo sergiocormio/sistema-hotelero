@@ -98,6 +98,6 @@
 								loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
 								removeButtonEnabled="{grid.selectedItem!=null}"/>
 	</s:HGroup>
-	<individual:CountryIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" height="30%"/>
+	<individual:CountryIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
 </s:VGroup>
 

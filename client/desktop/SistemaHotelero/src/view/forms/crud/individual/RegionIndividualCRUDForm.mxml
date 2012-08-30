@@ -68,7 +68,6 @@
 				//if(!allFieldsAreValid()){
 				//	return;
 				//}
-				_currentRegion = new Region();
 				_currentRegion.name = regionText.text;
 				_currentRegion.country = countriesCombo.selectedItem;
 				

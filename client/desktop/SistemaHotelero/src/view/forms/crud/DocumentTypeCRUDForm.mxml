@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
-		  creationComplete="init(event)">
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  xmlns:individual="view.forms.crud.individual.*"
+		  xmlns:components="view.components.*"
+		  width="100%" height="100%" creationComplete="init(event)">
 	<fx:Script>
 		<![CDATA[
 			import model.DocumentType;
@@ -75,7 +77,10 @@
 			protected function addDocumentType():void
 			{
 				grid.selectedItem = null;
-				individual.currentDocType = new DocumentType();
+				var newDocType:DocumentType = new DocumentType();
+				//Adds Default RegExp
+				newDocType.regExp = DocumentType.DEFAULT_REGEXP;
+				individual.currentDocType = newDocType;
 				individual.isUpdate = false;
 				individual.enabled = true;
 			}
@@ -85,7 +90,8 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:HGroup width="100%" height="70%">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{documentTypes}" selectionChange="grid_selectionChangeHandler(event)">
+		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{documentTypes}"
+					selectionChange="grid_selectionChangeHandler(event)">
 			<s:columns>
 				<s:ArrayList>
 					<s:GridColumn dataField="name" headerText="{loc.documentType.singular}"></s:GridColumn>
@@ -94,10 +100,14 @@
 			</s:columns>
 		</s:DataGrid>
 		<!-- BUTTONS -->
-		<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addDocumentType()"
-								modifyClicked="modifyDocumentType()" removeClicked="deleteDocumentType()"
-								loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-								removeButtonEnabled="{grid.selectedItem!=null}"/>
+		<components:CRUDButtons height="100%" addClicked="addDocumentType()" loc="{loc}"
+								modifyButtonEnabled="{grid.selectedItem!=null}"
+								modifyClicked="modifyDocumentType()" refreshClicked="refreshGrid()"
+								removeButtonEnabled="{grid.selectedItem!=null}"
+								removeClicked="deleteDocumentType()"/>
 	</s:HGroup>
-	<individual:DocumentTypeIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" height="30%"/>
+	<individual:DocumentTypeIndividualCRUDForm id="individual" height="30%"
+											   cancelClicked="individual.enabled=false;"
+											   enabled="false" loc="{loc}"
+											   saveSuccess="refreshGrid();"/>
 </s:VGroup>

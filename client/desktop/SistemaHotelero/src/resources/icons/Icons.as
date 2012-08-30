@@ -42,7 +42,7 @@ package resources.icons
 		
 		//-------- Main Tabs Icon ----------
 		[Bindable]
-		[Embed(source='resources/icons/users_two_48.png')]
+		[Embed(source='resources/icons/customers_48x48.png')]
 		public static var customers:Class;
 		
 		public function Icons()
