@@ -14,6 +14,6 @@ import com.cdz.sh.model.Room;
  */
 public interface RoomDao extends CrudDao<Room, Long> {
 
-	public List<Room> retrieveRoomsByCapacity(int capacity) throws DaoException;
+	public List<Room> retrieveRoomsByCapacity(int adultQty, int childrenQty) throws DaoException;
 
 }

@@ -39,7 +39,7 @@ public interface OccupationService extends CrudService<Occupation, OccupationPK>
 	 * @param variance
 	 * @return
 	 */
-	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int peopleQty, int variance) throws DaoException, NoAvailableAlternativesException;
+	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException;
 	
 	
 

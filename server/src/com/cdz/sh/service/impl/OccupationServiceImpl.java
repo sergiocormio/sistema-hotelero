@@ -55,13 +55,11 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	}
 
 	@Override
-	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int peopleQty, int variance) throws DaoException, NoAvailableAlternativesException {
+	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException {
 		
-		List<Room> roomsByCapacity = this.roomDao.retrieveRoomsByCapacity(peopleQty);
-		/*
-		 * TODO retrieve only occupation with state: confirmada
-		 */
-		List<Occupation> occupations = this.occupationDao.retrieveOccupations(dateFrom, dateTo, peopleQty);
+		List<Room> roomsByCapacity = this.roomDao.retrieveRoomsByCapacity(adultsQty, childrenQty);
+		
+		List<Occupation> occupations = this.occupationDao.retrieveConfirmedOccupations(dateFrom, dateTo, adultsQty, childrenQty);
 		
 		List<Occupation> possibleOccupations = createPossibleOccupations(dateFrom, dateTo, roomsByCapacity, occupations);
 		

@@ -83,6 +83,11 @@ public class Room {
     	this.childrenQuantity = childrenQuantity;
     }
     
+    @Transient
+    public int getTotalQuantity() {
+    	return adultsQuantity + childrenQuantity;
+    }
+    
     public boolean isWithMaritalBed() {
     	return withMaritalBed;
     }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.cdz.sh.constants.MasterDataConstants;
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
 import com.cdz.sh.dao.crud.EntityManagerSingleton;
@@ -46,18 +47,22 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 	
 	
 	@Override
-	public synchronized List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo, int peopleQuantity) throws DaoException {
+	public synchronized List<Occupation> retrieveConfirmedOccupations(Date dateFrom, Date dateTo, int adultsQuantity, int childrenQuantity) throws DaoException {
 		try {
 			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date >= :dateFrom and oc.id.date <= :dateTo";
-			strQuery = strQuery.concat(" and oc.id.room.totalPeopleQuantity >= :peopleQuantity");
+			strQuery = strQuery.concat(" and oc.id.room.adultsQuantity >= :adultsQuantity");
+			strQuery = strQuery.concat(" and oc.id.room.childrenQuantity >= :childrenQuantity");
+			strQuery = strQuery.concat(" and oc.id.reservationForm.state.id = :stateConfirmedId");
 			
 			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Occupation.class);
 			
 			query = query.setParameter("dateFrom", dateFrom);
 			query = query.setParameter("dateTo", dateTo);
-			query = query.setParameter("peopleQuantity", peopleQuantity);
+			query = query.setParameter("adultsQuantity", adultsQuantity);
+			query = query.setParameter("childrenQuantity", childrenQuantity);
+			query = query.setParameter("stateConfirmedId", MasterDataConstants.STATE_CONFIRMED_ID);
 			
 			
 			List<Occupation> occupations = query.getResultList();
