@@ -83,13 +83,13 @@ public class OccupationPK implements Serializable{
 		
 		String toString = "";
 		if(date != null){
-			toString = toString.concat("Date: " + this.getDate().toString() + "\n" );
+			toString = toString.concat("Date: " + DateUtil.dateToStringYYYYmmDD(this.getDate()) + " - " );
 		}
 		if(room != null){
-			toString = toString.concat("Room: " + this.getRoom().getId() + "\n");
+			toString = toString.concat("Room: " + this.getRoom().getId() + " - ");
 		}
 		if(reservationForm != null){
-			toString = toString.concat("ReservationForm: " + this.getReservationForm().getId() + "\n");
+			toString = toString.concat("Reservation Form: " + this.getReservationForm().getId() + "\n");
 		}
 		return toString;
 	}
