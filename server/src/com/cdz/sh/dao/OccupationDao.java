@@ -24,5 +24,7 @@ public interface OccupationDao extends CrudDao<Occupation, OccupationPK> {
 
 	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException;
 
+	public List<Occupation> retrieveOverlapedOccupations(Occupation occupation, ReservationForm reservationForm) throws DaoException;
+
 
 }

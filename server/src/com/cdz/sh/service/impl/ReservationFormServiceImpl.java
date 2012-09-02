@@ -10,11 +10,13 @@ import java.util.Map;
 import com.cdz.sh.constants.MasterDataConstants;
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.ReservationFormDao;
+import com.cdz.sh.dao.StateReservationFormDao;
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
+import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.Occupation;
@@ -37,9 +39,11 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	
 	private ReservationFormDao reservationFormDao ;
 	private OccupationDao occupationDao;
+	private StateReservationFormDao stateReservationFormDao;
 	
 	public ReservationFormServiceImpl() {
 		this.occupationDao = new OccupationDaoImpl();
+		this.stateReservationFormDao = new StateReservationFormDaoImpl();
 	}
 	
 	@Override
@@ -61,8 +65,11 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	
 
 	@Override
-	public ReservationForm book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException {
+	public ReservationForm book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException, InvalidParameterException {
 						
+		if(reservationForm.getState().getId() != MasterDataConstants.STATE_PRE_RRSERVA_ID){
+			throw new InvalidParameterException("Invalid reservation form state: " + reservationForm.getState().getState());
+		}
 		ReservationForm createdReservationForm = this.crudDao.createRecord(reservationForm);
 		
 		for (Occupation occupation : chosenAlternative.getOccupations()) {
@@ -70,6 +77,29 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 			this.occupationDao.createRecord(occupation);
 		}
 		return createdReservationForm;
+	}
+	
+	
+
+	@Override
+	public void updateRecord(ReservationForm reservationForm) throws DaoException {
+		if(reservationForm.getState().getId() == MasterDataConstants.STATE_CONFIRMED_ID){
+			
+			StateReservationForm stateCanceled = this.stateReservationFormDao.getRecordById(MasterDataConstants.STATE_CANCELED_ID);
+			
+			List<Occupation> occupations = this.occupationDao.retrieveOccupations(reservationForm);
+			for (Occupation occupation : occupations) {
+				List<Occupation> occupationsForTheSameDate = this.occupationDao.retrieveOverlapedOccupations(occupation, reservationForm);
+				if(occupationsForTheSameDate != null){
+					for (Occupation occupationForTheSameDate : occupationsForTheSameDate) {
+						ReservationForm overlapedReservationForm = occupationForTheSameDate.getId().getReservationForm();
+						overlapedReservationForm.setState(stateCanceled);
+						this.reservationFormDao.updateRecord(overlapedReservationForm);
+					}
+				}
+			}
+		}
+		super.updateRecord(reservationForm);
 	}
 
 	@Override

@@ -6,17 +6,25 @@ import java.util.GregorianCalendar;
 
 public class DateUtil {
 
-	@SuppressWarnings("deprecation")
 	public static String dateToStringYYYYmmDD(Date date){
 		
-		String strDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();	
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		
+		String strDate = calendar.get(Calendar.DAY_OF_MONTH) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.YEAR);	
 		return strDate;
 	}
 
 	public static boolean sameDate(Date date, Date anotherDate) {
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
 		
-		if(date.getDate() == anotherDate.getDate() && date.getMonth() == anotherDate.getMonth() &&
-		   date.getYear() == anotherDate.getYear()){
+		GregorianCalendar anotherCalendar = new GregorianCalendar();
+		anotherCalendar.setTime(anotherDate);
+		
+		if(calendar.get(Calendar.DAY_OF_MONTH) == anotherCalendar.get(Calendar.DAY_OF_MONTH) && 
+		   calendar.get(Calendar.MONTH) == anotherCalendar.get(Calendar.MONTH) &&
+		   calendar.get(Calendar.YEAR) == anotherCalendar.get(Calendar.YEAR)){
 			return true;
 		}
 		else{

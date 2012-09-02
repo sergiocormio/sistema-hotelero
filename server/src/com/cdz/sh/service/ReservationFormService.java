@@ -42,7 +42,7 @@ public interface ReservationFormService extends CrudService<ReservationForm, Lon
 	 * @param reservationForm
 	 * @return
 	 */
-	public ReservationForm book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException;
+	public ReservationForm book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException, InvalidParameterException;
 	
 	
 	/**

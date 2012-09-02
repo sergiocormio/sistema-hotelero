@@ -81,10 +81,35 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 		try {
 			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
-			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.reservationForm = :reservationForm";
+			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.reservationForm = :reservationForm";
 			
 			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery(strQuery, Occupation.class);
 			
+			query = query.setParameter("reservationForm", reservationForm);
+						
+			List<Occupation> occupations = query.getResultList();
+			EntityManagerSingleton.getInstance().getTransaction().commit();
+			return occupations;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+	}
+
+
+	@Override
+	public synchronized List<Occupation> retrieveOverlapedOccupations(Occupation occupation, ReservationForm reservationForm) throws DaoException {
+		try {
+			EntityManagerSingleton.getInstance().getTransaction().begin();
+			
+			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date = :date";
+			strQuery = strQuery.concat(" and oc.id.room = :room");
+			strQuery = strQuery.concat(" and oc.id.reservationForm != :reservationForm");
+			
+			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery(strQuery, Occupation.class);
+			
+			query = query.setParameter("date", occupation.getId().getDate());
+			query = query.setParameter("room", occupation.getId().getRoom());
 			query = query.setParameter("reservationForm", reservationForm);
 						
 			List<Occupation> occupations = query.getResultList();

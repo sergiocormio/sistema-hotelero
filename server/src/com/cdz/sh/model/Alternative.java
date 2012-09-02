@@ -2,6 +2,7 @@ package com.cdz.sh.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class Alternative implements Comparable<Alternative>{
@@ -134,6 +135,23 @@ public class Alternative implements Comparable<Alternative>{
 				return 0;
 			}
 		}
+	}
+
+
+	@Override
+	public String toString() {
+		
+		String toString = "Alternative [Base Price = " + budget.getBasePrice() + "\n";
+		toString = toString.concat("\t     Room Changes = " + roomChanges + "\n");
+		
+		toString = toString.concat("\t     Occupations [ \n");
+		for (Occupation occupation : this.occupations) {
+			toString = toString.concat("\t\t" + occupation.toString());
+		}
+		toString = toString.concat("\t     ]\n");
+		toString = toString.concat("]\n\n");
+		
+		return toString;
 	}
 
 	
