@@ -39,10 +39,8 @@
 			</s:VGroup>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="exchangeRates" label="Exchange Rates" icon="{Icons.save}" width="100%" height="100%">
-			<s:VGroup width="100%" height="100%">
-				<s:Label text="testing new panel"/>
-			</s:VGroup>
+		<s:NavigatorContent id="exchangeRates" label="{loc.exchangeRate.plural}" icon="{Icons.save}" width="100%" height="100%">
+			<crud:ExchangeRateCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="documentTypes" label="{loc.documentType.plural}" icon="{Icons.save}" width="100%" height="100%">

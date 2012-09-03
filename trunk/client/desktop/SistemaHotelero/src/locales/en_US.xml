@@ -69,6 +69,13 @@
 	    <name>Name</name>
 	    <regExp>Regular Expression</regExp>
     </documentType>
+    <exchangeRate>
+    	<singular>Exchange Rate</singular>
+	    <plural>Exchange Rates</plural>
+	    <name>Name</name>
+	    <currencySymbol>Currency Symbol</currencySymbol>
+	    <valueAgainstReal>Value against Real</valueAgainstReal>
+    </exchangeRate>
     <language>
    		<singular>Language</singular>
 	    <plural>Languages</plural>
