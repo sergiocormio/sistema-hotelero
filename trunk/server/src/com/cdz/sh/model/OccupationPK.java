@@ -89,8 +89,8 @@ public class OccupationPK implements Serializable{
 			toString = toString.concat("Room: " + this.getRoom().getId() + " - ");
 		}
 		if(reservationForm != null){
-			toString = toString.concat("Reservation Form: " + this.getReservationForm().getId() + "\n");
+			toString = toString.concat("Reservation Form: " + this.getReservationForm().getId());
 		}
-		return toString;
+		return toString + "\n";
 	}
 }
