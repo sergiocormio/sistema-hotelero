@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
+		  creationComplete="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import model.ExchangeRate;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import services.ExchangeRateService;
+			
+			import spark.events.GridSelectionEvent;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			private var exchangeRates:ArrayCollection = new ArrayCollection();
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				Alert.show("ExchangeRate Form: Received fault: " + event.fault + "\n");
+			}
+			
+			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedItem = null;
+				exchangeRates.removeAll();
+				exchangeRates.addAll(event.result as ArrayCollection);
+			}
+			
+			
+			private function delete_resultHandler(event:ResultEvent,token:Object=null):void {
+				refreshGrid();
+			}
+			
+			
+			protected function init(event:FlexEvent):void{
+				refreshGrid();
+			}
+			
+			protected function refreshGrid():void
+			{
+				individual.enabled = false;
+				grid.selectedItem = null;
+				new ExchangeRateService().retrieveAll(retrieveAll_resultHandler,faultHandler);
+			}
+			
+			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
+			{
+				if(grid.selectedItem !=null){
+					individual.currentExchangeRate = grid.selectedItem as ExchangeRate;
+				}
+				individual.enabled = false;
+			}
+			
+			protected function modifyExchangeRate():void
+			{
+				individual.currentExchangeRate = grid.selectedItem as ExchangeRate;
+				individual.isUpdate = true;
+				individual.enabled=true;
+				
+			}
+			
+			protected function deleteExchangeRate():void
+			{
+				new ExchangeRateService().deleteRecord(grid.selectedItem as ExchangeRate,delete_resultHandler,faultHandler);
+			}
+			
+			protected function addExchangeRate():void
+			{
+				grid.selectedItem = null;
+				individual.currentExchangeRate = new ExchangeRate();
+				individual.isUpdate = false;
+				individual.enabled = true;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:HGroup width="100%" height="70%">
+		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{exchangeRates}" selectionChange="grid_selectionChangeHandler(event)">
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn dataField="name" headerText="{loc.exchangeRate.singular}"></s:GridColumn>
+					<s:GridColumn dataField="currencySymbol" headerText="{loc.exchangeRate.currencySymbol}"></s:GridColumn>
+					<s:GridColumn dataField="valueAgainstReal" headerText="{loc.exchangeRate.valueAgainstReal}"></s:GridColumn>
+				</s:ArrayList>
+			</s:columns>
+		</s:DataGrid>
+		<!-- BUTTONS -->
+		<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addExchangeRate()"
+								modifyClicked="modifyExchangeRate()" removeClicked="deleteExchangeRate()"
+								loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
+								removeButtonEnabled="{grid.selectedItem!=null}"/>
+	</s:HGroup>
+	<individual:ExchangeRateIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
+</s:VGroup>
