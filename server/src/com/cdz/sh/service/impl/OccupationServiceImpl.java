@@ -57,6 +57,8 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	@Override
 	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException {
 		
+//		dateTo = DateUtil.getDateAboutToFinish(dateTo); 
+				
 		List<Room> roomsByCapacity = this.roomDao.retrieveRoomsByCapacity(adultsQty, childrenQty);
 		
 		List<Occupation> occupations = this.occupationDao.retrieveConfirmedOccupations(dateFrom, dateTo, adultsQty, childrenQty);
@@ -89,7 +91,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		List<Occupation> possibleOccupations = new ArrayList<Occupation>();
 		Date date = dateFrom;
 		
-		boolean hasAtLeastOneAvailableOccupationForThisDate = false;
+		boolean hasAtLeastOneAvailableOccupationForThisDate = true;
 		
 		while(!date.after(dateTo) && hasAtLeastOneAvailableOccupationForThisDate){
 			
@@ -142,12 +144,15 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		List<Occupation> occupationsOfThisDate = getOccupationsByDate(possibleOccupations, date);
 		List<Alternative> alternatives = buildRoothAlternatives(occupationsOfThisDate);
 		
+		date = DateUtil.getNextDay(date);
+		
 		while(!date.after(dateTo) && !alternatives.isEmpty()){
-			date = DateUtil.getNextDay(date);
 			
 			occupationsOfThisDate = getOccupationsByDate(possibleOccupations, date);
 			
 			alternatives = updateAlternatives(alternatives, occupationsOfThisDate);
+			
+			date = DateUtil.getNextDay(date);
 		}
 		if(alternatives.isEmpty()){
 			throw new NoAvailableAlternativesException("No available alternatives");
@@ -185,11 +190,20 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		List<Alternative> updatedAlternatives = new ArrayList<Alternative>();
 		
 		for (Alternative alternative : alternatives) {
-			for (Occupation occupation : occupationsOfThisDate) {
+			Room lastRoom = alternative.getLastRoom();
+			Occupation occupationOnLastRoom = findOccupationOnLastRoom(occupationsOfThisDate, lastRoom);
+			if(occupationOnLastRoom != null){
 				Alternative clonedAlternative = alternative.clone();
-				clonedAlternative.addOccupation(occupation);
-				if(clonedAlternative.getRoomChanges() < 3 && clonedAlternative.hasValidRoomChanges()){
-					updatedAlternatives.add(clonedAlternative);
+				clonedAlternative.addOccupation(occupationOnLastRoom);
+				updatedAlternatives.add(clonedAlternative);
+			}
+			else{
+				for (Occupation occupation : occupationsOfThisDate) {
+					Alternative clonedAlternative = alternative.clone();
+					clonedAlternative.addOccupation(occupation);
+					if(clonedAlternative.getRoomChanges() < 3 && clonedAlternative.hasValidRoomChanges()){
+						updatedAlternatives.add(clonedAlternative);
+					}
 				}
 			}
 		}
@@ -199,6 +213,16 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 
 	
+
+	private Occupation findOccupationOnLastRoom(List<Occupation> occupationsOfThisDate, Room lastRoom) {
+		
+		for (Occupation occupationOfThisDate : occupationsOfThisDate) {
+			if(occupationOfThisDate.getId().getRoom().equals(lastRoom)){
+				return occupationOfThisDate;
+			}
+		}
+		return null;
+	}
 
 	private List<Alternative> buildRoothAlternatives(List<Occupation> occupationsOfThisDate) {
 		List<Alternative> roothAlternatives = new ArrayList<Alternative>();

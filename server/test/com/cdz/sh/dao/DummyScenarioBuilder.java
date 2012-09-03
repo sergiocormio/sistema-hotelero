@@ -16,7 +16,6 @@ import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.dao.impl.RoomTypeDaoImpl;
 import com.cdz.sh.dao.impl.SeasonDaoImpl;
-import com.cdz.sh.dao.impl.ServiceTypeDaoImpl;
 import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.CustomerPK;
@@ -31,7 +30,6 @@ import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.model.RoomType;
 import com.cdz.sh.model.Season;
-import com.cdz.sh.model.ServiceType;
 
 /**
  * 
@@ -84,7 +82,6 @@ public class DummyScenarioBuilder {
 	
 	private RoomTypeDao roomTypeDao;
 	private RoomDao roomDao;
-	private ServiceTypeDao serviceTypeDao;
 	
 	private CustomerDao customerDao;
 	
@@ -107,9 +104,12 @@ public class DummyScenarioBuilder {
 	
 		
 	public DummyScenarioBuilder() throws DaoException {
+		
 		this.roomTypeDao = new RoomTypeDaoImpl();
 		this.roomDao = new RoomDaoImpl();
-		this.serviceTypeDao = new ServiceTypeDaoImpl();
+		
+		ServiceTypesBuilder roomsAndServiceTypesBuilder = new ServiceTypesBuilder();
+		roomsAndServiceTypesBuilder.buildServiceTypes();
 		
 		this.documentTypeDao = new DocumentTypeDaoImpl();
 		this.regionDao = new RegionDaoImpl();
@@ -149,10 +149,7 @@ public class DummyScenarioBuilder {
 			
 			// Rooms
 			createRooms(roomTypes);
-						
-			// Service Types 
-			createServiceTypes();
-			
+	
 			//Customers
 			createCustomers();
 			
@@ -172,6 +169,106 @@ public class DummyScenarioBuilder {
 		
 	}
 
+	
+	private void createRooms(Map<Long, RoomType> roomTypes) throws DaoException {
+		Room roomOfTypeCostao = this.roomDao.getRecordById(1L);
+		if (roomOfTypeCostao == null){
+			roomOfTypeCostao = new Room();
+			roomOfTypeCostao.setRoomType(roomTypes.get(1L));
+			roomOfTypeCostao.setNumber(1);
+			this.roomDao.createRecord(roomOfTypeCostao);
+		}
+		Room roomOfTypePraia = this.roomDao.getRecordById(2L);
+		if (roomOfTypePraia == null){
+			roomOfTypePraia = new Room();
+			roomOfTypePraia.setRoomType(roomTypes.get(2L));
+			roomOfTypePraia.setNumber(2);
+			this.roomDao.createRecord(roomOfTypePraia);
+		}
+		Room roomOfTypeSol = this.roomDao.getRecordById(3L);
+		if (roomOfTypeSol == null){
+			roomOfTypeSol = new Room();
+			roomOfTypeSol.setRoomType(roomTypes.get(3L));
+			roomOfTypeSol.setNumber(3);
+			this.roomDao.createRecord(roomOfTypeSol);
+		}
+		Room roomOfTypeAlpina = this.roomDao.getRecordById(4L);
+		if (roomOfTypeAlpina == null){
+			roomOfTypeAlpina = new Room();
+			roomOfTypeAlpina.setRoomType(roomTypes.get(4L));
+			roomOfTypeAlpina.setNumber(4);
+			this.roomDao.createRecord(roomOfTypeAlpina);
+		}
+		Room roomOfTypeLua = this.roomDao.getRecordById(5L);
+		if (roomOfTypeLua == null){
+			roomOfTypeLua = new Room();
+			roomOfTypeLua.setRoomType(roomTypes.get(5L));
+			roomOfTypeLua.setNumber(5);
+			this.roomDao.createRecord(roomOfTypeLua);
+		}
+	}
+
+	private Map<Long, RoomType> createRoomTypes() throws DaoException {
+		Map<Long, RoomType> roomTypes = new HashMap<Long, RoomType>();
+		
+		RoomType roomTypeCostao = this.roomTypeDao.getRecordById(1L);
+		if (roomTypeCostao == null){
+			roomTypeCostao = new RoomType();
+			roomTypeCostao.setName("Costão");
+			roomTypeCostao.setDescription(" Térreo, ideal para 4 pessoas ou família.﻿"
+										 + "﻿﻿﻿ Sala / cozinha conjugada com sofa cama, quarto com cama casal, patio privativo com churrasqueira."
+									 	 + " Oferece café da manhã e roupas de cama. ");
+			this.roomTypeDao.createRecord(roomTypeCostao);
+		}
+		roomTypes.put(1L, roomTypeCostao);
+		
+		RoomType roomTypePraia = this.roomTypeDao.getRecordById(2L);
+		if (roomTypePraia == null){
+			roomTypePraia = new RoomType();
+			roomTypePraia.setName("Praia");
+			roomTypePraia.setDescription("Primeiro andar ideal para 2/3 pessoas, equipado com cama casal ou solteiro, fogão geladeira, utensílios, tv a cabo, ventilador de teto e  cofre."
+										 +" Oferece café da manhã e roupas de cama.");
+			this.roomTypeDao.createRecord(roomTypePraia);
+		}
+		roomTypes.put(2L, roomTypePraia);
+		
+		RoomType roomTypeSol = this.roomTypeDao.getRecordById(3L);
+		if (roomTypeSol == null){
+			roomTypeSol = new RoomType();
+			roomTypeSol.setName("Sol");
+			roomTypeSol.setDescription("Primeiro andar ideal para 2 pessoas, equipado com cama casal ou solteiro, fogão geladeira,utensílios, tv a cabo, ventilador de teto e  cofre."
+									   +" Oferece café da manhã e roupas de cama.");
+			this.roomTypeDao.createRecord(roomTypeSol);
+		}
+		roomTypes.put(3L, roomTypeSol);
+		
+		RoomType roomTypeAlpinas = this.roomTypeDao.getRecordById(4L);
+		if (roomTypeAlpinas == null){
+			roomTypeAlpinas = new RoomType();
+			roomTypeAlpinas.setName("Alpinas");
+			roomTypeAlpinas.setDescription(" Segundo andar, ideal para 2/3 pessoas."
+											+" Com cama casal ou solteiro, forno microondas,"
+											+" tv a cabo, ventilador de teto e cofre.﻿"
+											+" Oferece roupas de cama e café da manhã. ");
+			this.roomTypeDao.createRecord(roomTypeAlpinas);
+		}
+		roomTypes.put(4L, roomTypeAlpinas);
+		
+		RoomType roomTypeLua = this.roomTypeDao.getRecordById(5L);
+		if (roomTypeLua == null){
+			roomTypeLua = new RoomType();
+			roomTypeLua.setName("Lua");
+			roomTypeLua.setDescription(" Primeiro andar ideal para 2 pessoas (casal), forno microondas utensílios,"
+										+" tv a cabo, ventilador de teto e  cofre."
+										+" Oferece roupas de cama e café da manhã. ");
+			this.roomTypeDao.createRecord(roomTypeLua);
+		}
+		roomTypes.put(5L, roomTypeLua);
+				
+		return roomTypes;
+	}
+	
+	
 	private void createRates() throws DaoException {
 		
 		float price = 150;
@@ -457,180 +554,5 @@ public class DummyScenarioBuilder {
 		
 	}
 
-	private void createServiceTypes() throws DaoException {
-		
-		ServiceType serviceTypeBreakfast = this.serviceTypeDao.getRecordById(1L);
-		if (serviceTypeBreakfast == null){
-			serviceTypeBreakfast = new ServiceType();
-			serviceTypeBreakfast.setName("Desayuno");
-			serviceTypeBreakfast.setPrice(10);
-			serviceTypeBreakfast.setAdditionalFixed(false);
-			this.serviceTypeDao.createRecord(serviceTypeBreakfast);
-		}
-		ServiceType serviceTypeParking = this.serviceTypeDao.getRecordById(2L);
-		if (serviceTypeParking == null){
-			serviceTypeParking = new ServiceType();
-			serviceTypeParking.setName("Estacionamiento");
-			serviceTypeParking.setPrice(15);
-			serviceTypeParking.setAdditionalFixed(false);
-			this.serviceTypeDao.createRecord(serviceTypeParking);
-		}
-		
-		ServiceType serviceTypeAeroIda = this.serviceTypeDao.getRecordById(3L);
-		if (serviceTypeAeroIda == null){
-			serviceTypeAeroIda = new ServiceType();
-			serviceTypeAeroIda.setName("Ida al Aeropuerto");
-			serviceTypeAeroIda.setPrice(90);
-			serviceTypeAeroIda.setAdditionalFixed(false);
-			this.serviceTypeDao.createRecord(serviceTypeAeroIda);
-		}
-		ServiceType serviceTypeAreoBoth = this.serviceTypeDao.getRecordById(4L);
-		if (serviceTypeAreoBoth == null){
-			serviceTypeAreoBoth = new ServiceType();
-			serviceTypeAreoBoth.setName("Aeropuerto ida y vuelta");
-			serviceTypeAreoBoth.setPrice(170);
-			serviceTypeAreoBoth.setAdditionalFixed(false);
-			this.serviceTypeDao.createRecord(serviceTypeAreoBoth);
-		}
-		ServiceType serviceTypeBusIda = this.serviceTypeDao.getRecordById(5L);
-		if (serviceTypeBusIda == null){
-			serviceTypeBusIda = new ServiceType();
-			serviceTypeBusIda.setName("Bus Ida");
-			serviceTypeBusIda.setPrice(80);
-			serviceTypeBusIda.setAdditionalFixed(false);
-			this.serviceTypeDao.createRecord(serviceTypeBusIda);
-		}
-		ServiceType serviceTypeBusBoth = this.serviceTypeDao.getRecordById(6L);
-		if (serviceTypeBusBoth == null){
-			serviceTypeBusBoth = new ServiceType();
-			serviceTypeBusBoth.setName("Bus ida y vuelta");
-			serviceTypeBusBoth.setPrice(150);
-			serviceTypeBusBoth.setAdditionalFixed(false);
-			this.serviceTypeDao.createRecord(serviceTypeBusBoth);
-		}
-		ServiceType serviceTypeTowels = this.serviceTypeDao.getRecordById(7L);
-		if (serviceTypeTowels == null){
-			serviceTypeTowels = new ServiceType();
-			serviceTypeTowels.setName("Toallas");
-			serviceTypeTowels.setPrice(10);
-			serviceTypeTowels.setAdditionalFixed(true);
-			this.serviceTypeDao.createRecord(serviceTypeTowels);
-		}
-		ServiceType serviceTypeBedClothe = this.serviceTypeDao.getRecordById(8L);
-		if (serviceTypeBedClothe == null){
-			serviceTypeBedClothe = new ServiceType();
-			serviceTypeBedClothe.setName("Ropa de cama");
-			serviceTypeBedClothe.setPrice(10);
-			serviceTypeBedClothe.setAdditionalFixed(true);
-			this.serviceTypeDao.createRecord(serviceTypeBedClothe);
-		}
-		ServiceType serviceTypeExtraCleaning = this.serviceTypeDao.getRecordById(9L);
-		if (serviceTypeExtraCleaning == null){
-			serviceTypeExtraCleaning = new ServiceType();
-			serviceTypeExtraCleaning.setName("Limpieza Extra");
-			serviceTypeExtraCleaning.setPrice(15);
-			serviceTypeExtraCleaning.setAdditionalFixed(true);
-			this.serviceTypeDao.createRecord(serviceTypeExtraCleaning);
-		}
-	}
-
-	private void createRooms(Map<Long, RoomType> roomTypes) throws DaoException {
-		Room roomOfTypeCostao = this.roomDao.getRecordById(1L);
-		if (roomOfTypeCostao == null){
-			roomOfTypeCostao = new Room();
-			roomOfTypeCostao.setRoomType(roomTypes.get(1L));
-			roomOfTypeCostao.setNumber(1);
-			this.roomDao.createRecord(roomOfTypeCostao);
-		}
-		Room roomOfTypePraia = this.roomDao.getRecordById(2L);
-		if (roomOfTypePraia == null){
-			roomOfTypePraia = new Room();
-			roomOfTypePraia.setRoomType(roomTypes.get(2L));
-			roomOfTypePraia.setNumber(2);
-			this.roomDao.createRecord(roomOfTypePraia);
-		}
-		Room roomOfTypeSol = this.roomDao.getRecordById(3L);
-		if (roomOfTypeSol == null){
-			roomOfTypeSol = new Room();
-			roomOfTypeSol.setRoomType(roomTypes.get(3L));
-			roomOfTypeSol.setNumber(3);
-			this.roomDao.createRecord(roomOfTypeSol);
-		}
-		Room roomOfTypeAlpina = this.roomDao.getRecordById(4L);
-		if (roomOfTypeAlpina == null){
-			roomOfTypeAlpina = new Room();
-			roomOfTypeAlpina.setRoomType(roomTypes.get(4L));
-			roomOfTypeAlpina.setNumber(4);
-			this.roomDao.createRecord(roomOfTypeAlpina);
-		}
-		Room roomOfTypeLua = this.roomDao.getRecordById(5L);
-		if (roomOfTypeLua == null){
-			roomOfTypeLua = new Room();
-			roomOfTypeLua.setRoomType(roomTypes.get(5L));
-			roomOfTypeLua.setNumber(5);
-			this.roomDao.createRecord(roomOfTypeLua);
-		}
-	}
-
-	private Map<Long, RoomType> createRoomTypes() throws DaoException {
-		Map<Long, RoomType> roomTypes = new HashMap<Long, RoomType>();
-		
-		RoomType roomTypeCostao = this.roomTypeDao.getRecordById(1L);
-		if (roomTypeCostao == null){
-			roomTypeCostao = new RoomType();
-			roomTypeCostao.setName("Costão");
-			roomTypeCostao.setDescription(" Térreo, ideal para 4 pessoas ou família.﻿"
-										 + "﻿﻿﻿ Sala / cozinha conjugada com sofa cama, quarto com cama casal, patio privativo com churrasqueira."
-									 	 + " Oferece café da manhã e roupas de cama. ");
-			this.roomTypeDao.createRecord(roomTypeCostao);
-		}
-		roomTypes.put(1L, roomTypeCostao);
-		
-		RoomType roomTypePraia = this.roomTypeDao.getRecordById(2L);
-		if (roomTypePraia == null){
-			roomTypePraia = new RoomType();
-			roomTypePraia.setName("Praia");
-			roomTypePraia.setDescription("Primeiro andar ideal para 2/3 pessoas, equipado com cama casal ou solteiro, fogão geladeira, utensílios, tv a cabo, ventilador de teto e  cofre."
-										 +" Oferece café da manhã e roupas de cama.");
-			this.roomTypeDao.createRecord(roomTypePraia);
-		}
-		roomTypes.put(2L, roomTypePraia);
-		
-		RoomType roomTypeSol = this.roomTypeDao.getRecordById(3L);
-		if (roomTypeSol == null){
-			roomTypeSol = new RoomType();
-			roomTypeSol.setName("Sol");
-			roomTypeSol.setDescription("Primeiro andar ideal para 2 pessoas, equipado com cama casal ou solteiro, fogão geladeira,utensílios, tv a cabo, ventilador de teto e  cofre."
-									   +" Oferece café da manhã e roupas de cama.");
-			this.roomTypeDao.createRecord(roomTypeSol);
-		}
-		roomTypes.put(3L, roomTypeSol);
-		
-		RoomType roomTypeAlpinas = this.roomTypeDao.getRecordById(4L);
-		if (roomTypeAlpinas == null){
-			roomTypeAlpinas = new RoomType();
-			roomTypeAlpinas.setName("Alpinas");
-			roomTypeAlpinas.setDescription(" Segundo andar, ideal para 2/3 pessoas."
-											+" Com cama casal ou solteiro, forno microondas,"
-											+" tv a cabo, ventilador de teto e cofre.﻿"
-											+" Oferece roupas de cama e café da manhã. ");
-			this.roomTypeDao.createRecord(roomTypeAlpinas);
-		}
-		roomTypes.put(4L, roomTypeAlpinas);
-		
-		RoomType roomTypeLua = this.roomTypeDao.getRecordById(5L);
-		if (roomTypeLua == null){
-			roomTypeLua = new RoomType();
-			roomTypeLua.setName("Lua");
-			roomTypeLua.setDescription(" Primeiro andar ideal para 2 pessoas (casal), forno microondas utensílios,"
-										+" tv a cabo, ventilador de teto e  cofre."
-										+" Oferece roupas de cama e café da manhã. ");
-			this.roomTypeDao.createRecord(roomTypeLua);
-		}
-		roomTypes.put(5L, roomTypeLua);
-				
-		return roomTypes;
-	}
-
-		
+			
 }

@@ -38,6 +38,17 @@ public class DateUtil {
 		calendar.add(Calendar.DATE, 1);
 		return calendar.getTime();
 	}
+
+	public static Date getDateAboutToFinish(Date date) {
+
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		
+		return calendar.getTime();
+	}
 	
 	
 }

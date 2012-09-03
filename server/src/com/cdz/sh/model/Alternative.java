@@ -2,7 +2,6 @@ package com.cdz.sh.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class Alternative implements Comparable<Alternative>{
@@ -94,6 +93,13 @@ public class Alternative implements Comparable<Alternative>{
 	}
 	
 	
+	
+	
+	public Room getLastRoom() {
+		return lastRoom;
+	}
+
+
 	/**
 	 * A room change is valid when the target room is empty for no more than 3 days. If the target room is empty for more than
 	 * 3 days, Nacho prefers to keep it for future customers. The idea is to minimize the gaps between reservations.
