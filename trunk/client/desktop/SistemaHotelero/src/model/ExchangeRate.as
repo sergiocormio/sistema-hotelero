@@ -6,21 +6,21 @@ package model
 	public class ExchangeRate
 	{
 		
-		private var _id : Object;
+		private var _id : String;
 		private var _name : String;
 		private var _currencySymbol : String;
-		private var _valueAgainstReal : Float;
+		private var _valueAgainstReal : Number;
 		
 		public function ExchangeRate()
 		{
 		}
 		
-		public function get valueAgainstReal():Float
+		public function get valueAgainstReal():Number
 		{
 			return _valueAgainstReal;
 		}
 
-		public function set valueAgainstReal(value:Float):void
+		public function set valueAgainstReal(value:Number):void
 		{
 			_valueAgainstReal = value;
 		}
@@ -45,12 +45,12 @@ package model
 			_name = value;
 		}
 		
-		public function get id():Object
+		public function get id():String
 		{
 			return _id;
 		}
 		
-		public function set id(value:Object):void
+		public function set id(value:String):void
 		{
 			_id = value;
 		}    

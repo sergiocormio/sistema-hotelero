@@ -21,10 +21,11 @@
 		</s:layout>
 	</s:ButtonBar>
 	<mx:ViewStack id="configViewStack" borderStyle="solid" width="100%" height="100%">
-		<s:NavigatorContent id="rooms" label="Rooms" icon="{Icons.save}" width="100%" height="100%">
-			<s:VGroup width="100%" height="100%">
-				<s:Label text="testing new panel"/>
-			</s:VGroup>
+		<s:NavigatorContent id="roomTypes" label="{loc.roomType.plural}" icon="{Icons.save}" width="100%" height="100%">
+			<crud:RoomTypeCRUDForm loc="{loc}" width="100%" height="100%"/>
+		</s:NavigatorContent>
+		<s:NavigatorContent id="rooms" label="{loc.room.plural}" icon="{Icons.save}" width="100%" height="100%">
+			<crud:RoomCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="rates" label="Rates" icon="{Icons.save}" width="100%" height="100%">

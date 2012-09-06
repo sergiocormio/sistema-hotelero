@@ -70,7 +70,7 @@
 			protected function init():void
 			{
 				currentLanguage = new Language();
-				languageText.setFocus();
+				//languageText.setFocus();
 			}
 			
 		]]>

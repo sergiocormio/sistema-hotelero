@@ -73,6 +73,7 @@
     	<singular>Exchange Rate</singular>
 	    <plural>Exchange Rates</plural>
 	    <name>Name</name>
+	    <currencyCode>Currency Code</currencyCode>
 	    <currencySymbol>Currency Symbol</currencySymbol>
 	    <valueAgainstReal>Value against Real</valueAgainstReal>
     </exchangeRate>
@@ -109,4 +110,19 @@
 	    <plural>Regions</plural>
 	    <name>Name</name>
     </region>
+    <room>
+   		<singular>Room</singular>
+	    <plural>Rooms</plural>
+	    <description>Description</description>
+	    <number>Number</number>
+	    <peopleQuantity>Quantity of People</peopleQuantity>
+	    <withMaritalBed>With Marital Bed</withMaritalBed>
+	    <withExtraBed>With Extra Bed</withExtraBed>
+    </room>
+    <roomType>
+   		<singular>Room Type</singular>
+	    <plural>Room Types</plural>
+	    <name>Name</name>
+	    <description>Description</description>
+    </roomType>
 </locale>
