@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" creationComplete="init(event)">
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  width="100%" height="100%" creationComplete="init(event)">
 	<fx:Metadata> 
 		[Event(name="cancelClicked", type="flash.events.Event")]
 		[Event(name="saveSuccess", type="flash.events.Event")]
 	</fx:Metadata> 
 	<fx:Script>
 		<![CDATA[
-			import model.Country;
+			import model.RoomType;
 			
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
@@ -17,7 +18,7 @@
 			
 			import resources.icons.Icons;
 			
-			import services.CountryService;
+			import services.RoomTypeService;
 			
 			[Bindable]
 			public var loc:Object;
@@ -25,17 +26,18 @@
 			[Bindable]
 			public var isUpdate:Boolean;
 			
-			private var _currentCountry:Country = new Country(); 
-
-			public function get currentCountry():Country
+			private var _currentRoomType:RoomType = new RoomType(); 
+			
+			public function get currentRoomType():RoomType
 			{
-				return _currentCountry;
+				return _currentRoomType;
 			}
-
-			public function set currentCountry(value:Country):void
+			
+			public function set currentRoomType(value:RoomType):void
 			{
-				_currentCountry = value;
-				countryText.text = _currentCountry.name;
+				_currentRoomType = value;
+				roomTypeText.text = _currentRoomType.name;
+				descriptionText.text = _currentRoomType.description;
 			}
 			
 			private function save():void{
@@ -43,19 +45,20 @@
 				//if(!allFieldsAreValid()){
 				//	return;
 				//}
-				 
-				_currentCountry.name = countryText.text;
+				
+				_currentRoomType.name = roomTypeText.text;
+				_currentRoomType.description = descriptionText.text;
 				
 				//calls service
 				if(isUpdate){
-					new CountryService().updateRecord(_currentCountry,countrySaved_resultHandler,faultHandler);
+					new RoomTypeService().updateRecord(_currentRoomType,roomTypeSaved_resultHandler,faultHandler);
 				}else{
-					new CountryService().createRecord(_currentCountry,countrySaved_resultHandler,faultHandler);
+					new RoomTypeService().createRecord(_currentRoomType,roomTypeSaved_resultHandler,faultHandler);
 				}
 			}
 			
-			private function countrySaved_resultHandler(event:ResultEvent,token:Object=null):void {
-				_currentCountry = event.result as Country;
+			private function roomTypeSaved_resultHandler(event:ResultEvent,token:Object=null):void {
+				_currentRoomType = event.result as RoomType;
 				dispatchEvent(new Event("saveSuccess"));
 			}
 			
@@ -67,10 +70,10 @@
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
 				Alert.show("Received fault: " + event.fault + "\n");
 			}
-
+			
 			protected function init(event:FlexEvent):void
 			{
-				//countryText.setFocus();				
+				//roomTypeText.setFocus();				
 			}
 			
 		]]>
@@ -84,16 +87,19 @@
 				<s:FormLayout gap="-14"/>
 			</s:layout>  
 			
-			<s:FormItem label="{loc.country.name}:" required="true">
-				<s:TextInput id="countryText"/>
+			<s:FormItem label="{loc.roomType.name}:" required="true">
+				<s:TextInput id="roomTypeText"/>
+			</s:FormItem>
+			<s:FormItem label="{loc.roomType.description}:" required="true">
+				<s:TextArea id="descriptionText"/>
 			</s:FormItem>
 			
 		</s:Form>
 	</s:HGroup>
 	<!-- BUTTONS -->
 	<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
-		<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
-		<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
+		<s:Button label="{loc.button.save}" click="save()" icon="{Icons.save}"/>
+		<s:Button label="{loc.button.cancel}" click="cancel()" icon="{Icons.cancel}"/>
 	</s:HGroup>
 	<s:Spacer height="5"/>
 </s:VGroup>

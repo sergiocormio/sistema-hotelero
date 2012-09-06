@@ -37,7 +37,7 @@
 			
 			public var countryPreSelected:Country;			
 			
-			private var _currentRegion:Region;
+			private var _currentRegion:Region = new Region();
 			
 			private var titleWindow:TitleWindow;
 			private var countryForm:CountryIndividualCRUDForm;

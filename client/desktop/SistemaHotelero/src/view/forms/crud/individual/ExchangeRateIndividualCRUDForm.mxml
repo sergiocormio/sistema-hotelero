@@ -20,14 +20,28 @@
 			
 			import services.ExchangeRateService;
 			
+			import utils.Utils;
+			
 			[Bindable]
 			public var loc:Object;
 			
-			[Bindable]
-			public var isUpdate:Boolean;
+			private var _isUpdate:Boolean;
 			
 			private var _currentExchangeRate:ExchangeRate;
 			
+			[Bindable]
+			public function get isUpdate():Boolean
+			{
+				return _isUpdate;
+			}
+
+			public function set isUpdate(value:Boolean):void
+			{
+				_isUpdate = value;
+				//disables Id if is update
+				currencyCodeText.enabled = !_isUpdate;
+			}
+
 			public function get currentExchangeRate():ExchangeRate
 			{
 				return _currentExchangeRate;
@@ -36,9 +50,15 @@
 			public function set currentExchangeRate(value:ExchangeRate):void
 			{
 				_currentExchangeRate = value;
+				currencyCodeText.text = _currentExchangeRate.id;
 				exchangeRateText.text = _currentExchangeRate.name;
 				currencySymbolText.text = _currentExchangeRate.currencySymbol;
-				valueAgainstRealText.text = _currentExchangeRate.valueAgainstReal as (String);
+				//avoids showing NaN
+				if(_currentExchangeRate.valueAgainstReal >= 0){
+					valueAgainstRealText.text = _currentExchangeRate.valueAgainstReal.toString();
+				}else{
+					valueAgainstRealText.text = '';
+				}
 			}
 			
 			private function save():void{
@@ -46,10 +66,10 @@
 				//if(!allFieldsAreValid()){
 				//	return;
 				//}
-				
+				_currentExchangeRate.id = currencyCodeText.text;
 				_currentExchangeRate.name = exchangeRateText.text;
 				_currentExchangeRate.currencySymbol = currencySymbolText.text;
-				_currentExchangeRate.valueAgainstReal = valueAgainstRealText.text as Float;
+				_currentExchangeRate.valueAgainstReal = Number(valueAgainstRealText.text);
 				
 				//calls service
 				if(isUpdate){
@@ -76,7 +96,7 @@
 			protected function init():void
 			{
 				currentExchangeRate = new ExchangeRate();
-				exchangeRateText.setFocus();
+				//exchangeRateText.setFocus();
 			}
 			
 		]]>
@@ -90,6 +110,9 @@
 				<s:FormLayout gap="-14"/>
 			</s:layout>  
 			
+			<s:FormItem label="{loc.exchangeRate.currencyCode}:" required="true">
+				<s:TextInput id="currencyCodeText"/>
+			</s:FormItem>
 			<s:FormItem label="{loc.exchangeRate.name}:" required="true">
 				<s:TextInput id="exchangeRateText"/>
 			</s:FormItem>
