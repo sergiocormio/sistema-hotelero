@@ -16,7 +16,7 @@ public class ExchangeRate {
 	
 	private String currencySymbol;
     
-	private float valueAgainstReal;
+	private Double valueAgainstReal;
 
 	
 	
@@ -44,11 +44,11 @@ public class ExchangeRate {
 		this.currencySymbol = currencySymbol;
 	}
 
-	public float getValueAgainstReal() {
+	public Double getValueAgainstReal() {
 		return valueAgainstReal;
 	}
 
-	public void setValueAgainstReal(float valueAgainstReal) {
+	public void setValueAgainstReal(Double valueAgainstReal) {
 		this.valueAgainstReal = valueAgainstReal;
 	}
     	

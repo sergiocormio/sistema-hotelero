@@ -44,5 +44,12 @@
 			<scope>application</scope>
 		</properties>
     </destination>
+    
+    <destination id="exchangeRateService">
+		<properties>
+			<source>com.cdz.sh.service.impl.ExchangeRateServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 	
 </service>

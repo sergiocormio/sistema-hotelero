@@ -113,7 +113,7 @@ public class MasterDataFactory {
 			excUsd.setId("USD");
 			excUsd.setCurrencySymbol("Us$");
 			excUsd.setName("Dollar");
-			excUsd.setValueAgainstReal((float)0.45);
+			excUsd.setValueAgainstReal(0.45);
 			this.exchangeRateDao.createRecord(excUsd);
 		}
 		ExchangeRate excArs = this.exchangeRateDao.getRecordById("ARS");
@@ -122,7 +122,7 @@ public class MasterDataFactory {
 			excArs.setId("ARS");
 			excArs.setCurrencySymbol("$");
 			excArs.setName("Peso Argentino");
-			excArs.setValueAgainstReal((float)0.45);
+			excArs.setValueAgainstReal(0.45);
 			this.exchangeRateDao.createRecord(excArs);
 		}
 		ExchangeRate excUyu = this.exchangeRateDao.getRecordById("UYU");
@@ -131,7 +131,7 @@ public class MasterDataFactory {
 			excUyu.setId("UYU");
 			excUyu.setCurrencySymbol("$");
 			excUyu.setName("Peso Uruguayo");
-			excUyu.setValueAgainstReal((float)0.45);
+			excUyu.setValueAgainstReal(0.45);
 			this.exchangeRateDao.createRecord(excUyu);
 		}
 	}
