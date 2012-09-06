@@ -17,7 +17,7 @@ public class ServiceType {
 	
 	private boolean additionalFixed;
 	
-	private float price;
+	private Double price;
 
 	public Long getId() {
 		return id;
@@ -43,11 +43,11 @@ public class ServiceType {
 		this.description = description;
 	}
 
-	public float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

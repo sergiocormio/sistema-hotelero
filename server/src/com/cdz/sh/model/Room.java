@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 
 @Entity
@@ -25,9 +24,7 @@ public class Room {
 	@JoinColumn(name="ROOM_TYPE_ID")
     private RoomType roomType;
     
-    private int adultsQuantity;
-    
-    private int childrenQuantity;
+    private int peopleQuantity;    
     
     private boolean withMaritalBed;
     
@@ -66,29 +63,16 @@ public class Room {
     public void setRoomType(RoomType roomType) {
     	this.roomType = roomType;
     }
-    
-    public int getAdultsQuantity() {
-    	return adultsQuantity;
-    }
-    
-    public void setAdultsQuantity(int adultsQuantity) {
-    	this.adultsQuantity = adultsQuantity;
-    }
-    
-    public int getChildrenQuantity() {
-    	return childrenQuantity;
-    }
-    
-    public void setChildrenQuantity(int childrenQuantity) {
-    	this.childrenQuantity = childrenQuantity;
-    }
-    
-    @Transient
-    public int getTotalQuantity() {
-    	return adultsQuantity + childrenQuantity;
-    }
-    
-    public boolean isWithMaritalBed() {
+            
+    public int getPeopleQuantity() {
+		return peopleQuantity;
+	}
+
+	public void setPeopleQuantity(int peopleQuantity) {
+		this.peopleQuantity = peopleQuantity;
+	}
+
+	public boolean isWithMaritalBed() {
     	return withMaritalBed;
     }
     
@@ -104,12 +88,7 @@ public class Room {
     	this.withExtraBed = withExtraBed;
     }
     
-    
-    @Transient
-    public int getTotalPeopleQuantity(){
-    	return this.adultsQuantity + this.childrenQuantity;
-    }
-    
+         
     
     public int hashCode() {
         return this.number;

@@ -150,7 +150,7 @@ public class ScenarioBuilder_AllEmpty_SameRoomType {
 
 	private void createRate() throws DaoException {
 		
-		float price = 150;
+		Double price = new Double(150);
 		
 		RatePK ratePK = new RatePK();
 		ratePK.setSeason(this.seasonDao.getRecordById(1L));

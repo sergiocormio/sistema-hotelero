@@ -44,7 +44,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeBreakfast == null){
 			serviceTypeBreakfast = new ServiceType();
 			serviceTypeBreakfast.setName("Desayuno");
-			serviceTypeBreakfast.setPrice(10);
+			serviceTypeBreakfast.setPrice(10d);
 			serviceTypeBreakfast.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeBreakfast);
 		}
@@ -52,7 +52,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeParking == null){
 			serviceTypeParking = new ServiceType();
 			serviceTypeParking.setName("Estacionamiento");
-			serviceTypeParking.setPrice(15);
+			serviceTypeParking.setPrice(15d);
 			serviceTypeParking.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeParking);
 		}
@@ -61,7 +61,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeAeroIda == null){
 			serviceTypeAeroIda = new ServiceType();
 			serviceTypeAeroIda.setName("Ida al Aeropuerto");
-			serviceTypeAeroIda.setPrice(90);
+			serviceTypeAeroIda.setPrice(90d);
 			serviceTypeAeroIda.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeAeroIda);
 		}
@@ -69,7 +69,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeAreoBoth == null){
 			serviceTypeAreoBoth = new ServiceType();
 			serviceTypeAreoBoth.setName("Aeropuerto ida y vuelta");
-			serviceTypeAreoBoth.setPrice(170);
+			serviceTypeAreoBoth.setPrice(170d);
 			serviceTypeAreoBoth.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeAreoBoth);
 		}
@@ -77,7 +77,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeBusIda == null){
 			serviceTypeBusIda = new ServiceType();
 			serviceTypeBusIda.setName("Bus Ida");
-			serviceTypeBusIda.setPrice(80);
+			serviceTypeBusIda.setPrice(80d);
 			serviceTypeBusIda.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeBusIda);
 		}
@@ -85,7 +85,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeBusBoth == null){
 			serviceTypeBusBoth = new ServiceType();
 			serviceTypeBusBoth.setName("Bus ida y vuelta");
-			serviceTypeBusBoth.setPrice(150);
+			serviceTypeBusBoth.setPrice(150d);
 			serviceTypeBusBoth.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeBusBoth);
 		}
@@ -93,7 +93,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeTowels == null){
 			serviceTypeTowels = new ServiceType();
 			serviceTypeTowels.setName("Toallas");
-			serviceTypeTowels.setPrice(10);
+			serviceTypeTowels.setPrice(10d);
 			serviceTypeTowels.setAdditionalFixed(true);
 			this.serviceTypeDao.createRecord(serviceTypeTowels);
 		}
@@ -101,7 +101,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeBedClothe == null){
 			serviceTypeBedClothe = new ServiceType();
 			serviceTypeBedClothe.setName("Ropa de cama");
-			serviceTypeBedClothe.setPrice(10);
+			serviceTypeBedClothe.setPrice(10d);
 			serviceTypeBedClothe.setAdditionalFixed(true);
 			this.serviceTypeDao.createRecord(serviceTypeBedClothe);
 		}
@@ -109,7 +109,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeExtraCleaning == null){
 			serviceTypeExtraCleaning = new ServiceType();
 			serviceTypeExtraCleaning.setName("Limpieza Extra");
-			serviceTypeExtraCleaning.setPrice(15);
+			serviceTypeExtraCleaning.setPrice(15d);
 			serviceTypeExtraCleaning.setAdditionalFixed(true);
 			this.serviceTypeDao.createRecord(serviceTypeExtraCleaning);
 		}

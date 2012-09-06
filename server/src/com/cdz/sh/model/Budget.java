@@ -7,10 +7,10 @@ public class Budget {
 	
 	private Alternative relatedAlternative;
 	
-	private float basePrice;
-	private float priceWithBreakfast;
-	private float priceWithParking;
-	private float priceWithBreakfastAndParking;
+	private Double basePrice;
+	private Double priceWithBreakfast;
+	private Double priceWithParking;
+	private Double priceWithBreakfastAndParking;
 	
 	private List<ServiceType> additionalServices;
 
@@ -31,35 +31,35 @@ public class Budget {
 	}
 
 
-	public float getBasePrice() {
+	public Double getBasePrice() {
 		return basePrice;
 	}
 
-	public void setBasePrice(float basePrice) {
+	public void setBasePrice(Double basePrice) {
 		this.basePrice = basePrice;
 	}
 
-	public float getPriceWithBreakfast() {
+	public Double getPriceWithBreakfast() {
 		return priceWithBreakfast;
 	}
 
-	public void setPriceWithBreakfast(float priceWithBreakfast) {
+	public void setPriceWithBreakfast(Double priceWithBreakfast) {
 		this.priceWithBreakfast = priceWithBreakfast;
 	}
 
-	public float getPriceWithParking() {
+	public Double getPriceWithParking() {
 		return priceWithParking;
 	}
 
-	public void setPriceWithParking(float priceWithParking) {
+	public void setPriceWithParking(Double priceWithParking) {
 		this.priceWithParking = priceWithParking;
 	}
 
-	public float getPriceWithBreakfastAndParking() {
+	public Double getPriceWithBreakfastAndParking() {
 		return priceWithBreakfastAndParking;
 	}
 
-	public void setPriceWithBreakfastAndParking(float priceWithBreakfastAndParking) {
+	public void setPriceWithBreakfastAndParking(Double priceWithBreakfastAndParking) {
 		this.priceWithBreakfastAndParking = priceWithBreakfastAndParking;
 	}
 
