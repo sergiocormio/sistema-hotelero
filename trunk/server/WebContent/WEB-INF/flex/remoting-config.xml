@@ -51,5 +51,19 @@
 			<scope>application</scope>
 		</properties>
     </destination>
+    
+    <destination id="roomTypeService">
+		<properties>
+			<source>com.cdz.sh.service.impl.RoomTypeServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+    <destination id="roomService">
+		<properties>
+			<source>com.cdz.sh.service.impl.RoomServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 	
 </service>
