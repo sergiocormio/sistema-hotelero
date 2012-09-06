@@ -58,7 +58,7 @@ public class SameRoomTypeBuilder {
 			roomOfTypeCostao2 = new Room();
 			roomOfTypeCostao2.setRoomType(roomType);
 			roomOfTypeCostao2.setNumber(2);
-			roomOfTypeCostao1.setPeopleQuantity(4);
+			roomOfTypeCostao2.setPeopleQuantity(4);
 			this.roomDao.createRecord(roomOfTypeCostao2);
 		}
 		
@@ -67,7 +67,7 @@ public class SameRoomTypeBuilder {
 			roomOfTypeCostao3 = new Room();
 			roomOfTypeCostao3.setRoomType(roomType);
 			roomOfTypeCostao3.setNumber(3);
-			roomOfTypeCostao1.setPeopleQuantity(4);
+			roomOfTypeCostao3.setPeopleQuantity(4);
 			this.roomDao.createRecord(roomOfTypeCostao3);
 		}
 		

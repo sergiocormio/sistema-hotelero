@@ -105,10 +105,13 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 					hasAtLeastOneAvailableOccupationForThisDate = true;
 				}
 			}
-			date = DateUtil.getNextDay(date);
+			if(hasAtLeastOneAvailableOccupationForThisDate){
+				date = DateUtil.getNextDay(date);
+			}
 		}
+		
 		if(!hasAtLeastOneAvailableOccupationForThisDate){
-			throw new NoAvailableAlternativesException("No available alternatives");
+			throw new NoAvailableAlternativesException("No available alternatives for date: " + DateUtil.dateToStringYYYYmmDD(date));
 		}
 		return possibleOccupations;
 	}

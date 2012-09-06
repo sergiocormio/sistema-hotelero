@@ -30,7 +30,9 @@ public class RoomDaoImpl extends AbstractCrudDao<Room, Long> implements RoomDao 
 			
 			TypedQuery<Room> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Room.class);
 			
-			query = query.setParameter("peopleQuantity", adultQty + childrenQty);
+			int peopleQty = adultQty + childrenQty;
+			
+			query = query.setParameter("peopleQuantity", peopleQty);
 						
 			List<Room> rooms = query.getResultList();
 			EntityManagerSingleton.getInstance().getTransaction().commit();
