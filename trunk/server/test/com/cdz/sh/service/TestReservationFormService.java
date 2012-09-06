@@ -99,7 +99,7 @@ public class TestReservationFormService {
 		this.reservationFormService.deleteRecord(createdReservation);
 	
 		Budget budget = new Budget();
-		budget.setBasePrice(140);
+		budget.setBasePrice(140d);
 		alternative.setBudget(budget);
 		System.out.println(alternative);
 	}

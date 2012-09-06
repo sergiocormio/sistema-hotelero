@@ -27,7 +27,7 @@ public class Promotion {
 	
 	private Date dateTo;
 	
-	private float price;
+	private Double price;
 
 	public Long getId() {
 		return id;
@@ -77,11 +77,11 @@ public class Promotion {
 		this.dateTo = to;
 	}
 
-	public float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
     	

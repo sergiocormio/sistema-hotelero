@@ -271,7 +271,7 @@ public class DummyScenarioBuilder {
 	
 	private void createRates() throws DaoException {
 		
-		float price = 150;
+		Double price = new Double(150);
 		long i = 1;
 		
 		RatePK ratePK = new RatePK();

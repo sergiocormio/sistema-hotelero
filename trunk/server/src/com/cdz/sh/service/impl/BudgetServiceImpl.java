@@ -33,10 +33,10 @@ public class BudgetServiceImpl implements BudgetService {
 		
 		Budget budget = new Budget();
 		
-		float basePrice = 0;
-		float priceWithBreakfast = 0;
-		float priceWithParking = 0;
-		float priceWithBreakfastAndParking = 0;
+		Double basePrice = new Double(0);
+		Double priceWithBreakfast = new Double(0);
+		Double priceWithParking = new Double(0);
+		Double priceWithBreakfastAndParking = new Double(0);
 		
 		RoomType roomType = null;
 		Rate rate = null;

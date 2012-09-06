@@ -36,9 +36,9 @@ public class ReservationForm {
     
     private int childrenQuantity;
     
-    private float pricePerDay;
+    private Double pricePerDay;
     
-    private float monetaryReserve;
+    private Double monetaryReserve;
     
     @ManyToOne
 	@JoinColumn(name="Bank_ID")
@@ -113,19 +113,19 @@ public class ReservationForm {
 		this.childrenQuantity = childrenQuantity;
 	}
 
-	public float getPricePerDay() {
+	public Double getPricePerDay() {
 		return pricePerDay;
 	}
 
-	public void setPricePerDay(float pricePerDay) {
+	public void setPricePerDay(Double pricePerDay) {
 		this.pricePerDay = pricePerDay;
 	}
 
-	public float getMonetaryReserve() {
+	public Double getMonetaryReserve() {
 		return monetaryReserve;
 	}
 
-	public void setMonetaryReserve(float monetaryReserve) {
+	public void setMonetaryReserve(Double monetaryReserve) {
 		this.monetaryReserve = monetaryReserve;
 	}
 

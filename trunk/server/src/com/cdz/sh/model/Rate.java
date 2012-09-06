@@ -17,7 +17,7 @@ public class Rate {
 	private RatePK id;
 	
 	
-	private float price;
+	private Double price;
 	
 		
 	public RatePK getId() {
@@ -28,11 +28,11 @@ public class Rate {
 		this.id = id;
 	}
 
-	public float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
