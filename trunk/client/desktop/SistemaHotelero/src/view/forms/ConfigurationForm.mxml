@@ -21,6 +21,10 @@
 		</s:layout>
 	</s:ButtonBar>
 	<mx:ViewStack id="configViewStack" borderStyle="solid" width="100%" height="100%">
+		<s:NavigatorContent id="seasons" label="{loc.season.plural}" icon="{Icons.save}" width="100%" height="100%">
+			<crud:SeasonCRUDForm loc="{loc}" width="100%" height="100%"/>
+		</s:NavigatorContent>
+		
 		<s:NavigatorContent id="roomTypes" label="{loc.roomType.plural}" icon="{Icons.save}" width="100%" height="100%">
 			<crud:RoomTypeCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
@@ -28,10 +32,8 @@
 			<crud:RoomCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="rates" label="Rates" icon="{Icons.save}" width="100%" height="100%">
-			<s:VGroup width="100%" height="100%">
-				<s:Label text="testing new panel"/>
-			</s:VGroup>
+		<s:NavigatorContent id="rates" label="{loc.rate.plural}" icon="{Icons.save}" width="100%" height="100%">
+			<crud:RateCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="promotion" label="Promotions" icon="{Icons.save}" width="100%" height="100%">
