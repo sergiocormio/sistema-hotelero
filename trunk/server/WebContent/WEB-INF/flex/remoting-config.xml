@@ -65,5 +65,25 @@
 			<scope>application</scope>
 		</properties>
     </destination>
+    
+    <destination id="seasonService">
+		<properties>
+			<source>com.cdz.sh.service.impl.SeasonServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 	
+	<destination id="rateService">
+		<properties>
+			<source>com.cdz.sh.service.impl.RateServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+    <destination id="masterDataService">
+		<properties>
+			<source>com.cdz.sh.service.impl.MasterDataServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 </service>
