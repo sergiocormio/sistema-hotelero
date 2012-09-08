@@ -14,6 +14,7 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.StateReservationForm;
 
 /**
  * The idea of each concrete class (like this one) is to ONLY add specific customer methods. CRUD operations are implemented 
@@ -60,7 +61,7 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 			query = query.setParameter("dateFrom", dateFrom);
 			query = query.setParameter("dateTo", dateTo);
 			query = query.setParameter("peopleQuantity", adultsQuantity + childrenQuantity);
-			query = query.setParameter("stateConfirmedId", MasterDataConstants.STATE_CONFIRMED_ID);
+			query = query.setParameter("stateConfirmedId", StateReservationForm.confirmada);
 			
 			
 			List<Occupation> occupations = query.getResultList();

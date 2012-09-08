@@ -40,6 +40,15 @@ public class ServiceTypeDaoImpl extends AbstractCrudDao<ServiceType, Long> imple
 		}
 	}
 
+	@Override
+	public synchronized void deleteRecord(ServiceType serviceType) throws DaoException {
+		if(serviceType.getId() <= 9){
+			throw new DaoException("This service can not be removed (system-defined)");
+		}
+		super.deleteRecord(serviceType);
+	}
+
+	
 	
 	
 }

@@ -1,9 +1,7 @@
 package com.cdz.sh.service.core.scenarios;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import com.cdz.sh.dao.CustomerDao;
 import com.cdz.sh.dao.DocumentTypeDao;
@@ -17,7 +15,6 @@ import com.cdz.sh.dao.RoomDao;
 import com.cdz.sh.dao.RoomTypeDao;
 import com.cdz.sh.dao.SeasonDao;
 import com.cdz.sh.dao.ServiceTypesBuilder;
-import com.cdz.sh.dao.StateReservationFormDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
@@ -29,7 +26,6 @@ import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.dao.impl.RoomTypeDaoImpl;
 import com.cdz.sh.dao.impl.SeasonDaoImpl;
-import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
@@ -42,6 +38,7 @@ import com.cdz.sh.model.Region;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.model.Season;
+import com.cdz.sh.model.StateReservationForm;
 import com.cdz.sh.service.core.roombuilder.SameRoomTypeBuilder;
 import com.cdz.sh.util.DateUtil;
 
@@ -86,7 +83,6 @@ public class ScenarioBuilder_AllBusy_SameRoomType {
 	private RateDao rateDao;
 	
 	private OccupationDao occupationDao;
-	private StateReservationFormDao stateReservationFormDao;
 	private ReservationFormDao reservationFormDao;
 	
 		
@@ -119,7 +115,6 @@ public class ScenarioBuilder_AllBusy_SameRoomType {
 		this.seasonDao = new SeasonDaoImpl();
 		this.rateDao = new RateDaoImpl();
 		
-		this.stateReservationFormDao = new StateReservationFormDaoImpl();
 		this.reservationFormDao = new ReservationFormDaoImpl();
 		this.occupationDao = new OccupationDaoImpl();
 	}
@@ -170,7 +165,7 @@ public class ScenarioBuilder_AllBusy_SameRoomType {
 			customerPKFede.setIdNumber("33103189");
 			
 			reservationForm.setCustomer(this.customerDao.getRecordById(customerPKFede));
-			reservationForm.setState(this.stateReservationFormDao.getRecordById(2L));
+			reservationForm.setState(StateReservationForm.confirmada);
 			
 			this.reservationFormDao.createRecord(reservationForm);
 						

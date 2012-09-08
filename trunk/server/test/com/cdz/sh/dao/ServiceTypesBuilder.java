@@ -3,6 +3,7 @@ package com.cdz.sh.dao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.ServiceTypeDaoImpl;
 import com.cdz.sh.model.ServiceType;
+import com.cdz.sh.model.ServiceTypeModality;
 
 /**
  * 
@@ -44,6 +45,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeBreakfast == null){
 			serviceTypeBreakfast = new ServiceType();
 			serviceTypeBreakfast.setName("Desayuno");
+			serviceTypeBreakfast.setModality(ServiceTypeModality.porHabitacion);
 			serviceTypeBreakfast.setPrice(10d);
 			serviceTypeBreakfast.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeBreakfast);
@@ -52,6 +54,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeParking == null){
 			serviceTypeParking = new ServiceType();
 			serviceTypeParking.setName("Estacionamiento");
+			serviceTypeParking.setModality(ServiceTypeModality.porNoche);
 			serviceTypeParking.setPrice(15d);
 			serviceTypeParking.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeParking);
@@ -61,6 +64,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeAeroIda == null){
 			serviceTypeAeroIda = new ServiceType();
 			serviceTypeAeroIda.setName("Ida al Aeropuerto");
+			serviceTypeAeroIda.setModality(ServiceTypeModality.porVez);
 			serviceTypeAeroIda.setPrice(90d);
 			serviceTypeAeroIda.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeAeroIda);
@@ -69,6 +73,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeAreoBoth == null){
 			serviceTypeAreoBoth = new ServiceType();
 			serviceTypeAreoBoth.setName("Aeropuerto ida y vuelta");
+			serviceTypeAreoBoth.setModality(ServiceTypeModality.porVez);
 			serviceTypeAreoBoth.setPrice(170d);
 			serviceTypeAreoBoth.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeAreoBoth);
@@ -77,6 +82,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeBusIda == null){
 			serviceTypeBusIda = new ServiceType();
 			serviceTypeBusIda.setName("Bus Ida");
+			serviceTypeBusIda.setModality(ServiceTypeModality.porVez);
 			serviceTypeBusIda.setPrice(80d);
 			serviceTypeBusIda.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeBusIda);
@@ -85,6 +91,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeBusBoth == null){
 			serviceTypeBusBoth = new ServiceType();
 			serviceTypeBusBoth.setName("Bus ida y vuelta");
+			serviceTypeBusBoth.setModality(ServiceTypeModality.porVez);
 			serviceTypeBusBoth.setPrice(150d);
 			serviceTypeBusBoth.setAdditionalFixed(false);
 			this.serviceTypeDao.createRecord(serviceTypeBusBoth);
@@ -93,6 +100,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeTowels == null){
 			serviceTypeTowels = new ServiceType();
 			serviceTypeTowels.setName("Toallas");
+			serviceTypeTowels.setModality(ServiceTypeModality.porVez);
 			serviceTypeTowels.setPrice(10d);
 			serviceTypeTowels.setAdditionalFixed(true);
 			this.serviceTypeDao.createRecord(serviceTypeTowels);
@@ -101,6 +109,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeBedClothe == null){
 			serviceTypeBedClothe = new ServiceType();
 			serviceTypeBedClothe.setName("Ropa de cama");
+			serviceTypeBedClothe.setModality(ServiceTypeModality.porVez);
 			serviceTypeBedClothe.setPrice(10d);
 			serviceTypeBedClothe.setAdditionalFixed(true);
 			this.serviceTypeDao.createRecord(serviceTypeBedClothe);
@@ -109,6 +118,7 @@ public class ServiceTypesBuilder {
 		if (serviceTypeExtraCleaning == null){
 			serviceTypeExtraCleaning = new ServiceType();
 			serviceTypeExtraCleaning.setName("Limpieza Extra");
+			serviceTypeExtraCleaning.setModality(ServiceTypeModality.porVez);
 			serviceTypeExtraCleaning.setPrice(15d);
 			serviceTypeExtraCleaning.setAdditionalFixed(true);
 			this.serviceTypeDao.createRecord(serviceTypeExtraCleaning);

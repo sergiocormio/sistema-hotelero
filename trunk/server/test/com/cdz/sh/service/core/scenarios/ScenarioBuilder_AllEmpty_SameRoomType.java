@@ -1,19 +1,13 @@
 package com.cdz.sh.service.core.scenarios;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.cdz.sh.dao.CustomerDao;
 import com.cdz.sh.dao.DocumentTypeDao;
 import com.cdz.sh.dao.LanguageDao;
 import com.cdz.sh.dao.MasterDataFactory;
-import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.RateDao;
 import com.cdz.sh.dao.RegionDao;
-import com.cdz.sh.dao.ReservationFormDao;
-import com.cdz.sh.dao.RoomDao;
 import com.cdz.sh.dao.RoomTypeDao;
 import com.cdz.sh.dao.SeasonDao;
 import com.cdz.sh.dao.ServiceTypeDao;
@@ -22,29 +16,18 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.LanguageDaoImpl;
-import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.RateDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
-import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
-import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.dao.impl.RoomTypeDaoImpl;
 import com.cdz.sh.dao.impl.SeasonDaoImpl;
-import com.cdz.sh.dao.impl.ServiceTypeDaoImpl;
-import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.Language;
-import com.cdz.sh.model.Occupation;
-import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.Rate;
 import com.cdz.sh.model.RatePK;
 import com.cdz.sh.model.Region;
-import com.cdz.sh.model.ReservationForm;
-import com.cdz.sh.model.Room;
-import com.cdz.sh.model.RoomType;
 import com.cdz.sh.model.Season;
-import com.cdz.sh.model.ServiceType;
 import com.cdz.sh.service.core.roombuilder.SameRoomTypeBuilder;
 
 
