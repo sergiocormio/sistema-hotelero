@@ -13,21 +13,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cdz.sh.constants.MasterDataConstants;
 import com.cdz.sh.dao.CustomerDao;
 import com.cdz.sh.dao.DocumentTypeDao;
 import com.cdz.sh.dao.DummyScenarioBuilder;
 import com.cdz.sh.dao.MasterDataFactory;
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.RoomDao;
-import com.cdz.sh.dao.StateReservationFormDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
-import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Budget;
 import com.cdz.sh.model.CustomerPK;
@@ -44,7 +41,6 @@ public class TestReservationFormService {
 	private ReservationFormService reservationFormService;
 	private RoomDao roomDao;
 	private CustomerDao customerDao;
-	private StateReservationFormDao stateReservationFormDao;
 	private DocumentTypeDao documentTypeDao;
 	private OccupationDao occupationDao;
 	
@@ -58,7 +54,6 @@ public class TestReservationFormService {
 		dummyScenarioBuilder.createDummyScenario();
 				
 		this.roomDao = new RoomDaoImpl();
-		this.stateReservationFormDao = new StateReservationFormDaoImpl();
 		this.documentTypeDao = new DocumentTypeDaoImpl();
 		this.customerDao = new CustomerDaoImpl();
 		this.occupationDao = new OccupationDaoImpl();
@@ -110,10 +105,8 @@ public class TestReservationFormService {
 		
 		Alternative alternative = new Alternative();
 		
-		StateReservationForm stateConfirmed = this.stateReservationFormDao.getRecordById(MasterDataConstants.STATE_CONFIRMED_ID);
-		
 		ReservationForm reservationForm = new ReservationForm();
-		reservationForm.setState(stateConfirmed);
+		reservationForm.setState(StateReservationForm.confirmada);
 		
 		ReservationForm createdReservation = this.reservationFormService.book(alternative, reservationForm);
 		
@@ -137,7 +130,7 @@ public class TestReservationFormService {
 		customerPKFede.setIdNumber("33103189");
 		
 		reservationForm.setCustomer(this.customerDao.getRecordById(customerPKFede));
-		reservationForm.setState(this.stateReservationFormDao.getRecordById(1L));
+		reservationForm.setState(StateReservationForm.pre_reserva);
 		
 		return reservationForm;
 	}
@@ -160,7 +153,7 @@ public class TestReservationFormService {
 		customerPKFede.setIdNumber("33103189");
 		
 		reservationForm.setCustomer(this.customerDao.getRecordById(customerPKFede));
-		reservationForm.setState(this.stateReservationFormDao.getRecordById(1L));
+		reservationForm.setState(StateReservationForm.pre_reserva);
 		
 		return reservationForm;
 	}
@@ -201,21 +194,17 @@ public class TestReservationFormService {
 			alternative.addOccupation(occupation);
 		}
 		
-		StateReservationForm statePreReserva = this.stateReservationFormDao.getRecordById(MasterDataConstants.STATE_PRE_RRSERVA_ID);
-		reservationForm.setState(statePreReserva);
+		reservationForm.setState(StateReservationForm.pre_reserva);
 				
 		ReservationForm createdReservation = this.reservationFormService.book(alternative, reservationForm);
 		
-		StateReservationForm stateConfirmed = this.stateReservationFormDao.getRecordById(MasterDataConstants.STATE_CONFIRMED_ID);
-		createdReservation.setState(stateConfirmed);
+		createdReservation.setState(StateReservationForm.confirmada);
 		
-		StateReservationForm stateCanceled = this.stateReservationFormDao.getRecordById(MasterDataConstants.STATE_CANCELED_ID);
-		
-		List<ReservationForm> reservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, stateCanceled);
+		List<ReservationForm> reservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.cancelada);
 		
 		this.reservationFormService.updateRecord(createdReservation);
 		
-		List<ReservationForm> updatedReservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, stateCanceled);
+		List<ReservationForm> updatedReservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.cancelada);
 				
 		assertTrue(updatedReservationFormsCanceled.size() == reservationFormsCanceled.size());
 	}
@@ -260,8 +249,7 @@ public class TestReservationFormService {
 		
 		/***********/
 		
-		StateReservationForm statePreReserva = this.stateReservationFormDao.getRecordById(MasterDataConstants.STATE_PRE_RRSERVA_ID);
-		reservationForm3.setState(statePreReserva);
+		reservationForm3.setState(StateReservationForm.pre_reserva);
 				
 		ReservationForm createdReservation1 = this.reservationFormService.book(alternative1, reservationForm1);
 		ReservationForm createdReservation2 = this.reservationFormService.book(alternative2, reservationForm2);
@@ -269,16 +257,13 @@ public class TestReservationFormService {
 		
 		Collection<ReservationForm> retrieveAll = this.reservationFormService.retrieveAll();
 		
-		StateReservationForm stateConfirmed = this.stateReservationFormDao.getRecordById(MasterDataConstants.STATE_CONFIRMED_ID);
-		createdReservation1.setState(stateConfirmed);
+		createdReservation1.setState(StateReservationForm.confirmada);
 		
-		StateReservationForm stateCanceled = this.stateReservationFormDao.getRecordById(MasterDataConstants.STATE_CANCELED_ID);
-		
-		List<ReservationForm> reservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, stateCanceled);
+		List<ReservationForm> reservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.cancelada);
 		
 		this.reservationFormService.updateRecord(createdReservation1);
 		
-		List<ReservationForm> updatedReservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, stateCanceled);
+		List<ReservationForm> updatedReservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.cancelada);
 				
 		assertTrue(updatedReservationFormsCanceled.size() == reservationFormsCanceled.size()+2);
 	}

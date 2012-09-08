@@ -18,6 +18,8 @@ import com.cdz.sh.service.OccupationService;
 import com.cdz.sh.service.ReservationFormService;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_AllBusy_SameRoomType;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_AllEmpty_SameRoomType;
+import com.cdz.sh.service.core.scenarios.ScenarioBuilder_Room3Busy_SameRoomType;
+import com.cdz.sh.service.core.scenarios.ScenarioBuilder_Rooms_2_3_busy_SameRoomType;
 import com.cdz.sh.service.exception.NoAvailableAlternativesException;
 import com.cdz.sh.service.impl.OccupationServiceImpl;
 import com.cdz.sh.service.impl.ReservationFormServiceImpl;
@@ -73,6 +75,50 @@ public class TestCore_SameRoomType {
 			System.out.println(alternative);
 		}
 				
+	}
+	
+	@Test
+	public void testRoom3Busy() throws DaoException, NoAvailableAlternativesException {
+	
+		ScenarioBuilder_Room3Busy_SameRoomType scenarioBuilder = new ScenarioBuilder_Room3Busy_SameRoomType();
+		scenarioBuilder.createDummyScenario();
+		
+		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
+		Date dateFrom = calendar.getTime();
+		
+		calendar.add(Calendar.DATE, 9);
+		
+		Date dateTo = calendar.getTime();
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		
+		for (Alternative alternative : alternatives) {
+			System.out.println(alternative);
+		}
+		assertTrue(alternatives.size() == 2);
+		
+	}
+	
+	@Test
+	public void testRoom2_3Busy() throws DaoException, NoAvailableAlternativesException {
+	
+		ScenarioBuilder_Rooms_2_3_busy_SameRoomType scenarioBuilder = new ScenarioBuilder_Rooms_2_3_busy_SameRoomType();
+		scenarioBuilder.createDummyScenario();
+		
+		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
+		Date dateFrom = calendar.getTime();
+		
+		calendar.add(Calendar.DATE, 9);
+		
+		Date dateTo = calendar.getTime();
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		
+		for (Alternative alternative : alternatives) {
+			System.out.println(alternative);
+		}
+		assertTrue(alternatives.size() == 1);
+		
 	}
 
 }

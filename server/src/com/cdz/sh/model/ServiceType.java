@@ -17,6 +17,8 @@ public class ServiceType {
 	
 	private boolean additionalFixed;
 	
+	private ServiceTypeModality modality;
+	
 	private Double price;
 
 	public Long getId() {
@@ -57,6 +59,14 @@ public class ServiceType {
 
 	public void setAdditionalFixed(boolean additionalFixed) {
 		this.additionalFixed = additionalFixed;
+	}
+
+	public ServiceTypeModality getModality() {
+		return modality;
+	}
+
+	public void setModality(ServiceTypeModality modality) {
+		this.modality = modality;
 	}
 
 	

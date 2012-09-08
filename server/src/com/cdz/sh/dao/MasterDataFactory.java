@@ -11,7 +11,6 @@ import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.ExchangeRateDaoImpl;
 import com.cdz.sh.dao.impl.LanguageDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
-import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
 import com.cdz.sh.model.Bank;
 import com.cdz.sh.model.CleaningType;
 import com.cdz.sh.model.Country;
@@ -19,10 +18,9 @@ import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.ExchangeRate;
 import com.cdz.sh.model.Language;
 import com.cdz.sh.model.Region;
-import com.cdz.sh.model.StateReservationForm;
 
 /**
- * Creates all master data. Master data means classes that do not have a related CRUD UI.
+ * Creates all master data. 
  * 
  * @author fede
  *
@@ -33,21 +31,20 @@ public class MasterDataFactory {
 	private CountryDao countryDao;
 	private RegionDao regionDao;
 	private LanguageDao languageDao;
-	private StateReservationFormDao stateReservationFormDao;
 	private BankDao bankDao;
 	private CleaningTypeDao cleanigTypeDao;
 	private ExchangeRateDao exchangeRateDao;
 	
-	
 	public MasterDataFactory() {
+	
 		this.documentTypeDao = new DocumentTypeDaoImpl();
 		this.countryDao = new CountryDaoImpl();
 		this.regionDao = new RegionDaoImpl();
 		this.languageDao = new LanguageDaoImpl();
-		this.stateReservationFormDao = new StateReservationFormDaoImpl();
 		this.bankDao = new BankDaoImpl();
 		this.cleanigTypeDao = new CleaningTypeDaoImpl();
 		this.exchangeRateDao = new ExchangeRateDaoImpl();
+		
 	}
 
 	public void  createMasterData() {
@@ -64,10 +61,7 @@ public class MasterDataFactory {
 			
 			// Languages
 			createLanguages();
-						
-			// States for Reservation forms
-			createStateReservationForms();
-			
+									
 			// Banks
 			createBanks();
 						
@@ -151,34 +145,9 @@ public class MasterDataFactory {
 		}
 	}
 
-	private void createStateReservationForms() throws DaoException {
-		StateReservationForm statePre = this.stateReservationFormDao.getRecordById(1L);
-		if(statePre == null){
-			statePre = new StateReservationForm();
-			statePre.setState("Pre-reserva");
-			this.stateReservationFormDao.createRecord(statePre);
-		}
-		StateReservationForm stateConf = this.stateReservationFormDao.getRecordById(2L);
-		if(stateConf == null){
-			stateConf = new StateReservationForm();
-			stateConf.setState("Confirmada");
-			this.stateReservationFormDao.createRecord(stateConf);
-		}
-		StateReservationForm stateVenc = this.stateReservationFormDao.getRecordById(3L);
-		if(stateVenc == null){
-			stateVenc = new StateReservationForm();
-			stateVenc.setState("Vencida");
-			this.stateReservationFormDao.createRecord(stateVenc);
-		}
-		StateReservationForm stateCanc = this.stateReservationFormDao.getRecordById(4L);
-		if(stateCanc == null){
-			stateCanc = new StateReservationForm();
-			stateCanc.setState("Cancelada");
-			this.stateReservationFormDao.createRecord(stateCanc);
-		}
-	}
-
+	
 	private void createLanguages() throws DaoException {
+		
 		Language languageESP_ARG = this.languageDao.getRecordById(1L);
 		if(languageESP_ARG == null){
 			languageESP_ARG = new Language();
@@ -200,7 +169,7 @@ public class MasterDataFactory {
 	}
 
 	private void createRegions(Map<Long,Country> countries)	throws DaoException {
-		
+				
 		Region regionCentro = this.regionDao.getRecordById(1L);
 		if(regionCentro == null){
 			regionCentro = new Region();
@@ -219,7 +188,7 @@ public class MasterDataFactory {
 	
 
 	private Map<Long, Country> createCountries() throws DaoException {
-		
+				
 		Map<Long, Country> countries = new HashMap<Long, Country>();
 		
 		Country countryArg = this.countryDao.getRecordById(1L);
@@ -260,6 +229,7 @@ public class MasterDataFactory {
 	}
 
 	private void createDocumentTypes() throws DaoException {
+		
 		DocumentType docTypeDNI = this.documentTypeDao.getRecordById(1L);
 		if(docTypeDNI == null){
 			docTypeDNI = new DocumentType();
@@ -284,6 +254,8 @@ public class MasterDataFactory {
 			
 			this.documentTypeDao.createRecord(docTypeSSN);
 		}
+		
+		
 	}
 	
 }

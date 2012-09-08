@@ -16,7 +16,6 @@ import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
-import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
@@ -28,7 +27,6 @@ public class TestReservationFormDao {
 	private ReservationFormDao reservationFormDao;
 	
 	private CustomerDao customerDao;
-	private StateReservationFormDao stateReservationFormDao;
 	private DocumentTypeDao documentTypeDao;
 	
 	
@@ -42,7 +40,6 @@ public class TestReservationFormDao {
 		dummyScenarioBuilder.createDummyScenario();
 				
 		this.reservationFormDao = new ReservationFormDaoImpl();
-		this.stateReservationFormDao = new StateReservationFormDaoImpl();
 		this.documentTypeDao = new DocumentTypeDaoImpl();
 		this.customerDao = new CustomerDaoImpl();
 		
@@ -111,9 +108,7 @@ public class TestReservationFormDao {
 	@Test
 	public void testRetrieveReservationFormsByState() throws DaoException, InvalidParameterException {
 		
-		StateReservationForm state = this.stateReservationFormDao.getRecordById(1L);
-		
-		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(null, null, null, state);
+		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(null, null, null, StateReservationForm.pre_reserva);
 		
 		assertNotNull(reservationForms);
 		
@@ -182,10 +177,7 @@ public class TestReservationFormDao {
 				
 		Customer customer = this.customerDao.getRecordById(customerPKFede);
 		
-		StateReservationForm state = this.stateReservationFormDao.getRecordById(1L);
-		
-		
-		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(dateFrom, dateTo, customer, state);
+		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(dateFrom, dateTo, customer, StateReservationForm.pre_reserva);
 		
 		assertNotNull(reservationForms);
 		

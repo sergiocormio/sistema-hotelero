@@ -16,7 +16,6 @@ import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.dao.impl.RoomTypeDaoImpl;
 import com.cdz.sh.dao.impl.SeasonDaoImpl;
-import com.cdz.sh.dao.impl.StateReservationFormDaoImpl;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
@@ -30,6 +29,7 @@ import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.model.RoomType;
 import com.cdz.sh.model.Season;
+import com.cdz.sh.model.StateReservationForm;
 
 /**
  * 
@@ -95,7 +95,6 @@ public class DummyScenarioBuilder {
 	private CustomerPK customerPKFede;
 	private CustomerPK customerPKSergio;
 	
-	private StateReservationFormDaoImpl stateReservationFormDao;
 	private OccupationDao occupationDao;
 	
 	private SeasonDao seasonDao;
@@ -128,8 +127,6 @@ public class DummyScenarioBuilder {
 		this.customerPKSergio = new CustomerPK();
 		this.customerPKSergio.setDocType(docTypeDNI);
 		this.customerPKSergio.setIdNumber("32******");
-		
-		this.stateReservationFormDao = new StateReservationFormDaoImpl();
 		
 		this.occupationDao = new OccupationDaoImpl();
 		
@@ -323,7 +320,7 @@ public class DummyScenarioBuilder {
 			reservationForm1.setDateTo(calendar.getTime());
 	
 			reservationForm1.setCustomer(this.customerDao.getRecordById(this.customerPKFede));
-			reservationForm1.setState(this.stateReservationFormDao.getRecordById(1L));
+			reservationForm1.setState(StateReservationForm.pre_reserva);
 			
 			this.reservationFormDao.createRecord(reservationForm1);
 		}
@@ -344,7 +341,7 @@ public class DummyScenarioBuilder {
 			reservationForm2.setDateTo(calendar.getTime());
 	
 			reservationForm2.setCustomer(this.customerDao.getRecordById(this.customerPKFede));
-			reservationForm2.setState(this.stateReservationFormDao.getRecordById(2L));
+			reservationForm2.setState(StateReservationForm.confirmada);
 			
 			this.reservationFormDao.createRecord(reservationForm2);
 		}
@@ -364,7 +361,7 @@ public class DummyScenarioBuilder {
 			reservationForm3.setDateTo(calendar.getTime());
 	
 			reservationForm3.setCustomer(this.customerDao.getRecordById(this.customerPKSergio));
-			reservationForm3.setState(this.stateReservationFormDao.getRecordById(3L));
+			reservationForm3.setState(StateReservationForm.vencida);
 			
 			this.reservationFormDao.createRecord(reservationForm3);
 		}
@@ -384,7 +381,7 @@ public class DummyScenarioBuilder {
 			reservationForm4.setDateTo(calendar.getTime());
 	
 			reservationForm4.setCustomer(this.customerDao.getRecordById(this.customerPKSergio));
-			reservationForm4.setState(this.stateReservationFormDao.getRecordById(4L));
+			reservationForm4.setState(StateReservationForm.cancelada);
 			
 			this.reservationFormDao.createRecord(reservationForm4);
 		}

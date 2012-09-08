@@ -1,39 +1,13 @@
 package com.cdz.sh.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
-public class StateReservationForm {
+public enum StateReservationForm {
 	
-	@Id
-	@GeneratedValue
-	private Long id;
+
+	pre_reserva,
+	confirmada,
+	cancelada,
+	vencida
 	
-	private String state;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-	
-	@Override
-	public String toString() {
-		
-		return "id: " + this.getId() + "\n" +
-				"Name: " + this.getState();
-	}
 
 }

@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 
-import com.cdz.sh.util.DateUtil;
-
 @Entity
 public class ReservationForm {
 	
@@ -22,8 +20,6 @@ public class ReservationForm {
 	@JoinColumns(value = {@JoinColumn(name = "CUSTOMER_DOC_TYPE"), @JoinColumn(name = "CUSTOMER_ID_NUMBER")} )
 	private Customer customer;
 	
-	@ManyToOne
-	@JoinColumn(name="STATE_RESERVATION_FORM_ID")
 	private StateReservationForm state;
 	
 	private Date creationDate;
