@@ -77,7 +77,7 @@
 				roomTypeForm.isUpdate = false;
 				roomTypeForm.addEventListener("saveSuccess",roomType_saveSuccess);
 				roomTypeForm.addEventListener("cancelClicked",titleWindow_close);
-				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.country.singular,roomTypeForm,this);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.roomType.singular,roomTypeForm,this);
 			}
 			
 			private function retrieveRoomTypes_resultHandler(event:ResultEvent,token:Object=null):void {

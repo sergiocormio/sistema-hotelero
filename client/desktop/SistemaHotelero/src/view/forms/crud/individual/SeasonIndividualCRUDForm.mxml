@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" creationComplete="init()">
+	<fx:Metadata> 
+		[Event(name="cancelClicked", type="flash.events.Event")]
+		[Event(name="saveSuccess", type="flash.events.Event")]
+	</fx:Metadata> 
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import model.Season;
+			
+			import mx.controls.Alert;
+			import mx.formatters.DateFormatter;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.icons.Icons;
+			
+			import services.SeasonService;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			public var isUpdate:Boolean;
+			
+			private var _currentSeason:Season;
+			
+			public function get currentSeason():Season
+			{
+				return _currentSeason;
+			}
+			
+			public function set currentSeason(value:Season):void
+			{
+				_currentSeason = value;
+				seasonText.text = _currentSeason.name;
+				dateFromChooser.selectedDate = _currentSeason.dateFrom;
+				dateToChooser.selectedDate = _currentSeason.dateTo;
+			}
+			
+			private function save():void{
+				//TODO: validate all data
+				//if(!allFieldsAreValid()){
+				//	return;
+				//}
+				
+				_currentSeason.name = seasonText.text;
+				_currentSeason.dateFrom = dateFromChooser.selectedDate;
+				_currentSeason.dateTo = dateToChooser.selectedDate;
+				
+				//calls service
+				if(isUpdate){
+					new SeasonService().updateRecord(_currentSeason,seasonSaved_resultHandler,faultHandler);
+				}else{
+					new SeasonService().createRecord(_currentSeason,seasonSaved_resultHandler,faultHandler);
+				}
+			}
+			
+			private function seasonSaved_resultHandler(event:ResultEvent,token:Object=null):void {
+				_currentSeason = event.result as Season;
+				dispatchEvent(new Event("saveSuccess"));
+			}
+			
+			private function cancel():void{
+				dispatchEvent(new Event("cancelClicked"));
+			}
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				Alert.show("Received fault: " + event.fault + "\n");
+			}
+			
+			protected function init():void
+			{
+				currentSeason = new Season();
+				//seasonText.setFocus();
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:HGroup width="100%" horizontalAlign="center">
+		<s:Form>
+			<s:layout>
+				<s:FormLayout gap="-14"/>
+			</s:layout>  
+			
+			<s:FormItem label="{loc.season.singular}:" required="true">
+				<s:TextInput id="seasonText"/>
+			</s:FormItem>
+			
+			<s:FormItem label="{loc.season.dateFrom}:" required="true">
+				<mx:DateField id="dateFromChooser" width="120"
+							  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+							  formatString="{loc.dateFormat.toUpperCase()}"
+							  monthNames="{Locale.getInstance().monthNames}"/>
+			</s:FormItem>
+			
+			<s:FormItem label="{loc.season.dateTo}:" required="true">
+				<mx:DateField id="dateToChooser" width="120"
+							  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+							  formatString="{loc.dateFormat.toUpperCase()}"
+							  monthNames="{Locale.getInstance().monthNames}"/>
+			</s:FormItem>
+			
+		</s:Form>
+	</s:HGroup>
+	<!-- BUTTONS -->
+	<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+		<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
+		<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
+	</s:HGroup>
+	<s:Spacer height="5"/>
+</s:VGroup>
