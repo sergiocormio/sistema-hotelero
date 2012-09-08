@@ -13,7 +13,7 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
-			import services.RoomService;
+			import services.crud.RoomService;
 			
 			import spark.events.GridSelectionEvent;
 			

@@ -17,7 +17,7 @@
 			
 			import resources.icons.Icons;
 			
-			import services.CountryService;
+			import services.crud.CountryService;
 			
 			[Bindable]
 			public var loc:Object;

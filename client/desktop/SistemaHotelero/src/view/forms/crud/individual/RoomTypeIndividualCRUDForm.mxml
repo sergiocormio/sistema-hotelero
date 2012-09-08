@@ -18,7 +18,7 @@
 			
 			import resources.icons.Icons;
 			
-			import services.RoomTypeService;
+			import services.crud.RoomTypeService;
 			
 			[Bindable]
 			public var loc:Object;

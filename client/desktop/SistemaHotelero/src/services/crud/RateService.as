@@ -1,6 +1,8 @@
-package services
+package services.crud
 {
-	public class RateService extends RemoteObjectWrapperService
+	import services.RemoteObjectWrapperService;
+
+	public class RateService extends CRUDService
 	{
 		public function RateService()
 		{

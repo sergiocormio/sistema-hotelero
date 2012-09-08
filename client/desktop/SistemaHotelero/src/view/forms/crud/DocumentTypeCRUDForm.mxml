@@ -15,7 +15,7 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
-			import services.DocumentTypeService;
+			import services.crud.DocumentTypeService;
 			
 			import spark.events.GridSelectionEvent;
 			

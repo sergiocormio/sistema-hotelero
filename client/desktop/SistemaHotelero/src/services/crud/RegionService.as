@@ -1,10 +1,11 @@
-package services
+package services.crud
 {
 	import model.Country;
 	
 	import mx.collections.ArrayCollection;
+	import services.RemoteObjectWrapperService;
 
-	public class RegionService extends RemoteObjectWrapperService
+	public class RegionService extends CRUDService
 	{
 		public function RegionService()
 		{

@@ -21,8 +21,8 @@
 			
 			import resources.icons.Icons;
 			
-			import services.RoomService;
-			import services.RoomTypeService;
+			import services.crud.RoomService;
+			import services.crud.RoomTypeService;
 			
 			import utils.WindowsUtils;
 			

@@ -19,8 +19,8 @@
 			
 			import resources.icons.Icons;
 			
-			import services.CustomerService;
-			import services.DocumentTypeService;
+			import services.crud.CustomerService;
+			import services.crud.DocumentTypeService;
 			
 			import spark.events.GridSelectionEvent;
 			

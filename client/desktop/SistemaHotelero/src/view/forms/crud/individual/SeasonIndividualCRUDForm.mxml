@@ -19,7 +19,7 @@
 			
 			import resources.icons.Icons;
 			
-			import services.SeasonService;
+			import services.crud.SeasonService;
 			
 			[Bindable]
 			public var loc:Object;

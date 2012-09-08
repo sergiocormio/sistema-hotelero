@@ -17,7 +17,7 @@
 			
 			import resources.icons.Icons;
 			
-			import services.DocumentTypeService;
+			import services.crud.DocumentTypeService;
 			
 			[Bindable]
 			public var loc:Object;

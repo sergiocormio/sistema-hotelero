@@ -33,11 +33,11 @@
 			
 			import resources.icons.Icons;
 			
-			import services.CountryService;
-			import services.CustomerService;
-			import services.DocumentTypeService;
-			import services.LanguageService;
-			import services.RegionService;
+			import services.crud.CountryService;
+			import services.crud.CustomerService;
+			import services.crud.DocumentTypeService;
+			import services.crud.LanguageService;
+			import services.crud.RegionService;
 			
 			import spark.events.IndexChangeEvent;
 			
