@@ -21,9 +21,9 @@
 			
 			import resources.icons.Icons;
 			
-			import services.RateService;
-			import services.RoomTypeService;
-			import services.SeasonService;
+			import services.crud.RateService;
+			import services.crud.RoomTypeService;
+			import services.crud.SeasonService;
 			
 			import utils.WindowsUtils;
 			

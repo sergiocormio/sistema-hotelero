@@ -18,7 +18,7 @@
 			
 			import resources.icons.Icons;
 			
-			import services.ExchangeRateService;
+			import services.crud.ExchangeRateService;
 			
 			import utils.Utils;
 			
