@@ -264,7 +264,7 @@ public class MasterDataFactory {
 		if(docTypeDNI == null){
 			docTypeDNI = new DocumentType();
 			docTypeDNI.setName("DNI");
-			docTypeDNI.setRegExp("TODO");
+			docTypeDNI.setRegExp("^[0-9]");
 			
 			this.documentTypeDao.createRecord(docTypeDNI);
 		}
@@ -272,7 +272,7 @@ public class MasterDataFactory {
 		if(docTypeRG == null){
 			docTypeRG = new DocumentType();
 			docTypeRG.setName("RG");
-			docTypeRG.setRegExp("TODO");
+			docTypeRG.setRegExp("^[0-9]");
 			
 			this.documentTypeDao.createRecord(docTypeRG);
 		}
@@ -280,7 +280,7 @@ public class MasterDataFactory {
 		if(docTypeSSN == null){
 			docTypeSSN = new DocumentType();
 			docTypeSSN.setName("SSN");
-			docTypeSSN.setRegExp("TODO");
+			docTypeSSN.setRegExp("^[0-9]");
 			
 			this.documentTypeDao.createRecord(docTypeSSN);
 		}
