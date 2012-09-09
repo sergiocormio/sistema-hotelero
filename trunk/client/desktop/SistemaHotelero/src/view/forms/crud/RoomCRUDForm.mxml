@@ -95,25 +95,27 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:HGroup width="100%" height="70%">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{rooms}" selectionChange="grid_selectionChangeHandler(event)">
-			<s:columns>
-				<s:ArrayList>
-					<s:GridColumn dataField="number" headerText="{loc.room.number}"></s:GridColumn>
-					<s:GridColumn dataField="roomType.name" headerText="{loc.roomType.singular}"></s:GridColumn>
-					<s:GridColumn dataField="peopleQuantity" headerText="{loc.room.peopleQuantity}"></s:GridColumn>
-					<s:GridColumn dataField="withMaritalBed" headerText="{loc.room.withMaritalBed}" labelFunction="booleanFormat"></s:GridColumn>
-					<s:GridColumn dataField="withExtraBed" headerText="{loc.room.withExtraBed}" labelFunction="booleanFormat"></s:GridColumn>
-					<s:GridColumn dataField="description" headerText="{loc.room.description}"></s:GridColumn>
-				</s:ArrayList>
-			</s:columns>
-		</s:DataGrid>
-		<!-- BUTTONS -->
-		<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addRoom()"
-								modifyClicked="modifyRoom()" removeClicked="deleteRoom()"
-								loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-								removeButtonEnabled="{grid.selectedItem!=null}"/>
-	</s:HGroup>
-	<individual:RoomIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:HGroup width="100%" height="50%">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{rooms}" selectionChange="grid_selectionChangeHandler(event)">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="number" headerText="{loc.room.number}"></s:GridColumn>
+						<s:GridColumn dataField="roomType.name" headerText="{loc.roomType.singular}"></s:GridColumn>
+						<s:GridColumn dataField="peopleQuantity" headerText="{loc.room.peopleQuantity}"></s:GridColumn>
+						<s:GridColumn dataField="withMaritalBed" headerText="{loc.room.withMaritalBed}" labelFunction="booleanFormat"></s:GridColumn>
+						<s:GridColumn dataField="withExtraBed" headerText="{loc.room.withExtraBed}" labelFunction="booleanFormat"></s:GridColumn>
+						<s:GridColumn dataField="description" headerText="{loc.room.description}"></s:GridColumn>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+			<!-- BUTTONS -->
+			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addRoom()"
+									modifyClicked="modifyRoom()" removeClicked="deleteRoom()"
+									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
+									removeButtonEnabled="{grid.selectedItem!=null}"/>
+		</s:HGroup>
+		<individual:RoomIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="50%"/>
+	</mx:VDividedBox>
 </s:VGroup>
 

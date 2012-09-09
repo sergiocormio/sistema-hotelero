@@ -89,25 +89,27 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:HGroup width="100%" height="70%">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{documentTypes}"
-					selectionChange="grid_selectionChangeHandler(event)">
-			<s:columns>
-				<s:ArrayList>
-					<s:GridColumn dataField="name" headerText="{loc.documentType.singular}"></s:GridColumn>
-					<s:GridColumn dataField="regExp" headerText="{loc.documentType.regExp}"></s:GridColumn>
-				</s:ArrayList>
-			</s:columns>
-		</s:DataGrid>
-		<!-- BUTTONS -->
-		<components:CRUDButtons height="100%" addClicked="addDocumentType()" loc="{loc}"
-								modifyButtonEnabled="{grid.selectedItem!=null}"
-								modifyClicked="modifyDocumentType()" refreshClicked="refreshGrid()"
-								removeButtonEnabled="{grid.selectedItem!=null}"
-								removeClicked="deleteDocumentType()"/>
-	</s:HGroup>
-	<individual:DocumentTypeIndividualCRUDForm id="individual" height="30%"
-											   cancelClicked="individual.enabled=false;"
-											   enabled="false" loc="{loc}"
-											   saveSuccess="refreshGrid();"/>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:HGroup width="100%" height="70%">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{documentTypes}"
+						selectionChange="grid_selectionChangeHandler(event)">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="name" headerText="{loc.documentType.singular}"></s:GridColumn>
+						<s:GridColumn dataField="regExp" headerText="{loc.documentType.regExp}"></s:GridColumn>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+			<!-- BUTTONS -->
+			<components:CRUDButtons height="100%" addClicked="addDocumentType()" loc="{loc}"
+									modifyButtonEnabled="{grid.selectedItem!=null}"
+									modifyClicked="modifyDocumentType()" refreshClicked="refreshGrid()"
+									removeButtonEnabled="{grid.selectedItem!=null}"
+									removeClicked="deleteDocumentType()"/>
+		</s:HGroup>
+		<individual:DocumentTypeIndividualCRUDForm id="individual" height="30%"
+												   cancelClicked="individual.enabled=false;"
+												   enabled="false" loc="{loc}"
+												   saveSuccess="refreshGrid();"/>
+	</mx:VDividedBox>
 </s:VGroup>
