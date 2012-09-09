@@ -26,7 +26,6 @@ import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Alternative;
-import com.cdz.sh.model.Budget;
 import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.Occupation;
@@ -68,7 +67,7 @@ public class TestReservationFormService {
 	@Test
 	public void testBookSuccessfully() throws DaoException, InvalidParameterException {
 		
-		Alternative alternative = new Alternative();
+		Alternative alternative = new Alternative(4);
 		
 		ReservationForm reservationForm = buildReservationForm();
 		
@@ -93,17 +92,13 @@ public class TestReservationFormService {
 		
 		this.reservationFormService.deleteRecord(createdReservation);
 	
-		Budget budget = new Budget();
-		budget.setBasePrice(140d);
-		alternative.setBudget(budget);
-		System.out.println(alternative);
 	}
 	
 	
 	@Test(expected=InvalidParameterException.class)
 	public void testBookReservationFormState_NOT_PreReserva() throws DaoException, InvalidParameterException {
 		
-		Alternative alternative = new Alternative();
+		Alternative alternative = new Alternative(4);
 		
 		ReservationForm reservationForm = new ReservationForm();
 		reservationForm.setState(StateReservationForm.confirmada);
@@ -184,7 +179,7 @@ public class TestReservationFormService {
 	@Test
 	public void testConfirmReservationWithoutOverlaping() throws DaoException, InvalidParameterException {
 		
-		Alternative alternative = new Alternative();
+		Alternative alternative = new Alternative(4);
 		
 		ReservationForm reservationForm = buildUniqueReservationForm();
 		
@@ -213,7 +208,7 @@ public class TestReservationFormService {
 	@Test
 	public void testConfirmReservationWithOverlaping() throws DaoException, InvalidParameterException {
 		
-		Alternative alternative1 = new Alternative();
+		Alternative alternative1 = new Alternative(4);
 		
 		ReservationForm reservationForm1 = buildReservationForm();
 				
@@ -225,7 +220,7 @@ public class TestReservationFormService {
 		
 		/***********/
 
-		Alternative alternative2 = new Alternative();
+		Alternative alternative2 = new Alternative(4);
 		
 		ReservationForm reservationForm2 = buildReservationForm();
 				
@@ -237,7 +232,7 @@ public class TestReservationFormService {
 		
 		/***********/
 		
-		Alternative alternative3 = new Alternative();
+		Alternative alternative3 = new Alternative(4);
 		
 		ReservationForm reservationForm3 = buildReservationForm();
 				

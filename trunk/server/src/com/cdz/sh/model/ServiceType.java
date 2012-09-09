@@ -15,7 +15,9 @@ public class ServiceType {
 	
 	private String description;
 	
-	private boolean additionalFixed;
+	private boolean includedInBudget;
+	
+	private boolean includedInBasePrice;
 	
 	private ServiceTypeModality modality;
 	
@@ -52,13 +54,21 @@ public class ServiceType {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-
-	public boolean isAdditionalFixed() {
-		return additionalFixed;
+	
+	public boolean isIncludedInBudget() {
+		return includedInBudget;
 	}
 
-	public void setAdditionalFixed(boolean additionalFixed) {
-		this.additionalFixed = additionalFixed;
+	public void setIncludedInBudget(boolean includedInBudget) {
+		this.includedInBudget = includedInBudget;
+	}
+
+	public boolean isIncludedInBasePrice() {
+		return includedInBasePrice;
+	}
+
+	public void setIncludedInBasePrice(boolean includedInBasePrice) {
+		this.includedInBasePrice = includedInBasePrice;
 	}
 
 	public ServiceTypeModality getModality() {

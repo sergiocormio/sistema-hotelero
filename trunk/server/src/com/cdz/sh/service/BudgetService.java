@@ -12,16 +12,16 @@ public interface BudgetService {
 	 * Creates the budget of the given alternative
 	 * 
 	 * @param alternative
-	 * @return
+	 * @return the given alternative with the related budget set
 	 */
-	public Budget getBudget(Alternative alternative) throws DaoException;
+	public Alternative populateBudget(Alternative alternative) throws DaoException;
 	
 	/**
-	 * Creates the budgets of the given alternatives
+	 * Populates the budgets of the given alternatives
 	 * 
 	 * @param alternatives
-	 * @return
+	 * @return the given alternatives with the related budgets set
 	 */
-	public List<Budget> getBudget(List<Alternative> alternatives) throws DaoException;
+	public List<Alternative> populatesBudgets(List<Alternative> alternatives) throws DaoException;
 
 }

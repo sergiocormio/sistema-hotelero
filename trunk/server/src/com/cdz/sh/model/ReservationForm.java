@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class ReservationForm {
@@ -140,6 +141,8 @@ public class ReservationForm {
 	public void setBankDocumentNumber(String bankDocumentNumber) {
 		this.bankDocumentNumber = bankDocumentNumber;
 	}
+	
+	
 
 	
 	public int hashCode() {

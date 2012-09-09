@@ -21,6 +21,8 @@ import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Budget;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
+import com.cdz.sh.model.ServiceType;
+import com.cdz.sh.model.ServiceTypeModality;
 import com.cdz.sh.service.impl.BudgetServiceImpl;
 
 public class TestBudgetService {
@@ -49,7 +51,7 @@ public class TestBudgetService {
 	@Test
 	public void testGetBudgetCeroRoomTypeChange() throws DaoException {
 				
-		Alternative alternative = new Alternative();
+		Alternative alternative = new Alternative(4);
 		
 		Date dateFrom  = new GregorianCalendar(2012, 7, 1).getTime();
 	
@@ -61,21 +63,33 @@ public class TestBudgetService {
 			alternative.addOccupation(occupation);
 		}
 				
-		Budget budget = this.budgetService.getBudget(alternative);
+		Budget budget = this.budgetService.populateBudget(alternative).getBudget();
 		
 		assertNotNull(budget);
 		
-		assertTrue(budget.getBasePrice() == 450);
-		assertTrue(budget.getPriceWithBreakfast() == 480);
-		assertTrue(budget.getPriceWithParking() == 495);
-		assertTrue(budget.getPriceWithBreakfastAndParking() == 525);
+		assertTrue(budget.getBasePrice().doubleValue() == 450d);
+		assertTrue(budget.getAdditionalServices().size() == 7);
+		assertTrue(budget.getServicesToBeAddedInBasePrice().size() == 2);
+		
+		for(int i = 0; i < budget.getServicesToBeAddedInBasePrice().size(); i++){
+			ServiceType serviceIncludedInBasePrice = budget.getServiceIncludedInBasePrice(i);
+			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porPersona)){
 				
+				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 510d);	
+			}
+			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porNoche)){
+				
+				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 480d);
+			}
+		}
+		
+		assertTrue(budget.getBasePricePlusAllServicesIncludedInBasePrice().doubleValue() == 540d);
 	}
 	
 	@Test
 	public void testGetBudgetOneRoomTypeChange() throws DaoException {
 		
-		Alternative alternative = new Alternative();
+		Alternative alternative = new Alternative(4);
 		
 		Date dateFrom  = new GregorianCalendar(2012, 7, 1).getTime();
 	
@@ -87,15 +101,27 @@ public class TestBudgetService {
 			alternative.addOccupation(occupation);
 		}
 		
-		Budget budget = this.budgetService.getBudget(alternative);
+		Budget budget = this.budgetService.populateBudget(alternative).getBudget();
 		
 		assertNotNull(budget);
 		
-		assertTrue(budget.getBasePrice() == 1170);
-		assertTrue(budget.getPriceWithBreakfast() == 1230);
-		assertTrue(budget.getPriceWithParking() == 1260);
-		assertTrue(budget.getPriceWithBreakfastAndParking() == 1320);
+		assertTrue(budget.getBasePrice().doubleValue() == 1170d);
+		assertTrue(budget.getAdditionalServices().size() == 7);
+		assertTrue(budget.getServicesToBeAddedInBasePrice().size() == 2);
 		
+		for(int i = 0; i < budget.getServicesToBeAddedInBasePrice().size(); i++){
+			ServiceType serviceIncludedInBasePrice = budget.getServiceIncludedInBasePrice(i);
+			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porPersona)){
+				
+				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 1290d);	
+			}
+			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porNoche)){
+				
+				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 1230d);
+			}
+		}
+		
+		assertTrue(budget.getBasePricePlusAllServicesIncludedInBasePrice().doubleValue() == 1350d);
 	
 	}
 	
@@ -103,7 +129,7 @@ public class TestBudgetService {
 	@Test
 	public void testGetBudgetTwoRoomTypeChanges() throws DaoException {
 		
-		Alternative alternative = new Alternative();
+		Alternative alternative = new Alternative(4);
 		
 		Date dateFrom  = new GregorianCalendar(2012, 7, 1).getTime();
 	
@@ -115,14 +141,27 @@ public class TestBudgetService {
 			alternative.addOccupation(occupation);
 		}
 		
-		Budget budget = this.budgetService.getBudget(alternative);
+		Budget budget = this.budgetService.populateBudget(alternative).getBudget();
 		
 		assertNotNull(budget);
 		
-		assertTrue(budget.getBasePrice() == 2430);
-		assertTrue(budget.getPriceWithBreakfast() == 2530);
-		assertTrue(budget.getPriceWithParking() == 2580);
-		assertTrue(budget.getPriceWithBreakfastAndParking() == 2680);
+		assertTrue(budget.getBasePrice().doubleValue() == 2430d);
+		assertTrue(budget.getAdditionalServices().size() == 7);
+		assertTrue(budget.getServicesToBeAddedInBasePrice().size() == 2);
+		
+		for(int i = 0; i < budget.getServicesToBeAddedInBasePrice().size(); i++){
+			ServiceType serviceIncludedInBasePrice = budget.getServiceIncludedInBasePrice(i);
+			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porPersona)){
+				
+				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 2630d);	
+			}
+			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porNoche)){
+				
+				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 2530d);
+			}
+		}
+		
+		assertTrue(budget.getBasePricePlusAllServicesIncludedInBasePrice().doubleValue() == 2730d);
 		
 	}
 	

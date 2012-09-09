@@ -23,13 +23,13 @@
 	<field name="lastName" class="java.lang.String"/>
 		
 		<background>
-			<band height="67">
+			<band height="90">
 				<image>
 					<reportElement
-						x="470"
-						y="0"
+						x="430"
+						y="40"
 						width="100"
-						height="67"/>
+						height="45"/>
 					<imageExpression class="java.lang.String"><![CDATA[$P{LOGO_URL}]]></imageExpression>
 				</image>
 			</band>

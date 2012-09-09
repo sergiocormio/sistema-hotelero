@@ -40,14 +40,18 @@ public class TestServiceTypeDao {
 		List<ServiceType> additionalServices = this.serviceTypeDao.retrieveAdditionalServices();
 		
 		assertNotNull(additionalServices);
-		assertTrue(additionalServices.size() == 3);
+		assertTrue(additionalServices.size() == 7);
 	
 	}
 	
+		
 	@Test
-	public void testRetrieveNonAdditionalServiceTypes() throws DaoException {
+	public void testRetrieveServicesIncludedInBasePrice() throws DaoException {
 		
+		List<ServiceType> ServicesIncludedInBasePrice = this.serviceTypeDao.retrieveServicesIncludedInBasePrice();
 		
+		assertNotNull(ServicesIncludedInBasePrice);
+		assertTrue(ServicesIncludedInBasePrice.size() == 2);
 	
 	}
 	

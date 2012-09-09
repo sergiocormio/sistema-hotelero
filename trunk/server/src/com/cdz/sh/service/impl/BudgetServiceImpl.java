@@ -1,9 +1,7 @@
 package com.cdz.sh.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.cdz.sh.constants.MasterDataConstants;
 import com.cdz.sh.dao.RateDao;
 import com.cdz.sh.dao.ServiceTypeDao;
 import com.cdz.sh.dao.crud.CrudDao;
@@ -29,20 +27,13 @@ public class BudgetServiceImpl implements BudgetService {
 	}
 
 	@Override
-	public Budget getBudget(Alternative alternative) throws DaoException {
+	public Alternative populateBudget(Alternative alternative) throws DaoException {
 		
-		Budget budget = new Budget();
+		Budget budget = new Budget(alternative);
 		
 		Double basePrice = new Double(0);
-		Double priceWithBreakfast = new Double(0);
-		Double priceWithParking = new Double(0);
-		Double priceWithBreakfastAndParking = new Double(0);
-		
 		RoomType roomType = null;
 		Rate rate = null;
-		
-		ServiceType breakfast = this.serviceTypeDao.getRecordById(MasterDataConstants.SERVICE_TYPE_BREAKFAST);
-		ServiceType parking = this.serviceTypeDao.getRecordById(MasterDataConstants.SERVICE_TYPE_PARKING);
 		
 		for (Occupation occupation : alternative.getOccupations()) {
 			RoomType nextRoomType = occupation.getId().getRoom().getRoomType();
@@ -52,32 +43,29 @@ public class BudgetServiceImpl implements BudgetService {
 				rate = this.rateDao.retrieveRate(nextRoomType, occupation.getId().getDate());
 			}
 			basePrice += rate.getPrice();
-			priceWithBreakfast += rate.getPrice() + breakfast.getPrice();
-			priceWithParking += rate.getPrice() + parking.getPrice();
-			priceWithBreakfastAndParking += rate.getPrice() + breakfast.getPrice() + parking.getPrice();
 		}
-		
 		budget.setBasePrice(basePrice);
-		budget.setPriceWithBreakfast(priceWithBreakfast);
-		budget.setPriceWithParking(priceWithParking);
-		budget.setPriceWithBreakfastAndParking(priceWithBreakfastAndParking);
+		
 		
 		List<ServiceType> additionalServiceTypes = ((ServiceTypeDao)this.serviceTypeDao).retrieveAdditionalServices();
 		budget.setAdditionalServices(additionalServiceTypes);
 		
-		return budget;
+		List<ServiceType> servicesIncludedInBasePrice = ((ServiceTypeDao)this.serviceTypeDao).retrieveServicesIncludedInBasePrice();
+		budget.setServicesToBeAddedInBasePrice(servicesIncludedInBasePrice);
+		
+		alternative.setBudget(budget);
+		return alternative;
 	}
 
 
 
 	@Override
-	public List<Budget> getBudget(List<Alternative> alternatives) throws DaoException {
-		List<Budget> budgets = new ArrayList<Budget>();
+	public List<Alternative> populatesBudgets(List<Alternative> alternatives) throws DaoException {
+		
 		for (Alternative alternative : alternatives) {
-			Budget budget = this.getBudget(alternative);
-			budgets.add(budget);
+			this.populateBudget(alternative);
 		}
-		return budgets;
+		return alternatives;
 	}
 
 }
