@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
-		  creationComplete="init(event)">
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  xmlns:individual="view.forms.crud.individual.*"
+		  xmlns:components="view.components.*"
+		  width="100%" height="100%" creationComplete="init(event)">
 	<fx:Script>
 		<![CDATA[
 			import model.ExchangeRate;
@@ -85,22 +87,31 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:HGroup width="100%" height="70%">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{exchangeRates}" selectionChange="grid_selectionChangeHandler(event)">
-			<s:columns>
-				<s:ArrayList>
-					<s:GridColumn dataField="id" headerText="{loc.exchangeRate.currencyCode}"></s:GridColumn>
-					<s:GridColumn dataField="name" headerText="{loc.exchangeRate.singular}"></s:GridColumn>
-					<s:GridColumn dataField="currencySymbol" headerText="{loc.exchangeRate.currencySymbol}"></s:GridColumn>
-					<s:GridColumn dataField="valueAgainstReal" headerText="{loc.exchangeRate.valueAgainstReal}"></s:GridColumn>
-				</s:ArrayList>
-			</s:columns>
-		</s:DataGrid>
-		<!-- BUTTONS -->
-		<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addExchangeRate()"
-								modifyClicked="modifyExchangeRate()" removeClicked="deleteExchangeRate()"
-								loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-								removeButtonEnabled="{grid.selectedItem!=null}"/>
-	</s:HGroup>
-	<individual:ExchangeRateIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
+	<mx:VDividedBox width="100%" height="100%">
+		<s:HGroup width="100%" height="60%">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{exchangeRates}"
+						selectionChange="grid_selectionChangeHandler(event)">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="id" headerText="{loc.exchangeRate.currencyCode}"></s:GridColumn>
+						<s:GridColumn dataField="name" headerText="{loc.exchangeRate.singular}"></s:GridColumn>
+						<s:GridColumn dataField="currencySymbol"
+									  headerText="{loc.exchangeRate.currencySymbol}"></s:GridColumn>
+						<s:GridColumn dataField="valueAgainstReal"
+									  headerText="{loc.exchangeRate.valueAgainstReal}"></s:GridColumn>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+			<!-- BUTTONS -->
+			<components:CRUDButtons height="100%" addClicked="addExchangeRate()" loc="{loc}"
+									modifyButtonEnabled="{grid.selectedItem!=null}"
+									modifyClicked="modifyExchangeRate()" refreshClicked="refreshGrid()"
+									removeButtonEnabled="{grid.selectedItem!=null}"
+									removeClicked="deleteExchangeRate()"/>
+		</s:HGroup>
+		<individual:ExchangeRateIndividualCRUDForm id="individual" height="40%"
+												   cancelClicked="individual.enabled=false;"
+												   enabled="false" loc="{loc}"
+												   saveSuccess="refreshGrid();"/>
+	</mx:VDividedBox>
 </s:VGroup>

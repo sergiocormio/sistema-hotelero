@@ -84,20 +84,22 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:HGroup width="100%" height="70%">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{regions}" selectionChange="grid_selectionChangeHandler(event)">
-			<s:columns>
-				<s:ArrayList>
-					<s:GridColumn dataField="country.name" headerText="{loc.country.singular}"></s:GridColumn>
-					<s:GridColumn dataField="name" headerText="{loc.region.singular}"></s:GridColumn>
-				</s:ArrayList>
-			</s:columns>
-		</s:DataGrid>
-		<!-- BUTTONS -->
-		<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addRegion()"
-								modifyClicked="modifyRegion()" removeClicked="deleteRegion()"
-								loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-								removeButtonEnabled="{grid.selectedItem!=null}"/>
-	</s:HGroup>
-	<individual:RegionIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:HGroup width="100%" height="70%">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{regions}" selectionChange="grid_selectionChangeHandler(event)">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="country.name" headerText="{loc.country.singular}"></s:GridColumn>
+						<s:GridColumn dataField="name" headerText="{loc.region.singular}"></s:GridColumn>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+			<!-- BUTTONS -->
+			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addRegion()"
+									modifyClicked="modifyRegion()" removeClicked="deleteRegion()"
+									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
+									removeButtonEnabled="{grid.selectedItem!=null}"/>
+		</s:HGroup>
+		<individual:RegionIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
+	</mx:VDividedBox>
 </s:VGroup>
