@@ -45,9 +45,10 @@ public class ServiceTypesBuilder {
 		if (serviceTypeBreakfast == null){
 			serviceTypeBreakfast = new ServiceType();
 			serviceTypeBreakfast.setName("Desayuno");
-			serviceTypeBreakfast.setModality(ServiceTypeModality.porHabitacion);
-			serviceTypeBreakfast.setPrice(10d);
-			serviceTypeBreakfast.setAdditionalFixed(false);
+			serviceTypeBreakfast.setModality(ServiceTypeModality.porPersona);
+			serviceTypeBreakfast.setPrice(5d);
+			serviceTypeBreakfast.setIncludedInBudget(true);
+			serviceTypeBreakfast.setIncludedInBasePrice(true);
 			this.serviceTypeDao.createRecord(serviceTypeBreakfast);
 		}
 		ServiceType serviceTypeParking = this.serviceTypeDao.getRecordById(2L);
@@ -55,8 +56,9 @@ public class ServiceTypesBuilder {
 			serviceTypeParking = new ServiceType();
 			serviceTypeParking.setName("Estacionamiento");
 			serviceTypeParking.setModality(ServiceTypeModality.porNoche);
-			serviceTypeParking.setPrice(15d);
-			serviceTypeParking.setAdditionalFixed(false);
+			serviceTypeParking.setPrice(10d);
+			serviceTypeParking.setIncludedInBudget(true);
+			serviceTypeParking.setIncludedInBasePrice(true);
 			this.serviceTypeDao.createRecord(serviceTypeParking);
 		}
 		
@@ -66,17 +68,19 @@ public class ServiceTypesBuilder {
 			serviceTypeAeroIda.setName("Ida al Aeropuerto");
 			serviceTypeAeroIda.setModality(ServiceTypeModality.porVez);
 			serviceTypeAeroIda.setPrice(90d);
-			serviceTypeAeroIda.setAdditionalFixed(false);
+			serviceTypeAeroIda.setIncludedInBudget(true);
+			serviceTypeAeroIda.setIncludedInBasePrice(false);
 			this.serviceTypeDao.createRecord(serviceTypeAeroIda);
 		}
-		ServiceType serviceTypeAreoBoth = this.serviceTypeDao.getRecordById(4L);
-		if (serviceTypeAreoBoth == null){
-			serviceTypeAreoBoth = new ServiceType();
-			serviceTypeAreoBoth.setName("Aeropuerto ida y vuelta");
-			serviceTypeAreoBoth.setModality(ServiceTypeModality.porVez);
-			serviceTypeAreoBoth.setPrice(170d);
-			serviceTypeAreoBoth.setAdditionalFixed(false);
-			this.serviceTypeDao.createRecord(serviceTypeAreoBoth);
+		ServiceType serviceTypeAeroBoth = this.serviceTypeDao.getRecordById(4L);
+		if (serviceTypeAeroBoth == null){
+			serviceTypeAeroBoth = new ServiceType();
+			serviceTypeAeroBoth.setName("Aeropuerto ida y vuelta");
+			serviceTypeAeroBoth.setModality(ServiceTypeModality.porVez);
+			serviceTypeAeroBoth.setPrice(170d);
+			serviceTypeAeroBoth.setIncludedInBudget(true);
+			serviceTypeAeroBoth.setIncludedInBasePrice(false);
+			this.serviceTypeDao.createRecord(serviceTypeAeroBoth);
 		}
 		ServiceType serviceTypeBusIda = this.serviceTypeDao.getRecordById(5L);
 		if (serviceTypeBusIda == null){
@@ -84,7 +88,8 @@ public class ServiceTypesBuilder {
 			serviceTypeBusIda.setName("Bus Ida");
 			serviceTypeBusIda.setModality(ServiceTypeModality.porVez);
 			serviceTypeBusIda.setPrice(80d);
-			serviceTypeBusIda.setAdditionalFixed(false);
+			serviceTypeBusIda.setIncludedInBudget(true);
+			serviceTypeBusIda.setIncludedInBasePrice(false);
 			this.serviceTypeDao.createRecord(serviceTypeBusIda);
 		}
 		ServiceType serviceTypeBusBoth = this.serviceTypeDao.getRecordById(6L);
@@ -93,7 +98,8 @@ public class ServiceTypesBuilder {
 			serviceTypeBusBoth.setName("Bus ida y vuelta");
 			serviceTypeBusBoth.setModality(ServiceTypeModality.porVez);
 			serviceTypeBusBoth.setPrice(150d);
-			serviceTypeBusBoth.setAdditionalFixed(false);
+			serviceTypeBusBoth.setIncludedInBudget(true);
+			serviceTypeBusBoth.setIncludedInBasePrice(false);
 			this.serviceTypeDao.createRecord(serviceTypeBusBoth);
 		}
 		ServiceType serviceTypeTowels = this.serviceTypeDao.getRecordById(7L);
@@ -102,7 +108,8 @@ public class ServiceTypesBuilder {
 			serviceTypeTowels.setName("Toallas");
 			serviceTypeTowels.setModality(ServiceTypeModality.porVez);
 			serviceTypeTowels.setPrice(10d);
-			serviceTypeTowels.setAdditionalFixed(true);
+			serviceTypeTowels.setIncludedInBudget(true);
+			serviceTypeTowels.setIncludedInBasePrice(false);
 			this.serviceTypeDao.createRecord(serviceTypeTowels);
 		}
 		ServiceType serviceTypeBedClothe = this.serviceTypeDao.getRecordById(8L);
@@ -111,7 +118,8 @@ public class ServiceTypesBuilder {
 			serviceTypeBedClothe.setName("Ropa de cama");
 			serviceTypeBedClothe.setModality(ServiceTypeModality.porVez);
 			serviceTypeBedClothe.setPrice(10d);
-			serviceTypeBedClothe.setAdditionalFixed(true);
+			serviceTypeBedClothe.setIncludedInBudget(true);
+			serviceTypeBedClothe.setIncludedInBasePrice(false);
 			this.serviceTypeDao.createRecord(serviceTypeBedClothe);
 		}
 		ServiceType serviceTypeExtraCleaning = this.serviceTypeDao.getRecordById(9L);
@@ -120,7 +128,8 @@ public class ServiceTypesBuilder {
 			serviceTypeExtraCleaning.setName("Limpieza Extra");
 			serviceTypeExtraCleaning.setModality(ServiceTypeModality.porVez);
 			serviceTypeExtraCleaning.setPrice(15d);
-			serviceTypeExtraCleaning.setAdditionalFixed(true);
+			serviceTypeExtraCleaning.setIncludedInBudget(true);
+			serviceTypeExtraCleaning.setIncludedInBasePrice(false);
 			this.serviceTypeDao.createRecord(serviceTypeExtraCleaning);
 		}
 	}

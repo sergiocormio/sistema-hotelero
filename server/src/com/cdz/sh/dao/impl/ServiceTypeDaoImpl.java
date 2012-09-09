@@ -22,15 +22,34 @@ public class ServiceTypeDaoImpl extends AbstractCrudDao<ServiceType, Long> imple
 
 	@Override
 	public synchronized List<ServiceType> retrieveAdditionalServices() throws DaoException {
+		
+		Boolean includedInBudget = Boolean.TRUE;
+		Boolean includedInBasePrice = Boolean.FALSE;
+		
+		return doQuery(includedInBudget, includedInBasePrice);
+	}
+	
+	@Override
+	public synchronized List<ServiceType> retrieveServicesIncludedInBasePrice() throws DaoException {
+		
+		Boolean includedInBudget = Boolean.TRUE;
+		Boolean includedInBasePrice = Boolean.TRUE;
+		
+		return doQuery(includedInBudget, includedInBasePrice);
+		
+	}
+	
+	private synchronized List<ServiceType> doQuery(boolean includedInBudget, boolean includedInBasePrice) throws DaoException {
 		try {
 			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
-			String strQuery = "SELECT st FROM ServiceType st WHERE st.additionalFixed = :addFixed";
-			
+			String strQuery = "SELECT st FROM ServiceType st WHERE st.includedInBudget = :includedInBudget";
+			strQuery = strQuery.concat(" and st.includedInBasePrice = :includedInBasePrice");
 			TypedQuery<ServiceType> query = EntityManagerSingleton.getInstance().createQuery( strQuery, ServiceType.class);
 			
-			query = query.setParameter("addFixed", Boolean.TRUE);
-						
+			query = query.setParameter("includedInBudget", includedInBudget);
+			query = query.setParameter("includedInBasePrice", includedInBasePrice);
+			
 			List<ServiceType> serviceTypes = query.getResultList();
 			EntityManagerSingleton.getInstance().getTransaction().commit();
 			return serviceTypes;

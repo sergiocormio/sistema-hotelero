@@ -8,15 +8,22 @@ public class Budget {
 	private Alternative relatedAlternative;
 	
 	private Double basePrice;
-	private Double priceWithBreakfast;
-	private Double priceWithParking;
-	private Double priceWithBreakfastAndParking;
 	
+	/*
+	 * The price of these ones have to be calculated according to the serciveTypeModality
+	 */
+	private List<ServiceType> servicesToBeAddedInBasePrice;
+	
+	/*
+	 * There is no need in calculating the price of the ones below, because they will not be added in the basePrice
+	 */
 	private List<ServiceType> additionalServices;
 
 	
-	public Budget(){
+	public Budget(Alternative alternative){
+		this.relatedAlternative = alternative;
 		this.additionalServices = new ArrayList<ServiceType>();
+		this.servicesToBeAddedInBasePrice = new ArrayList<ServiceType>();
 	}
 	
 	
@@ -39,30 +46,7 @@ public class Budget {
 		this.basePrice = basePrice;
 	}
 
-	public Double getPriceWithBreakfast() {
-		return priceWithBreakfast;
-	}
-
-	public void setPriceWithBreakfast(Double priceWithBreakfast) {
-		this.priceWithBreakfast = priceWithBreakfast;
-	}
-
-	public Double getPriceWithParking() {
-		return priceWithParking;
-	}
-
-	public void setPriceWithParking(Double priceWithParking) {
-		this.priceWithParking = priceWithParking;
-	}
-
-	public Double getPriceWithBreakfastAndParking() {
-		return priceWithBreakfastAndParking;
-	}
-
-	public void setPriceWithBreakfastAndParking(Double priceWithBreakfastAndParking) {
-		this.priceWithBreakfastAndParking = priceWithBreakfastAndParking;
-	}
-
+	
 	public List<ServiceType> getAdditionalServices() {
 		return additionalServices;
 	}
@@ -74,5 +58,53 @@ public class Budget {
 	public void setAdditionalServices(ServiceType additionalService) {
 		this.additionalServices.add(additionalService);
 	}
+
+	public List<ServiceType> getServicesToBeAddedInBasePrice() {
+		return servicesToBeAddedInBasePrice;
+	}
+
+	public void setServicesToBeAddedInBasePrice(List<ServiceType> servicesToBeAddedInBasePrice) {
+		this.servicesToBeAddedInBasePrice = servicesToBeAddedInBasePrice;
+	}
 	
+	public ServiceType getServiceIncludedInBasePrice(int index){
+		return this.servicesToBeAddedInBasePrice.get(index);
+	}
+
+	public Double getServicePriceAddedInBasePrice(int index){
+		ServiceType serviceType = this.servicesToBeAddedInBasePrice.get(index);
+		ServiceTypeModality modality = serviceType.getModality();
+		
+		double basePricePlusService = this.basePrice;
+		basePricePlusService += getCalculatedPrice(serviceType);
+		
+		return basePricePlusService;
+	}
+	
+	public Double getBasePricePlusAllServicesIncludedInBasePrice(){
+		Double basePricePlusAllServicesIncludedInBasePrice = this.basePrice;
+		for(ServiceType serviceType : servicesToBeAddedInBasePrice){
+			
+			basePricePlusAllServicesIncludedInBasePrice += getCalculatedPrice(serviceType);
+			
+		}
+		return basePricePlusAllServicesIncludedInBasePrice;
+	}
+	
+	
+	private Double getCalculatedPrice(ServiceType serviceType){
+		
+		int nights = this.relatedAlternative.getOccupations().size();
+		
+		if(serviceType.getModality().equals(ServiceTypeModality.porPersona)){
+			
+			return serviceType.getPrice() * nights * relatedAlternative.getPeopleQuantity();
+		}
+		else if(serviceType.getModality().equals(ServiceTypeModality.porNoche)){
+			
+			return serviceType.getPrice() * nights;
+		}
+		
+		return null;
+	}
 }

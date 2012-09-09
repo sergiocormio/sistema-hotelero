@@ -65,7 +65,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		
 		List<Occupation> possibleOccupations = createPossibleOccupations(dateFrom, dateTo, roomsByCapacity, occupations);
 		
-		List<Alternative> alternatives = createAlternatives(possibleOccupations, dateFrom, dateTo);
+		List<Alternative> alternatives = createAlternatives(possibleOccupations, dateFrom, dateTo, adultsQty, childrenQty);
 		
 		return alternatives;
 	}
@@ -140,12 +140,12 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 
 
-	private List<Alternative> createAlternatives(List<Occupation> possibleOccupations, Date dateFrom, Date dateTo) throws DaoException, NoAvailableAlternativesException {
+	private List<Alternative> createAlternatives(List<Occupation> possibleOccupations, Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException {
 		
 		Date date = dateFrom;
 		
 		List<Occupation> occupationsOfThisDate = getOccupationsByDate(possibleOccupations, date);
-		List<Alternative> alternatives = buildRoothAlternatives(occupationsOfThisDate);
+		List<Alternative> alternatives = buildRoothAlternatives(occupationsOfThisDate, adultsQty, childrenQty);
 		
 		date = DateUtil.getNextDay(date);
 		
@@ -170,11 +170,10 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 
 	private List<Alternative> addBudgets(List<Alternative> alternatives) throws DaoException {
+		
 		BudgetService budgetService = new BudgetServiceImpl();
-		for (Alternative alternative : alternatives) {
-			alternative.setBudget(budgetService.getBudget(alternative));
-		}
-		return alternatives;
+		
+		return budgetService.populatesBudgets(alternatives);
 	}
 
 	
@@ -227,11 +226,11 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		return null;
 	}
 
-	private List<Alternative> buildRoothAlternatives(List<Occupation> occupationsOfThisDate) {
+	private List<Alternative> buildRoothAlternatives(List<Occupation> occupationsOfThisDate, int adultsQty, int childrenQty) {
 		List<Alternative> roothAlternatives = new ArrayList<Alternative>();
 		
 		for (Occupation occupation : occupationsOfThisDate) {
-			Alternative alternative = new Alternative();
+			Alternative alternative = new Alternative(adultsQty + childrenQty);
 			alternative.addOccupation(occupation);
 			roothAlternatives.add(alternative);
 		}

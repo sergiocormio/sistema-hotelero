@@ -14,7 +14,28 @@ import com.cdz.sh.model.ServiceType;
  */
 public interface ServiceTypeDao extends CrudDao<ServiceType, Long> {
 
+	/**
+	 * ServiceType:
+	 * 
+	 *  "includedInBudget" == TRUE
+	 *	"includedInBasePrice" == FALSE
+	 * 
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<ServiceType> retrieveAdditionalServices() throws DaoException;
+	
+	
+	/**
+	 * ServiceType:
+	 * 
+	 *	"includedInBudget" == TRUE
+	 *	"includedInBasePrice" == TRUE 
+	 * 
+	 * @return
+	 * @throws DaoException
+	 */
+	public List<ServiceType> retrieveServicesIncludedInBasePrice() throws DaoException;
 
 	
 }

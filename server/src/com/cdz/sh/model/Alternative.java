@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Alternative implements Comparable<Alternative>{
 
+	private int peopleQuantity;
+	
 	private List<Occupation> occupations;
 	
 	private Budget budget;
@@ -15,7 +17,10 @@ public class Alternative implements Comparable<Alternative>{
 	private int newRoomAvailableDays;
 	
 	
-	public Alternative(){
+	public Alternative(int peopleQuantity){
+		
+		this.peopleQuantity = peopleQuantity;
+		
 		occupations = new ArrayList<Occupation>();
 		roomChanges = 0;
 		lastRoom = null;
@@ -80,6 +85,16 @@ public class Alternative implements Comparable<Alternative>{
 	}
 
 	
+	public int getPeopleQuantity() {
+		return peopleQuantity;
+	}
+
+
+	public void setPeopleQuantity(int peopleQuantity) {
+		this.peopleQuantity = peopleQuantity;
+	}
+
+
 	public Budget getBudget() {
 		return budget;
 	}
@@ -112,7 +127,7 @@ public class Alternative implements Comparable<Alternative>{
 
 	@Override
 	public Alternative clone() {
-		Alternative clonedAlternative = new Alternative();
+		Alternative clonedAlternative = new Alternative(this.peopleQuantity);
 		
 		clonedAlternative.setBudget(this.getBudget());
 		for (Occupation occupation : this.occupations) {
