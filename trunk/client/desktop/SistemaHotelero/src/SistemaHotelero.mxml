@@ -3,8 +3,12 @@
 					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   xmlns:services="services.*" width="900" height="600"
-					   creationComplete="init(event)" xmlns:crud="view.forms.crud.*" xmlns:components="view.components.*" xmlns:forms="view.forms.*"
-					   >
+					   creationComplete="init(event)" 
+					   xmlns:crud="view.forms.crud.*" 
+					   xmlns:components="view.components.*" 
+					   xmlns:forms="view.forms.*" 
+					   xmlns:view="view.*"
+					   showStatusBar="false">
 
 	<fx:Script>
 		<![CDATA[
@@ -39,8 +43,8 @@
 			private	var lastCustomer:Customer;
 			private var lastDocumentType:DocumentType;
 			
-			[Bindable]
-			private var loc:Object = Locale.getInstance().getCurrentLocale();
+			//[Bindable]
+			//private var loc:Object ;
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -54,15 +58,6 @@
 				*/
 			}
 			
-			protected function createMasterData():void
-			{
-				// TODO Auto-generated method stub
-				new MasterDataService().createMasterData(createMasterData_success);
-			}
-			
-			private function createMasterData_success(event:ResultEvent,token:Object=null):void {
-				Alert.show("success!");
-			}
 			
 		]]>
 	</fx:Script>
@@ -75,54 +70,12 @@
 		</s:RemoteObject>
 		-->
 	</fx:Declarations>
-	<s:VGroup width="100%" height="100%">
-		<s:HGroup width="100%" horizontalAlign="right">
-			<s:Button label="create Master Data" click="createMasterData()"/>
-			<components:LocaleChooser loc="{loc}" localeChanged="loc = Locale.getInstance().getCurrentLocale();"/>
-		</s:HGroup>
-		
-		<s:ButtonBar dataProvider="{mainViewStack}" requireSelection="true" iconPlacement="top" useHandCursor="true"/>
-		
-		<mx:ViewStack id="mainViewStack" borderStyle="none" width="100%" height="100%">
-			<s:NavigatorContent id="rooms" label="Rooms" icon="{Icons.save}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%">
-					<s:Label text="testing new panel"/>
-				</s:VGroup>
-			</s:NavigatorContent>
-			
-			<s:NavigatorContent id="customers" label="{loc.customer.plural}" icon="{Icons.customers}" width="100%" height="100%"> 
-				<crud:CustomerCRUDForm loc="{loc}" width="100%" height="100%"/>
-			</s:NavigatorContent>
-			
-			<s:NavigatorContent id="transports" label="Transports" icon="{Icons.add}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%">
-					<s:Label text="testing new panel"/>
-				</s:VGroup>
-			</s:NavigatorContent>
-			
-			<s:NavigatorContent id="maintain" label="Maintain" icon="{Icons.cancel}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%">
-					<s:Label text="testing new panel"/>
-				</s:VGroup>
-			</s:NavigatorContent>
-			
-			<s:NavigatorContent id="consumes" label="Consume" icon="{Icons.modify}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%">
-					<s:Label text="testing new panel"/>
-				</s:VGroup>
-			</s:NavigatorContent>
-			
-			<s:NavigatorContent id="advertisement" label="Advertisements" icon="{Icons.refresh}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%">
-					<s:Label text="testing new panel"/>
-				</s:VGroup>
-			</s:NavigatorContent>
-			
-			<s:NavigatorContent id="configuration" label="{loc.configuration.singular}" icon="{Icons.remove}" width="100%" height="100%">
-				<forms:ConfigurationForm width="100%" height="100%" loc="{loc}"/>
-			</s:NavigatorContent>
-			
-		</mx:ViewStack>
+	<s:VGroup width="100%" height="100%" gap="0">
+		<!-- HEADER PANEL -->
+		<view:HeaderPanel width="100%" id="headerPanel" />
+
+		<!-- MAIN PANEL -->
+		<view:MainPanel height="100%" width="100%" loc="{headerPanel.loc}"/>
 	</s:VGroup>
 	
 </s:WindowedApplication>
