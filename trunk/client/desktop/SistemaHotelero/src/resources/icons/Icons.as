@@ -45,6 +45,10 @@ package resources.icons
 		[Embed(source='resources/icons/customers_48x48.png')]
 		public static var customers:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/config 48x48.png')]
+		public static var config:Class;
+		
 		public function Icons()
 		{
 		}
