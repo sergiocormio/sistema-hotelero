@@ -54,7 +54,7 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date >= :dateFrom and oc.id.date <= :dateTo";
 			strQuery = strQuery.concat(" and oc.id.room.peopleQuantity >= :peopleQuantity");
-			strQuery = strQuery.concat(" and oc.id.reservationForm.state.id = :stateConfirmedId");
+			strQuery = strQuery.concat(" and oc.id.reservationForm.state = :stateConfirmedId");
 			
 			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Occupation.class);
 			
