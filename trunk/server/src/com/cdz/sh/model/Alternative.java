@@ -41,31 +41,26 @@ public class Alternative implements Comparable<Alternative>{
 		Room room = occupation.getId().getRoom();
 		updateRoomChanges(room);
 		updateValidRoomChange(room);
+		
+		if(lastRoom == null || !room.equals(lastRoom)){
+			lastRoom = room;
+		}
 	}
 	
 	private void updateValidRoomChange(Room room) {
-		if(lastRoom == null){
-			lastRoom = room;
-		}
-		else if(roomChanges > 0){
+		if(lastRoom != null && roomChanges > 0){
 			if(room.equals(lastRoom)){
 				newRoomAvailableDays++;
 			}
 			else{
-				newRoomAvailableDays = 0;	
+				newRoomAvailableDays = 1; // the first day that this "target" room is empty	
 			}
 		}
 	}
 
 	private void updateRoomChanges(Room room){
-		if(lastRoom == null){
-			lastRoom = room;
-		}
-		else{
-			if(!room.equals(lastRoom)){
-				roomChanges++;
-				lastRoom= room;
-			}
+		if(lastRoom != null && !room.equals(lastRoom)){
+			roomChanges++;
 		}
 	}
 
@@ -114,6 +109,27 @@ public class Alternative implements Comparable<Alternative>{
 		return lastRoom;
 	}
 
+	
+
+	public int getNewRoomAvailableDays() {
+		return newRoomAvailableDays;
+	}
+
+
+	public void setNewRoomAvailableDays(int newRoomAvailableDays) {
+		this.newRoomAvailableDays = newRoomAvailableDays;
+	}
+
+
+	public void setLastRoom(Room lastRoom) {
+		this.lastRoom = lastRoom;
+	}
+
+
+	public void setRoomChanges(int roomChanges) {
+		this.roomChanges = roomChanges;
+	}
+
 
 	/**
 	 * A room change is valid when the target room is empty for no more than 3 days. If the target room is empty for more than
@@ -124,6 +140,10 @@ public class Alternative implements Comparable<Alternative>{
 	public boolean hasValidRoomChanges(){
 		return (this.newRoomAvailableDays <= 3);
 	}
+	
+	public boolean hasValidNumberOfRoomChanges(){
+		return (this.roomChanges < 3);
+	}
 
 	@Override
 	public Alternative clone() {
@@ -133,6 +153,10 @@ public class Alternative implements Comparable<Alternative>{
 		for (Occupation occupation : this.occupations) {
 			clonedAlternative.addOccupation(occupation);
 		}
+		clonedAlternative.setLastRoom(this.lastRoom);
+		clonedAlternative.setNewRoomAvailableDays(this.newRoomAvailableDays);
+		clonedAlternative.setRoomChanges(this.roomChanges);
+		
 		return clonedAlternative;
 	}
 

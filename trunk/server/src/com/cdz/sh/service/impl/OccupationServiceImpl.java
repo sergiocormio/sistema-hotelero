@@ -111,7 +111,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		}
 		
 		if(!hasAtLeastOneAvailableOccupationForThisDate){
-			throw new NoAvailableAlternativesException("No available alternatives for date: " + DateUtil.dateToStringYYYYmmDD(date));
+			throw new NoAvailableAlternativesException("No available occupation for date: " + DateUtil.dateToStringYYYYmmDD(date));
 		}
 		return possibleOccupations;
 	}
@@ -155,10 +155,12 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 			
 			alternatives = updateAlternatives(alternatives, occupationsOfThisDate);
 			
-			date = DateUtil.getNextDay(date);
+			if(!alternatives.isEmpty()){
+				date = DateUtil.getNextDay(date);
+			}
 		}
 		if(alternatives.isEmpty()){
-			throw new NoAvailableAlternativesException("No available alternatives");
+			throw new NoAvailableAlternativesException("No available alternatives for date: " + DateUtil.dateToStringYYYYmmDD(date));
 		}
 		// post operations after validations 
 		alternatives = addBudgets(alternatives);
@@ -197,13 +199,21 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 			if(occupationOnLastRoom != null){
 				Alternative clonedAlternative = alternative.clone();
 				clonedAlternative.addOccupation(occupationOnLastRoom);
-				updatedAlternatives.add(clonedAlternative);
+				/*
+				 * As I keep the same room, I do NOT have to validate roomChanges  
+				 */
+				if(clonedAlternative.hasValidRoomChanges()){
+					updatedAlternatives.add(clonedAlternative);
+				}
 			}
 			else{
 				for (Occupation occupation : occupationsOfThisDate) {
 					Alternative clonedAlternative = alternative.clone();
 					clonedAlternative.addOccupation(occupation);
-					if(clonedAlternative.getRoomChanges() < 3 && clonedAlternative.hasValidRoomChanges()){
+					/*
+					 * As I've chosen a different room, I DO have to validate roomChanges  
+					 */
+					if(clonedAlternative.hasValidNumberOfRoomChanges()){
 						updatedAlternatives.add(clonedAlternative);
 					}
 				}

@@ -1,4 +1,4 @@
-package com.cdz.sh.service.core.scenarios;
+package com.cdz.sh.service.core.scenarios.roomchange;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -47,7 +47,7 @@ import com.cdz.sh.util.DateUtil;
 
 
 /**
- * All empty
+ * Invalid Room Change
  * All rooms of same type
  * 
  * 
@@ -55,16 +55,45 @@ import com.cdz.sh.util.DateUtil;
  * 
  * 				1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 
  * 
- * 	Room 1: 	XXX 
- *  Room 2:     XXX        
- *  Room 3:     XXX
+ * 	Room 1: 	XXXXXXXXXXXX						  XXXXXXXXXXXXXXXXX
+ *  Room 2:                         XXXXXXXXXXXXXXXXXX                      
+ *  Room 3:                               XXXXXXXXXXXX
  * 
+ * Result 2 possible alternatives:
  * 
+ * Occupations [ 
+		Date: 1-7-2012 - Room: 3 - 
+		Date: 2-7-2012 - Room: 3 - 
+		Date: 3-7-2012 - Room: 3 - 
+		Date: 4-7-2012 - Room: 3 - 
+		Date: 5-7-2012 - Room: 3 - 
+		Date: 6-7-2012 - Room: 3 - 
+		Date: 7-7-2012 - Room: 3 - 
+		Date: 8-7-2012 - Room: 1 - 
+		Date: 9-7-2012 - Room: 1 - 
+		Date: 10-7-2012 - Room: 1 - 
+  ]
+  
+   Occupations [ 
+		Date: 1-7-2012 - Room: 2 - 
+		Date: 2-7-2012 - Room: 2 - 
+		Date: 3-7-2012 - Room: 2 - 
+		Date: 4-7-2012 - Room: 2 - 
+		Date: 5-7-2012 - Room: 2 - 
+		Date: 6-7-2012 - Room: 3 - 
+		Date: 7-7-2012 - Room: 3 - 
+		Date: 8-7-2012 - Room: 1 - 
+		Date: 9-7-2012 - Room: 1 - 
+		Date: 10-7-2012 - Room: 1 - 
+   ]
+	     
+	     
+	     
  * 
  * @author fede
  *
  */
-public class ScenarioBuilder_NoRootAlternatives_SameRoomType {
+public class ScenarioBuilder_ValidRoomChangesTwoAlternatives_SameRoomType {
 
 	private RoomTypeDao roomTypeDao;
 	private RoomDao roomDao;
@@ -86,7 +115,7 @@ public class ScenarioBuilder_NoRootAlternatives_SameRoomType {
 	private ReservationFormDao reservationFormDao;
 	
 		
-	public ScenarioBuilder_NoRootAlternatives_SameRoomType() throws DaoException {
+	public ScenarioBuilder_ValidRoomChangesTwoAlternatives_SameRoomType() throws DaoException {
 		
 		MasterDataFactory masterDataFactory = new MasterDataFactory();
 		masterDataFactory.createMasterData();
@@ -154,7 +183,7 @@ public class ScenarioBuilder_NoRootAlternatives_SameRoomType {
 			GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
 			reservationForm.setDateFrom(calendar.getTime());
 			
-			calendar.add(GregorianCalendar.DATE, 1);
+			calendar.add(GregorianCalendar.DATE, 9);
 			
 			reservationForm.setDateTo(calendar.getTime());
 			
@@ -175,29 +204,51 @@ public class ScenarioBuilder_NoRootAlternatives_SameRoomType {
 	private void fillOccupationsForAllRooms() throws DaoException {
 		
 		Date dateFrom = new GregorianCalendar(2012, 7, 1).getTime();
-		Date dateTo = new GregorianCalendar(2012, 7, 2).getTime();
+		Date dateTo = new GregorianCalendar(2012, 7, 4).getTime();
 		long roomId = 1l;
+			
+		Room room = this.roomDao.getRecordById(roomId);
 		
-		while(roomId < 4){
-			Room room = this.roomDao.getRecordById(roomId);
-			Date date = dateFrom;
-			while(!date.after(dateTo)){
-				OccupationPK occupationPK = new OccupationPK();
-				occupationPK.setDate(date);
-				occupationPK.setRoom(room);
-				long formId = roomId;
-				occupationPK.setReservationForm(this.reservationFormDao.getRecordById(formId));
-				
-				Occupation 	occupation = new Occupation();
-				occupation.setId(occupationPK);
-				
-				this.occupationDao.createRecord(occupation);
-				
-				date = DateUtil.getNextDay(date);
-			}
-			roomId++;
+		fillOccupations(dateFrom, dateTo, roomId, room);
+		
+		roomId++;
+		room = this.roomDao.getRecordById(roomId);
+		dateFrom = new GregorianCalendar(2012, 7, 6).getTime();
+		dateTo = new GregorianCalendar(2012, 7, 10).getTime();
+
+		fillOccupations(dateFrom, dateTo, roomId, room);
+		
+		roomId++;
+		room = this.roomDao.getRecordById(roomId);
+		dateFrom = new GregorianCalendar(2012, 7, 8).getTime();
+		dateTo = new GregorianCalendar(2012, 7, 10).getTime();
+
+		fillOccupations(dateFrom, dateTo, roomId, room);
+			
+		
+	}
+
+
+
+
+
+	private void fillOccupations(Date dateFrom, Date dateTo, long roomId, Room room) throws DaoException {
+		Date date = dateFrom;
+		while(!date.after(dateTo)){
+			OccupationPK occupationPK = new OccupationPK();
+			occupationPK.setDate(date);
+			occupationPK.setRoom(room);
+			long formId = roomId;
+			occupationPK.setReservationForm(this.reservationFormDao.getRecordById(formId));
+			
+			Occupation 	occupation = new Occupation();
+			occupation.setId(occupationPK);
+			
+			this.occupationDao.createRecord(occupation);
+			
+			date = DateUtil.getNextDay(date);
+		
 		}
-		
 	}
 
 

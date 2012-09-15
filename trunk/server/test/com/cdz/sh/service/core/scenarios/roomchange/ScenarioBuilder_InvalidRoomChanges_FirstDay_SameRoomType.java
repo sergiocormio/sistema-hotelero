@@ -1,4 +1,4 @@
-package com.cdz.sh.service.core.scenarios;
+package com.cdz.sh.service.core.scenarios.roomchange;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -47,25 +47,31 @@ import com.cdz.sh.util.DateUtil;
 
 
 /**
- * All empty
+ * All room 2, last day on room 1
  * All rooms of same type
  * 
  * 
  * Original State:
  * 
- * 				1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 
+ * 			    1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10
  * 
- * 	Room 1: 	XXX 
- *  Room 2:     XXX        
+ * 	Room 1: 	XXX
+ *  Room 2:        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                      
  *  Room 3:     XXX
  * 
+ * Result:
+ * 
+ * 	NoAvailableAlternativesException: No available alternatives for date: 5-7-2012
+ * 
+ * 	cause: invalidRoomChanges for rooms 1 and 3 (are available for more than 3 days)
  * 
  * 
  * @author fede
  *
  */
-public class ScenarioBuilder_NoRootAlternatives_SameRoomType {
+public class ScenarioBuilder_InvalidRoomChanges_FirstDay_SameRoomType {
 
+	
 	private RoomTypeDao roomTypeDao;
 	private RoomDao roomDao;
 	
@@ -86,7 +92,7 @@ public class ScenarioBuilder_NoRootAlternatives_SameRoomType {
 	private ReservationFormDao reservationFormDao;
 	
 		
-	public ScenarioBuilder_NoRootAlternatives_SameRoomType() throws DaoException {
+	public ScenarioBuilder_InvalidRoomChanges_FirstDay_SameRoomType() throws DaoException {
 		
 		MasterDataFactory masterDataFactory = new MasterDataFactory();
 		masterDataFactory.createMasterData();
@@ -154,7 +160,7 @@ public class ScenarioBuilder_NoRootAlternatives_SameRoomType {
 			GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
 			reservationForm.setDateFrom(calendar.getTime());
 			
-			calendar.add(GregorianCalendar.DATE, 1);
+			calendar.add(GregorianCalendar.DATE, 9);
 			
 			reservationForm.setDateTo(calendar.getTime());
 			
@@ -175,29 +181,50 @@ public class ScenarioBuilder_NoRootAlternatives_SameRoomType {
 	private void fillOccupationsForAllRooms() throws DaoException {
 		
 		Date dateFrom = new GregorianCalendar(2012, 7, 1).getTime();
-		Date dateTo = new GregorianCalendar(2012, 7, 2).getTime();
+		Date dateTo = new GregorianCalendar(2012, 7, 1).getTime();
 		long roomId = 1l;
+			
+		Room room = this.roomDao.getRecordById(roomId);
 		
-		while(roomId < 4){
-			Room room = this.roomDao.getRecordById(roomId);
-			Date date = dateFrom;
-			while(!date.after(dateTo)){
-				OccupationPK occupationPK = new OccupationPK();
-				occupationPK.setDate(date);
-				occupationPK.setRoom(room);
-				long formId = roomId;
-				occupationPK.setReservationForm(this.reservationFormDao.getRecordById(formId));
-				
-				Occupation 	occupation = new Occupation();
-				occupation.setId(occupationPK);
-				
-				this.occupationDao.createRecord(occupation);
-				
-				date = DateUtil.getNextDay(date);
-			}
-			roomId++;
+		fillOccupations(dateFrom, dateTo, roomId, room);
+		
+		roomId++;
+		room = this.roomDao.getRecordById(roomId);
+		dateFrom = new GregorianCalendar(2012, 7, 2).getTime();
+		dateTo = new GregorianCalendar(2012, 7, 10).getTime();
+
+		fillOccupations(dateFrom, dateTo, roomId, room);
+		
+		roomId++;
+		room = this.roomDao.getRecordById(roomId);
+		dateFrom = new GregorianCalendar(2012, 7, 1).getTime();
+		dateTo = new GregorianCalendar(2012, 7, 1).getTime();
+
+		fillOccupations(dateFrom, dateTo, roomId, room);
+		
+	}
+
+
+
+
+
+	private void fillOccupations(Date dateFrom, Date dateTo, long roomId, Room room) throws DaoException {
+		Date date = dateFrom;
+		while(!date.after(dateTo)){
+			OccupationPK occupationPK = new OccupationPK();
+			occupationPK.setDate(date);
+			occupationPK.setRoom(room);
+			long formId = roomId;
+			occupationPK.setReservationForm(this.reservationFormDao.getRecordById(formId));
+			
+			Occupation 	occupation = new Occupation();
+			occupation.setId(occupationPK);
+			
+			this.occupationDao.createRecord(occupation);
+			
+			date = DateUtil.getNextDay(date);
+		
 		}
-		
 	}
 
 
