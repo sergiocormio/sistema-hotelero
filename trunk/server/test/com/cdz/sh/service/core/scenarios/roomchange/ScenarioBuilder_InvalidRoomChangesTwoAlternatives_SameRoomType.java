@@ -47,24 +47,53 @@ import com.cdz.sh.util.DateUtil;
 
 
 /**
- * All room 2, last day on room 1
+ * Invalid Room Change
  * All rooms of same type
  * 
  * 
  * Original State:
  * 
- * 				1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10
+ * 				1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 
  * 
- * 	Room 1: 	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX    XXXXXXXXXXXXXX
- *  Room 2:                                       XXXX                      
- *  Room 3:                 XXXXXXXXXXXXXXXXXXXXXXXXXX
+ * 	Room 1: 	XXXXXXXXXXXX						  
+ *  Room 2:                         XXXXXXXXXXXXXXXXXX                      
+ *  Room 3:                               XXXXXXXXXXXX
  * 
+ * Result 2 possible alternatives:
  * 
+ * Occupations [ 
+		Date: 1-7-2012 - Room: 3 - 
+		Date: 2-7-2012 - Room: 3 - 
+		Date: 3-7-2012 - Room: 3 - 
+		Date: 4-7-2012 - Room: 3 - 
+		Date: 5-7-2012 - Room: 3 - 
+		Date: 6-7-2012 - Room: 3 - 
+		Date: 7-7-2012 - Room: 3 - 
+		Date: 8-7-2012 - Room: 1 - 
+		Date: 9-7-2012 - Room: 1 - 
+		Date: 10-7-2012 - Room: 1 - 
+  ]
+  
+   Occupations [ 
+		Date: 1-7-2012 - Room: 2 - 
+		Date: 2-7-2012 - Room: 2 - 
+		Date: 3-7-2012 - Room: 2 - 
+		Date: 4-7-2012 - Room: 2 - 
+		Date: 5-7-2012 - Room: 2 - 
+		Date: 6-7-2012 - Room: 3 - 
+		Date: 7-7-2012 - Room: 3 - 
+		Date: 8-7-2012 - Room: 1 - 
+		Date: 9-7-2012 - Room: 1 - 
+		Date: 10-7-2012 - Room: 1 - 
+   ]
+	     
+	     
+	     
  * 
  * @author fede
  *
  */
-public class ScenarioBuilder_ValidRoomChange_LastDay_SameRoomType {
+public class ScenarioBuilder_InvalidRoomChangesTwoAlternatives_SameRoomType {
 
 	private RoomTypeDao roomTypeDao;
 	private RoomDao roomDao;
@@ -86,7 +115,7 @@ public class ScenarioBuilder_ValidRoomChange_LastDay_SameRoomType {
 	private ReservationFormDao reservationFormDao;
 	
 		
-	public ScenarioBuilder_ValidRoomChange_LastDay_SameRoomType() throws DaoException {
+	public ScenarioBuilder_InvalidRoomChangesTwoAlternatives_SameRoomType() throws DaoException {
 		
 		MasterDataFactory masterDataFactory = new MasterDataFactory();
 		masterDataFactory.createMasterData();
@@ -147,7 +176,7 @@ public class ScenarioBuilder_ValidRoomChange_LastDay_SameRoomType {
 	
 	private void buildReservationForms() throws DaoException{
 		
-		for(int i = 0; i < 4; i++){
+		for(int i = 0; i < 3; i++){
 			
 			ReservationForm reservationForm = new ReservationForm();
 			
@@ -175,7 +204,7 @@ public class ScenarioBuilder_ValidRoomChange_LastDay_SameRoomType {
 	private void fillOccupationsForAllRooms() throws DaoException {
 		
 		Date dateFrom = new GregorianCalendar(2012, 7, 1).getTime();
-		Date dateTo = new GregorianCalendar(2012, 7, 9).getTime();
+		Date dateTo = new GregorianCalendar(2012, 7, 4).getTime();
 		long roomId = 1l;
 			
 		Room room = this.roomDao.getRecordById(roomId);
@@ -184,25 +213,18 @@ public class ScenarioBuilder_ValidRoomChange_LastDay_SameRoomType {
 		
 		roomId++;
 		room = this.roomDao.getRecordById(roomId);
-		dateFrom = new GregorianCalendar(2012, 7, 10).getTime();
+		dateFrom = new GregorianCalendar(2012, 7, 6).getTime();
 		dateTo = new GregorianCalendar(2012, 7, 10).getTime();
 
 		fillOccupations(dateFrom, dateTo, roomId, room);
 		
 		roomId++;
 		room = this.roomDao.getRecordById(roomId);
-		dateFrom = new GregorianCalendar(2012, 7, 4).getTime();
+		dateFrom = new GregorianCalendar(2012, 7, 8).getTime();
 		dateTo = new GregorianCalendar(2012, 7, 10).getTime();
 
 		fillOccupations(dateFrom, dateTo, roomId, room);
-		
-		roomId = 1l;
-		room = this.roomDao.getRecordById(roomId);
-		dateFrom = new GregorianCalendar(2012, 7, 11).getTime();
-		dateTo = new GregorianCalendar(2012, 7, 20).getTime();
-
-		fillOccupations(dateFrom, dateTo, roomId, room);
-		
+			
 	}
 
 

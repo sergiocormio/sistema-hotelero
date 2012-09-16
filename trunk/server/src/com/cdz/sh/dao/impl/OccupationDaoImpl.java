@@ -14,6 +14,7 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.Room;
 import com.cdz.sh.model.StateReservationForm;
 
 /**
@@ -118,6 +119,31 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
+	}
+
+
+	@Override
+	public synchronized List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo, Room room) throws DaoException {
+		try {
+			EntityManagerSingleton.getInstance().getTransaction().begin();
+			
+			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date >= :dateFrom and oc.id.date <= :dateTo";
+			strQuery = strQuery.concat(" and oc.id.room = :room");
+			
+			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Occupation.class);
+			
+			query = query.setParameter("dateFrom", dateFrom);
+			query = query.setParameter("dateTo", dateTo);
+			query = query.setParameter("room", room);
+			
+			List<Occupation> occupations = query.getResultList();
+			EntityManagerSingleton.getInstance().getTransaction().commit();
+			return occupations;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+		
 	}
 
 	

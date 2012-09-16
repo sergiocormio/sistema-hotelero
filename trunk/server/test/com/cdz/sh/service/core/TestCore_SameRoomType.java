@@ -23,6 +23,7 @@ import com.cdz.sh.service.core.scenarios.ScenarioBuilder_LessDaysThanExpected_Sa
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_NoRootAlternatives_SameRoomType;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_Room3Busy_SameRoomType;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_Rooms_2_3_busy_SameRoomType;
+import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_InvalidRoomChangesTwoAlternatives_SameRoomType;
 import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_InvalidRoomChanges_FirstDay_SameRoomType;
 import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_RoomChangesExceeded_SameRoomType;
 import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_ValidRoomChangesTwoAlternatives_SameRoomType;
@@ -239,6 +240,28 @@ public class TestCore_SameRoomType {
 		Alternative alternative2 = alternatives.get(1);
 		assertTrue(alternative2.getRoomChanges() == 2);
 				
+	}
+	
+	
+	@Test(expected=NoAvailableAlternativesException.class)
+	public void testInvalidRoomChangesTwoAlternatives() throws DaoException, NoAvailableAlternativesException {
+	
+		ScenarioBuilder_InvalidRoomChangesTwoAlternatives_SameRoomType scenarioBuilder = new ScenarioBuilder_InvalidRoomChangesTwoAlternatives_SameRoomType(); 
+		scenarioBuilder.createDummyScenario();
+				
+		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
+		Date dateFrom = calendar.getTime();
+		
+		calendar.add(Calendar.DATE, 9);
+		
+		Date dateTo = calendar.getTime();
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		
+		for (Alternative alternative : alternatives) {
+			System.out.println(alternative);
+		}
+		
 	}
 	
 	
