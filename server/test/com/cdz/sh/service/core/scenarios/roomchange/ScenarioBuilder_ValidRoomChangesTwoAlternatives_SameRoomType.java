@@ -224,8 +224,14 @@ public class ScenarioBuilder_ValidRoomChangesTwoAlternatives_SameRoomType {
 		dateTo = new GregorianCalendar(2012, 7, 10).getTime();
 
 		fillOccupations(dateFrom, dateTo, roomId, room);
-			
 		
+		roomId = 1l;
+		room = this.roomDao.getRecordById(roomId);
+		dateFrom = new GregorianCalendar(2012, 7, 11).getTime();
+		dateTo = new GregorianCalendar(2012, 7, 20).getTime();
+
+		fillOccupations(dateFrom, dateTo, roomId, room);
+			
 	}
 
 

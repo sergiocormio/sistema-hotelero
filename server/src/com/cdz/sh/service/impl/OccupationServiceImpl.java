@@ -1,7 +1,9 @@
 package com.cdz.sh.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.cdz.sh.dao.OccupationDao;
@@ -57,9 +59,12 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	@Override
 	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException {
 		
-//		dateTo = DateUtil.getDateAboutToFinish(dateTo); 
-				
 		List<Room> roomsByCapacity = this.roomDao.retrieveRoomsByCapacity(adultsQty, childrenQty);
+		
+//		GregorianCalendar calendar = new GregorianCalendar(); 
+//		calendar.setTime(dateTo);
+//		calendar.add(Calendar.DATE, 4);
+//		Date dateToForCheckingValidRoomChanges = calendar.getTime();
 		
 		List<Occupation> occupations = this.occupationDao.retrieveConfirmedOccupations(dateFrom, dateTo, adultsQty, childrenQty);
 		
@@ -67,10 +72,52 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		
 		List<Alternative> alternatives = createAlternatives(possibleOccupations, dateFrom, dateTo, adultsQty, childrenQty);
 		
+		
+		
 		return alternatives;
 	}
 
 
+
+	private List<Alternative> filterInvalidLastRoomChanges(List<Alternative> alternatives) throws DaoException {
+		int i = 0;
+		while(i < alternatives.size()){
+			Alternative alternative = alternatives.get(i);
+			if(alternative.getNewRoomAvailableDays() > 0 && !isLastRoomChangeValid(alternative)){
+					alternatives.remove(i);
+			}
+			else{
+				i++;
+			}
+		}
+		return alternatives;
+	}
+	
+
+	private boolean isLastRoomChangeValid(Alternative alternative) throws DaoException {
+		
+		Date nextDayAfterTheLastOneSelected = DateUtil.getNextDay(alternative.getDateTo());
+		
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(nextDayAfterTheLastOneSelected);
+		/*
+		 * nextDay + maxDaysToAddToTheNextDay = 4 ==> if these for days are empty, the roomChange is INVALID!
+		 */
+		int maxDaysToAddToTheNextDay = 3;
+		
+		calendar.add(Calendar.DATE, maxDaysToAddToTheNextDay - alternative.getNewRoomAvailableDays());
+		Date dateTo = calendar.getTime();
+		
+		Room lastRoom = alternative.getLastRoom();
+		
+		List<Occupation> occupations = this.occupationDao.retrieveOccupations(nextDayAfterTheLastOneSelected, dateTo, lastRoom);
+		if(occupations.isEmpty()){
+			return false; //invalid room change	
+		}
+		else{
+			return true; //valid room change
+		}
+	}
 
 	/**
 	 * Creates the list of possible occupations taking into account:
@@ -113,9 +160,11 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		if(!hasAtLeastOneAvailableOccupationForThisDate){
 			throw new NoAvailableAlternativesException("No available occupation for date: " + DateUtil.dateToStringYYYYmmDD(date));
 		}
+		
 		return possibleOccupations;
 	}
 
+	
 	/**
 	 * Bubble sort
 	 * 
@@ -140,7 +189,8 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 
 
-	private List<Alternative> createAlternatives(List<Occupation> possibleOccupations, Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException {
+	private List<Alternative> createAlternatives(List<Occupation> possibleOccupations, Date dateFrom, Date dateTo, int adultsQty, int childrenQty)
+															throws DaoException, NoAvailableAlternativesException {
 		
 		Date date = dateFrom;
 		
@@ -159,9 +209,17 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 				date = DateUtil.getNextDay(date);
 			}
 		}
+		
 		if(alternatives.isEmpty()){
 			throw new NoAvailableAlternativesException("No available alternatives for date: " + DateUtil.dateToStringYYYYmmDD(date));
 		}
+		
+		alternatives = filterInvalidLastRoomChanges(alternatives);
+		
+		if(alternatives.isEmpty()){
+			throw new NoAvailableAlternativesException("No available alternatives. All last room changes are not valid-");
+		}
+		
 		// post operations after validations 
 		alternatives = addBudgets(alternatives);
 		alternatives = sortAlternatives(alternatives);
