@@ -42,12 +42,53 @@ package resources.icons
 		
 		//-------- Main Tabs Icon ----------
 		[Bindable]
-		[Embed(source='resources/icons/customers_48x48.png')]
+		[Embed(source='resources/icons/Customers 48.png')]
 		public static var customers:Class;
 		
 		[Bindable]
 		[Embed(source='resources/icons/config 48x48.png')]
 		public static var config:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/hotel-icon.png')]
+		public static var hotel:Class;
+		
+		//--------------------CRUD icons----------------
+		[Bindable]
+		[Embed(source='resources/icons/language 32.png')]
+		public static var language:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/globe 32.png')]
+		public static var globe:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/folder_globe 32.png')]
+		public static var folder_globe:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/folder_credentials 32.png')]
+		public static var folder_credentials:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/image-sunset.png')]
+		public static var seasons:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/dollar-icon 32.png')]
+		public static var dollar:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/Cash-register 32.png')]
+		public static var cash_register:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/New-room 32.png')]
+		public static var new_room:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/book-hotel-room.png')]
+		public static var room_types:Class;
 		
 		public function Icons()
 		{
