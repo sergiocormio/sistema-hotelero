@@ -21,18 +21,18 @@
 		</s:layout>
 	</s:ButtonBar>
 	<mx:ViewStack id="configViewStack" borderStyle="none" width="100%" height="100%">
-		<s:NavigatorContent id="seasons" label="{loc.season.plural}" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="seasons" label="{loc.season.plural}" icon="{Icons.seasons}" width="100%" height="100%">
 			<crud:SeasonCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="roomTypes" label="{loc.roomType.plural}" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="roomTypes" label="{loc.roomType.plural}" icon="{Icons.room_types}" width="100%" height="100%">
 			<crud:RoomTypeCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
-		<s:NavigatorContent id="rooms" label="{loc.room.plural}" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="rooms" label="{loc.room.plural}" icon="{Icons.new_room}" width="100%" height="100%">
 			<crud:RoomCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="rates" label="{loc.rate.plural}" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="rates" label="{loc.rate.plural}" icon="{Icons.cash_register}" width="100%" height="100%">
 			<crud:RateCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
@@ -42,23 +42,23 @@
 			</s:VGroup>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="exchangeRates" label="{loc.exchangeRate.plural}" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="exchangeRates" label="{loc.exchangeRate.plural}" icon="{Icons.dollar}" width="100%" height="100%">
 			<crud:ExchangeRateCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="documentTypes" label="{loc.documentType.plural}" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="documentTypes" label="{loc.documentType.plural}" icon="{Icons.folder_credentials}" width="100%" height="100%">
 			<crud:DocumentTypeCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="countries" label="{loc.country.plural}" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="countries" label="{loc.country.plural}" icon="{Icons.globe}" width="100%" height="100%">
 			<crud:CountryCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="regions" label="{loc.region.plural}" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="regions" label="{loc.region.plural}" icon="{Icons.folder_globe}" width="100%" height="100%">
 			<crud:RegionCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="languages" label="{loc.language.plural}" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="languages" label="{loc.language.plural}" icon="{Icons.language}" width="100%" height="100%">
 			<crud:LanguageCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 	</mx:ViewStack>
