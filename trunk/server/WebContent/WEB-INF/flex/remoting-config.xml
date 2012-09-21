@@ -86,4 +86,11 @@
 			<scope>application</scope>
 		</properties>
     </destination>
+    
+    <destination id="serviceTypeService">
+		<properties>
+			<source>com.cdz.sh.service.impl.ServiceTypeServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 </service>

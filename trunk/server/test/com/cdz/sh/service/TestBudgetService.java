@@ -73,11 +73,11 @@ public class TestBudgetService {
 		
 		for(int i = 0; i < budget.getServicesToBeAddedInBasePrice().size(); i++){
 			ServiceType serviceIncludedInBasePrice = budget.getServiceIncludedInBasePrice(i);
-			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porPersona)){
+			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perPerson)){
 				
 				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 510d);	
 			}
-			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porNoche)){
+			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perNight)){
 				
 				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 480d);
 			}
@@ -111,11 +111,11 @@ public class TestBudgetService {
 		
 		for(int i = 0; i < budget.getServicesToBeAddedInBasePrice().size(); i++){
 			ServiceType serviceIncludedInBasePrice = budget.getServiceIncludedInBasePrice(i);
-			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porPersona)){
+			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perPerson)){
 				
 				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 1290d);	
 			}
-			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porNoche)){
+			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perNight)){
 				
 				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 1230d);
 			}
@@ -151,11 +151,11 @@ public class TestBudgetService {
 		
 		for(int i = 0; i < budget.getServicesToBeAddedInBasePrice().size(); i++){
 			ServiceType serviceIncludedInBasePrice = budget.getServiceIncludedInBasePrice(i);
-			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porPersona)){
+			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perPerson)){
 				
 				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 2630d);	
 			}
-			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.porNoche)){
+			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perNight)){
 				
 				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 2530d);
 			}
