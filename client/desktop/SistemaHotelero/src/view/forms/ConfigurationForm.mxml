@@ -36,7 +36,11 @@
 			<crud:RateCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="promotion" label="Promotions" icon="{Icons.save}" width="100%" height="100%">
+		<s:NavigatorContent id="serviceTypes" label="{loc.serviceType.plural}" icon="{Icons.service_types}" width="100%" height="100%">
+			<crud:ServiceTypeCRUDForm loc="{loc}" width="100%" height="100%"/>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent id="promotion" label="Promotions" icon="{Icons.promotions}" width="100%" height="100%">
 			<s:VGroup width="100%" height="100%">
 				<s:Label text="testing new panel"/>
 			</s:VGroup>

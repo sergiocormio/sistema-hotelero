@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" creationComplete="init()">
+	<fx:Metadata> 
+		[Event(name="cancelClicked", type="flash.events.Event")]
+		[Event(name="saveSuccess", type="flash.events.Event")]
+	</fx:Metadata> 
+	<fx:Script>
+		<![CDATA[
+			import model.ServiceType;
+			
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.icons.Icons;
+			
+			import services.crud.ServiceTypeService;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			public var isUpdate:Boolean;
+			
+			private var _currentServiceType:ServiceType;
+			
+			public function get currentServiceType():ServiceType
+			{
+				return _currentServiceType;
+			}
+			
+			public function set currentServiceType(value:ServiceType):void
+			{
+				_currentServiceType = value;
+				serviceTypeText.text = _currentServiceType.name;
+				modalityText.text = _currentServiceType.modality;
+				includedInBudget.selected = _currentServiceType.includedInBudget;
+				includedInBasePrice.selected = _currentServiceType.includedInBasePrice;
+				descriptionText.text = _currentServiceType.description;
+				
+				//avoids showing NaN
+				if(_currentServiceType.price >= 0){
+					priceText.text = _currentServiceType.price.toString();
+				}else{
+					priceText.text = '';
+				}
+			}
+			
+			private function save():void{
+				//TODO: validate all data
+				//if(!allFieldsAreValid()){
+				//	return;
+				//}
+				
+				_currentServiceType.name = serviceTypeText.text;
+				_currentServiceType.modality = modalityText.text;
+				_currentServiceType.includedInBudget = includedInBudget.selected;
+				_currentServiceType.includedInBasePrice = includedInBasePrice.selected;
+				_currentServiceType.price = Number(priceText.text);
+				_currentServiceType.description = descriptionText.text;
+				
+				//calls service
+				if(isUpdate){
+					new ServiceTypeService().updateRecord(_currentServiceType,serviceTypeSaved_resultHandler,faultHandler);
+				}else{
+					new ServiceTypeService().createRecord(_currentServiceType,serviceTypeSaved_resultHandler,faultHandler);
+				}
+			}
+			
+			private function serviceTypeSaved_resultHandler(event:ResultEvent,token:Object=null):void {
+				_currentServiceType = event.result as ServiceType;
+				dispatchEvent(new Event("saveSuccess"));
+			}
+			
+			private function cancel():void{
+				dispatchEvent(new Event("cancelClicked"));
+			}
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				Alert.show("Received fault: " + event.fault + "\n");
+			}
+			
+			protected function init():void
+			{
+				currentServiceType = new ServiceType();
+				//serviceTypeText.setFocus();
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:HGroup width="100%" horizontalAlign="center">
+		<s:Form>
+			<s:layout>
+				<s:FormLayout gap="-14"/>
+			</s:layout>  
+			
+			<s:FormItem label="{loc.serviceType.name}:" required="true">
+				<s:TextInput id="serviceTypeText"/>
+			</s:FormItem>
+			
+			<s:FormItem label="{loc.serviceType.price}:" required="true">
+				<s:TextInput id="priceText"/>
+			</s:FormItem>
+		
+			<s:FormItem label="{loc.serviceType.modality}:" required="true">
+				<s:TextInput id="modalityText"/>
+			</s:FormItem>
+
+			<s:FormItem label="{loc.serviceType.includedInBudget}:" required="true">
+				<s:CheckBox id="includedInBudget"/>
+			</s:FormItem>
+			
+			<s:FormItem label="{loc.serviceType.includedInBasePrice}:" required="true">
+				<s:CheckBox id="includedInBasePrice"/>
+			</s:FormItem>
+			
+		</s:Form>
+		<s:Form>
+			<s:FormItem label="{loc.serviceType.description}:" required="true">
+				<s:TextArea id="descriptionText"/>
+			</s:FormItem>
+		</s:Form>
+	</s:HGroup>
+	<!-- BUTTONS -->
+	<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+		<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
+		<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
+	</s:HGroup>
+	<s:Spacer height="5"/>
+</s:VGroup>

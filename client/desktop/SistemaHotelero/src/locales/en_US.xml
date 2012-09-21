@@ -140,4 +140,14 @@
 	    <dateFrom>Date From</dateFrom>
 	    <dateTo>Date To</dateTo>
     </season>
+    <serviceType>
+    	<singular>Service</singular>
+	    <plural>Service Types</plural>
+	    <name>Name</name>
+	    <description>Description</description>
+	    <modality>Modality</modality>
+	    <price>Price</price>
+	    <includedInBudget>Included In Budget</includedInBudget>
+	    <includedInBasePrice>Included In Base Price</includedInBasePrice>
+    </serviceType>
 </locale>

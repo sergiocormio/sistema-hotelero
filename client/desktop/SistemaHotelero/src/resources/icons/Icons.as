@@ -90,6 +90,14 @@ package resources.icons
 		[Embed(source='resources/icons/book-hotel-room.png')]
 		public static var room_types:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/Food 32.png')]
+		public static var service_types:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/advertisment.png')]
+		public static var promotions:Class;
+		
 		public function Icons()
 		{
 		}

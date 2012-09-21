@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
+		  creationComplete="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import model.ServiceType;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import services.crud.ServiceTypeService;
+			
+			import spark.events.GridSelectionEvent;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			private var serviceTypes:ArrayCollection = new ArrayCollection();
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				Alert.show("ServiceType Form: Received fault: " + event.fault + "\n");
+			}
+			
+			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedItem = null;
+				serviceTypes.removeAll();
+				serviceTypes.addAll(event.result as ArrayCollection);
+			}
+			
+			
+			private function delete_resultHandler(event:ResultEvent,token:Object=null):void {
+				refreshGrid();
+			}
+			
+			
+			protected function init(event:FlexEvent):void{
+				refreshGrid();
+			}
+			
+			protected function refreshGrid():void
+			{
+				individual.enabled = false;
+				grid.selectedItem = null;
+				new ServiceTypeService().retrieveAll(retrieveAll_resultHandler,faultHandler);
+			}
+			
+			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
+			{
+				if(grid.selectedItem !=null){
+					individual.currentServiceType = grid.selectedItem as ServiceType;
+				}
+				individual.enabled = false;
+			}
+			
+			protected function modifyServiceType():void
+			{
+				individual.currentServiceType = grid.selectedItem as ServiceType;
+				individual.isUpdate = true;
+				individual.enabled=true;
+				
+			}
+			
+			protected function deleteServiceType():void
+			{
+				new ServiceTypeService().deleteRecord(grid.selectedItem as ServiceType,delete_resultHandler,faultHandler);
+			}
+			
+			protected function addServiceType():void
+			{
+				grid.selectedItem = null;
+				individual.currentServiceType = new ServiceType();
+				individual.isUpdate = false;
+				individual.enabled = true;
+			}
+			
+			private function booleanFormat(item:Object,column:GridColumn):String
+			{
+				var value:Boolean = item [column.dataField] as Boolean; 
+				if(value){
+					return loc.boolean.trueValue;
+				}else{
+					return loc.boolean.falseValue;
+				}
+				
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:HGroup width="100%" height="60%">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{serviceTypes}" selectionChange="grid_selectionChangeHandler(event)">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="name" headerText="{loc.serviceType.singular}"></s:GridColumn>
+						<s:GridColumn dataField="description" headerText="{loc.serviceType.description}"></s:GridColumn>
+						<s:GridColumn dataField="modality" headerText="{loc.serviceType.modality}"></s:GridColumn>
+						<s:GridColumn dataField="price" headerText="{loc.serviceType.price}"></s:GridColumn>
+						<s:GridColumn dataField="includedInBudget" headerText="{loc.serviceType.includedInBudget}" labelFunction="booleanFormat"></s:GridColumn>
+						<s:GridColumn dataField="includedInBasePrice" headerText="{loc.serviceType.includedInBasePrice}" labelFunction="booleanFormat"></s:GridColumn>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+			<!-- BUTTONS -->
+			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addServiceType()"
+									modifyClicked="modifyServiceType()" removeClicked="deleteServiceType()"
+									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
+									removeButtonEnabled="{grid.selectedItem!=null}"/>
+		</s:HGroup>
+		<individual:ServiceTypeIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="40%"/>
+	</mx:VDividedBox>
+</s:VGroup>
