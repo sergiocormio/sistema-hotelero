@@ -1,14 +1,16 @@
 package com.cdz.sh.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Budget {
 	
 	private Alternative relatedAlternative;
 	
 	private Double basePrice;
-	
+		
 	/*
 	 * The price of these ones have to be calculated according to the serciveTypeModality
 	 */
@@ -18,12 +20,17 @@ public class Budget {
 	 * There is no need in calculating the price of the ones below, because they will not be added in the basePrice
 	 */
 	private List<ServiceType> additionalServices;
+	
+	private Map<ServiceType, Double> servicePriceAddedInBasePriceMap;
+
+	private Double basePricePlusAllServicesIncludedInBasePrice;
 
 	
 	public Budget(Alternative alternative){
 		this.relatedAlternative = alternative;
 		this.additionalServices = new ArrayList<ServiceType>();
 		this.servicesToBeAddedInBasePrice = new ArrayList<ServiceType>();
+		this.servicePriceAddedInBasePriceMap = new HashMap<ServiceType, Double>();
 	}
 	
 	
@@ -67,28 +74,67 @@ public class Budget {
 		this.servicesToBeAddedInBasePrice = servicesToBeAddedInBasePrice;
 	}
 	
-	public ServiceType getServiceIncludedInBasePrice(int index){
-		return this.servicesToBeAddedInBasePrice.get(index);
+	
+	public Map<ServiceType, Double> getServicePriceAddedInBasePriceMap() {
+		return servicePriceAddedInBasePriceMap;
 	}
 
-	public Double getServicePriceAddedInBasePrice(int index){
-		ServiceType serviceType = this.servicesToBeAddedInBasePrice.get(index);
-		ServiceTypeModality modality = serviceType.getModality();
+
+
+	public Double getBasePricePlusAllServicesIncludedInBasePrice() {
+		return basePricePlusAllServicesIncludedInBasePrice;
+	}
+
+
+	
+	/**
+	 * ONLY BLAZEDS PURPOSES
+	 * 
+	 * @param servicePriceAddedInBasePriceMap
+	 */
+	public void setServicePriceAddedInBasePriceMap(
+			Map<ServiceType, Double> servicePriceAddedInBasePriceMap) {
+		this.servicePriceAddedInBasePriceMap = servicePriceAddedInBasePriceMap;
+	}
+
+
+	/**
+	 * ONLY BLAZEDS PURPOSES
+	 * 
+	 * @param basePricePlusAllServicesIncludedInBasePrice
+	 */
+	public void setBasePricePlusAllServicesIncludedInBasePrice(Double basePricePlusAllServicesIncludedInBasePrice) {
+		this.basePricePlusAllServicesIncludedInBasePrice = basePricePlusAllServicesIncludedInBasePrice;
+	}
+
+
+
+	public void calculateServicesInCombinationWithBasePrice(){
 		
-		double basePricePlusService = this.basePrice;
-		basePricePlusService += getCalculatedPrice(serviceType);
+		this.calculateServicesIncludedInBasePrice();
 		
-		return basePricePlusService;
+		this.calculateBasePricePlusAllServicesIncludedInBasePrice();
 	}
 	
-	public Double getBasePricePlusAllServicesIncludedInBasePrice(){
-		Double basePricePlusAllServicesIncludedInBasePrice = this.basePrice;
+	private void calculateServicesIncludedInBasePrice(){
+
+		for (ServiceType serviceType : this.servicesToBeAddedInBasePrice) {
+			
+			Double basePricePlusService = this.basePrice;
+			basePricePlusService += getCalculatedPrice(serviceType);
+			
+			this.servicePriceAddedInBasePriceMap.put(serviceType, basePricePlusService);
+		}
+	
+	}
+	
+	private void calculateBasePricePlusAllServicesIncludedInBasePrice(){
+		this.basePricePlusAllServicesIncludedInBasePrice = this.basePrice;
 		for(ServiceType serviceType : servicesToBeAddedInBasePrice){
 			
-			basePricePlusAllServicesIncludedInBasePrice += getCalculatedPrice(serviceType);
+			this.basePricePlusAllServicesIncludedInBasePrice += getCalculatedPrice(serviceType);
 			
 		}
-		return basePricePlusAllServicesIncludedInBasePrice;
 	}
 	
 	
