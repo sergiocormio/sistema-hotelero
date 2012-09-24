@@ -53,7 +53,10 @@ public class BudgetServiceImpl implements BudgetService {
 		List<ServiceType> servicesIncludedInBasePrice = ((ServiceTypeDao)this.serviceTypeDao).retrieveServicesIncludedInBasePrice();
 		budget.setServicesToBeAddedInBasePrice(servicesIncludedInBasePrice);
 		
+		budget.calculateServicesInCombinationWithBasePrice();
+		
 		alternative.setBudget(budget);
+		
 		return alternative;
 	}
 

@@ -71,15 +71,17 @@ public class TestBudgetService {
 		assertTrue(budget.getAdditionalServices().size() == 7);
 		assertTrue(budget.getServicesToBeAddedInBasePrice().size() == 2);
 		
-		for(int i = 0; i < budget.getServicesToBeAddedInBasePrice().size(); i++){
-			ServiceType serviceIncludedInBasePrice = budget.getServiceIncludedInBasePrice(i);
+		
+		for(ServiceType serviceIncludedInBasePrice : budget.getServicePriceAddedInBasePriceMap().keySet()){
+			Double price = budget.getServicePriceAddedInBasePriceMap().get(serviceIncludedInBasePrice);
+			
 			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perPerson)){
 				
-				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 510d);	
+				assertTrue(price.doubleValue() == 510d);	
 			}
 			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perNight)){
 				
-				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 480d);
+				assertTrue(price.doubleValue() == 480d);
 			}
 		}
 		
@@ -109,15 +111,16 @@ public class TestBudgetService {
 		assertTrue(budget.getAdditionalServices().size() == 7);
 		assertTrue(budget.getServicesToBeAddedInBasePrice().size() == 2);
 		
-		for(int i = 0; i < budget.getServicesToBeAddedInBasePrice().size(); i++){
-			ServiceType serviceIncludedInBasePrice = budget.getServiceIncludedInBasePrice(i);
+		for(ServiceType serviceIncludedInBasePrice : budget.getServicePriceAddedInBasePriceMap().keySet()){
+			Double price = budget.getServicePriceAddedInBasePriceMap().get(serviceIncludedInBasePrice);
+			
 			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perPerson)){
 				
-				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 1290d);	
+				assertTrue(price.doubleValue() == 1290d);	
 			}
 			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perNight)){
 				
-				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 1230d);
+				assertTrue(price.doubleValue() == 1230d);
 			}
 		}
 		
@@ -149,18 +152,19 @@ public class TestBudgetService {
 		assertTrue(budget.getAdditionalServices().size() == 7);
 		assertTrue(budget.getServicesToBeAddedInBasePrice().size() == 2);
 		
-		for(int i = 0; i < budget.getServicesToBeAddedInBasePrice().size(); i++){
-			ServiceType serviceIncludedInBasePrice = budget.getServiceIncludedInBasePrice(i);
+		
+		for(ServiceType serviceIncludedInBasePrice : budget.getServicePriceAddedInBasePriceMap().keySet()){
+			Double price = budget.getServicePriceAddedInBasePriceMap().get(serviceIncludedInBasePrice);
+			
 			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perPerson)){
 				
-				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 2630d);	
+				assertTrue(price.doubleValue() == 2630d);	
 			}
 			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perNight)){
 				
-				assertTrue(budget.getServicePriceAddedInBasePrice(i).doubleValue() == 2530d);
+				assertTrue(price.doubleValue() == 2530d);
 			}
 		}
-		
 		assertTrue(budget.getBasePricePlusAllServicesIncludedInBasePrice().doubleValue() == 2730d);
 		
 	}
