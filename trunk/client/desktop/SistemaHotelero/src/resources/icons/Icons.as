@@ -98,6 +98,11 @@ package resources.icons
 		[Embed(source='resources/icons/advertisment.png')]
 		public static var promotions:Class;
 		
+		//-------- Rooms' Icons ------------------
+		[Bindable]
+		[Embed(source='resources/icons/questionmark_32.png')]
+		public static var availability:Class;
+		
 		public function Icons()
 		{
 		}
