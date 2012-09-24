@@ -200,7 +200,22 @@ public class Alternative implements Comparable<Alternative>{
 	}
 
 	
-	
+	public List<Room> getDistinctRooms(){
+		List<Room> rooms = new ArrayList<Room>();
+		for (Occupation occupation : occupations) {
+			if(rooms.isEmpty()){
+				rooms.add(occupation.getId().getRoom());
+			}
+			else{
+				Room lastRoom = rooms.get(rooms.size()-1);
+				if(lastRoom.getNumber() != occupation.getId().getRoom().getNumber()){
+			
+					rooms.add(occupation.getId().getRoom());
+				}
+			}
+		}
+		return rooms;
+	}
 
 //	public int calculateRoomChanges() {
 //		int roomChanges = 0;
