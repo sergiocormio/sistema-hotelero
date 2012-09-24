@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 
 import com.cdz.sh.dao.AllDaoTests;
 import com.cdz.sh.mail.TestSendMail;
-import com.cdz.sh.migration.TestMigrationService;
+import com.cdz.sh.migration.TestMigrationServiceZipUtil;
 import com.cdz.sh.report.TestCustomersReport;
 import com.cdz.sh.service.AllServiceTests;
 
@@ -18,7 +18,7 @@ import com.cdz.sh.service.AllServiceTests;
     // Mail
     TestSendMail.class,
     // Migration
-    TestMigrationService.class,
+    TestMigrationServiceZipUtil.class,
     // Report
     TestCustomersReport.class
 })

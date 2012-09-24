@@ -1,26 +1,47 @@
 package com.cdz.sh.service.impl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
 import com.cdz.sh.dao.crud.EntityManagerSingleton;
 import com.cdz.sh.service.MigrationService;
+import com.cdz.sh.util.ZipUtil;
 
 public class MigrationServiceImpl implements MigrationService {
 
-	private static final String FOLDER_NAME = "foldername";
+	
+	private static final String CURRENT_PATH = "./";
+	private static final String DB_FOLDER_NAME = "dellosky";
 
 	@Override
-	public void backupDatabase(String absolutePath) {
-		EntityManager entityManager = EntityManagerSingleton.getInstance();
+	public void backupDatabase(String destZipFile) {
 		
-		entityManager.getTransaction().begin();
-		
-		Query nativeQuery = EntityManagerSingleton.getInstance().createNativeQuery("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(:foldername)");
-		nativeQuery.setParameter(FOLDER_NAME, absolutePath);
-		nativeQuery.executeUpdate();
-		
-		entityManager.getTransaction().commit();
+		ZipUtil.zipFolder(CURRENT_PATH + DB_FOLDER_NAME, destZipFile);
 	}
+	
+	@Override
+	public void restoreDatabase(String sourceZipFile) {
+		
+		EntityManagerSingleton.shutDown();
+		
+		ZipUtil.unzipFolder(sourceZipFile, CURRENT_PATH);
+		
+		EntityManagerSingleton.getInstanceRestartingDatabase();
+	}
+	
+	
+//	private void deleteFolder(String path) {
+//	    File folder = new File(path);
+//	    
+//		File[] files = folder.listFiles();
+//	    if(files!=null) { //some JVMs return null for empty dirs
+//	        for(File f: files) {
+//	            if(f.isDirectory()) {
+//	                deleteFolder(f.getAbsolutePath());
+//	            } else {
+//	                f.delete();
+//	            }
+//	        }
+//	    }
+//	    folder.delete();
+//	}
+
 
 }
