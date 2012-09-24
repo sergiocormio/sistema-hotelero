@@ -1,9 +1,8 @@
 package com.cdz.sh.service.core;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -11,12 +10,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.cdz.sh.dao.crud.EntityManagerSingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
-import com.cdz.sh.model.Room;
 import com.cdz.sh.service.OccupationService;
-import com.cdz.sh.service.ReservationFormService;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_AllBusy_SameRoomType;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_AllEmpty_SameRoomType;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_LessDaysThanExpected_SameRoomType;
@@ -26,11 +24,10 @@ import com.cdz.sh.service.core.scenarios.ScenarioBuilder_Rooms_2_3_busy_SameRoom
 import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_InvalidRoomChangesTwoAlternatives_SameRoomType;
 import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_InvalidRoomChanges_FirstDay_SameRoomType;
 import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_RoomChangesExceeded_SameRoomType;
-import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_ValidRoomChangesTwoAlternatives_SameRoomType;
 import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_ValidRoomChange_LastDay_SameRoomType;
+import com.cdz.sh.service.core.scenarios.roomchange.ScenarioBuilder_ValidRoomChangesTwoAlternatives_SameRoomType;
 import com.cdz.sh.service.exception.NoAvailableAlternativesException;
 import com.cdz.sh.service.impl.OccupationServiceImpl;
-import com.cdz.sh.service.impl.ReservationFormServiceImpl;
 
 public class TestCore_SameRoomType {
 
@@ -39,6 +36,12 @@ public class TestCore_SameRoomType {
 	@Before
 	public void setUp() throws Exception {
 		this.occupationService = new OccupationServiceImpl();
+		
+		/**
+		 * need to clear DB before each test from this file
+		 */
+		EntityManagerSingleton.shutDown();
+		EntityManagerSingleton.getInstance();
 	}
 
 	

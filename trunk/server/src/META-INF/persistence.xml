@@ -17,6 +17,9 @@
 				value="update" Updates database (structure level)
 				-->
 			<property name="hibernate.hbm2ddl.auto" value="create" /> 
+			<property name="hibernate.generateDdl" value="true" />
+			
+			
 			<property name="hibernate.connection.username" value="" />
 			<property name="hibernate.connection.password" value="" />
 			
@@ -25,6 +28,7 @@
             <property name="hibernate.format_sql" value="true"/>
 			
 		</properties>
+		
 
 		
 	</persistence-unit>
