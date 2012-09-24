@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import model.Room;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.icons.Icons;
+			
+			import services.OccupationService;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			public var alternatives:ArrayCollection = new ArrayCollection();
+			
+			
+			protected function consultButton_clickHandler(event:MouseEvent):void
+			{
+				//TODO: Validate all form
+				//Call To the Service
+				var serv:OccupationService = new OccupationService();
+				serv.checkAvailability(dateFromChooser.selectedDate,dateToChooser.selectedDate,adultsQtyStepper.value,childrenQtyStepper.value,consult_resultHandler,faultHandler);
+			}
+			
+			private function consult_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedItem = null;
+				alternatives.removeAll();
+				alternatives.addAll(event.result as ArrayCollection);
+			}
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				Alert.show("Received fault: " + event.fault + "\n");
+			}
+			
+			protected function eraseButton_clickHandler(event:MouseEvent):void
+			{
+				alternatives.removeAll();
+			}
+			
+			
+			private function involvedRoomsFormat(item:Object,column:GridColumn):String
+			{
+				var distinctRooms:ArrayCollection = item [column.dataField] as ArrayCollection; 
+				var result:String = "";
+				if(distinctRooms != null){
+					for each (var room:Room in distinctRooms){
+						if(result!=""){ 
+							result += ", ";
+						}
+						result += room.number;
+					}
+				}
+				return result;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RadioButtonGroup id="singleOrMarital"/>
+	</fx:Declarations>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:VGroup width="100%">
+			<s:HGroup width="100%" height="100%" horizontalAlign="center">
+				<s:Form>
+					<s:layout>
+						<s:FormLayout gap="-14"/>
+					</s:layout>  
+					
+					<s:FormItem label="{loc.availability.dateFrom}:" required="true">
+						<mx:DateField id="dateFromChooser" width="120"
+									  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+									  formatString="{loc.dateFormat.toUpperCase()}"
+									  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+					</s:FormItem>
+					
+					<s:FormItem label="{loc.availability.dateTo}:" required="true">
+						<mx:DateField id="dateToChooser" width="120"
+									  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+									  formatString="{loc.dateFormat.toUpperCase()}"
+									  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+					</s:FormItem>
+					
+					<s:FormItem label="{loc.availability.variation}:" required="true">
+						<s:HGroup verticalAlign="middle">
+							<s:NumericStepper id="variationStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+							<s:Label text="{loc.availability.days}"/>				
+						</s:HGroup>
+					</s:FormItem>
+				</s:Form>
+				<s:Form>
+					<s:layout>
+						<s:FormLayout gap="-14"/>
+					</s:layout>  
+					
+					<s:FormItem label="{loc.availability.adultsQuantity}:" required="true">
+						<s:NumericStepper id="adultsQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+					</s:FormItem>
+					
+					<s:FormItem label="{loc.availability.childrenQuantity}:" required="true">
+						<s:NumericStepper id="childrenQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+					</s:FormItem>
+					
+					<s:FormItem label="{loc.availability.bed.plural}:">
+						<s:RadioButton id="single" groupName="singleOrMarital" label="{loc.availability.bed.single}" selected="true"/>
+						<s:RadioButton id="marital" groupName="singleOrMarital" label="{loc.availability.bed.marital}"/>
+					</s:FormItem>
+				</s:Form>
+			</s:HGroup>
+			<s:HGroup width="100%" horizontalAlign="center">
+				<s:Button id="consultButton" label="{loc.availability.consult}" click="consultButton_clickHandler(event)"/>
+				<s:Button id="eraseButton" label="{loc.availability.erase}" click="eraseButton_clickHandler(event)"/>
+			</s:HGroup>
+		</s:VGroup>
+		<s:VGroup width="100%">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{alternatives}">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="distinctRooms" headerText="{loc.alternative.involvedRooms}" labelFunction="involvedRoomsFormat"></s:GridColumn>
+						<s:GridColumn dataField="budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
+						<s:GridColumn dataField="dateFrom" headerText="{loc.alternative.dateFrom}"></s:GridColumn>
+						<s:GridColumn dataField="dateTo" headerText="{loc.alternative.dateTo}"></s:GridColumn>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+		</s:VGroup>
+	</mx:VDividedBox>
+</s:VGroup>

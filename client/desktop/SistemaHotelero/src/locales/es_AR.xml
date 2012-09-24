@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <locale>
+	<availability>
+	   	<singular>Disponibilidad</singular>
+    	<plural>Disponibilidades</plural>
+	</availability>
 	<boolean>
 		<falseValue>No</falseValue>
 		<trueValue>Si</trueValue>
@@ -13,6 +17,10 @@
     	<remove>Eliminar</remove>
     	<save>Guardar</save>
     </button>
+    <calendar>
+    	<singular>Calendario</singular>
+    	<plural>Calendarios</plural>
+    </calendar>
 	<country>
 	    <singular>País</singular>
 	    <plural>Países</plural>
@@ -113,6 +121,10 @@
 	    <plural>Regiones</plural>
 	    <name>Nombre</name>
     </region>
+    <reservationForm>
+    	<singular>Ficha de Reserva</singular>
+	    <plural>Fichas de Reserva</plural>
+    </reservationForm>
     <room>
    		<singular>Habitación</singular>
 	    <plural>Habitaciones</plural>

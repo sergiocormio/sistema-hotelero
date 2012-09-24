@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:forms="view.forms.*">
+	<fx:Script>
+		<![CDATA[
+			import resources.icons.Icons;
+			
+			[Bindable]
+			public var loc:Object;
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:ButtonBar dataProvider="{roomsViewStack}" requireSelection="true" iconPlacement="top" horizontalCenter="0" verticalCenter="0" height="100%">
+		<s:layout>
+			<s:TileLayout verticalGap="-1" requestedColumnCount="1"/>
+		</s:layout>
+	</s:ButtonBar>
+	
+	<mx:ViewStack id="roomsViewStack" borderStyle="none" width="100%" height="100%">
+		<s:NavigatorContent id="calendar" label="{loc.calendar.singular}" icon="{Icons.seasons}" width="100%" height="100%" >
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent id="availability" label="{loc.availability.singular}" icon="{Icons.availability}" width="100%" height="100%" >
+			<forms:AvailabilityForm width="100%" height="100%" loc="{loc}"/>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent id="reservationForms" label="{loc.reservationForm.plural}" icon="{Icons.seasons}" width="100%" height="100%" >
+		</s:NavigatorContent>
+	</mx:ViewStack>
+</s:HGroup>

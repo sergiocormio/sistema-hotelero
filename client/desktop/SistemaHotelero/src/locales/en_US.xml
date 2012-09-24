@@ -1,9 +1,35 @@
 <?xml version="1.0"?>
 <locale>
+	<alternative>
+		<dateTo>Date To</dateTo>
+		<dateFrom>Date From</dateFrom>
+		<involvedRooms>Involved Rooms</involvedRooms>
+	</alternative>
+	<availability>
+	   	<singular>Availability</singular>
+    	<plural>Availabilities</plural>
+    	<days>Days</days>
+    	<dateFrom>Date From</dateFrom>
+    	<dateTo>Date To</dateTo>
+    	<adultsQuantity>Adults Quantity</adultsQuantity>
+    	<childrenQuantity>Children Quantity</childrenQuantity>
+    	<variation>Availability +/-</variation>
+    	<consult>Consult</consult>
+    	<erase>Erase</erase>
+    	<bed>
+    		<singular>Bed</singular>
+    		<plural>Beds</plural>
+	    	<single>Single</single>
+	    	<marital>Marital</marital>
+    	</bed>
+	</availability>
 	<boolean>
 		<falseValue>No</falseValue>
 		<trueValue>Yes</trueValue>
 	</boolean>
+	<budget>
+		<basePrice>Base Price</basePrice>
+	</budget>
     <button>
     	<add>Add</add>
     	<cancel>Cancel</cancel>
@@ -13,6 +39,10 @@
     	<remove>Remove</remove>
     	<save>Save</save>
     </button>
+    <calendar>
+    	<singular>Calendar</singular>
+    	<plural>Calendars</plural>
+    </calendar>
     <configuration>
     	<singular>Configuration</singular>
 	    <plural>Configurations</plural>
@@ -119,6 +149,10 @@
 	    <plural>Regions</plural>
 	    <name>Name</name>
     </region>
+    <reservationForm>
+    	<singular>Reservation Form</singular>
+	    <plural>Reservation Forms</plural>
+    </reservationForm>
     <room>
    		<singular>Room</singular>
 	    <plural>Rooms</plural>
