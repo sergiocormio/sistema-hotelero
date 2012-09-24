@@ -9,7 +9,9 @@
 	<fx:Script>
 		<![CDATA[
 			import model.ServiceType;
+			import model.ServiceTypeModality;
 			
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -18,6 +20,8 @@
 			
 			import services.crud.ServiceTypeService;
 			
+			import utils.WindowsUtils;
+			
 			[Bindable]
 			public var loc:Object;
 			
@@ -25,6 +29,9 @@
 			public var isUpdate:Boolean;
 			
 			private var _currentServiceType:ServiceType;
+			
+			[Bindable]
+			private var modalities:ArrayCollection; 
 			
 			public function get currentServiceType():ServiceType
 			{
@@ -35,7 +42,7 @@
 			{
 				_currentServiceType = value;
 				serviceTypeText.text = _currentServiceType.name;
-				modalityText.text = _currentServiceType.modality;
+				WindowsUtils.autoSelectDropDownList(modalityList,_currentServiceType.modality);
 				includedInBudget.selected = _currentServiceType.includedInBudget;
 				includedInBasePrice.selected = _currentServiceType.includedInBasePrice;
 				descriptionText.text = _currentServiceType.description;
@@ -55,7 +62,7 @@
 				//}
 				
 				_currentServiceType.name = serviceTypeText.text;
-				_currentServiceType.modality = modalityText.text;
+				_currentServiceType.modality = (modalityList.selectedItem as ServiceTypeModality).id;
 				_currentServiceType.includedInBudget = includedInBudget.selected;
 				_currentServiceType.includedInBasePrice = includedInBasePrice.selected;
 				_currentServiceType.price = Number(priceText.text);
@@ -87,6 +94,21 @@
 			{
 				currentServiceType = new ServiceType();
 				//serviceTypeText.setFocus();
+				loadModalities();
+			}
+			
+			private function loadModalities():void{
+				modalities = new ArrayCollection();
+				for each (var id:String in ServiceTypeModality.modalityIds){
+					modalities.addItem(new ServiceTypeModality(id, loc));
+				}
+				
+				//select by default the first one if there no currentServiceType
+				if(currentServiceType == null || currentServiceType.modality == null){
+					modalityList.selectedIndex = 0;
+				}else{
+					WindowsUtils.autoSelectDropDownList(modalityList,currentServiceType.modality);
+				}
 			}
 			
 		]]>
@@ -108,8 +130,12 @@
 				<s:TextInput id="priceText"/>
 			</s:FormItem>
 		
-			<s:FormItem label="{loc.serviceType.modality}:" required="true">
-				<s:TextInput id="modalityText"/>
+			<s:FormItem label="{loc.serviceType.modality.singular}:" required="true">
+				<s:HGroup verticalAlign="middle">
+					<s:DropDownList id="modalityList" dataProvider="{modalities}" width="150"/>
+					<s:Button width="24" height="24" click="loadModalities();"
+							  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+				</s:HGroup>
 			</s:FormItem>
 
 			<s:FormItem label="{loc.serviceType.includedInBudget}:" required="true">

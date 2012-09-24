@@ -90,6 +90,13 @@
 				}
 				
 			}
+			
+			private function modalityFormat(item:Object,column:GridColumn):String
+			{
+				var value:String = item [column.dataField] as String; 
+				return loc.serviceType.modality[value];
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -102,7 +109,7 @@
 					<s:ArrayList>
 						<s:GridColumn dataField="name" headerText="{loc.serviceType.singular}"></s:GridColumn>
 						<s:GridColumn dataField="description" headerText="{loc.serviceType.description}"></s:GridColumn>
-						<s:GridColumn dataField="modality" headerText="{loc.serviceType.modality}"></s:GridColumn>
+						<s:GridColumn dataField="modality" headerText="{loc.serviceType.modality.singular}" labelFunction="modalityFormat"></s:GridColumn>
 						<s:GridColumn dataField="price" headerText="{loc.serviceType.price}"></s:GridColumn>
 						<s:GridColumn dataField="includedInBudget" headerText="{loc.serviceType.includedInBudget}" labelFunction="booleanFormat"></s:GridColumn>
 						<s:GridColumn dataField="includedInBasePrice" headerText="{loc.serviceType.includedInBasePrice}" labelFunction="booleanFormat"></s:GridColumn>

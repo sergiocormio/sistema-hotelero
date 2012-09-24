@@ -6,6 +6,7 @@ package utils
 	import mx.managers.PopUpManager;
 	
 	import spark.components.ComboBox;
+	import spark.components.DropDownList;
 	
 
 	public class WindowsUtils
@@ -45,5 +46,27 @@ package utils
 				combo.selectedItem = obj;
 			}
 		}
+		
+		public static function autoSelectDropDownList(list:DropDownList,id:String,idFieldName:String="id"):void{
+			if(id == null){
+				return;
+			}
+			
+			var found:Boolean = false;
+			var i:int = 0;	
+			for each (var objAux:Object in list.dataProvider){
+				if(objAux[idFieldName] == id){
+					list.selectedItem = objAux;
+					list.selectedIndex = i;
+					found = true;
+					break;
+				}
+				i++;
+			}
+			if(!found){
+				list.selectedItem = id;
+			}
+		}
+		
 	}
 }

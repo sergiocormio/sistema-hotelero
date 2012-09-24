@@ -145,7 +145,15 @@
 	    <plural>Service Types</plural>
 	    <name>Name</name>
 	    <description>Description</description>
-	    <modality>Modality</modality>
+	    <modality>
+	    	<singular>Modality</singular>
+	    	<plural>Modalities</plural>
+	    	<perPerson>Per Person</perPerson>
+	    	<perTime>Per Time</perTime>
+	    	<perNight>Per Night</perNight>
+	    	<perUnit>Per Unit</perUnit>
+	    	<perRoom>Per Room</perRoom>
+	    </modality>
 	    <price>Price</price>
 	    <includedInBudget>Included In Budget</includedInBudget>
 	    <includedInBasePrice>Included In Base Price</includedInBasePrice>
