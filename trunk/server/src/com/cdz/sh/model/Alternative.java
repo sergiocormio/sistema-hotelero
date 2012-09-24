@@ -242,7 +242,15 @@ public class Alternative implements Comparable<Alternative>{
 //		}
 //		return roomChanges;
 //	}
-	
-	
-		
+
+	//This setter is just for BlazeDS
+	public void setOccupations(List<Occupation> occupations) {
+		this.occupations = occupations;
+	}
+
+	//This setter is just for BlazeDS
+	public void setDistinctRooms(List<Room> distinctRooms) {
+		this.distinctRooms = distinctRooms;
+	}
+
 }

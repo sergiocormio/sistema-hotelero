@@ -93,4 +93,11 @@
 			<scope>application</scope>
 		</properties>
     </destination>
+    
+     <destination id="occupationService">
+		<properties>
+			<source>com.cdz.sh.service.impl.OccupationServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 </service>
