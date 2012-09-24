@@ -14,14 +14,14 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:ButtonBar dataProvider="{configViewStack}" requireSelection="true" iconPlacement="top" direction="rtl" horizontalCenter="0"
-				 verticalCenter="0">
+	<s:ButtonBar dataProvider="{configViewStack}" requireSelection="true" iconPlacement="top" horizontalCenter="0"
+				 verticalCenter="0" height="100%">
 		<s:layout>
-			<s:VerticalLayout gap="-1" />
+			<s:TileLayout verticalGap="-1" requestedColumnCount="1"/>
 		</s:layout>
 	</s:ButtonBar>
 	<mx:ViewStack id="configViewStack" borderStyle="none" width="100%" height="100%">
-		<s:NavigatorContent id="seasons" label="{loc.season.plural}" icon="{Icons.seasons}" width="100%" height="100%">
+		<s:NavigatorContent id="seasons" label="{loc.season.plural}" icon="{Icons.seasons}" width="100%" height="100%" >
 			<crud:SeasonCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
