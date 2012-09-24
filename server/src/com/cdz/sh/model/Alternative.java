@@ -16,6 +16,8 @@ public class Alternative implements Comparable<Alternative>{
 	private int roomChanges;
 	private int newRoomAvailableDays;
 	
+	private List<Room> distinctRooms;
+	
 	
 	public Alternative(int peopleQuantity){
 		
@@ -25,6 +27,7 @@ public class Alternative implements Comparable<Alternative>{
 		roomChanges = 0;
 		lastRoom = null;
 		newRoomAvailableDays = 0;
+		distinctRooms = new ArrayList<Room>();
 	}
 		
 
@@ -33,12 +36,12 @@ public class Alternative implements Comparable<Alternative>{
 	}
 
 	public void addOccupation(Occupation occupation) {
-		if(this.occupations == null){
-			this.occupations = new ArrayList<Occupation>();
-		}
+		
 		this.occupations.add(occupation);
 		
 		Room room = occupation.getId().getRoom();
+		
+		updateDistinctRooms(room);
 		updateRoomChanges(room);
 		updateValidRoomChange(room);
 		
@@ -47,6 +50,21 @@ public class Alternative implements Comparable<Alternative>{
 		}
 	}
 	
+	
+	private void updateDistinctRooms(Room room) {
+
+		if(this.distinctRooms.isEmpty()){
+			this.distinctRooms.add(room);
+		}
+		else {
+			Room lastRoom = this.distinctRooms.get(this.distinctRooms.size()-1);
+			if(lastRoom.getNumber() != room.getNumber()){
+				this.distinctRooms.add(room);
+			}
+		}
+	}
+
+
 	private void updateValidRoomChange(Room room) {
 		if(lastRoom != null && roomChanges > 0){
 			if(room.equals(lastRoom)){
@@ -144,6 +162,12 @@ public class Alternative implements Comparable<Alternative>{
 	public boolean hasValidNumberOfRoomChanges(){
 		return (this.roomChanges < 3);
 	}
+	
+	
+	public List<Room> getDistinctRooms() {
+		return distinctRooms;
+	}
+
 
 	@Override
 	public Alternative clone() {
@@ -200,22 +224,6 @@ public class Alternative implements Comparable<Alternative>{
 	}
 
 	
-	public List<Room> getDistinctRooms(){
-		List<Room> rooms = new ArrayList<Room>();
-		for (Occupation occupation : occupations) {
-			if(rooms.isEmpty()){
-				rooms.add(occupation.getId().getRoom());
-			}
-			else{
-				Room lastRoom = rooms.get(rooms.size()-1);
-				if(lastRoom.getNumber() != occupation.getId().getRoom().getNumber()){
-			
-					rooms.add(occupation.getId().getRoom());
-				}
-			}
-		}
-		return rooms;
-	}
 
 //	public int calculateRoomChanges() {
 //		int roomChanges = 0;
