@@ -48,14 +48,22 @@ public class SeasonDaoImpl extends AbstractCrudDao<Season, Long> implements Seas
 		try {
 			EntityManagerSingleton.getInstance().getTransaction().begin();
 			
-			String strQuery = "SELECT s FROM Season s WHERE (s.dateFrom <= :dateFrom and s.dateTo >= :dateFrom) OR" +
+			String strQuery = "SELECT s FROM Season s WHERE ((s.dateFrom <= :dateFrom and s.dateTo >= :dateFrom) OR" +
 					" (s.dateFrom <= :dateTo and s.dateTo >= :dateTo) OR" +
-					" (s.dateFrom >= :dateFrom and s.dateTo <= :dateTo)";
+					" (s.dateFrom >= :dateFrom and s.dateTo <= :dateTo))";
+			
+			if(season.getId() != null){
+				strQuery = strQuery.concat(" AND s.id != :id");
+			}
 			
 			TypedQuery<Season> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Season.class);
 			
 			query = query.setParameter("dateFrom", season.getDateFrom());
 			query = query.setParameter("dateTo", season.getDateTo());
+			
+			if(season.getId() != null){
+				query = query.setParameter("id", season.getId());
+			}
 			
 			List<Season> seasons = query.getResultList();
 			EntityManagerSingleton.getInstance().getTransaction().commit();

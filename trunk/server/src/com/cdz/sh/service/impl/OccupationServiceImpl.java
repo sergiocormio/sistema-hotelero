@@ -20,6 +20,7 @@ import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.BudgetService;
 import com.cdz.sh.service.OccupationService;
 import com.cdz.sh.service.exception.NoAvailableAlternativesException;
+import com.cdz.sh.service.exception.NoRateException;
 import com.cdz.sh.util.DateUtil;
 
 /**
@@ -57,7 +58,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	}
 
 	@Override
-	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException {
+	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException, NoRateException {
 		
 		List<Room> roomsByCapacity = this.roomDao.retrieveRoomsByCapacity(adultsQty, childrenQty);
 		
@@ -190,7 +191,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 
 	private List<Alternative> createAlternatives(List<Occupation> possibleOccupations, Date dateFrom, Date dateTo, int adultsQty, int childrenQty)
-															throws DaoException, NoAvailableAlternativesException {
+															throws DaoException, NoAvailableAlternativesException, NoRateException {
 		
 		Date date = dateFrom;
 		
@@ -229,7 +230,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 
 
-	private List<Alternative> addBudgets(List<Alternative> alternatives) throws DaoException {
+	private List<Alternative> addBudgets(List<Alternative> alternatives) throws DaoException, NoRateException {
 		
 		BudgetService budgetService = new BudgetServiceImpl();
 		

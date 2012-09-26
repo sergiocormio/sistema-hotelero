@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
-import com.cdz.sh.model.Budget;
+import com.cdz.sh.service.exception.NoRateException;
 
 public interface BudgetService {
 	
@@ -14,7 +14,7 @@ public interface BudgetService {
 	 * @param alternative
 	 * @return the given alternative with the related budget set
 	 */
-	public Alternative populateBudget(Alternative alternative) throws DaoException;
+	public Alternative populateBudget(Alternative alternative) throws DaoException, NoRateException;
 	
 	/**
 	 * Populates the budgets of the given alternatives
@@ -22,6 +22,6 @@ public interface BudgetService {
 	 * @param alternatives
 	 * @return the given alternatives with the related budgets set
 	 */
-	public List<Alternative> populatesBudgets(List<Alternative> alternatives) throws DaoException;
+	public List<Alternative> populatesBudgets(List<Alternative> alternatives) throws DaoException, NoRateException;
 
 }

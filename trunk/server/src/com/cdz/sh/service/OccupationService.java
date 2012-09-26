@@ -8,6 +8,7 @@ import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.service.exception.NoAvailableAlternativesException;
+import com.cdz.sh.service.exception.NoRateException;
 
 
 /**
@@ -38,8 +39,9 @@ public interface OccupationService extends CrudService<Occupation, OccupationPK>
 	 * @param peopleQty
 	 * @param variance
 	 * @return
+	 * @throws NoRateException 
 	 */
-	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException;
+	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException, NoRateException;
 	
 	
 
