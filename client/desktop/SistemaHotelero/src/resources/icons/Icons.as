@@ -103,6 +103,14 @@ package resources.icons
 		[Embed(source='resources/icons/questionmark_32.png')]
 		public static var availability:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/go-icon 24.png')]
+		public static var go:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/cross.png')]
+		public static var clean:Class;
+		
 		public function Icons()
 		{
 		}

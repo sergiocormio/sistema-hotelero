@@ -44,5 +44,16 @@ package utils
 			df.dateStyle = DateTimeStyle.NONE;
 			return df.format(date);
 		}
+		
+		public static function rollDaysToDate(date:Date,days:int):Date{
+			var mili:int = 1000;
+			var secs:int = 60;
+			var mins:int = 60;
+			var hours:int = 24;
+			var day:int = hours * mins * secs * mili;
+			var result:Date = new Date();
+			result.setTime(date.getTime() + (day * days));
+			return result;
+		}
 	}
 }

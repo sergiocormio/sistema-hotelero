@@ -15,7 +15,7 @@
     	<childrenQuantity>Children Quantity</childrenQuantity>
     	<variation>Availability +/-</variation>
     	<consult>Consult</consult>
-    	<erase>Erase</erase>
+    	<clean>Clean</clean>
     	<bed>
     		<singular>Bed</singular>
     		<plural>Beds</plural>

@@ -13,73 +13,10 @@ package model
 		private var _newRoomAvailableDays:int;
 		private var _distinctRooms:ArrayCollection;
 		
-		//other attributtes
-		private var _dateFrom:Date;
-		private var _dateTo:Date;
-		
 		public function Alternative()
 		{
 		}
 		
-		public function get dateTo():Date
-		{
-			if(_dateTo == null){
-				var oc:Occupation = getMaxOccupation();
-				if(oc!=null){
-					_dateTo = oc.id.date;
-				}
-			}
-			return _dateTo;
-		}
-		
-		private function getMinOccupation():Occupation{
-			var result:Occupation = null;
-			
-			if(occupations!=null){
-				for each (var oc:Occupation in occupations){
-					if(result==null || result.id.date > oc.id.date){
-						result = oc;
-					}
-				}
-			}
-			return result;
-		}
-		
-		private function getMaxOccupation():Occupation{
-			var result:Occupation = null;
-			
-			if(occupations!=null){
-				for each (var oc:Occupation in occupations){
-					if(result==null || result.id.date < oc.id.date){
-						result = oc;
-					}
-				}
-			}
-			return result;
-		}
-		
-		public function set dateTo(value:Date):void
-		{
-			_dateTo = value;
-		}
-		
-		public function get dateFrom():Date
-		{
-			if(_dateFrom == null){
-				var oc:Occupation = getMinOccupation();
-				if(oc!=null){
-					_dateFrom = oc.id.date;
-				}
-			}
-			return _dateFrom;
-		}
-		
-		public function set dateFrom(value:Date):void
-		{
-			_dateFrom = value;
-		}
-
-
 		//GETTERS AND SETTERS
 		public function get distinctRooms():ArrayCollection
 		{
