@@ -6,6 +6,7 @@
 		<![CDATA[
 			import locales.Locale;
 			
+			import model.Occupation;
 			import model.Room;
 			
 			import mx.collections.ArrayCollection;
@@ -17,25 +18,55 @@
 			
 			import services.OccupationService;
 			
+			import utils.DateRange;
+			import utils.DateTimeUtils;
+			
 			[Bindable]
 			public var loc:Object;
 			
 			[Bindable]
 			public var alternatives:ArrayCollection = new ArrayCollection();
 			
+			[Bindable]
+			public var outOfPeriodAlternatives:ArrayCollection = new ArrayCollection();
+			
+			private var nextRangeIndex:int;
+			private var outOfPeriodRanges:ArrayCollection;
+			
 			
 			protected function consultButton_clickHandler(event:MouseEvent):void
 			{
 				//TODO: Validate all form
+				outOfPeriodAlternatives.removeAll();
+				outOfPeriodRanges = getOutOfPeriodRanges(variationStepper.value);
+				nextRangeIndex = -1;
 				//Call To the Service
 				var serv:OccupationService = new OccupationService();
 				serv.checkAvailability(dateFromChooser.selectedDate,dateToChooser.selectedDate,adultsQtyStepper.value,childrenQtyStepper.value,consult_resultHandler,faultHandler);
+			}
+			
+			private function consultOutOfPeriod_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid2.selectedItem = null;
+				outOfPeriodAlternatives.addAll(event.result as ArrayCollection);
+				getNextAlternatives();
+				
+			}
+			
+			private function getNextAlternatives():void{
+				//other alternatives
+				nextRangeIndex++;
+				if(nextRangeIndex<outOfPeriodRanges.length){
+					var range:DateRange = outOfPeriodRanges.getItemAt(nextRangeIndex) as DateRange;
+					var serv:OccupationService = new OccupationService();
+					serv.checkAvailability(range.dateFrom,range.dateTo,adultsQtyStepper.value,childrenQtyStepper.value,consultOutOfPeriod_resultHandler,faultHandler);
+				}
 			}
 			
 			private function consult_resultHandler(event:ResultEvent,token:Object=null):void {
 				grid.selectedItem = null;
 				alternatives.removeAll();
 				alternatives.addAll(event.result as ArrayCollection);
+				getNextAlternatives();
 			}
 			
 			// Handle a message fault.
@@ -43,9 +74,10 @@
 				Alert.show("Received fault: " + event.fault + "\n");
 			}
 			
-			protected function eraseButton_clickHandler(event:MouseEvent):void
+			protected function cleanButton_clickHandler(event:MouseEvent):void
 			{
 				alternatives.removeAll();
+				outOfPeriodAlternatives.removeAll();
 			}
 			
 			
@@ -60,6 +92,58 @@
 						}
 						result += room.number;
 					}
+				}
+				return result;
+			}
+			
+			private function dateFromFormat(item:Object,column:GridColumn):String
+			{
+				var occupations:ArrayCollection = item [column.dataField] as ArrayCollection; 
+				var result:String = "";
+				var dateFrom:Date = null;
+				if(occupations != null){
+					for each (var oc:Occupation in occupations){
+						if(dateFrom==null || dateFrom > oc.id.date){
+							dateFrom = oc.id.date;
+							result = DateTimeUtils.formatDateWithPattern(dateFrom,loc.dateFormat);
+						}
+					}
+				}
+				return result;
+			}
+			
+			private function dateToFormat(item:Object,column:GridColumn):String
+			{
+				var occupations:ArrayCollection = item [column.dataField] as ArrayCollection; 
+				var result:String = "";
+				var dateFrom:Date = null;
+				if(occupations != null){
+					for each (var oc:Occupation in occupations){
+						if(dateFrom==null || dateFrom < oc.id.date){
+							dateFrom = oc.id.date;
+							result = DateTimeUtils.formatDateWithPattern(dateFrom,loc.dateFormat);
+						}
+					}
+				}
+				return result;
+			}
+			
+			private function getOutOfPeriodRanges(variation:int):ArrayCollection{
+				var result:ArrayCollection = new ArrayCollection();
+				var rangeAux:DateRange;
+				for(var i:int = 1;i<=variation;i++){
+					rangeAux = new DateRange(dateFromChooser.selectedDate,DateTimeUtils.rollDaysToDate(dateToChooser.selectedDate ,i));
+					result.addItem(rangeAux);
+					rangeAux = new DateRange(DateTimeUtils.rollDaysToDate(dateFromChooser.selectedDate,i),DateTimeUtils.rollDaysToDate(dateToChooser.selectedDate,i));
+					result.addItem(rangeAux);
+					rangeAux = new DateRange(DateTimeUtils.rollDaysToDate(dateFromChooser.selectedDate,i),dateToChooser.selectedDate);
+					result.addItem(rangeAux);
+					rangeAux = new DateRange(dateFromChooser.selectedDate,DateTimeUtils.rollDaysToDate(dateToChooser.selectedDate, (-1 * i)));
+					result.addItem(rangeAux);
+					rangeAux = new DateRange(DateTimeUtils.rollDaysToDate(dateFromChooser.selectedDate,(-1 * i)),DateTimeUtils.rollDaysToDate(dateToChooser.selectedDate , (-1 * i)));
+					result.addItem(rangeAux);
+					rangeAux = new DateRange(DateTimeUtils.rollDaysToDate(dateFromChooser.selectedDate,(-1 * i)),dateToChooser.selectedDate);
+					result.addItem(rangeAux);
 				}
 				return result;
 			}
@@ -118,8 +202,8 @@
 				</s:Form>
 			</s:HGroup>
 			<s:HGroup width="100%" horizontalAlign="center">
-				<s:Button id="consultButton" label="{loc.availability.consult}" click="consultButton_clickHandler(event)"/>
-				<s:Button id="eraseButton" label="{loc.availability.erase}" click="eraseButton_clickHandler(event)"/>
+				<s:Button id="consultButton" label="{loc.availability.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+				<s:Button id="cleanButton" label="{loc.availability.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
 			</s:HGroup>
 		</s:VGroup>
 		<s:VGroup width="100%">
@@ -128,8 +212,18 @@
 					<s:ArrayList>
 						<s:GridColumn dataField="distinctRooms" headerText="{loc.alternative.involvedRooms}" labelFunction="involvedRoomsFormat"></s:GridColumn>
 						<s:GridColumn dataField="budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
-						<s:GridColumn dataField="dateFrom" headerText="{loc.alternative.dateFrom}"></s:GridColumn>
-						<s:GridColumn dataField="dateTo" headerText="{loc.alternative.dateTo}"></s:GridColumn>
+						<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateFrom}" labelFunction="dateFromFormat"></s:GridColumn>
+						<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateTo}" labelFunction="dateToFormat"></s:GridColumn>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+			<s:DataGrid id="grid2" width="100%" height="100%" dataProvider="{outOfPeriodAlternatives}">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="distinctRooms" headerText="{loc.alternative.involvedRooms}" labelFunction="involvedRoomsFormat"></s:GridColumn>
+						<s:GridColumn dataField="budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
+						<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateFrom}" labelFunction="dateFromFormat"></s:GridColumn>
+						<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateTo}" labelFunction="dateToFormat"></s:GridColumn>
 					</s:ArrayList>
 				</s:columns>
 			</s:DataGrid>
