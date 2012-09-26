@@ -15,6 +15,7 @@ import com.cdz.sh.model.Rate;
 import com.cdz.sh.model.RoomType;
 import com.cdz.sh.model.ServiceType;
 import com.cdz.sh.service.BudgetService;
+import com.cdz.sh.service.exception.NoRateException;
 
 public class BudgetServiceImpl implements BudgetService {
 
@@ -27,7 +28,7 @@ public class BudgetServiceImpl implements BudgetService {
 	}
 
 	@Override
-	public Alternative populateBudget(Alternative alternative) throws DaoException {
+	public Alternative populateBudget(Alternative alternative) throws DaoException, NoRateException {
 		
 		Budget budget = new Budget(alternative);
 		
@@ -41,7 +42,11 @@ public class BudgetServiceImpl implements BudgetService {
 			if(!nextRoomType.equals(roomType)){
 				roomType = nextRoomType;
 				rate = this.rateDao.retrieveRate(nextRoomType, occupation.getId().getDate());
+				if(rate == null){
+					throw new NoRateException("There is no rate that matches with the given room type and/or the date range.");
+				}
 			}
+			
 			basePrice += rate.getPrice();
 		}
 		budget.setBasePrice(basePrice);
@@ -63,7 +68,7 @@ public class BudgetServiceImpl implements BudgetService {
 
 
 	@Override
-	public List<Alternative> populatesBudgets(List<Alternative> alternatives) throws DaoException {
+	public List<Alternative> populatesBudgets(List<Alternative> alternatives) throws DaoException, NoRateException {
 		
 		for (Alternative alternative : alternatives) {
 			this.populateBudget(alternative);

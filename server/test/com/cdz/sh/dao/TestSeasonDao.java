@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.cdz.sh.dao.crud.EntityManagerSingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.SeasonDaoImpl;
 import com.cdz.sh.model.Season;
@@ -19,6 +20,12 @@ public class TestSeasonDao {
 	@Before
 	public void setUp() throws Exception {
 		this.seasonDao = new SeasonDaoImpl();
+		
+		/**
+		 * need to clear DB before each test from this file
+		 */
+		EntityManagerSingleton.shutDown();
+		EntityManagerSingleton.getInstance();
 	}
 
 	@After
@@ -220,7 +227,7 @@ public class TestSeasonDao {
 	 *  
 	 * @throws DaoException
 	 */
-	@Test(expected=DaoException.class)
+	@Test
 	public void testUpdateSeasonOverLapDateFrom() throws DaoException {
 	
 		Season createdSeason = null;
@@ -252,7 +259,7 @@ public class TestSeasonDao {
 	 *  
 	 * @throws DaoException
 	 */
-	@Test(expected=DaoException.class)
+	@Test
 	public void testUpdateSeasonOverLapDateTo() throws DaoException {
 	
 		Season createdSeason = null;
@@ -284,7 +291,7 @@ public class TestSeasonDao {
 	 *  
 	 * @throws DaoException
 	 */
-	@Test(expected=DaoException.class)
+	@Test
 	public void testUpdateSeason_SeasonCreatedIncludedInSeasonToCreate() throws DaoException {
 	
 		Season createdSeason = null;
@@ -316,7 +323,7 @@ public class TestSeasonDao {
 	 *  
 	 * @throws DaoException
 	 */
-	@Test(expected=DaoException.class)
+	@Test
 	public void testUpdateSeason_SeasonToCreateIncludedInSeasonCreated() throws DaoException {
 	
 		Season createdSeason = null;

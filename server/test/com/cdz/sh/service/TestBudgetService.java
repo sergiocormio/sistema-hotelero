@@ -15,6 +15,7 @@ import org.junit.Test;
 import com.cdz.sh.dao.DummyScenarioBuilder;
 import com.cdz.sh.dao.MasterDataFactory;
 import com.cdz.sh.dao.RoomDao;
+import com.cdz.sh.dao.crud.EntityManagerSingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Alternative;
@@ -23,6 +24,7 @@ import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.ServiceType;
 import com.cdz.sh.model.ServiceTypeModality;
+import com.cdz.sh.service.exception.NoRateException;
 import com.cdz.sh.service.impl.BudgetServiceImpl;
 
 public class TestBudgetService {
@@ -32,6 +34,12 @@ public class TestBudgetService {
 	
 	@Before
 	public void setUp() throws Exception {
+		
+		/**
+		 * need to clear DB before each test from this file
+		 */
+		EntityManagerSingleton.shutDown();
+		EntityManagerSingleton.getInstance();
 		
 		MasterDataFactory dataFactory = new MasterDataFactory();
 		dataFactory.createMasterData();		
@@ -49,7 +57,7 @@ public class TestBudgetService {
 	
 	
 	@Test
-	public void testGetBudgetCeroRoomTypeChange() throws DaoException {
+	public void testGetBudgetCeroRoomTypeChange() throws DaoException, NoRateException {
 				
 		Alternative alternative = new Alternative(4);
 		
@@ -89,7 +97,7 @@ public class TestBudgetService {
 	}
 	
 	@Test
-	public void testGetBudgetOneRoomTypeChange() throws DaoException {
+	public void testGetBudgetOneRoomTypeChange() throws DaoException, NoRateException {
 		
 		Alternative alternative = new Alternative(4);
 		
@@ -130,7 +138,7 @@ public class TestBudgetService {
 	
 	
 	@Test
-	public void testGetBudgetTwoRoomTypeChanges() throws DaoException {
+	public void testGetBudgetTwoRoomTypeChanges() throws DaoException, NoRateException {
 		
 		Alternative alternative = new Alternative(4);
 		
