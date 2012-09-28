@@ -40,6 +40,8 @@
 			import services.MasterDataService;
 			import services.crud.DocumentTypeService;
 			
+			import utils.Utils;
+			
 			private	var lastCustomer:Customer;
 			private var lastDocumentType:DocumentType;
 			
@@ -56,6 +58,9 @@
 				//customerService.channelSet = cs;
 				documentTypeService.channelSet = cs;
 				*/
+				//centers main window on screen
+				Utils.centerWindowOnScreen(this);
+				this.maximize();
 			}
 			
 			

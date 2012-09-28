@@ -1,9 +1,15 @@
 package utils
 {
+	import flash.desktop.NativeApplication;
+	import flash.display.Screen;
+	import flash.events.TimerEvent;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
 	import flash.utils.Dictionary;
+	import flash.utils.Timer;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
@@ -13,6 +19,9 @@ package utils
 	import mx.validators.NumberValidator;
 	
 	import spark.components.TextInput;
+	import spark.components.WindowedApplication;
+	import spark.components.gridClasses.GridColumn;
+	import spark.globalization.SortingCollator;
 
 	/**
 	 * Class to hold utility methods
@@ -107,9 +116,13 @@ package utils
 		/**
 		 * Replaces all ocurrencies of "find" for "replacement" in "source" string  
 		 */
-		public static function stringReplaceAll( source:String, find:String, replacement:String ) : String
+		public static function stringReplaceAll( source:String, find:Object, replacement:String ) : String
 		{
-			return source.split( find ).join( replacement );
+			if(source!=null){
+				return source.split( find ).join( replacement );
+			}else{
+				return source;
+			}
 		}
 		
 		/**
@@ -188,6 +201,25 @@ package utils
 		}
 		
 		/**
+		 *  Add all items from a Vector into an Array
+		 */ 
+		public static function vectorToArray(obj:Object):Array {
+			if (!obj) {
+				return [];
+			} else if (obj is Array) {
+				return obj as Array;
+			} else if (obj is Vector.<*>) {
+				var array:Array = new Array(obj.length);
+				for (var i:int = 0; i < obj.length; i++) {
+					array[i] = obj[i];
+				}
+				return array;
+			} else {
+				return [obj];
+			}
+		} 
+		
+		/**
 		 * Returns an ArrayCollection of all values within the specified dictionary.
 		 */ 
 		public static function getValuesFromDictionary(dic:Dictionary):ArrayCollection{
@@ -220,6 +252,119 @@ package utils
 			return allLines;
 		}
 		
+		/**
+		 * Navigates to some urls
+		 */ 
+		//Timer
+		private static var urlTimer:Timer = new Timer(100, 0); //180000 = 5 minutes;
+		private static var urlsToNavigate:ArrayCollection = new ArrayCollection();
+		public static function navigateToUrls(urls:ArrayCollection):void{
+			urlsToNavigate.addAll(urls);
+			urlTimer.addEventListener(TimerEvent.TIMER, onTick);
+			urlTimer.start();
+		}
+		
+		private static function onTick(event:TimerEvent):void{
+			if(urlsToNavigate.length>0){
+				var url:URLRequest = urlsToNavigate.getItemAt(0) as URLRequest;
+				navigateToURL(url);
+				urlsToNavigate.removeItemAt(0);
+			}else{
+				urlTimer.stop();
+			}
+		}
+		
+		/**
+		 * Centers a window in the middle of the screen
+		 */ 
+		public static function centerWindowOnScreen(window:WindowedApplication):void{
+			window.nativeWindow.x = (Screen.mainScreen.bounds.width - window.width)/2;
+			window.nativeWindow.y = (Screen.mainScreen.bounds.height - window.height)/2;
+		}
 
+		
+		/**
+		 *  Returns the application version number
+		 */
+		public static function getApplicationVersionNumber():String{
+			var descriptor:XML = NativeApplication.nativeApplication.applicationDescriptor;
+			var ns:Namespace = descriptor.namespaceDeclarations()[0];
+			var version:String = descriptor.ns::versionLabel;
+			return version;
+		}
+		
+		/** 
+		 * 	Define a sort compare function ignoring case
+		 */
+		public static function sortCompareFunctionIgnoreCase(obj1:Object, obj2:Object, gc:GridColumn):int {
+			// Create an instance of the SortingCollator.
+			var collator:SortingCollator = new SortingCollator();
+			// Make the sort case insensitive. The default is case sensitive.
+			collator.ignoreCase = true;
+			if(obj1!=null && obj2!=null){
+				var data1:String = (obj1[gc.dataField]==null?'':obj1[gc.dataField]);
+				var data2:String = (obj2[gc.dataField]==null?'':obj2[gc.dataField]);
+				return collator.compare(data1, data2);
+			}
+			
+			return 0;
+		}
+		
+		/**
+		 * return the string cut to a size
+		 */
+		public static function cutStringToSize(str:String,size:int):String{
+			var returnStr:String = str;
+			if(str!=null && str.length > size){
+				returnStr = returnStr.substr(0,size-3) +'...';
+			}
+			return returnStr;
+		}
+		
+		/**
+		 * returns the quantity of matches of "char" in "text"
+		 */
+		public static function getQuantityOfChar(text:String,char:String):int{
+			if(text==null){
+				return 0;
+			}
+			var ar:Array = text.split(char);
+			return ar.length-1;
+		}
+		
+		/**
+		 * returns the length of a string inside a label
+		 * average length per char = 7
+		 * empty length = 5.5
+		 * formula = average length - length of empties 
+		 */ 
+		public static function stringLengthToLabelLength(text:String):int{
+			var length:Number = 0;
+			var char:String='';
+			for(var i:int=0;i<text.length;i++){
+				char = text.charAt(i);
+				if(char.search(new RegExp("[0-9]"))==0){
+					length+= 7;
+				}else if(char.indexOf(" ")==0){
+					length+= 3;
+				}else if(char.indexOf("_")==0){
+					length+= 8; 
+				}else if(char.search(new RegExp("[A-Z]"))==0){
+					length+= 8;
+				}else if(char.search(new RegExp("[ftr]"))==0){
+					length+= 4;
+				}else if(char.search(new RegExp("[jil]"))==0){
+					length+= 3;
+				}else if(char.search(new RegExp("[mw]"))==0){
+					length+= 10;
+				}else if(char.search(new RegExp("[a-z]"))==0){
+					length+= 7;
+				}else{
+					length+= 4;
+				}
+			}
+			//return text.length * 7 - (Utils.getQuantityOfChar(text,' ') *5.5);
+			return length as int; 
+		}
 	}
 }
