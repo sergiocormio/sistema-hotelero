@@ -1,6 +1,6 @@
 package com.cdz.sh.service.impl;
 
-import com.cdz.sh.dao.crud.EntityManagerSingleton;
+import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.service.MigrationService;
 import com.cdz.sh.util.ZipUtil;
 
@@ -19,11 +19,11 @@ public class MigrationServiceImpl implements MigrationService {
 	@Override
 	public void restoreDatabase(String sourceZipFile) {
 		
-		EntityManagerSingleton.shutDown();
+		EntityManagerFactorySingleton.shutDown();
 		
 		ZipUtil.unzipFolder(sourceZipFile, CURRENT_PATH);
 		
-		EntityManagerSingleton.getInstanceRestartingDatabase();
+		EntityManagerFactorySingleton.getInstanceRestartingDatabase();
 	}
 	
 	

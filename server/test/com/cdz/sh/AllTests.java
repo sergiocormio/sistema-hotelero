@@ -3,6 +3,7 @@ package com.cdz.sh;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import com.cdz.sh.concurrence.TestConcurrency;
 import com.cdz.sh.dao.AllDaoTests;
 import com.cdz.sh.mail.TestSendMail;
 import com.cdz.sh.migration.TestMigrationServiceZipUtil;
@@ -20,7 +21,9 @@ import com.cdz.sh.service.AllServiceTests;
     // Migration
     TestMigrationServiceZipUtil.class,
     // Report
-    TestCustomersReport.class
+    TestCustomersReport.class,
+    // concurrency validation
+    TestConcurrency.class
 })
 public class AllTests {
 

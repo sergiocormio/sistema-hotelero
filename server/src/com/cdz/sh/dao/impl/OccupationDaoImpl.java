@@ -3,13 +3,14 @@ package com.cdz.sh.dao.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import com.cdz.sh.constants.MasterDataConstants;
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
-import com.cdz.sh.dao.crud.EntityManagerSingleton;
+import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
@@ -28,49 +29,58 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 
 	@Override
 	public synchronized List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException {
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
+			entityManager.getTransaction().begin();
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date >= :dateFrom and oc.id.date <= :dateTo";
 			
-			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Occupation.class);
+			TypedQuery<Occupation> query = entityManager.createQuery( strQuery, Occupation.class);
 			
 			query = query.setParameter("dateFrom", dateFrom);
 			query = query.setParameter("dateTo", dateTo);
 			
 			List<Occupation> occupations = query.getResultList();
-			EntityManagerSingleton.getInstance().getTransaction().commit();
+			entityManager.getTransaction().commit();
 			return occupations;
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
 		}
 	}
 	
 	
 	@Override
 	public synchronized List<Occupation> retrieveConfirmedOccupations(Date dateFrom, Date dateTo, int adultsQuantity, int childrenQuantity) throws DaoException {
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
+			entityManager.getTransaction().begin();
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date >= :dateFrom and oc.id.date <= :dateTo";
 			strQuery = strQuery.concat(" and oc.id.room.peopleQuantity >= :peopleQuantity");
 			strQuery = strQuery.concat(" and oc.id.reservationForm.state = :stateConfirmedId");
 			
-			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Occupation.class);
+			TypedQuery<Occupation> query = entityManager.createQuery( strQuery, Occupation.class);
 			
 			query = query.setParameter("dateFrom", dateFrom);
 			query = query.setParameter("dateTo", dateTo);
 			query = query.setParameter("peopleQuantity", adultsQuantity + childrenQuantity);
 			query = query.setParameter("stateConfirmedId", StateReservationForm.confirmada);
-			
-			
+					
 			List<Occupation> occupations = query.getResultList();
-			EntityManagerSingleton.getInstance().getTransaction().commit();
+			entityManager.getTransaction().commit();
 			return occupations;
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
 		}
 	}
 	
@@ -78,72 +88,86 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 
 	@Override
 	public synchronized List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException {
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
+			entityManager.getTransaction().begin();
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.reservationForm = :reservationForm";
 			
-			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery(strQuery, Occupation.class);
+			TypedQuery<Occupation> query = entityManager.createQuery(strQuery, Occupation.class);
 			
 			query = query.setParameter("reservationForm", reservationForm);
 						
 			List<Occupation> occupations = query.getResultList();
-			EntityManagerSingleton.getInstance().getTransaction().commit();
+			entityManager.getTransaction().commit();
 			return occupations;
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
 		}
 	}
 
 
 	@Override
 	public synchronized List<Occupation> retrieveOverlapedOccupations(Occupation occupation, ReservationForm reservationForm) throws DaoException {
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
+			entityManager.getTransaction().begin();
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date = :date";
 			strQuery = strQuery.concat(" and oc.id.room = :room");
 			strQuery = strQuery.concat(" and oc.id.reservationForm != :reservationForm");
 			
-			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery(strQuery, Occupation.class);
+			TypedQuery<Occupation> query = entityManager.createQuery(strQuery, Occupation.class);
 			
 			query = query.setParameter("date", occupation.getId().getDate());
 			query = query.setParameter("room", occupation.getId().getRoom());
 			query = query.setParameter("reservationForm", reservationForm);
 						
 			List<Occupation> occupations = query.getResultList();
-			EntityManagerSingleton.getInstance().getTransaction().commit();
+			entityManager.getTransaction().commit();
 			return occupations;
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
 		}
 	}
 
 
 	@Override
 	public synchronized List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo, Room room) throws DaoException {
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
+			entityManager.getTransaction().begin();
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date >= :dateFrom and oc.id.date <= :dateTo";
 			strQuery = strQuery.concat(" and oc.id.room = :room");
 			
-			TypedQuery<Occupation> query = EntityManagerSingleton.getInstance().createQuery( strQuery, Occupation.class);
+			TypedQuery<Occupation> query = entityManager.createQuery( strQuery, Occupation.class);
 			
 			query = query.setParameter("dateFrom", dateFrom);
 			query = query.setParameter("dateTo", dateTo);
 			query = query.setParameter("room", room);
 			
 			List<Occupation> occupations = query.getResultList();
-			EntityManagerSingleton.getInstance().getTransaction().commit();
+			entityManager.getTransaction().commit();
 			return occupations;
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
-		
+		finally{
+			entityManager.close();
+		}
 	}
 
 	

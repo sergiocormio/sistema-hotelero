@@ -6,7 +6,6 @@ import java.sql.SQLNonTransientConnectionException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -15,18 +14,17 @@ import javax.persistence.Persistence;
  * @author fede
  *
  */
-public class EntityManagerSingleton {
+public class EntityManagerFactorySingleton {
 
 	private static final String PROVIDER_UNIT_NAME = "dellosky";
 		
-	private static EntityManager entityManager;
-	
-	public static synchronized EntityManager getInstance(){
-		if(entityManager == null){
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory(PROVIDER_UNIT_NAME);
-			entityManager = emf.createEntityManager();
+	private static EntityManagerFactory entityManagerFactory;
+		
+	public static synchronized EntityManagerFactory getInstance(){
+		if(entityManagerFactory == null){
+			entityManagerFactory = Persistence.createEntityManagerFactory(PROVIDER_UNIT_NAME);
 		}
-		return entityManager;
+		return entityManagerFactory;
 	}
 	
 	
@@ -51,11 +49,9 @@ public class EntityManagerSingleton {
         catch (SQLException e) {
         	e.printStackTrace();
         }
-        if (entityManager != null) {
-        	EntityManagerFactory entityManagerFactory = entityManager.getEntityManagerFactory();
-        	entityManager.close();
+        if (entityManagerFactory != null) {
         	entityManagerFactory.close();
-        	entityManager = null;
+        	entityManagerFactory = null;
         }
 	}
 	
@@ -69,9 +65,9 @@ public class EntityManagerSingleton {
 	 * 	configuration.put("hibernate.hbm2ddl.auto", "update");  // to keep the data restored
 	 * 
 	 */
-	public static synchronized EntityManager getInstanceRestartingDatabase(){
-		if(entityManager == null){
-			
+	public static synchronized EntityManagerFactory getInstanceRestartingDatabase(){
+		if(entityManagerFactory == null){
+				
 			Map<String, Object> configuration = new HashMap<String, Object>();
 		    configuration.put("hibernate.connection.url", "jdbc:derby:dellosky;create=true");
 		    configuration.put("hibernate.connection.driver_class", "org.apache.derby.jdbc.EmbeddedDriver");
@@ -83,10 +79,10 @@ public class EntityManagerSingleton {
 		    configuration.put("hibernate.show_sql", "true");
 		    configuration.put("hibernate.format_sql", "true");
 	        
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory(PROVIDER_UNIT_NAME, configuration);
-			entityManager = emf.createEntityManager();
+			entityManagerFactory = Persistence.createEntityManagerFactory(PROVIDER_UNIT_NAME, configuration);
+			
 		}
-		return entityManager;
+		return entityManagerFactory;
 	}
 
 }
