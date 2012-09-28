@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cdz.sh.dao.crud.EntityManagerSingleton;
+import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.SeasonDaoImpl;
 import com.cdz.sh.model.Season;
@@ -24,8 +24,8 @@ public class TestSeasonDao {
 		/**
 		 * need to clear DB before each test from this file
 		 */
-		EntityManagerSingleton.shutDown();
-		EntityManagerSingleton.getInstance();
+		EntityManagerFactorySingleton.shutDown();
+		EntityManagerFactorySingleton.getInstance();
 	}
 
 	@After

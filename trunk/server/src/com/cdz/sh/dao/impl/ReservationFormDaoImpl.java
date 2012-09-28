@@ -3,12 +3,14 @@ package com.cdz.sh.dao.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.cdz.sh.dao.ReservationFormDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
-import com.cdz.sh.dao.crud.EntityManagerSingleton;
+import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.model.Customer;
@@ -27,20 +29,26 @@ public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Lon
 	@Override
 	public synchronized List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, Customer customer, StateReservationForm state) throws InvalidParameterException, DaoException {
 
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
 		String jpql = createJpql(dateFrom, dateTo, customer, state);
 		try{
-			EntityManagerSingleton.getInstance().getTransaction().begin();
-			TypedQuery<ReservationForm> query = EntityManagerSingleton.getInstance().createQuery(jpql, ReservationForm.class);
+			entityManager.getTransaction().begin();
+			TypedQuery<ReservationForm> query = entityManager.createQuery(jpql, ReservationForm.class);
 			
 			query = setParameters(query, dateFrom, dateTo, customer, state);
 			
 			List<ReservationForm> reservationForms = query.getResultList();
-			EntityManagerSingleton.getInstance().getTransaction().commit();
+			entityManager.getTransaction().commit();
 			
 			return reservationForms;
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
 		}
 
 	}

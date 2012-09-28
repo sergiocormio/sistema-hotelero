@@ -2,12 +2,14 @@ package com.cdz.sh.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.cdz.sh.dao.ServiceTypeDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
-import com.cdz.sh.dao.crud.EntityManagerSingleton;
+import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.ServiceType;
 
@@ -40,32 +42,37 @@ public class ServiceTypeDaoImpl extends AbstractCrudDao<ServiceType, Long> imple
 	}
 	
 	private synchronized List<ServiceType> doQuery(boolean includedInBudget, boolean includedInBasePrice) throws DaoException {
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
-			EntityManagerSingleton.getInstance().getTransaction().begin();
+			entityManager.getTransaction().begin();
 			
 			String strQuery = "SELECT st FROM ServiceType st WHERE st.includedInBudget = :includedInBudget";
 			strQuery = strQuery.concat(" and st.includedInBasePrice = :includedInBasePrice");
-			TypedQuery<ServiceType> query = EntityManagerSingleton.getInstance().createQuery( strQuery, ServiceType.class);
+			TypedQuery<ServiceType> query = entityManager.createQuery( strQuery, ServiceType.class);
 			
 			query = query.setParameter("includedInBudget", includedInBudget);
 			query = query.setParameter("includedInBasePrice", includedInBasePrice);
 			
 			List<ServiceType> serviceTypes = query.getResultList();
-			EntityManagerSingleton.getInstance().getTransaction().commit();
+			entityManager.getTransaction().commit();
 			return serviceTypes;
 		}
 		catch(PersistenceException persistenceException){
 			throw new DaoException(persistenceException.getMessage());
 		}
+		finally{
+			entityManager.close();
+		}
 	}
 
-	@Override
-	public synchronized void deleteRecord(ServiceType serviceType) throws DaoException {
-		if(serviceType.getId() <= 9){
-			throw new DaoException("This service can not be removed (system-defined)");
-		}
-		super.deleteRecord(serviceType);
-	}
+//	@Override
+//	public synchronized void deleteRecord(ServiceType serviceType) throws DaoException {
+//		if(serviceType.getId() <= 9){
+//			throw new DaoException("This service can not be removed (system-defined)");
+//		}
+//		super.deleteRecord(serviceType);
+//	}
 
 	
 	

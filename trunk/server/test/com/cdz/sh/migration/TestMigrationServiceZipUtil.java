@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.cdz.sh.dao.DocumentTypeDao;
 import com.cdz.sh.dao.MasterDataFactory;
-import com.cdz.sh.dao.crud.EntityManagerSingleton;
+import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.model.DocumentType;
@@ -41,8 +41,8 @@ public class TestMigrationServiceZipUtil {
 		/**
 		 * need to clear DB before each test from this file
 		 */
-		EntityManagerSingleton.shutDown();
-		EntityManagerSingleton.getInstance();
+		EntityManagerFactorySingleton.shutDown();
+		EntityManagerFactorySingleton.getInstance();
 	}
 	
 	
@@ -50,8 +50,8 @@ public class TestMigrationServiceZipUtil {
 	@Test
 	public void testBackup() {
 		
-		EntityManagerSingleton.shutDown();
-		EntityManagerSingleton.getInstance();
+		EntityManagerFactorySingleton.shutDown();
+		EntityManagerFactorySingleton.getInstance();
 		
 		MasterDataFactory dataFactory = new MasterDataFactory();
 		dataFactory.createMasterData();
@@ -65,8 +65,8 @@ public class TestMigrationServiceZipUtil {
 	@Test
 	public void testRestoreCurrentDBEmpty() throws DaoException, SQLException {
 
-		EntityManagerSingleton.shutDown();
-		EntityManagerSingleton.getInstance();
+		EntityManagerFactorySingleton.shutDown();
+		EntityManagerFactorySingleton.getInstance();
 		assertTrue(this.documentTypeDao.retrieveAll().size() == 0);
 	
 		this.migrationService.restoreDatabase(BACKUP_PATH);
@@ -80,8 +80,8 @@ public class TestMigrationServiceZipUtil {
 	public void testRestoreOverwriteExistingData() throws DaoException, SQLException {
 				
 		
-		EntityManagerSingleton.shutDown();
-		EntityManagerSingleton.getInstance();
+		EntityManagerFactorySingleton.shutDown();
+		EntityManagerFactorySingleton.getInstance();
 		
 		assertTrue(this.documentTypeDao.retrieveAll().size() == 0);
 		

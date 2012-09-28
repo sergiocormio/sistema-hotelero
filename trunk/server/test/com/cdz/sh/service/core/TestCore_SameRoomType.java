@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cdz.sh.dao.crud.EntityManagerSingleton;
+import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
@@ -41,8 +41,8 @@ public class TestCore_SameRoomType {
 		/**
 		 * need to clear DB before each test from this file
 		 */
-		EntityManagerSingleton.shutDown();
-		EntityManagerSingleton.getInstance();
+		EntityManagerFactorySingleton.shutDown();
+		EntityManagerFactorySingleton.getInstance();
 	}
 
 	

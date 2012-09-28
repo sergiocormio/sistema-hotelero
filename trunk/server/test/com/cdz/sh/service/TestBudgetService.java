@@ -15,7 +15,7 @@ import org.junit.Test;
 import com.cdz.sh.dao.DummyScenarioBuilder;
 import com.cdz.sh.dao.MasterDataFactory;
 import com.cdz.sh.dao.RoomDao;
-import com.cdz.sh.dao.crud.EntityManagerSingleton;
+import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Alternative;
@@ -38,8 +38,8 @@ public class TestBudgetService {
 		/**
 		 * need to clear DB before each test from this file
 		 */
-		EntityManagerSingleton.shutDown();
-		EntityManagerSingleton.getInstance();
+		EntityManagerFactorySingleton.shutDown();
+		EntityManagerFactorySingleton.getInstance();
 		
 		MasterDataFactory dataFactory = new MasterDataFactory();
 		dataFactory.createMasterData();		
