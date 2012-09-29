@@ -28,7 +28,7 @@
 			<forms:AvailabilityForm width="100%" height="100%" loc="{loc}"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="reservationForms" label="{loc.reservationForm.plural}" icon="{Icons.seasons}" width="100%" height="100%" >
+		<s:NavigatorContent id="reservationForms" label="{loc.reservationForm.plural}" icon="{Icons.reservations}" width="100%" height="100%" >
 		</s:NavigatorContent>
 	</mx:ViewStack>
 </s:HGroup>

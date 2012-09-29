@@ -65,6 +65,9 @@ package resources.icons
 		[Embed(source='resources/icons/mail_and_pictures 48.png')]
 		public static var mail_and_pictures:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/shopcartapply_48x48.png')]
+		public static var consumption:Class;
 		
 		//--------------------CRUD icons----------------
 		[Bindable]
@@ -131,6 +134,11 @@ package resources.icons
 		[Bindable]
 		[Embed(source='resources/icons/calendar-blue.png')]
 		public static var calendar:Class;		
+		
+		[Bindable]
+		[Embed(source='resources/icons/Addressbook.png')]
+		public static var reservations:Class;		
+		
 		
 		public function Icons()
 		{
