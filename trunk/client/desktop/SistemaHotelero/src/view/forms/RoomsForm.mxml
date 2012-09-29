@@ -20,7 +20,8 @@
 	</s:ButtonBar>
 	
 	<mx:ViewStack id="roomsViewStack" borderStyle="none" width="100%" height="100%">
-		<s:NavigatorContent id="calendar" label="{loc.calendar.singular}" icon="{Icons.seasons}" width="100%" height="100%" >
+		<s:NavigatorContent id="calendar" label="{loc.calendar.singular}" icon="{Icons.calendar}" width="100%" height="100%" >
+			<forms:CalendarForm width="100%" height="100%" loc="{loc}"/>
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="availability" label="{loc.availability.singular}" icon="{Icons.availability}" width="100%" height="100%" >
