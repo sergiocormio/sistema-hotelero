@@ -53,6 +53,19 @@ package resources.icons
 		[Embed(source='resources/icons/hotel-icon.png')]
 		public static var hotel:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/TaxiAndPlane.png')]
+		public static var transports:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/cleaning.png')]
+		public static var cleaning:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/mail_and_pictures 48.png')]
+		public static var mail_and_pictures:Class;
+		
+		
 		//--------------------CRUD icons----------------
 		[Bindable]
 		[Embed(source='resources/icons/language 32.png')]
@@ -69,6 +82,10 @@ package resources.icons
 		[Bindable]
 		[Embed(source='resources/icons/folder_credentials 32.png')]
 		public static var folder_credentials:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/card-address.png')]
+		public static var document_type:Class;
 		
 		[Bindable]
 		[Embed(source='resources/icons/image-sunset.png')]
@@ -110,6 +127,10 @@ package resources.icons
 		[Bindable]
 		[Embed(source='resources/icons/cross.png')]
 		public static var clean:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/calendar-blue.png')]
+		public static var calendar:Class;		
 		
 		public function Icons()
 		{

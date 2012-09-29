@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
+		  creationComplete="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.icons.Icons;
+			
+			import services.OccupationService;
+			
+			import spark.components.gridClasses.GridColumn;
+			
+			import utils.DateTimeUtils;
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable] private var occupations:ArrayCollection = new ArrayCollection();
+			
+			private var dateFrom:Date;
+			private var dateTo:Date;
+			private var daysToShow:int = 7; //by default shows a week
+			
+			protected function init(event:FlexEvent):void
+			{
+				dateFrom = new Date();
+				loadOccupations();
+			}
+			
+			private function loadOccupations():void{
+				dateTo = DateTimeUtils.rollDaysToDate(dateFrom,daysToShow);
+				var serv:OccupationService = new OccupationService();
+				serv.retrieveOccupations(dateFrom,dateTo,retrieveOccupations_resultHandler,faultHandler);
+			}
+			
+			private function retrieveOccupations_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedItem = null;
+				occupations.removeAll();
+				occupations.addAll(event.result as ArrayCollection);
+				grid.columns = new ArrayList();
+				for(var i:int=0;i<daysToShow;i++){
+					grid.columns.addItem(getColumnForDate(DateTimeUtils.rollDaysToDate(dateFrom,i)));
+				}
+				
+			}
+			
+			private function getColumnForDate(date:Date):GridColumn{
+				var col:GridColumn = new GridColumn(DateTimeUtils.formatDateWithPattern(date,loc.dateFormat));
+				return col;
+			}
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				Alert.show("Received fault: " + event.fault + "\n");
+			}
+			
+			
+			protected function increaseDaysToShowButton_clickHandler(event:MouseEvent):void
+			{
+				daysToShow += 7;
+				loadOccupations();
+			}
+			
+			protected function decreaseDaysToShowButton_clickHandler(event:MouseEvent):void
+			{
+				daysToShow -= 7;
+				loadOccupations();
+			}
+			
+			protected function increaseOneDayFromButton_clickHandler(event:MouseEvent):void
+			{
+				rollDaysFromAndLoadOccupations(1);
+			}
+			
+			protected function rollDaysFromAndLoadOccupations(daysToRoll:int):void
+			{
+				dateFrom = DateTimeUtils.rollDaysToDate(dateFrom,daysToRoll);
+				loadOccupations();
+			}
+			
+			protected function decreaseOneDayFromButton_clickHandler(event:MouseEvent):void
+			{
+				rollDaysFromAndLoadOccupations(-1);
+			}
+			
+			protected function decreaseOneWeekFromButton_clickHandler(event:MouseEvent):void
+			{
+				rollDaysFromAndLoadOccupations(-7);				
+			}
+			
+			protected function increaseOneWeekFromButton_clickHandler(event:MouseEvent):void
+			{
+				rollDaysFromAndLoadOccupations(7);								
+			}
+			
+			protected function decreaseOneMonthFromButton_clickHandler(event:MouseEvent):void
+			{
+				rollDaysFromAndLoadOccupations(-30);
+				
+			}
+			
+			protected function increaseOneMonthFromButton_clickHandler(event:MouseEvent):void
+			{
+				rollDaysFromAndLoadOccupations(30);
+				
+			}
+			
+			protected function refreshButton_clickHandler(event:MouseEvent):void
+			{
+				loadOccupations();
+			}
+			
+		]]>
+	</fx:Script>	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{occupations}"/>
+	<s:HGroup width="100%">
+		<s:Button id="decreaseOneMonthFromButton" label="30-" click="decreaseOneMonthFromButton_clickHandler(event)"/>
+		<s:Button id="decreaseOneWeekFromButton" label="7-" click="decreaseOneWeekFromButton_clickHandler(event)"/>
+		<s:Button id="decreaseOneDayFromButton" label="1-" click="decreaseOneDayFromButton_clickHandler(event)"/>
+		<s:Button id="increaseOneDayFromButton" label="1+" click="increaseOneDayFromButton_clickHandler(event)"/>
+		<s:Button id="increaseOneWeekFromButton" label="7+" click="increaseOneWeekFromButton_clickHandler(event)"/>
+		<s:Button id="increaseOneMonthFromButton" label="30+" click="increaseOneMonthFromButton_clickHandler(event)"/>
+		<s:Button id="decreaseDaysToShowButton" label="-" click="decreaseDaysToShowButton_clickHandler(event)"/>
+		<s:Button id="increaseDaysToShowButton" label="+" click="increaseDaysToShowButton_clickHandler(event)"/>
+		<s:Button id="refreshButton" label="{loc.button.refresh}" icon="{Icons.refresh}" click="refreshButton_clickHandler(event)"/>
+	</s:HGroup>
+</s:VGroup>

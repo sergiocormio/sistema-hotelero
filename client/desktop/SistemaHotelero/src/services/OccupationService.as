@@ -14,5 +14,13 @@ package services
 			}
 			remoteObject.checkAvailability(dateFrom,dateTo,adultsQty,childrenQty);
 		}
+		
+		public function retrieveOccupations(dateFrom:Date , dateTo:Date,resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.retrieveOccupations.addEventListener("result", resultHandler);
+			if(faultHandler!=null){
+				remoteObject.retrieveOccupations.addEventListener("fault", faultHandler);
+			}
+			remoteObject.retrieveOccupations(dateFrom,dateTo);
+		}
 	}
 }

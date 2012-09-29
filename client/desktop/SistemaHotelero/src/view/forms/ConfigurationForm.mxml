@@ -50,7 +50,7 @@
 			<crud:ExchangeRateCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="documentTypes" label="{loc.documentType.plural}" icon="{Icons.folder_credentials}" width="100%" height="100%">
+		<s:NavigatorContent id="documentTypes" label="{loc.documentType.plural}" icon="{Icons.document_type}" width="100%" height="100%">
 			<crud:DocumentTypeCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
