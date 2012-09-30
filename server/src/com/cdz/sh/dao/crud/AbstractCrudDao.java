@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.cdz.sh.constants.exception.ExceptionErrorCodes;
 import com.cdz.sh.dao.exception.DaoException;
 
 
@@ -62,7 +63,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again   
 					entityManager.clear();
-					throw new DaoException(persistenceException.getMessage());
+					throw new DaoException(ExceptionErrorCodes.DUPLICATE_PK_VIOLATION_WHEN_CREATE, persistenceException.getCause().getMessage());
 				}
 				finally{
 					entityManager.close();
@@ -84,7 +85,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 			entityManager.getTransaction().begin();
 			Entity entityFound = entityManager.find(this.entityClass, entityId);
 			if(entityFound == null){
-				throw new DaoException(this.entityClass.getSimpleName(), entityId.toString());
+				throw new DaoException(ExceptionErrorCodes.ENTITY_TO_UPDATE_NOT_FOUND,  "Entity with Id: " + entityId.toString() + " not found");
 			}
 			entityManager.merge(e);
 		}
@@ -103,7 +104,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again
 					entityManager.clear();
-					throw new DaoException(persistenceException.getMessage());
+					throw new DaoException(ExceptionErrorCodes.DUPLICATE_PK_VIOLATION_WHEN_UPDATE, persistenceException.getCause().getMessage());
 				}
 				finally{
 					entityManager.close();
@@ -137,7 +138,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 			entityManager.getTransaction().begin();
 			Entity entityFound = entityManager.find(this.entityClass, entityId);
 			if(entityFound == null){
-				throw new DaoException(this.entityClass.getSimpleName(), entityId.toString());
+				throw new DaoException(ExceptionErrorCodes.ENTITY_TO_DELETE_NOT_FOUND,  "Entity with Id: " + entityId.toString() + " not found");
 			}
 			entityManager.remove(entityFound);
 		}
@@ -156,7 +157,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again
 					entityManager.clear();
-					throw new DaoException(persistenceException.getMessage());
+					throw new DaoException(persistenceException.getCause().getMessage());
 				}
 				finally{
 					entityManager.close();

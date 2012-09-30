@@ -18,7 +18,7 @@ public class TestSendMail {
 		String from = "test.cds.001@gmail.com";
 		String password = "001cdstest";	// es como el mail, pero sin puntos y al reves
 		
-		String to = "sergiocormio@gmail.com";
+		String to = "test.cds.001@gmail.com";
 		List<String> toList = new ArrayList<String>();
 		toList.add(to);
 		
@@ -36,7 +36,7 @@ public class TestSendMail {
 		String from = "test.cds001@yahoo.com.ar";	//yahoo permite un solo punto
 		String password = "001cdstest";	// es como el mail, pero sin puntos y al reves
 		
-		String to = "sergiocormio@gmail.com";
+		String to = "test.cds001@yahoo.com.ar";
 		List<String> toList = new ArrayList<String>();
 		toList.add(to);
 		
