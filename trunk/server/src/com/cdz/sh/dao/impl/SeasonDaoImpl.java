@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.SeasonDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
 import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
@@ -72,7 +73,7 @@ public class SeasonDaoImpl extends AbstractCrudDao<Season, Long> implements Seas
 			entityManager.getTransaction().commit();
 			
 			if(seasons != null && !seasons.isEmpty()){
-				throw new DaoException("The season can not be created or updated because the range of dates could overlap an axisting season.");
+				throw new DaoException(ExceptionErrorCodes.OVERLAPING_DATE_RANGE, "The operation can not be performed because the range of dates could overlap an axisting record.");
 			}
 		}
 		catch(PersistenceException persistenceException){

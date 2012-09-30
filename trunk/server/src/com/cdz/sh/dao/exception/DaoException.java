@@ -1,6 +1,6 @@
 package com.cdz.sh.dao.exception;
 
-import com.cdz.sh.constants.exception.ExceptionErrorCodes;
+import com.cdz.sh.constants.ExceptionErrorCodes;
 
 /**
  * Generic Dao exception to be thrown on every dao methods. The idea is to encapsulate specific JPA exceptions.
