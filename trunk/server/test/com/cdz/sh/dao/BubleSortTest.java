@@ -1,6 +1,6 @@
 package com.cdz.sh.dao;
 
-public class BubleTest {
+public class BubleSortTest {
 
 	/**
 	 * @param args
