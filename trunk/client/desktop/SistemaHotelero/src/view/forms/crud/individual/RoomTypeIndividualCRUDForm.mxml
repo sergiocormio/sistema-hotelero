@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		  xmlns:s="library://ns.adobe.com/flex/spark"
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  width="100%" height="100%" creationComplete="init(event)">
@@ -16,6 +16,7 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
+			import resources.Colors;
 			import resources.icons.Icons;
 			
 			import services.crud.RoomTypeService;
@@ -81,25 +82,33 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:HGroup width="100%" horizontalAlign="center">
-		<s:Form>
-			<s:layout>
-				<s:FormLayout gap="-14"/>
-			</s:layout>  
-			
-			<s:FormItem label="{loc.roomType.name}:" required="true">
-				<s:TextInput id="roomTypeText"/>
-			</s:FormItem>
-			<s:FormItem label="{loc.roomType.description}:" required="true">
-				<s:TextArea id="descriptionText"/>
-			</s:FormItem>
-			
-		</s:Form>
-	</s:HGroup>
-	<!-- BUTTONS -->
-	<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
-		<s:Button label="{loc.button.save}" click="save()" icon="{Icons.save}"/>
-		<s:Button label="{loc.button.cancel}" click="cancel()" icon="{Icons.cancel}"/>
-	</s:HGroup>
-	<s:Spacer height="5"/>
-</s:VGroup>
+	<s:Rect width="100%" height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+		</s:stroke>
+		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+	</s:Rect>
+	<s:VGroup width="100%" height="100%">
+		<s:HGroup width="100%" horizontalAlign="center">
+			<s:Form>
+				<s:layout>
+					<s:FormLayout gap="-14"/>
+				</s:layout>  
+				
+				<s:FormItem label="{loc.roomType.name}:" required="true">
+					<s:TextInput id="roomTypeText"/>
+				</s:FormItem>
+				<s:FormItem label="{loc.roomType.description}:" required="true">
+					<s:TextArea id="descriptionText"/>
+				</s:FormItem>
+				
+			</s:Form>
+		</s:HGroup>
+		<!-- BUTTONS -->
+		<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+			<s:Button label="{loc.button.save}" click="save()" icon="{Icons.save}"/>
+			<s:Button label="{loc.button.cancel}" click="cancel()" icon="{Icons.cancel}"/>
+		</s:HGroup>
+		<s:Spacer height="5"/>
+	</s:VGroup>
+</s:Group>
