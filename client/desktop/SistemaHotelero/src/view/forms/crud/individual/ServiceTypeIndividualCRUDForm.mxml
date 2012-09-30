@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" creationComplete="init()">
 	<fx:Metadata> 
@@ -16,6 +16,7 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
+			import resources.Colors;
 			import resources.icons.Icons;
 			
 			import services.crud.ServiceTypeService;
@@ -116,47 +117,55 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:HGroup width="100%" horizontalAlign="center">
-		<s:Form>
-			<s:layout>
-				<s:FormLayout gap="-14"/>
-			</s:layout>  
+	<s:Rect width="100%" height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+		</s:stroke>
+		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+	</s:Rect>
+	<s:VGroup width="100%" height="100%">
+		<s:HGroup width="100%" horizontalAlign="center">
+			<s:Form>
+				<s:layout>
+					<s:FormLayout gap="-14"/>
+				</s:layout>  
+				
+				<s:FormItem label="{loc.serviceType.name}:" required="true">
+					<s:TextInput id="serviceTypeText"/>
+				</s:FormItem>
+				
+				<s:FormItem label="{loc.serviceType.price}:" required="true">
+					<s:TextInput id="priceText"/>
+				</s:FormItem>
 			
-			<s:FormItem label="{loc.serviceType.name}:" required="true">
-				<s:TextInput id="serviceTypeText"/>
-			</s:FormItem>
-			
-			<s:FormItem label="{loc.serviceType.price}:" required="true">
-				<s:TextInput id="priceText"/>
-			</s:FormItem>
-		
-			<s:FormItem label="{loc.serviceType.modality.singular}:" required="true">
-				<s:HGroup verticalAlign="middle">
-					<s:DropDownList id="modalityList" dataProvider="{modalities}" width="150"/>
-					<s:Button width="24" height="24" click="loadModalities();"
-							  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-				</s:HGroup>
-			</s:FormItem>
-
-			<s:FormItem label="{loc.serviceType.includedInBudget}:" required="true">
-				<s:CheckBox id="includedInBudget"/>
-			</s:FormItem>
-			
-			<s:FormItem label="{loc.serviceType.includedInBasePrice}:" required="true">
-				<s:CheckBox id="includedInBasePrice"/>
-			</s:FormItem>
-			
-		</s:Form>
-		<s:Form>
-			<s:FormItem label="{loc.serviceType.description}:" required="true">
-				<s:TextArea id="descriptionText"/>
-			</s:FormItem>
-		</s:Form>
-	</s:HGroup>
-	<!-- BUTTONS -->
-	<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
-		<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
-		<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
-	</s:HGroup>
-	<s:Spacer height="5"/>
-</s:VGroup>
+				<s:FormItem label="{loc.serviceType.modality.singular}:" required="true">
+					<s:HGroup verticalAlign="middle">
+						<s:DropDownList id="modalityList" dataProvider="{modalities}" width="150"/>
+						<s:Button width="24" height="24" click="loadModalities();"
+								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+					</s:HGroup>
+				</s:FormItem>
+	
+				<s:FormItem label="{loc.serviceType.includedInBudget}:" required="true">
+					<s:CheckBox id="includedInBudget"/>
+				</s:FormItem>
+				
+				<s:FormItem label="{loc.serviceType.includedInBasePrice}:" required="true">
+					<s:CheckBox id="includedInBasePrice"/>
+				</s:FormItem>
+				
+			</s:Form>
+			<s:Form>
+				<s:FormItem label="{loc.serviceType.description}:" required="true">
+					<s:TextArea id="descriptionText"/>
+				</s:FormItem>
+			</s:Form>
+		</s:HGroup>
+		<!-- BUTTONS -->
+		<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+			<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
+			<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
+		</s:HGroup>
+		<s:Spacer height="5"/>
+	</s:VGroup>
+</s:Group>

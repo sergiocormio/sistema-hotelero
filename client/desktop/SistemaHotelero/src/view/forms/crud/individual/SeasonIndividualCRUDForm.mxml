@@ -17,6 +17,7 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
+			import resources.Colors;
 			import resources.icons.Icons;
 			
 			import services.crud.SeasonService;
@@ -87,9 +88,9 @@
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>
-			<s:SolidColorStroke color="#DD974B" weight="1"/>
+			<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
 		</s:stroke>
-		<s:fill><s:SolidColor color="0xE0D4BE"/></s:fill>
+		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 	</s:Rect>
 	<s:VGroup width="100%" height="100%">
 		<s:HGroup width="100%" horizontalAlign="center">
