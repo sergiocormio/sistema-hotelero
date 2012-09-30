@@ -15,14 +15,15 @@ public class TestSendMail {
 	@Test
 	public void testFromGmail() throws EMailException {
 		
-		String from = "federico.deseta@gmail.com";
-		String password = "";	// PONER CONTRASEÑA DEL FROM!
-		String to = "federico.deseta@gmail.com";
+		String from = "test.cds.001@gmail.com";
+		String password = "001cdstest";	// es como el mail, pero sin puntos y al reves
+		
+		String to = "sergiocormio@gmail.com";
 		List<String> toList = new ArrayList<String>();
 		toList.add(to);
 		
 		String subject = "Mail from GMail";
-		String body = "Body chabon!";
+		String body = "Body chabon! Cree cuenta de GMail de prueba :)";
 		
 		MailSender mailSender = new MailSender();
 		mailSender.sendMail(from, password, toList, subject, body);
@@ -32,14 +33,15 @@ public class TestSendMail {
 	@Test
 	public void testFromYahoo() throws AddressException, MessagingException, EMailException{
 	
-		String from = "federicodeseta@yahoo.com.ar";
-		String password = "";	// PONER CONTRASEÑA DEL FROM!
-		String to = "federico.deseta@gmail.com";
+		String from = "test.cds001@yahoo.com.ar";	//yahoo permite un solo punto
+		String password = "001cdstest";	// es como el mail, pero sin puntos y al reves
+		
+		String to = "sergiocormio@gmail.com";
 		List<String> toList = new ArrayList<String>();
 		toList.add(to);
 		
 		String subject = "Mail from Yahoo";
-		String body = "Body chabon!";
+		String body = "Body chabon! Cree cuenta de Yahoo de prueba :)";
 		
 		MailSender mailSender = new MailSender();
 		mailSender.sendMail(from, password, toList, subject, body);
