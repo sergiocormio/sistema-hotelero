@@ -39,7 +39,7 @@ public class TestRegionDao {
 	
 	
 	@Test
-	public void testCreateExistingSeason() throws DaoException {
+	public void testRetrieveRegions_GivenCountry() throws DaoException {
 		
 		Country country = this.countryDao.getRecordById(1L);
 	

@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.ReservationFormDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
 import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
@@ -88,7 +89,7 @@ public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Lon
 			jpql = jpql.concat("rf.state = :state");
 		}
 		if(parametersQty == 0){
-			throw new InvalidParameterException("Al least one parameter should be specified");
+			throw new InvalidParameterException(ExceptionErrorCodes.NO_PARAMETERS_SPECIFIED, "Al least one parameter should be specified");
 		}
 		return jpql;
 	}

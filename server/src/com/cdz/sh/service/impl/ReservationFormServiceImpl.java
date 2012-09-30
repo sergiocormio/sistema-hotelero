@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.ReservationFormDao;
 import com.cdz.sh.dao.crud.CrudDao;
@@ -63,7 +64,7 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	public ReservationForm book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException, InvalidParameterException {
 						
 		if(!reservationForm.getState().equals(StateReservationForm.pre_reserva)){
-			throw new InvalidParameterException("Invalid reservation form state: " + reservationForm.getState().toString());
+			throw new InvalidParameterException(ExceptionErrorCodes.INVALID_RESERVATION_FORM_STATE, "Invalid reservation form state: " + reservationForm.getState().toString());
 		}
 		ReservationForm createdReservationForm = this.crudDao.createRecord(reservationForm);
 		

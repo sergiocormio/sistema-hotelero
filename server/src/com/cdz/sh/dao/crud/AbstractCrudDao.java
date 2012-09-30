@@ -11,7 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import com.cdz.sh.constants.exception.ExceptionErrorCodes;
+import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.exception.DaoException;
 
 
