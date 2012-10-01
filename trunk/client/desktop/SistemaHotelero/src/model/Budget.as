@@ -9,6 +9,8 @@ package model
 		
 		private var _basePrice:Number;
 		
+		private var _basePricePlusAllServicesIncludedInBasePrice:Number;
+		
 		/*
 		* The price of these ones have to be calculated according to the serciveTypeModality
 		*/
@@ -21,6 +23,16 @@ package model
 		
 		public function Budget()
 		{
+		}
+
+		public function get basePricePlusAllServicesIncludedInBasePrice():Number
+		{
+			return _basePricePlusAllServicesIncludedInBasePrice;
+		}
+
+		public function set basePricePlusAllServicesIncludedInBasePrice(value:Number):void
+		{
+			_basePricePlusAllServicesIncludedInBasePrice = value;
 		}
 
 		public function get additionalServices():ArrayCollection

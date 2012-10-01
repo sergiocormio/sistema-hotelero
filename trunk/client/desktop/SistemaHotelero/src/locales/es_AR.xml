@@ -3,6 +3,21 @@
 	<availability>
 	   	<singular>Disponibilidad</singular>
     	<plural>Disponibilidades</plural>
+    	<days>Días</days>
+    	<dateFrom>Fecha Desde</dateFrom>
+    	<dateTo>Fecha Hasta</dateTo>
+    	<adultsQuantity>Cantidad de Adultos</adultsQuantity>
+    	<childrenQuantity>Cantidad de Menores</childrenQuantity>
+    	<variation>Disponibilidad +/-</variation>
+    	<consult>Consultar</consult>
+    	<clean>Limpiar</clean>
+    	<otherAlternatives>Otras Alternativas</otherAlternatives>
+    	<bed>
+    		<singular>Cama</singular>
+    		<plural>Camas</plural>
+	    	<single>Simple</single>
+	    	<marital>Matrimonial</marital>
+    	</bed>
 	</availability>
 	<boolean>
 		<falseValue>No</falseValue>

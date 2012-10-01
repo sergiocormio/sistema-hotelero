@@ -16,6 +16,7 @@
     	<variation>Availability +/-</variation>
     	<consult>Consult</consult>
     	<clean>Clean</clean>
+    	<otherAlternatives>Other Alternatives</otherAlternatives>
     	<bed>
     		<singular>Bed</singular>
     		<plural>Beds</plural>

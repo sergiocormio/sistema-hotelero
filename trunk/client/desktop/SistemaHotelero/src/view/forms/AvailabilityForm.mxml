@@ -160,7 +160,7 @@
 		</s:stroke>
 		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 	</s:Rect>
-	<mx:VDividedBox height="100%" width="100%">
+	<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
 		<s:VGroup width="100%">
 			<s:HGroup width="100%" height="100%" horizontalAlign="center">
 				<s:Form>
@@ -214,26 +214,35 @@
 			</s:HGroup>
 		</s:VGroup>
 		<s:VGroup width="100%">
-			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{alternatives}">
-				<s:columns>
-					<s:ArrayList>
-						<s:GridColumn dataField="distinctRooms" headerText="{loc.alternative.involvedRooms}" labelFunction="involvedRoomsFormat"></s:GridColumn>
-						<s:GridColumn dataField="budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
-						<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateFrom}" labelFunction="dateFromFormat"></s:GridColumn>
-						<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateTo}" labelFunction="dateToFormat"></s:GridColumn>
-					</s:ArrayList>
-				</s:columns>
-			</s:DataGrid>
-			<s:DataGrid id="grid2" width="100%" height="100%" dataProvider="{outOfPeriodAlternatives}">
-				<s:columns>
-					<s:ArrayList>
-						<s:GridColumn dataField="distinctRooms" headerText="{loc.alternative.involvedRooms}" labelFunction="involvedRoomsFormat"></s:GridColumn>
-						<s:GridColumn dataField="budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
-						<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateFrom}" labelFunction="dateFromFormat"></s:GridColumn>
-						<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateTo}" labelFunction="dateToFormat"></s:GridColumn>
-					</s:ArrayList>
-				</s:columns>
-			</s:DataGrid>
+			<mx:VDividedBox height="100%" width="100%">
+				<s:VGroup width="100%" height="50%">
+					<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{alternatives}">
+						<s:columns>
+							<s:ArrayList>
+								<s:GridColumn dataField="distinctRooms" headerText="{loc.alternative.involvedRooms}" labelFunction="involvedRoomsFormat"></s:GridColumn>
+								<s:GridColumn dataField="budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
+								<s:GridColumn dataField="budget.basePricePlusAllServicesIncludedInBasePrice" headerText="{loc.budget.basePrice}2"></s:GridColumn>
+								<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateFrom}" labelFunction="dateFromFormat"></s:GridColumn>
+								<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateTo}" labelFunction="dateToFormat"></s:GridColumn>
+							</s:ArrayList>
+						</s:columns>
+					</s:DataGrid>
+				</s:VGroup>
+				<s:VGroup width="100%" height="50%">
+					<s:Label text="{loc.availability.otherAlternatives}:" fontWeight="bold"/>
+					<s:DataGrid id="grid2" width="100%" height="100%" dataProvider="{outOfPeriodAlternatives}">
+						<s:columns>
+							<s:ArrayList>
+								<s:GridColumn dataField="distinctRooms" headerText="{loc.alternative.involvedRooms}" labelFunction="involvedRoomsFormat"></s:GridColumn>
+								<s:GridColumn dataField="budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
+								<s:GridColumn dataField="budget.basePricePlusAllServicesIncludedInBasePrice" headerText="{loc.budget.basePrice}2"></s:GridColumn>
+								<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateFrom}" labelFunction="dateFromFormat"></s:GridColumn>
+								<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateTo}" labelFunction="dateToFormat"></s:GridColumn>
+							</s:ArrayList>
+						</s:columns>
+					</s:DataGrid>
+				</s:VGroup>
+			</mx:VDividedBox>
 		</s:VGroup>
 	</mx:VDividedBox>
 </s:Group>
