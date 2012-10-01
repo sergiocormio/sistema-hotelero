@@ -97,6 +97,10 @@
     	<portuguese>Portugués</portuguese>
     	<spanish>Español</spanish>
     </language>
+    <lodgement>
+    	<singular>Hospedaje</singular>
+    	<plural>Hospedajes</plural>
+    </lodgement>
     <month>
     	<january>Enero</january>
     	<february>Febrero</february>

@@ -119,6 +119,10 @@
     	<portuguese>Portuguese</portuguese>
     	<spanish>Spanish</spanish>
     </language>
+    <lodgement>
+    	<singular>Lodgement</singular>
+    	<plural>Lodgements</plural>
+    </lodgement>
     <month>
     	<january>January</january>
     	<february>February</february>
