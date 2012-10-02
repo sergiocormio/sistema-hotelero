@@ -37,7 +37,7 @@ public class TestCrudDao {
 			this.exchangeRateDao.createRecord(exchangeRate2);
 		}
 		catch (DaoException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.DUPLICATE_PK_VIOLATION_WHEN_CREATE);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.DUPLICATE_PK_VIOLATION_WHEN_CREATE));
 			throw e;
 		}
 		finally{
@@ -54,7 +54,7 @@ public class TestCrudDao {
 			this.exchangeRateDao.updateRecord(exchangeRate);
 		}
 		catch (DaoException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.ENTITY_TO_UPDATE_NOT_FOUND);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.ENTITY_TO_UPDATE_NOT_FOUND));
 			throw e;
 		}
 	}
@@ -80,7 +80,7 @@ public class TestCrudDao {
 			this.exchangeRateDao.updateRecord(exchangeRate2);
 		}
 		catch (DaoException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.DUPLICATE_PK_VIOLATION_WHEN_UPDATE);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.DUPLICATE_PK_VIOLATION_WHEN_UPDATE));
 			throw e;
 		}
 		finally{
@@ -99,7 +99,7 @@ public class TestCrudDao {
 		
 		}
 		catch (DaoException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.ENTITY_TO_DELETE_NOT_FOUND);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.ENTITY_TO_DELETE_NOT_FOUND));
 			throw e;
 		}
 	}

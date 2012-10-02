@@ -76,7 +76,7 @@ public class TestSendMailFromYahoo {
 			mailSender.sendMail(null, passwordYahoo, toList, subject, body, false);
 		}
 		catch (EMailException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.INVALID_FROM_EMAIL);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.INVALID_FROM_EMAIL));
 			throw e;
 		}
 		
@@ -97,7 +97,7 @@ public class TestSendMailFromYahoo {
 			mailSender.sendMail("fruta", passwordYahoo, toList, subject, body, false);
 		}
 		catch (EMailException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.INVALID_FROM_EMAIL);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.INVALID_FROM_EMAIL));
 			throw e;
 		}
 		
@@ -118,7 +118,7 @@ public class TestSendMailFromYahoo {
 			mailSender.sendMail(fromYahoo, null, toList, subject, body, false);
 		}
 		catch (EMailException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.INVALID_FROM_PASSWORD);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.INVALID_FROM_PASSWORD));
 			throw e;
 		}
 		
@@ -140,7 +140,7 @@ public class TestSendMailFromYahoo {
 			mailSender.sendMail(fromYahoo, "fruta", toList, subject, body, false);
 		}
 		catch (EMailException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.INVALID_FROM_PASSWORD);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.INVALID_FROM_PASSWORD));
 			throw e;
 		}
 		
@@ -162,7 +162,7 @@ public class TestSendMailFromYahoo {
 			mailSender.sendMail(fromYahoo, passwordYahoo, null, subject, body, false);
 		}
 		catch (EMailException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.TO_LIST_EMPTY);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.TO_LIST_EMPTY));
 			throw e;
 		}
 		
@@ -182,7 +182,7 @@ public class TestSendMailFromYahoo {
 			mailSender.sendMail(fromYahoo, passwordYahoo, toList, subject, body, false);
 		}
 		catch (EMailException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.TO_LIST_EMPTY);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.TO_LIST_EMPTY));
 			throw e;
 		}
 		
@@ -203,7 +203,7 @@ public class TestSendMailFromYahoo {
 			mailSender.sendMail(fromYahoo, passwordYahoo, toList, subject, body, false);
 		}
 		catch (EMailException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.INVALID_TO_EMAIL);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.INVALID_TO_EMAIL));
 			throw e;
 		}
 	}
@@ -238,7 +238,7 @@ public class TestSendMailFromYahoo {
 			mailSender.sendMail(fromYahoo, passwordYahoo, toList, subject, null, false);
 		}
 		catch (EMailException e) {
-			assertTrue(e.getErrorCode() == ExceptionErrorCodes.INVALID_BODY);
+			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.INVALID_BODY));
 			throw e;
 		}
 	}
