@@ -4,18 +4,18 @@ public class InvalidParameterException extends Exception {
 	
 	
 	private static final long serialVersionUID = 1L;
-	private long errorCode;
+	private String errorCode;
 
-	public InvalidParameterException(long erroCode, String message){
+	public InvalidParameterException(String erroCode, String message){
 		super(message);
 		this.errorCode = erroCode;
 	}
 
-	public long getErrorCode() {
+	public String getErrorCode() {
 		return errorCode;
 	}
 
-	public void setErrorCode(long errorCode) {
+	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;
 	}
 

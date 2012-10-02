@@ -29,7 +29,7 @@ public class DaoException extends Exception {
 
 	
 	private static final long serialVersionUID = 1L;
-	private long errorCode;
+	private String errorCode;
 
 	/*
 	 * default constructor
@@ -40,18 +40,18 @@ public class DaoException extends Exception {
 	}
 	
 	
-	public DaoException(long errorCode, String detail){
+	public DaoException(String errorCode, String detail){
 		super(detail);
 		this.errorCode = errorCode;
 	}
 
 
-	public long getErrorCode() {
+	public String getErrorCode() {
 		return errorCode;
 	}
 
 
-	public void setErrorCode(long errorCode) {
+	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;
 	}
 
