@@ -9,7 +9,7 @@ public class ServiceType {
 
 	@Id
 	@GeneratedValue
-	private Long id;	//we have to know the id of serviceTypes such as Breakfast and Parking
+	private Long id;	
 	
 	private String name;
 	
