@@ -17,6 +17,7 @@ import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.Room;
+import com.cdz.sh.model.request.CheckAvailabilityRequest;
 import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.BudgetService;
 import com.cdz.sh.service.OccupationService;
@@ -59,20 +60,20 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	}
 
 	@Override
-	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException, NoRateException {
+	public List<Alternative> checkAvailability(CheckAvailabilityRequest request) throws DaoException, NoAvailableAlternativesException, NoRateException {
 		
-		List<Room> roomsByCapacity = this.roomDao.retrieveRoomsByCapacity(adultsQty, childrenQty);
+		List<Room> roomsByCapacity = this.roomDao.retrieveRoomsByCapacity(request.getAdultsQty(), request.getChildrenQty(), request.isWithMaritalBed());
 		
 //		GregorianCalendar calendar = new GregorianCalendar(); 
 //		calendar.setTime(dateTo);
 //		calendar.add(Calendar.DATE, 4);
 //		Date dateToForCheckingValidRoomChanges = calendar.getTime();
 		
-		List<Occupation> occupations = this.occupationDao.retrieveConfirmedOccupations(dateFrom, dateTo, adultsQty, childrenQty);
+		List<Occupation> occupations = this.occupationDao.retrieveConfirmedOccupations(request);
 		
-		List<Occupation> possibleOccupations = createPossibleOccupations(dateFrom, dateTo, roomsByCapacity, occupations);
+		List<Occupation> possibleOccupations = createPossibleOccupations(request.getDateFrom(), request.getDateTo(), roomsByCapacity, occupations);
 		
-		List<Alternative> alternatives = createAlternatives(possibleOccupations, dateFrom, dateTo, adultsQty, childrenQty);
+		List<Alternative> alternatives = createAlternatives(possibleOccupations, request);
 		
 		
 		
@@ -191,17 +192,17 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 
 
-	private List<Alternative> createAlternatives(List<Occupation> possibleOccupations, Date dateFrom, Date dateTo, int adultsQty, int childrenQty)
+	private List<Alternative> createAlternatives(List<Occupation> possibleOccupations, CheckAvailabilityRequest request)
 															throws DaoException, NoAvailableAlternativesException, NoRateException {
 		
-		Date date = dateFrom;
+		Date date = request.getDateFrom();
 		
 		List<Occupation> occupationsOfThisDate = getOccupationsByDate(possibleOccupations, date);
-		List<Alternative> alternatives = buildRoothAlternatives(occupationsOfThisDate, adultsQty, childrenQty);
+		List<Alternative> alternatives = buildRoothAlternatives(occupationsOfThisDate, request.getAdultsQty(), request.getChildrenQty());
 		
 		date = DateUtil.getNextDay(date);
 		
-		while(!date.after(dateTo) && !alternatives.isEmpty()){
+		while(!date.after(request.getDateTo()) && !alternatives.isEmpty()){
 			
 			occupationsOfThisDate = getOccupationsByDate(possibleOccupations, date);
 			

@@ -17,6 +17,7 @@ import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.model.StateReservationForm;
+import com.cdz.sh.model.request.CheckAvailabilityRequest;
 
 /**
  * The idea of each concrete class (like this one) is to ONLY add specific customer methods. CRUD operations are implemented 
@@ -55,7 +56,8 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 	
 	
 	@Override
-	public synchronized List<Occupation> retrieveConfirmedOccupations(Date dateFrom, Date dateTo, int adultsQuantity, int childrenQuantity) throws DaoException {
+	public List<Occupation> retrieveConfirmedOccupations(CheckAvailabilityRequest request) throws DaoException {
+		
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
@@ -63,13 +65,18 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 			
 			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date >= :dateFrom and oc.id.date <= :dateTo";
 			strQuery = strQuery.concat(" and oc.id.room.peopleQuantity >= :peopleQuantity");
+			strQuery = strQuery.concat(" and oc.id.room.withMaritalBed = :withMaritalBed");			
 			strQuery = strQuery.concat(" and oc.id.reservationForm.state = :stateConfirmedId");
 			
 			TypedQuery<Occupation> query = entityManager.createQuery( strQuery, Occupation.class);
 			
-			query = query.setParameter("dateFrom", dateFrom);
-			query = query.setParameter("dateTo", dateTo);
-			query = query.setParameter("peopleQuantity", adultsQuantity + childrenQuantity);
+			query = query.setParameter("dateFrom", request.getDateFrom());
+			query = query.setParameter("dateTo", request.getDateTo());
+			
+			int peopleQuantity = request.getAdultsQty() + request.getChildrenQty();
+			query = query.setParameter("peopleQuantity", peopleQuantity);
+			
+			query = query.setParameter("withMaritalBed", request.isWithMaritalBed());
 			query = query.setParameter("stateConfirmedId", StateReservationForm.confirmada);
 					
 			List<Occupation> occupations = query.getResultList();
@@ -87,7 +94,7 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 	
 
 	@Override
-	public synchronized List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException {
+	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException {
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {

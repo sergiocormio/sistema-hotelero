@@ -35,20 +35,36 @@ public class SameRoomTypeBuilder {
 			RoomType roomType = createRoomType();
 			
 			// Rooms
-			createRoom(roomType);
+			createRoom(roomType, false);
 		}
 		catch (DaoException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void createRoom(RoomType roomType) throws DaoException {
+	
+	public void buildRoomsWithMaritalBed(){
+		
+		try {
+			// Room Types
+			RoomType roomType = createRoomType();
+			
+			// Rooms
+			createRoom(roomType, true);
+		}
+		catch (DaoException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void createRoom(RoomType roomType, boolean withMaritalBed) throws DaoException {
 		Room roomOfTypeCostao1 = this.roomDao.getRecordById(1L);
 		if (roomOfTypeCostao1 == null){
 			roomOfTypeCostao1 = new Room();
 			roomOfTypeCostao1.setRoomType(roomType);
 			roomOfTypeCostao1.setNumber(1);
 			roomOfTypeCostao1.setPeopleQuantity(4);
+			roomOfTypeCostao1.setWithMaritalBed(withMaritalBed);
 			
 			this.roomDao.createRecord(roomOfTypeCostao1);
 		}
@@ -59,6 +75,8 @@ public class SameRoomTypeBuilder {
 			roomOfTypeCostao2.setRoomType(roomType);
 			roomOfTypeCostao2.setNumber(2);
 			roomOfTypeCostao2.setPeopleQuantity(4);
+			roomOfTypeCostao2.setWithMaritalBed(withMaritalBed);
+			
 			this.roomDao.createRecord(roomOfTypeCostao2);
 		}
 		
@@ -68,6 +86,8 @@ public class SameRoomTypeBuilder {
 			roomOfTypeCostao3.setRoomType(roomType);
 			roomOfTypeCostao3.setNumber(3);
 			roomOfTypeCostao3.setPeopleQuantity(4);
+			roomOfTypeCostao3.setWithMaritalBed(withMaritalBed);
+			
 			this.roomDao.createRecord(roomOfTypeCostao3);
 		}
 		

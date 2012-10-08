@@ -14,9 +14,11 @@ import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
+import com.cdz.sh.model.request.CheckAvailabilityRequest;
 import com.cdz.sh.service.OccupationService;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_AllBusy_SameRoomType;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_AllEmpty_SameRoomType;
+import com.cdz.sh.service.core.scenarios.ScenarioBuilder_AllEmpty_SameRoomType_WithMaritalBed;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_LessDaysThanExpected_SameRoomType;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_NoRootAlternatives_SameRoomType;
 import com.cdz.sh.service.core.scenarios.ScenarioBuilder_Room3Busy_SameRoomType;
@@ -59,7 +61,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -67,6 +75,32 @@ public class TestCore_SameRoomType {
 		assertTrue(alternatives.size() == 3);
 		
 	}
+	
+	
+	@Test(expected=NoAvailableAlternativesException.class)
+	public void testAllEmpty_ButMaritalBedNoMatch() throws DaoException, NoAvailableAlternativesException, NoRateException {
+	
+		ScenarioBuilder_AllEmpty_SameRoomType_WithMaritalBed scenarioBuilder = new ScenarioBuilder_AllEmpty_SameRoomType_WithMaritalBed();
+		scenarioBuilder.createDummyScenario();
+		
+		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
+		Date dateFrom = calendar.getTime();
+		
+		calendar.add(Calendar.DATE, 9);
+		
+		Date dateTo = calendar.getTime();
+		
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		request.setWithMaritalBed(false);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
+		
+	}
+	
 	
 	
 	@Test(expected=NoRateException.class)
@@ -82,7 +116,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -104,7 +144,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -125,7 +171,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -147,7 +199,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -170,7 +228,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -191,7 +255,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -217,7 +287,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		assertTrue(alternatives.size() == 1);
 		
@@ -253,7 +329,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -283,7 +365,14 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		request.setWithMaritalBed(false);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -305,7 +394,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);
@@ -326,7 +421,13 @@ public class TestCore_SameRoomType {
 		
 		Date dateTo = calendar.getTime();
 		
-		List<Alternative> alternatives = this.occupationService.checkAvailability(dateFrom, dateTo, 2, 2);
+		CheckAvailabilityRequest request = new CheckAvailabilityRequest();
+		request.setDateFrom(dateFrom);
+		request.setDateTo(dateTo);
+		request.setAdultsQty(2);
+		request.setChildrenQty(2);
+		
+		List<Alternative> alternatives = this.occupationService.checkAvailability(request);
 		
 		for (Alternative alternative : alternatives) {
 			System.out.println(alternative);

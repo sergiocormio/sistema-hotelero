@@ -7,6 +7,7 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
+import com.cdz.sh.model.request.CheckAvailabilityRequest;
 import com.cdz.sh.service.exception.NoAvailableAlternativesException;
 import com.cdz.sh.service.exception.NoRateException;
 
@@ -41,7 +42,7 @@ public interface OccupationService extends CrudService<Occupation, OccupationPK>
 	 * @return
 	 * @throws NoRateException 
 	 */
-	public List<Alternative> checkAvailability(Date dateFrom, Date dateTo, int adultsQty, int childrenQty) throws DaoException, NoAvailableAlternativesException, NoRateException;
+	public List<Alternative> checkAvailability(CheckAvailabilityRequest request) throws DaoException, NoAvailableAlternativesException, NoRateException;
 	
 	
 

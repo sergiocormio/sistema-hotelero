@@ -23,7 +23,7 @@ import com.cdz.sh.model.Room;
 public class RoomDaoImpl extends AbstractCrudDao<Room, Long> implements RoomDao {
 
 	@Override
-	public synchronized List<Room> retrieveRoomsByCapacity(int adultQty, int childrenQty) throws DaoException {
+	public List<Room> retrieveRoomsByCapacity(int adultQty, int childrenQty, boolean withMaritalBed) throws DaoException {
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
@@ -31,12 +31,14 @@ public class RoomDaoImpl extends AbstractCrudDao<Room, Long> implements RoomDao 
 			
 			String strQuery = "SELECT r FROM Room r WHERE ";
 			strQuery = strQuery.concat(" r.peopleQuantity >= :peopleQuantity");
+			strQuery = strQuery.concat(" and r.withMaritalBed = :withMaritalBed");
 			
 			TypedQuery<Room> query = entityManager.createQuery( strQuery, Room.class);
 			
 			int peopleQty = adultQty + childrenQty;
 			
 			query = query.setParameter("peopleQuantity", peopleQty);
+			query = query.setParameter("withMaritalBed", withMaritalBed);
 						
 			List<Room> rooms = query.getResultList();
 			entityManager.getTransaction().commit();
