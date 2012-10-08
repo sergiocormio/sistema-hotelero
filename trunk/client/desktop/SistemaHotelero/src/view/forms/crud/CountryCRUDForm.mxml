@@ -13,6 +13,8 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
+			import resources.Colors;
+			
 			import services.crud.CountryService;
 			
 			import spark.events.GridSelectionEvent;
@@ -86,7 +88,7 @@
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
 		<s:HGroup width="100%" height="70%">
-			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{countries}" selectionChange="grid_selectionChangeHandler(event)">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{countries}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}">
 				<s:columns>
 					<s:ArrayList>
 						<s:GridColumn dataField="name" headerText="{loc.country.singular}"></s:GridColumn>

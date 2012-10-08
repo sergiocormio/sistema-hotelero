@@ -139,6 +139,9 @@ package resources.icons
 		[Embed(source='resources/icons/Addressbook.png')]
 		public static var reservations:Class;		
 		
+		[Bindable]
+		[Embed(source='resources/icons/eye.png')]
+		public static var view:Class;
 		
 		public function Icons()
 		{

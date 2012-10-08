@@ -1,5 +1,15 @@
 <?xml version="1.0"?>
 <locale>
+	<alternative>
+		<dateTo>Fecha Desde</dateTo>
+		<dateFrom>Fecha Hasta</dateFrom>
+		<involvedRooms>Habitaciones Involucradas</involvedRooms>
+		<view>Ver</view>
+		<buttons>
+			<book>Reservar</book>
+			<budget>Presupuestar</budget>
+		</buttons>
+	</alternative>
 	<availability>
 	   	<singular>Disponibilidad</singular>
     	<plural>Disponibilidades</plural>
@@ -23,6 +33,10 @@
 		<falseValue>No</falseValue>
 		<trueValue>Si</trueValue>
 	</boolean>
+	<budget>
+		<basePrice>Precio Base</basePrice>
+		<basePricePlusAllServicesIncludedInBasePrice>Precio con Servicios Básicos</basePricePlusAllServicesIncludedInBasePrice>
+	</budget>
     <button>
     	<add>Agregar</add>
     	<cancel>Cancelar</cancel>

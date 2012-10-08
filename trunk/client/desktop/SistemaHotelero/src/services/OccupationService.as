@@ -1,5 +1,7 @@
 package services
 {
+	import model.CheckAvailabilityRequest;
+
 	public class OccupationService extends RemoteObjectWrapperService
 	{
 		public function OccupationService()
@@ -7,12 +9,12 @@ package services
 			super("occupationService");
 		}
 		
-		public function checkAvailability(dateFrom:Date , dateTo:Date, adultsQty:int, childrenQty:int,resultHandler:Function,faultHandler:Function=null):void{
+		public function checkAvailability(request:CheckAvailabilityRequest, resultHandler:Function,faultHandler:Function=null):void{
 			remoteObject.checkAvailability.addEventListener("result", resultHandler);
 			if(faultHandler!=null){
 				remoteObject.checkAvailability.addEventListener("fault", faultHandler);
 			}
-			remoteObject.checkAvailability(dateFrom,dateTo,adultsQty,childrenQty);
+			remoteObject.checkAvailability(request);
 		}
 		
 		public function retrieveOccupations(dateFrom:Date , dateTo:Date,resultHandler:Function,faultHandler:Function=null):void{
