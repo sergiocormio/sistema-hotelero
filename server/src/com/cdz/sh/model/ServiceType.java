@@ -15,8 +15,14 @@ public class ServiceType {
 	
 	private String description;
 	
+	/**
+	 * if it will be seen in the budget
+	 */
 	private boolean includedInBudget;
 	
+	/**
+	 * if it will be added to the base price, in the budget
+	 */
 	private boolean includedInBasePrice;
 	
 	private ServiceTypeModality modality;
