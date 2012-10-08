@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:components="view.components.*">
 	<fx:Script>
 		<![CDATA[
 			import locales.Locale;
 			
+			import model.Alternative;
+			import model.AlternativeWrapper;
+			import model.CheckAvailabilityRequest;
 			import model.Occupation;
 			import model.Room;
 			
@@ -29,6 +32,9 @@
 			public var alternatives:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
+			private var alternativeSelected:AlternativeWrapper;
+			
+			[Bindable]
 			public var outOfPeriodAlternatives:ArrayCollection = new ArrayCollection();
 			
 			private var nextRangeIndex:int;
@@ -43,12 +49,25 @@
 				nextRangeIndex = -1;
 				//Call To the Service
 				var serv:OccupationService = new OccupationService();
-				serv.checkAvailability(dateFromChooser.selectedDate,dateToChooser.selectedDate,adultsQtyStepper.value,childrenQtyStepper.value,consult_resultHandler,faultHandler);
+				//fills the request
+				var request:CheckAvailabilityRequest = new CheckAvailabilityRequest();
+				request.dateFrom = dateFromChooser.selectedDate;
+				request.dateTo = dateToChooser.selectedDate;
+				request.adultsQty = adultsQtyStepper.value;
+				request.childrenQty = childrenQtyStepper.value;
+				if(singleOrMarital.selectedValue == loc.availability.bed.marital){
+					request.withMaritalBed = true;
+				}else{
+					request.withMaritalBed = false;
+				}
+				serv.checkAvailability(request,consult_resultHandler,consult_faultHandler);
 			}
 			
+			//-------- OUT OF PERIOD -------
 			private function consultOutOfPeriod_resultHandler(event:ResultEvent,token:Object=null):void {
-				grid2.selectedItem = null;
-				outOfPeriodAlternatives.addAll(event.result as ArrayCollection);
+				if(event!=null){
+					outOfPeriodAlternatives.addAll(AlternativeWrapper.wrapAlternatives(event.result as ArrayCollection));
+				}
 				getNextAlternatives();
 				
 			}
@@ -59,15 +78,39 @@
 				if(nextRangeIndex<outOfPeriodRanges.length){
 					var range:DateRange = outOfPeriodRanges.getItemAt(nextRangeIndex) as DateRange;
 					var serv:OccupationService = new OccupationService();
-					serv.checkAvailability(range.dateFrom,range.dateTo,adultsQtyStepper.value,childrenQtyStepper.value,consultOutOfPeriod_resultHandler,faultHandler);
+					//fills the request
+					var request:CheckAvailabilityRequest = new CheckAvailabilityRequest();
+					request.dateFrom = range.dateFrom;
+					request.dateTo = range.dateTo;
+					request.adultsQty = adultsQtyStepper.value;
+					request.childrenQty = childrenQtyStepper.value;
+					if(singleOrMarital.selectedValue == loc.availability.bed.marital){
+						request.withMaritalBed = true;
+					}else{
+						request.withMaritalBed = false;
+					}
+					serv.checkAvailability(request,consultOutOfPeriod_resultHandler,consultOutOfPeriod_faultHandler);
 				}
 			}
 			
+			private function consultOutOfPeriod_faultHandler(event:FaultEvent,token:Object=null):void {
+				//continues through normal flow
+				consultOutOfPeriod_resultHandler(null); 
+			}
+			
+			//-------- IN PERIOD -------
 			private function consult_resultHandler(event:ResultEvent,token:Object=null):void {
-				grid.selectedItem = null;
 				alternatives.removeAll();
-				alternatives.addAll(event.result as ArrayCollection);
+				if(event!=null){
+					alternatives.addAll(AlternativeWrapper.wrapAlternatives(event.result as ArrayCollection));
+				}
 				getNextAlternatives();
+			}
+			
+			
+			private function consult_faultHandler(event:FaultEvent,token:Object=null):void {
+				//continues through normal flow
+				consult_resultHandler(null); 
 			}
 			
 			// Handle a message fault.
@@ -77,57 +120,11 @@
 			
 			protected function cleanButton_clickHandler(event:MouseEvent):void
 			{
+				alternativeSelected = null;
 				alternatives.removeAll();
 				outOfPeriodAlternatives.removeAll();
 			}
 			
-			
-			private function involvedRoomsFormat(item:Object,column:GridColumn):String
-			{
-				var distinctRooms:ArrayCollection = item [column.dataField] as ArrayCollection; 
-				var result:String = "";
-				if(distinctRooms != null){
-					for each (var room:Room in distinctRooms){
-						if(result!=""){ 
-							result += ", ";
-						}
-						result += room.number;
-					}
-				}
-				return result;
-			}
-			
-			private function dateFromFormat(item:Object,column:GridColumn):String
-			{
-				var occupations:ArrayCollection = item [column.dataField] as ArrayCollection; 
-				var result:String = "";
-				var dateFrom:Date = null;
-				if(occupations != null){
-					for each (var oc:Occupation in occupations){
-						if(dateFrom==null || dateFrom > oc.id.date){
-							dateFrom = oc.id.date;
-							result = DateTimeUtils.formatDateWithPattern(dateFrom,loc.dateFormat);
-						}
-					}
-				}
-				return result;
-			}
-			
-			private function dateToFormat(item:Object,column:GridColumn):String
-			{
-				var occupations:ArrayCollection = item [column.dataField] as ArrayCollection; 
-				var result:String = "";
-				var dateFrom:Date = null;
-				if(occupations != null){
-					for each (var oc:Occupation in occupations){
-						if(dateFrom==null || dateFrom < oc.id.date){
-							dateFrom = oc.id.date;
-							result = DateTimeUtils.formatDateWithPattern(dateFrom,loc.dateFormat);
-						}
-					}
-				}
-				return result;
-			}
 			
 			private function getOutOfPeriodRanges(variation:int):ArrayCollection{
 				var result:ArrayCollection = new ArrayCollection();
@@ -148,6 +145,27 @@
 				}
 				return result;
 			}
+			
+			protected function alternativeGridSelectedChangedHandler(event:Event):void
+			{
+				if(alternativeGrid.selected == null){
+					alternativeSelected = null;
+				}else{
+					alternativeSelected = alternativeGrid.selected;
+					outOfPeriodAlternativeGrid.cleanSelection();
+				}
+			}
+			
+			protected function outOfPeriodAlternativeGridSelectedChangedHandler(event:Event):void
+			{
+				if(outOfPeriodAlternativeGrid.selected == null){
+					alternativeSelected = null;
+				}else{
+					alternativeSelected = outOfPeriodAlternativeGrid.selected;
+					alternativeGrid.cleanSelection();
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -160,89 +178,73 @@
 		</s:stroke>
 		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 	</s:Rect>
-	<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
-		<s:VGroup width="100%">
-			<s:HGroup width="100%" height="100%" horizontalAlign="center">
-				<s:Form>
-					<s:layout>
-						<s:FormLayout gap="-14"/>
-					</s:layout>  
-					
-					<s:FormItem label="{loc.availability.dateFrom}:" required="true">
-						<mx:DateField id="dateFromChooser" width="120"
-									  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
-									  formatString="{loc.dateFormat.toUpperCase()}"
-									  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
-					</s:FormItem>
-					
-					<s:FormItem label="{loc.availability.dateTo}:" required="true">
-						<mx:DateField id="dateToChooser" width="120"
-									  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
-									  formatString="{loc.dateFormat.toUpperCase()}"
-									  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
-					</s:FormItem>
-					
-					<s:FormItem label="{loc.availability.variation}:" required="true">
-						<s:HGroup verticalAlign="middle">
-							<s:NumericStepper id="variationStepper" maximum="{Number.MAX_VALUE}" width="50"/>
-							<s:Label text="{loc.availability.days}"/>				
-						</s:HGroup>
-					</s:FormItem>
-				</s:Form>
-				<s:Form>
-					<s:layout>
-						<s:FormLayout gap="-14"/>
-					</s:layout>  
-					
-					<s:FormItem label="{loc.availability.adultsQuantity}:" required="true">
-						<s:NumericStepper id="adultsQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
-					</s:FormItem>
-					
-					<s:FormItem label="{loc.availability.childrenQuantity}:" required="true">
-						<s:NumericStepper id="childrenQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
-					</s:FormItem>
-					
-					<s:FormItem label="{loc.availability.bed.plural}:">
-						<s:RadioButton id="single" groupName="singleOrMarital" label="{loc.availability.bed.single}" selected="true"/>
-						<s:RadioButton id="marital" groupName="singleOrMarital" label="{loc.availability.bed.marital}"/>
-					</s:FormItem>
-				</s:Form>
-			</s:HGroup>
-			<s:HGroup width="100%" horizontalAlign="center">
-				<s:Button id="consultButton" label="{loc.availability.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
-				<s:Button id="cleanButton" label="{loc.availability.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
-			</s:HGroup>
-		</s:VGroup>
-		<s:VGroup width="100%">
-			<mx:VDividedBox height="100%" width="100%">
-				<s:VGroup width="100%" height="50%">
-					<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{alternatives}">
-						<s:columns>
-							<s:ArrayList>
-								<s:GridColumn dataField="distinctRooms" headerText="{loc.alternative.involvedRooms}" labelFunction="involvedRoomsFormat"></s:GridColumn>
-								<s:GridColumn dataField="budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
-								<s:GridColumn dataField="budget.basePricePlusAllServicesIncludedInBasePrice" headerText="{loc.budget.basePrice}2"></s:GridColumn>
-								<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateFrom}" labelFunction="dateFromFormat"></s:GridColumn>
-								<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateTo}" labelFunction="dateToFormat"></s:GridColumn>
-							</s:ArrayList>
-						</s:columns>
-					</s:DataGrid>
-				</s:VGroup>
-				<s:VGroup width="100%" height="50%">
-					<s:Label text="{loc.availability.otherAlternatives}:" fontWeight="bold"/>
-					<s:DataGrid id="grid2" width="100%" height="100%" dataProvider="{outOfPeriodAlternatives}">
-						<s:columns>
-							<s:ArrayList>
-								<s:GridColumn dataField="distinctRooms" headerText="{loc.alternative.involvedRooms}" labelFunction="involvedRoomsFormat"></s:GridColumn>
-								<s:GridColumn dataField="budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
-								<s:GridColumn dataField="budget.basePricePlusAllServicesIncludedInBasePrice" headerText="{loc.budget.basePrice}2"></s:GridColumn>
-								<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateFrom}" labelFunction="dateFromFormat"></s:GridColumn>
-								<s:GridColumn dataField="occupations" headerText="{loc.alternative.dateTo}" labelFunction="dateToFormat"></s:GridColumn>
-							</s:ArrayList>
-						</s:columns>
-					</s:DataGrid>
-				</s:VGroup>
-			</mx:VDividedBox>
-		</s:VGroup>
-	</mx:VDividedBox>
+	<s:VGroup height="100%" width="100%">
+		<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
+			<s:VGroup width="100%">
+				<s:HGroup width="100%" height="100%" horizontalAlign="center">
+					<s:Form>
+						<s:layout>
+							<s:FormLayout gap="-14"/>
+						</s:layout>  
+						
+						<s:FormItem label="{loc.availability.dateFrom}:" required="true">
+							<mx:DateField id="dateFromChooser" width="120"
+										  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+										  formatString="{loc.dateFormat.toUpperCase()}"
+										  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+						</s:FormItem>
+						
+						<s:FormItem label="{loc.availability.dateTo}:" required="true">
+							<mx:DateField id="dateToChooser" width="120"
+										  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+										  formatString="{loc.dateFormat.toUpperCase()}"
+										  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+						</s:FormItem>
+						
+						<s:FormItem label="{loc.availability.variation}:" required="true">
+							<s:HGroup verticalAlign="middle">
+								<s:NumericStepper id="variationStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+								<s:Label text="{loc.availability.days}"/>				
+							</s:HGroup>
+						</s:FormItem>
+					</s:Form>
+					<s:Form>
+						<s:layout>
+							<s:FormLayout gap="-14"/>
+						</s:layout>  
+						
+						<s:FormItem label="{loc.availability.adultsQuantity}:" required="true">
+							<s:NumericStepper id="adultsQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+						</s:FormItem>
+						
+						<s:FormItem label="{loc.availability.childrenQuantity}:" required="true">
+							<s:NumericStepper id="childrenQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+						</s:FormItem>
+						
+						<s:FormItem label="{loc.availability.bed.plural}:">
+							<s:RadioButton id="single" groupName="singleOrMarital" label="{loc.availability.bed.single}" selected="true"/>
+							<s:RadioButton id="marital" groupName="singleOrMarital" label="{loc.availability.bed.marital}"/>
+						</s:FormItem>
+					</s:Form>
+				</s:HGroup>
+				<s:HGroup width="100%" horizontalAlign="center">
+					<s:Button id="consultButton" label="{loc.availability.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+					<s:Button id="cleanButton" label="{loc.availability.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
+				</s:HGroup>
+			</s:VGroup>
+			<s:VGroup width="100%">
+				<mx:VDividedBox height="100%" width="100%">
+					<components:AlternativesGrid id="alternativeGrid" width="100%" height="50%" loc="{loc}" alternatives="{alternatives}" alternativeSelectedChanged="alternativeGridSelectedChangedHandler(event)"/>
+					<s:VGroup width="100%" height="50%">
+						<s:Label text="{loc.availability.otherAlternatives}:" fontWeight="bold"/>
+						<components:AlternativesGrid id="outOfPeriodAlternativeGrid" width="100%" height="100%" loc="{loc}" alternatives="{outOfPeriodAlternatives}" alternativeSelectedChanged="outOfPeriodAlternativeGridSelectedChangedHandler(event)"/>
+					</s:VGroup>
+				</mx:VDividedBox>
+			</s:VGroup>
+		</mx:VDividedBox>
+		<s:HGroup width="100%" horizontalAlign="right" paddingRight="10" paddingBottom="10">
+			<s:Button label="{loc.alternative.buttons.budget}" enabled="{alternativeSelected!=null}"/>
+			<s:Button label="{loc.alternative.buttons.book}" enabled="{alternativeSelected!=null}"/>
+		</s:HGroup>
+	</s:VGroup>
 </s:Group>
