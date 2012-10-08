@@ -24,12 +24,13 @@ import com.cdz.sh.service.impl.MigrationServiceImpl;
  * @author fede
  *
  */
-public class TestMigrationServiceZipUtil {
+public class TestMigrationService {
 
 	private MigrationService migrationService;
 	private DocumentTypeDao documentTypeDao;
 	
 	private static final String BACKUP_PATH = "c:/mybackups/backup.zip";
+	private static final String INVALID_BACKUP_PATH = "c:/mybackups/invalid_backup.zip";
 	
 	@Before
 	public void setUp() throws Exception {
@@ -61,7 +62,7 @@ public class TestMigrationServiceZipUtil {
 	}
 
 
-	
+		
 	@Test
 	public void testRestoreCurrentDBEmpty() throws DaoException, SQLException {
 
@@ -75,6 +76,16 @@ public class TestMigrationServiceZipUtil {
 		assertTrue(restored.size() == 3);
 	}
 	
+	@Test
+	public void testRestoreCurrentDBInvalidZip() throws DaoException, SQLException {
+
+		EntityManagerFactorySingleton.shutDown();
+		EntityManagerFactorySingleton.getInstance();
+		assertTrue(this.documentTypeDao.retrieveAll().size() == 0);
+	
+		this.migrationService.restoreDatabase(INVALID_BACKUP_PATH);
+		
+	}
 	
 	@Test
 	public void testRestoreOverwriteExistingData() throws DaoException, SQLException {

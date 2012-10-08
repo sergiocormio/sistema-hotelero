@@ -1,8 +1,15 @@
 package com.cdz.sh.service.exception;
 
-public class NoAvailableAlternativesException extends Exception {
+import com.cdz.sh.exception.SHException;
 
-	public NoAvailableAlternativesException(String message){
-		super(message);
+public class NoAvailableAlternativesException extends SHException {
+
+
+	private static final long serialVersionUID = 1L;
+	
+	
+	public NoAvailableAlternativesException(String errorCode, String message) {
+		super(errorCode, message);
 	}
+	
 }
