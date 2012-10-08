@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 import com.cdz.sh.concurrence.TestConcurrency;
 import com.cdz.sh.dao.AllDaoTests;
 import com.cdz.sh.mail.AllEMailTests;
-import com.cdz.sh.migration.TestMigrationServiceZipUtil;
+import com.cdz.sh.migration.TestMigrationService;
 import com.cdz.sh.report.TestCustomersReport;
 import com.cdz.sh.service.AllServiceTests;
 
@@ -19,7 +19,7 @@ import com.cdz.sh.service.AllServiceTests;
     // Mail
     AllEMailTests.class,
     // Migration
-    TestMigrationServiceZipUtil.class,
+    TestMigrationService.class,
     // Report
     TestCustomersReport.class,
     // concurrency validation

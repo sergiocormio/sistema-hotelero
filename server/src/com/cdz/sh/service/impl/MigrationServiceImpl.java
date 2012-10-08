@@ -20,10 +20,15 @@ public class MigrationServiceImpl implements MigrationService {
 	public void restoreDatabase(String sourceZipFile) {
 		
 		EntityManagerFactorySingleton.shutDown();
-		
-		ZipUtil.unzipFolder(sourceZipFile, CURRENT_PATH);
-		
-		EntityManagerFactorySingleton.getInstanceRestartingDatabase();
+		try{
+			ZipUtil.unzipFolder(sourceZipFile, CURRENT_PATH);
+		}
+		catch(Exception exception){
+			exception.printStackTrace();
+		}
+		finally{
+			EntityManagerFactorySingleton.getInstanceRestartingDatabase();
+		}
 	}
 	
 	

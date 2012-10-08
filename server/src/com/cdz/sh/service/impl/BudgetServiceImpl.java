@@ -2,6 +2,7 @@ package com.cdz.sh.service.impl;
 
 import java.util.List;
 
+import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.RateDao;
 import com.cdz.sh.dao.ServiceTypeDao;
 import com.cdz.sh.dao.crud.CrudDao;
@@ -43,7 +44,7 @@ public class BudgetServiceImpl implements BudgetService {
 				roomType = nextRoomType;
 				rate = this.rateDao.retrieveRate(nextRoomType, occupation.getId().getDate());
 				if(rate == null){
-					throw new NoRateException("There is no rate that matches with the given room type and/or the date range.");
+					throw new NoRateException(ExceptionErrorCodes.NO_RATE, "There is no rate that matches with the given room type and/or the date range.");
 				}
 			}
 			

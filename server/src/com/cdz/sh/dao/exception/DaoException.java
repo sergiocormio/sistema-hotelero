@@ -1,6 +1,7 @@
 package com.cdz.sh.dao.exception;
 
 import com.cdz.sh.constants.ExceptionErrorCodes;
+import com.cdz.sh.exception.SHException;
 
 /**
  * Generic Dao exception to be thrown on every dao methods. The idea is to encapsulate specific JPA exceptions.
@@ -25,34 +26,18 @@ import com.cdz.sh.constants.ExceptionErrorCodes;
  * @author fede
  *
  */
-public class DaoException extends Exception {
+public class DaoException extends SHException {
 
 	
 	private static final long serialVersionUID = 1L;
-	private String errorCode;
-
-	/*
-	 * default constructor
-	 */
+	
 	public DaoException(String detail){
-		super(detail);
-		this.errorCode = ExceptionErrorCodes.INVALID_OPERATION;
+		super(ExceptionErrorCodes.INVALID_OPERATION, detail);
 	}
 	
 	
 	public DaoException(String errorCode, String detail){
-		super(detail);
-		this.errorCode = errorCode;
-	}
-
-
-	public String getErrorCode() {
-		return errorCode;
-	}
-
-
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
+		super(errorCode, detail);
 	}
 
 

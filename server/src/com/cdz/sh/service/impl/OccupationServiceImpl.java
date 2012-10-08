@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.RoomDao;
 import com.cdz.sh.dao.crud.CrudDao;
@@ -159,7 +160,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		}
 		
 		if(!hasAtLeastOneAvailableOccupationForThisDate){
-			throw new NoAvailableAlternativesException("No available occupation for date: " + DateUtil.dateToStringYYYYmmDD(date));
+			throw new NoAvailableAlternativesException(ExceptionErrorCodes.NO_AVAILABLE_OCCUPATIONS, "No available occupation for date: " + DateUtil.dateToStringYYYYmmDD(date));
 		}
 		
 		return possibleOccupations;
@@ -212,13 +213,13 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		}
 		
 		if(alternatives.isEmpty()){
-			throw new NoAvailableAlternativesException("No available alternatives for date: " + DateUtil.dateToStringYYYYmmDD(date));
+			throw new NoAvailableAlternativesException(ExceptionErrorCodes.NO_AVAILABLE_ALTERNATIVES, "No available alternatives for date: " + DateUtil.dateToStringYYYYmmDD(date));
 		}
 		
 		alternatives = filterInvalidLastRoomChanges(alternatives);
 		
 		if(alternatives.isEmpty()){
-			throw new NoAvailableAlternativesException("No available alternatives. All last room changes are not valid-");
+			throw new NoAvailableAlternativesException(ExceptionErrorCodes.NO_AVAILABLE_ALTERNATIVES, "No available alternatives. All last room changes are not valid");
 		}
 		
 		// post operations after validations 
