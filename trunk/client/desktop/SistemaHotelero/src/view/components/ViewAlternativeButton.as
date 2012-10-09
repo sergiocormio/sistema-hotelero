@@ -7,13 +7,22 @@ package view.components
 	import model.Alternative;
 	import model.AlternativeWrapper;
 	
+	import mx.containers.TitleWindow;
 	import mx.controls.Alert;
+	import mx.core.Window;
+	import mx.managers.PopUpManager;
 	
+	import spark.components.Application;
 	import spark.components.Button;
+	
+	import utils.WindowsUtils;
 	
 	public class ViewAlternativeButton extends Button
 	{
+		private var titleWindow:TitleWindow;
+		
 		public var alternative:AlternativeWrapper;
+		
 		
 		public function ViewAlternativeButton()
 		{
@@ -23,8 +32,15 @@ package view.components
 		
 		protected override function clickHandler(event:MouseEvent):void{
 			if(alternative!=null){
-				Alert.show("Base Price: " + alternative.alternative.budget.basePrice);
+				var alternativeInCalendar: AlternativeViewInCalendar = new AlternativeViewInCalendar();
+				alternativeInCalendar.alternative = alternative;
+				alternativeInCalendar.addEventListener("closeClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(Locale.getInstance().getCurrentLocale().alternative.singular,alternativeInCalendar);
 			}
+		}
+
+		private function titleWindow_close(evt:Object):void {
+			PopUpManager.removePopUp(titleWindow);
 		}
 	
 	}

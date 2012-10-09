@@ -45,6 +45,7 @@
     	<refresh>Refresh</refresh>
     	<remove>Remove</remove>
     	<save>Save</save>
+    	<close>Close</close>
     </button>
     <calendar>
     	<singular>Calendar</singular>

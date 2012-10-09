@@ -46,14 +46,9 @@
 				occupations.addAll(event.result as ArrayCollection);
 				grid.columns = new ArrayList();
 				for(var i:int=0;i<daysToShow;i++){
-					grid.columns.addItem(getColumnForDate(DateTimeUtils.rollDaysToDate(dateFrom,i)));
+					grid.columns.addItem(DateTimeUtils.getColumnForDate(DateTimeUtils.rollDaysToDate(dateFrom,i)));
 				}
 				
-			}
-			
-			private function getColumnForDate(date:Date):GridColumn{
-				var col:GridColumn = new GridColumn(DateTimeUtils.formatDateWithPattern(date,loc.dateFormat));
-				return col;
 			}
 			
 			// Handle a message fault.
