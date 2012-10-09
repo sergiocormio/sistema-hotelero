@@ -4,6 +4,7 @@ package utils
 	
 	import locales.Locale;
 	
+	import spark.components.gridClasses.GridColumn;
 	import spark.formatters.DateTimeFormatter;
 	
 
@@ -55,5 +56,12 @@ package utils
 			result.setTime(date.getTime() + (day * days));
 			return result;
 		}
+		
+		//Returns a column for a Date
+		public static function getColumnForDate(date:Date):GridColumn{
+			var col:GridColumn = new GridColumn(DateTimeUtils.formatDateWithPattern(date,Locale.getInstance().getCurrentLocale().dateFormat));
+			return col;
+		}
+		
 	}
 }

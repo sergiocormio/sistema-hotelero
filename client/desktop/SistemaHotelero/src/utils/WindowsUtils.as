@@ -3,6 +3,7 @@ package utils
 	import flash.display.DisplayObject;
 	
 	import mx.containers.TitleWindow;
+	import mx.core.FlexGlobals;
 	import mx.managers.PopUpManager;
 	
 	import spark.components.ComboBox;
@@ -20,7 +21,10 @@ package utils
 			titleWindow.title = title;
 			titleWindow.showCloseButton = false;
 			titleWindow.addChild(componentInside);
-			
+			//if there is no Parent, display in the middle of the screen
+			if(parent == null){
+				parent = FlexGlobals.topLevelApplication as DisplayObject;
+			}
 			PopUpManager.addPopUp(titleWindow, parent, true);
 			PopUpManager.centerPopUp(titleWindow);
 			return titleWindow;
