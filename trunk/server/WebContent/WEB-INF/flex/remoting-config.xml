@@ -100,4 +100,11 @@
 			<scope>application</scope>
 		</properties>
     </destination>
+    
+     <destination id="reservationFormService">
+		<properties>
+			<source>com.cdz.sh.service.impl.ReservationFormServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 </service>
