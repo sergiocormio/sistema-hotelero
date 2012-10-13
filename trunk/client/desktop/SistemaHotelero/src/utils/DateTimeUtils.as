@@ -58,9 +58,19 @@ package utils
 		}
 		
 		//Returns a column for a Date
-		public static function getColumnForDate(date:Date):GridColumn{
-			var col:GridColumn = new GridColumn(DateTimeUtils.formatDateWithPattern(date,Locale.getInstance().getCurrentLocale().dateFormat));
+		public static function getColumnForDate(date:Date,dataField:String="date"):GridColumn{
+			var headerText:String = DateTimeUtils.formatDateWithPattern(date,Locale.getInstance().getCurrentLocale().dateFormat);
+			var col:GridColumn = new GridColumn();
+			col.headerText = headerText;
+			col.dataField = dataField;
 			return col;
+		}
+		
+		//returns the amount of days between dateFrom and dateTo
+		public static function getQuantityOfDays(dateFrom:Date,dateTo:Date):Number{
+			var dateDiff:Number;
+			dateDiff = dateTo.time-dateFrom.time;
+			return Math.round((dateDiff/86400000));
 		}
 		
 	}

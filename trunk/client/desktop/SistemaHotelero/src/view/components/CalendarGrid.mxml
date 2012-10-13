@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
+		 >
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import model.Occupation;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.events.FlexEvent;
+			
+			import spark.components.gridClasses.GridColumn;
+			
+			import utils.DateTimeUtils;
+			
+			[Bindable]
+			public var loc:Object = Locale.getInstance().getCurrentLocale();
+			
+			public var occupations:ArrayCollection = new ArrayCollection();
+			
+			public var dateFrom:Date;
+			
+			public var dateTo:Date;
+			
+			[Bindable]
+			private var calendarRows:ArrayCollection;
+			
+			private var roomIdToCalendarRowMap:Dictionary;
+			
+			private function addRoomColumn():void{
+				var roomColumn:GridColumn = new GridColumn();
+				roomColumn.headerText = loc.room.singular;
+				roomColumn.dataField = "room.number";
+				grid.columns.addItem(roomColumn);
+			}
+			
+			private function addDayColumns(dateFrom:Date,dateTo:Date):void{
+				var i:int = 0;
+				while(DateTimeUtils.rollDaysToDate(dateFrom,i) <= dateTo){
+					var auxDate:Date = DateTimeUtils.rollDaysToDate(dateFrom,i);
+					var col:GridColumn = DateTimeUtils.getColumnForDate(auxDate,"day_" + i);
+					grid.columns.addItem(col);
+					i++;
+				}
+			}
+			
+			public function init():void
+			{
+				roomIdToCalendarRowMap = new Dictionary();
+				//adds columns to the grid
+				grid.columns = new ArrayList();
+				addRoomColumn();
+				addDayColumns(dateFrom,dateTo);
+				
+				calendarRows = new ArrayCollection();
+				for each (var occupation:Occupation in occupations){
+					var isNew:Boolean = false;
+					var roomId:Object = occupation.id.room.id;
+					if(roomIdToCalendarRowMap[roomId] == null){
+						roomIdToCalendarRowMap[roomId] = new Object();
+						isNew = true;
+					}
+					var cr:Object = roomIdToCalendarRowMap[roomId];
+					var attributeName:String = "day_" + DateTimeUtils.getQuantityOfDays(dateFrom,occupation.id.date);
+					
+					//alternatives In Calendar have reservationForm as Null
+					if( occupation.id.reservationForm == null){ //it's an alternative
+						cr[attributeName] = "X";
+					}else{
+						cr[attributeName] = occupation.id.reservationForm;
+					}
+					
+					if(isNew){
+						cr.room = occupation.id.room;
+						calendarRows.addItem(cr);
+					}
+				}
+				
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{calendarRows}"/>
+</s:Group>
