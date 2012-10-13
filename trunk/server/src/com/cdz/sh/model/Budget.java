@@ -142,11 +142,11 @@ public class Budget {
 		
 		int nights = this.relatedAlternative.getOccupations().size();
 		
-		if(serviceType.getModality().equals(ServiceTypeModality.perPerson)){
+		if(serviceType.getModality().equals(ServiceTypeModality.PER_PERSON)){
 			
 			return serviceType.getPrice() * nights * relatedAlternative.getPeopleQuantity();
 		}
-		else if(serviceType.getModality().equals(ServiceTypeModality.perNight)){
+		else if(serviceType.getModality().equals(ServiceTypeModality.PER_NIGHT)){
 			
 			return serviceType.getPrice() * nights;
 		}

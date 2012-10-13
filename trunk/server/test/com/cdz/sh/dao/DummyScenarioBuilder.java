@@ -54,15 +54,15 @@ import com.cdz.sh.model.StateReservationForm;
 		
 		4 reservationForms
 			a) de 3 dias, sin cambio de habitacion (lease, a distinto tipo), pre-reserva, cliente Fede
-			b) de 6 dias con un cambio de habitacion(lease, a distinto tipo), confirmada, cliente Fede
-			c) de 10 dias con 2 cambios de habitacion(lease, a distinto tipo), vencida, cliente Sergio
-			d) de dos dias, unica habitacion, cancelada, cliente Sergio
+			b) de 6 dias con un cambio de habitacion(lease, a distinto tipo), CONFIRMED, cliente Fede
+			c) de 10 dias con 2 cambios de habitacion(lease, a distinto tipo), EXPIRED, cliente Sergio
+			d) de dos dias, unica habitacion, CANCELLED, cliente Sergio
 	
 		Todas las ocupaciones asociadas a las reservas, son del 1 al 19 de Agosto de 2012
 			a) 1 al 3
 			b) 1 al 6
 			c) 10 al 19
-			d) no hay, porque esta vencida (simulo que ya se borro de la tabla "Occupations")
+			d) no hay, porque esta EXPIRED (simulo que ya se borro de la tabla "Occupations")
 		
 		1 temporada (season) del 1 de agosto al 31 del mismo mes, 2012
 		
@@ -320,7 +320,7 @@ public class DummyScenarioBuilder {
 			reservationForm1.setDateTo(calendar.getTime());
 	
 			reservationForm1.setCustomer(this.customerDao.getRecordById(this.customerPKFede));
-			reservationForm1.setState(StateReservationForm.pre_reserva);
+			reservationForm1.setState(StateReservationForm.PRE_BOOKING);
 			
 			this.reservationFormDao.createRecord(reservationForm1);
 		}
@@ -341,7 +341,7 @@ public class DummyScenarioBuilder {
 			reservationForm2.setDateTo(calendar.getTime());
 	
 			reservationForm2.setCustomer(this.customerDao.getRecordById(this.customerPKFede));
-			reservationForm2.setState(StateReservationForm.confirmada);
+			reservationForm2.setState(StateReservationForm.CONFIRMED);
 			
 			this.reservationFormDao.createRecord(reservationForm2);
 		}
@@ -361,7 +361,7 @@ public class DummyScenarioBuilder {
 			reservationForm3.setDateTo(calendar.getTime());
 	
 			reservationForm3.setCustomer(this.customerDao.getRecordById(this.customerPKSergio));
-			reservationForm3.setState(StateReservationForm.vencida);
+			reservationForm3.setState(StateReservationForm.EXPIRED);
 			
 			this.reservationFormDao.createRecord(reservationForm3);
 		}
@@ -381,7 +381,7 @@ public class DummyScenarioBuilder {
 			reservationForm4.setDateTo(calendar.getTime());
 	
 			reservationForm4.setCustomer(this.customerDao.getRecordById(this.customerPKSergio));
-			reservationForm4.setState(StateReservationForm.cancelada);
+			reservationForm4.setState(StateReservationForm.CANCELLED);
 			
 			this.reservationFormDao.createRecord(reservationForm4);
 		}
