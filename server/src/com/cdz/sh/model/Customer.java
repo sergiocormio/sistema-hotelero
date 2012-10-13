@@ -29,6 +29,10 @@ public class Customer {
 	@JoinColumn(name="LANGUAGE_ID")
     private Language language;
     
+    private String phoneNumber;
+    
+    private String cellphoneNumber;
+    
     private String email;
     
     private String profession;
@@ -79,6 +83,23 @@ public class Customer {
 		this.region = region;
 	}
 	
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getCellphoneNumber() {
+		return cellphoneNumber;
+	}
+
+	public void setCellphoneNumber(String cellphoneNumber) {
+		this.cellphoneNumber = cellphoneNumber;
+	}
+
 	public String getEmail() {
 		return email;
 	}
