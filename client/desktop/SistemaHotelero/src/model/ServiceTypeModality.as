@@ -6,11 +6,11 @@ package model
 
 	public class ServiceTypeModality
 	{
-		static public const PER_PERSON:String = "perPerson";
-		static public const PER_TIME:String = "perTime";
-		static public const PER_UNIT:String = "perUnit";
-		static public const PER_ROOM:String = "perRoom";
-		static public const PER_NIGHT:String = "perNight";
+		static public const PER_PERSON:String = "PER_PERSON";
+		static public const PER_TIME:String = "PER_TIME";
+		static public const PER_UNIT:String = "PER_UNIT";
+		static public const PER_ROOM:String = "PER_ROOM";
+		static public const PER_NIGHT:String = "PER_NIGHT";
 		
 		static public const modalityIds:ArrayCollection = new ArrayCollection([PER_PERSON,PER_TIME,PER_UNIT,PER_ROOM,PER_NIGHT]);
 		

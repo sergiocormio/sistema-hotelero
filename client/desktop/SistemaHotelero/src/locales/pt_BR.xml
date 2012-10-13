@@ -91,11 +91,11 @@
 	    <modality>
 	    	<singular>Modality</singular>
 	    	<plural>Modalities</plural>
-	    	<perPerson>Per Person</perPerson>
-	    	<perTime>Per Time</perTime>
-	    	<perNight>Per Night</perNight>
-	    	<perUnit>Per Unit</perUnit>
-	    	<perRoom>Per Room</perRoom>
+	    	<PER_PERSON>Per Person</PER_PERSON>
+	    	<PER_TIME>Per Time</PER_TIME>
+	    	<PER_NIGHT>Per Night</PER_NIGHT>
+	    	<PER_UNIT>Per Unit</PER_UNIT>
+	    	<PER_ROOM>Per Room</PER_ROOM>
 	    </modality>
 	    <price>Price</price>
 	    <includedInBudget>Included In Budget</includedInBudget>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
+		  creationComplete="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import model.ReservationForm;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.Colors;
+			
+			import services.crud.ReservationFormService;
+			
+			import spark.events.GridSelectionEvent;
+			
+			import utils.DateTimeUtils;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			private var reservationForms:ArrayCollection = new ArrayCollection();
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				Alert.show("ReservationForm Form: Received fault: " + event.fault + "\n");
+			}
+			
+			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedItem = null;
+				reservationForms.removeAll();
+				reservationForms.addAll(event.result as ArrayCollection);
+			}
+			
+			
+			private function delete_resultHandler(event:ResultEvent,token:Object=null):void {
+				refreshGrid();
+			}
+			
+			
+			protected function init(event:FlexEvent):void{
+				refreshGrid();
+			}
+			
+			protected function refreshGrid():void
+			{
+				individual.enabled = false;
+				grid.selectedItem = null;
+				new ReservationFormService().retrieveAll(retrieveAll_resultHandler,faultHandler);
+			}
+			
+			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
+			{
+				if(grid.selectedItem !=null){
+					individual.currentReservationForm = grid.selectedItem as ReservationForm;
+				}
+				individual.enabled = false;
+			}
+			
+			protected function modifyReservationForm():void
+			{
+				individual.currentReservationForm = grid.selectedItem as ReservationForm;
+				individual.isUpdate = true;
+				individual.enabled=true;
+				
+			}
+			
+			protected function deleteReservationForm():void
+			{
+				new ReservationFormService().deleteRecord(grid.selectedItem as ReservationForm,delete_resultHandler,faultHandler);
+			}
+			
+			protected function addReservationForm():void
+			{
+				grid.selectedItem = null;
+				individual.currentReservationForm = new ReservationForm();
+				individual.isUpdate = false;
+				individual.enabled = true;
+			}
+			
+			private function dateFormat(item:Object,column:GridColumn):String
+			{
+				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateFormat);
+			}
+			
+			private function booleanFormat(item:Object,column:GridColumn):String
+			{
+				var value:Boolean = item [column.dataField] as Boolean; 
+				if(value){
+					return loc.boolean.trueValue;
+				}else{
+					return loc.boolean.falseValue;
+				}
+				
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:HGroup width="100%" height="50%">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{reservationForms}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="id" headerText="{loc.reservationForm.id}"/>
+						<s:GridColumn dataField="customer.name" headerText="{loc.customer.singular}"/>
+						<s:GridColumn dataField="state" headerText="{loc.reservationForm.state.singular}"/>
+						<s:GridColumn dataField="creationDate" headerText="{loc.reservationForm.creationDate}" labelFunction="dateFormat"/>
+						<s:GridColumn dataField="dateFrom" headerText="{loc.reservationForm.dateFrom}" labelFunction="dateFormat"/>
+						<s:GridColumn dataField="dateTo" headerText="{loc.reservationForm.dateTo}" labelFunction="dateFormat"/>
+						<s:GridColumn dataField="adultsQuantity" headerText="{loc.reservationForm.adultsQuantity}"/>
+						<s:GridColumn dataField="childrenQuantity" headerText="{loc.reservationForm.childrenQuantity}"/>
+						<s:GridColumn dataField="pricePerDay" headerText="{loc.reservationForm.pricePerDay}"/>
+						<s:GridColumn dataField="monetaryReserve" headerText="{loc.reservationForm.monetaryReserve}"/>
+						<s:GridColumn dataField="bank.name" headerText="{loc.bank.singular}"/>
+						<s:GridColumn dataField="bankDocumentNumber" headerText="{loc.reservationForm.bankDocumentNumber}"/>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+			<!-- BUTTONS -->
+			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addReservationForm()"
+									modifyClicked="modifyReservationForm()" removeClicked="deleteReservationForm()"
+									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
+									removeButtonEnabled="{grid.selectedItem!=null}"/>
+		</s:HGroup>
+		<individual:ReservationFormIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="50%"/>
+	</mx:VDividedBox>
+</s:VGroup>
+

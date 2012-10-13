@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:forms="view.forms.*">
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:forms="view.forms.*" xmlns:crud="view.forms.crud.*">
 	<fx:Script>
 		<![CDATA[
 			import resources.icons.Icons;
@@ -29,6 +29,7 @@
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="reservationForms" label="{loc.reservationForm.plural}" icon="{Icons.reservations}" width="100%" height="100%" >
+			<crud:ReservationFormCRUDForm width="100%" height="100%" loc="{loc}"/>
 		</s:NavigatorContent>
 	</mx:ViewStack>
 </s:HGroup>

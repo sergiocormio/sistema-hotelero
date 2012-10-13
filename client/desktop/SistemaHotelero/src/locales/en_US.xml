@@ -29,6 +29,10 @@
 	    	<marital>Marital</marital>
     	</bed>
 	</availability>
+	<bank>
+		<singular>Bank</singular>
+		<plural>Banks</plural>
+	</bank>
 	<boolean>
 		<falseValue>No</falseValue>
 		<trueValue>Yes</trueValue>
@@ -164,6 +168,23 @@
     <reservationForm>
     	<singular>Reservation Form</singular>
 	    <plural>Reservation Forms</plural>
+	    <id>Id</id>
+	    <state>
+	    	<singular>State</singular>
+	    	<plural>States</plural>
+	    	<PRE_BOOKING>Pre-Booking</PRE_BOOKING>
+	    	<CONFIRMED>Confirmed</CONFIRMED>
+	    	<CANCELLED>Cancelled</CANCELLED>
+	    	<EXPIRED>Expired</EXPIRED>
+	    </state>
+	    <creationDate>Creation Date</creationDate>
+	    <dateFrom>Date From</dateFrom>
+	    <dateTo>Date To</dateTo>
+	    <adultsQuantity>Adults</adultsQuantity>
+	    <childrenQuantity>Children</childrenQuantity>
+	    <pricePerDay>Price per Day</pricePerDay>
+	    <monetaryReserve>Monetary Reserve</monetaryReserve>
+	    <bankDocumentNumber>Bank Document Number</bankDocumentNumber>
     </reservationForm>
     <room>
    		<singular>Room</singular>
@@ -194,11 +215,11 @@
 	    <modality>
 	    	<singular>Modality</singular>
 	    	<plural>Modalities</plural>
-	    	<perPerson>Per Person</perPerson>
-	    	<perTime>Per Time</perTime>
-	    	<perNight>Per Night</perNight>
-	    	<perUnit>Per Unit</perUnit>
-	    	<perRoom>Per Room</perRoom>
+	    	<PER_PERSON>Per Person</PER_PERSON>
+	    	<PER_TIME>Per Time</PER_TIME>
+	    	<PER_NIGHT>Per Night</PER_NIGHT>
+	    	<PER_UNIT>Per Unit</PER_UNIT>
+	    	<PER_ROOM>Per Room</PER_ROOM>
 	    </modality>
 	    <price>Price</price>
 	    <includedInBudget>Included In Budget</includedInBudget>
