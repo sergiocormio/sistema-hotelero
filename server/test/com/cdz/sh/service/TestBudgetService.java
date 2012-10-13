@@ -83,11 +83,11 @@ public class TestBudgetService {
 		for(ServiceType serviceIncludedInBasePrice : budget.getServicePriceAddedInBasePriceMap().keySet()){
 			Double price = budget.getServicePriceAddedInBasePriceMap().get(serviceIncludedInBasePrice);
 			
-			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perPerson)){
+			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_PERSON)){
 				
 				assertTrue(price.doubleValue() == 510d);	
 			}
-			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perNight)){
+			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_NIGHT)){
 				
 				assertTrue(price.doubleValue() == 480d);
 			}
@@ -122,11 +122,11 @@ public class TestBudgetService {
 		for(ServiceType serviceIncludedInBasePrice : budget.getServicePriceAddedInBasePriceMap().keySet()){
 			Double price = budget.getServicePriceAddedInBasePriceMap().get(serviceIncludedInBasePrice);
 			
-			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perPerson)){
+			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_PERSON)){
 				
 				assertTrue(price.doubleValue() == 1290d);	
 			}
-			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perNight)){
+			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_NIGHT)){
 				
 				assertTrue(price.doubleValue() == 1230d);
 			}
@@ -164,11 +164,11 @@ public class TestBudgetService {
 		for(ServiceType serviceIncludedInBasePrice : budget.getServicePriceAddedInBasePriceMap().keySet()){
 			Double price = budget.getServicePriceAddedInBasePriceMap().get(serviceIncludedInBasePrice);
 			
-			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perPerson)){
+			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_PERSON)){
 				
 				assertTrue(price.doubleValue() == 2630d);	
 			}
-			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.perNight)){
+			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_NIGHT)){
 				
 				assertTrue(price.doubleValue() == 2530d);
 			}

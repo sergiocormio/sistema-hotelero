@@ -63,7 +63,7 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	@Override
 	public ReservationForm book(Alternative chosenAlternative, ReservationForm reservationForm) throws DaoException, InvalidParameterException {
 						
-		if(!reservationForm.getState().equals(StateReservationForm.pre_reserva)){
+		if(!reservationForm.getState().equals(StateReservationForm.PRE_BOOKING)){
 			throw new InvalidParameterException(ExceptionErrorCodes.INVALID_RESERVATION_FORM_STATE, "Invalid reservation form state: " + reservationForm.getState().toString());
 		}
 		ReservationForm createdReservationForm = this.crudDao.createRecord(reservationForm);
@@ -79,7 +79,7 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 
 	@Override
 	public void updateRecord(ReservationForm reservationForm) throws DaoException {
-		if(reservationForm.getState().equals(StateReservationForm.confirmada)){			
+		if(reservationForm.getState().equals(StateReservationForm.CONFIRMED)){			
 			
 			List<Occupation> occupations = this.occupationDao.retrieveOccupations(reservationForm);
 			for (Occupation occupation : occupations) {
@@ -87,7 +87,7 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 				if(occupationsForTheSameDate != null){
 					for (Occupation occupationForTheSameDate : occupationsForTheSameDate) {
 						ReservationForm overlapedReservationForm = occupationForTheSameDate.getId().getReservationForm();
-						overlapedReservationForm.setState(StateReservationForm.cancelada);
+						overlapedReservationForm.setState(StateReservationForm.CANCELLED);
 						this.reservationFormDao.updateRecord(overlapedReservationForm);
 					}
 				}

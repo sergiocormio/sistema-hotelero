@@ -108,7 +108,7 @@ public class TestReservationFormDao {
 	@Test
 	public void testRetrieveReservationFormsByState() throws DaoException, InvalidParameterException {
 		
-		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(null, null, null, StateReservationForm.pre_reserva);
+		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(null, null, null, StateReservationForm.PRE_BOOKING);
 		
 		assertNotNull(reservationForms);
 		
@@ -177,7 +177,7 @@ public class TestReservationFormDao {
 				
 		Customer customer = this.customerDao.getRecordById(customerPKFede);
 		
-		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(dateFrom, dateTo, customer, StateReservationForm.pre_reserva);
+		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(dateFrom, dateTo, customer, StateReservationForm.PRE_BOOKING);
 		
 		assertNotNull(reservationForms);
 		

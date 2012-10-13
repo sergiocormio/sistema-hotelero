@@ -101,7 +101,7 @@ public class TestReservationFormService {
 		Alternative alternative = new Alternative(4);
 		
 		ReservationForm reservationForm = new ReservationForm();
-		reservationForm.setState(StateReservationForm.confirmada);
+		reservationForm.setState(StateReservationForm.CONFIRMED);
 		
 		ReservationForm createdReservation = this.reservationFormService.book(alternative, reservationForm);
 		
@@ -125,7 +125,7 @@ public class TestReservationFormService {
 		customerPKFede.setIdNumber("33103189");
 		
 		reservationForm.setCustomer(this.customerDao.getRecordById(customerPKFede));
-		reservationForm.setState(StateReservationForm.pre_reserva);
+		reservationForm.setState(StateReservationForm.PRE_BOOKING);
 		
 		return reservationForm;
 	}
@@ -148,7 +148,7 @@ public class TestReservationFormService {
 		customerPKFede.setIdNumber("33103189");
 		
 		reservationForm.setCustomer(this.customerDao.getRecordById(customerPKFede));
-		reservationForm.setState(StateReservationForm.pre_reserva);
+		reservationForm.setState(StateReservationForm.PRE_BOOKING);
 		
 		return reservationForm;
 	}
@@ -189,17 +189,17 @@ public class TestReservationFormService {
 			alternative.addOccupation(occupation);
 		}
 		
-		reservationForm.setState(StateReservationForm.pre_reserva);
+		reservationForm.setState(StateReservationForm.PRE_BOOKING);
 				
 		ReservationForm createdReservation = this.reservationFormService.book(alternative, reservationForm);
 		
-		createdReservation.setState(StateReservationForm.confirmada);
+		createdReservation.setState(StateReservationForm.CONFIRMED);
 		
-		List<ReservationForm> reservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.cancelada);
+		List<ReservationForm> reservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.CANCELLED);
 		
 		this.reservationFormService.updateRecord(createdReservation);
 		
-		List<ReservationForm> updatedReservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.cancelada);
+		List<ReservationForm> updatedReservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.CANCELLED);
 				
 		assertTrue(updatedReservationFormsCanceled.size() == reservationFormsCanceled.size());
 	}
@@ -244,7 +244,7 @@ public class TestReservationFormService {
 		
 		/***********/
 		
-		reservationForm3.setState(StateReservationForm.pre_reserva);
+		reservationForm3.setState(StateReservationForm.PRE_BOOKING);
 				
 		ReservationForm createdReservation1 = this.reservationFormService.book(alternative1, reservationForm1);
 		ReservationForm createdReservation2 = this.reservationFormService.book(alternative2, reservationForm2);
@@ -252,13 +252,13 @@ public class TestReservationFormService {
 		
 		Collection<ReservationForm> retrieveAll = this.reservationFormService.retrieveAll();
 		
-		createdReservation1.setState(StateReservationForm.confirmada);
+		createdReservation1.setState(StateReservationForm.CONFIRMED);
 		
-		List<ReservationForm> reservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.cancelada);
+		List<ReservationForm> reservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.CANCELLED);
 		
 		this.reservationFormService.updateRecord(createdReservation1);
 		
-		List<ReservationForm> updatedReservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.cancelada);
+		List<ReservationForm> updatedReservationFormsCanceled = this.reservationFormService.retrieveReservationForms(null, null, null, StateReservationForm.CANCELLED);
 				
 		assertTrue(updatedReservationFormsCanceled.size() == reservationFormsCanceled.size()+2);
 	}

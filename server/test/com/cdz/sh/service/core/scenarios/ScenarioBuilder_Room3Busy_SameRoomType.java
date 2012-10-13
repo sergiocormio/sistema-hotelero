@@ -165,7 +165,7 @@ public class ScenarioBuilder_Room3Busy_SameRoomType {
 			customerPKFede.setIdNumber("33103189");
 			
 			reservationForm.setCustomer(this.customerDao.getRecordById(customerPKFede));
-			reservationForm.setState(StateReservationForm.confirmada);
+			reservationForm.setState(StateReservationForm.CONFIRMED);
 			
 			this.reservationFormDao.createRecord(reservationForm);
 						

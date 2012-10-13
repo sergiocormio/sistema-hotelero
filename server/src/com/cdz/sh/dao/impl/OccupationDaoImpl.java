@@ -77,7 +77,7 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 			query = query.setParameter("peopleQuantity", peopleQuantity);
 			
 			query = query.setParameter("withMaritalBed", request.isWithMaritalBed());
-			query = query.setParameter("stateConfirmedId", StateReservationForm.confirmada);
+			query = query.setParameter("stateConfirmedId", StateReservationForm.CONFIRMED);
 					
 			List<Occupation> occupations = query.getResultList();
 			entityManager.getTransaction().commit();
