@@ -33,7 +33,7 @@ import com.cdz.sh.service.ReservationFormService;
 public class ReservationFormServiceImpl extends AbstractCrudService<ReservationForm, Long> implements ReservationFormService {
 
 		
-	private static final String RESERVATION_FORM_TEMPLATE = "resources/report/report1.jrxml";
+	private static final String RESERVATION_FORM_TEMPLATE = "resources/report/reservationForm_ES.jrxml";
 	
 	private ReservationFormDao reservationFormDao ;
 	private OccupationDao occupationDao;
