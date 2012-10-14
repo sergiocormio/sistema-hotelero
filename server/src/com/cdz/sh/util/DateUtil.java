@@ -49,6 +49,21 @@ public class DateUtil {
 		
 		return calendar.getTime();
 	}
+
+	public static int getDaysDifference(Date dateFrom, Date dateTo) {
+		int daysQuantity = 0;
+		if(dateFrom == null || dateTo == null){
+			return daysQuantity;
+		}
+		else{
+			Date date = dateFrom;
+			while(!date.after(dateTo)){
+				date = DateUtil.getNextDay(date);
+				daysQuantity++;
+			}
+			return daysQuantity;
+		}
+	}
 	
 	
 }

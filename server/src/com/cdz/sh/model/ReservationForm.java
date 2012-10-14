@@ -10,6 +10,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import com.cdz.sh.util.DateUtil;
+
 @Entity
 public class ReservationForm {
 	
@@ -160,6 +162,16 @@ public class ReservationForm {
     		return false;
     	}
     	
+    }
+    
+    @Transient
+    public int getDaysQuantity(){
+    	return DateUtil.getDaysDifference(this.dateFrom, this.dateTo);
+    }
+    
+    @Transient
+    public int getNightsQuantity(){
+    	return getDaysQuantity()-1;
     }
 	
 }
