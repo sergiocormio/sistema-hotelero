@@ -25,15 +25,16 @@ public class Budget {
 
 	private Double basePricePlusAllServicesIncludedInBasePrice;
 
-	
-	public Budget(Alternative alternative){
-		this.relatedAlternative = alternative;
+	public Budget(){
 		this.additionalServices = new ArrayList<ServiceType>();
 		this.servicesToBeAddedInBasePrice = new ArrayList<ServiceType>();
 		this.servicePriceAddedInBasePriceMap = new HashMap<ServiceType, Double>();
 	}
 	
-	
+	public Budget(Alternative alternative){
+		this();
+		this.relatedAlternative = alternative;
+	}
 	
 	public Alternative getRelatedAlternative() {
 		return relatedAlternative;
