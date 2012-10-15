@@ -32,6 +32,7 @@
 	<bank>
 		<singular>Bank</singular>
 		<plural>Banks</plural>
+		<name>Name</name>
 	</bank>
 	<boolean>
 		<falseValue>No</falseValue>

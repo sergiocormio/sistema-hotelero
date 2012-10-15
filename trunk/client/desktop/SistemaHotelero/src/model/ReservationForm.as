@@ -5,7 +5,7 @@ package model
 	{
 		private var _id : Object;
 		private var _customer:Customer;
-		private var _state:StateReservationForm;
+		private var _state:String; //On Server side it is a Enum;
 		private var _creationDate:Date;
 		private var _dateFrom:Date;
 		private var _dateTo:Date;
@@ -110,12 +110,12 @@ package model
 			_creationDate = value;
 		}
 
-		public function get state():StateReservationForm
+		public function get state():String
 		{
 			return _state;
 		}
 
-		public function set state(value:StateReservationForm):void
+		public function set state(value:String):void
 		{
 			_state = value;
 		}
