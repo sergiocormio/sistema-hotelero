@@ -101,9 +101,16 @@
 		</properties>
     </destination>
     
-     <destination id="reservationFormService">
+    <destination id="reservationFormService">
 		<properties>
 			<source>com.cdz.sh.service.impl.ReservationFormServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+    <destination id="bankService">
+		<properties>
+			<source>com.cdz.sh.service.impl.BankServiceImpl</source>
 			<scope>application</scope>
 		</properties>
     </destination>
