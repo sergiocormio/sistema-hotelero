@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.service.exception.InvalidOperationException;
 
 public abstract class AbstractCrudService<Entity, Id extends Serializable> implements CrudService<Entity, Id> {
 
@@ -26,7 +27,7 @@ public abstract class AbstractCrudService<Entity, Id extends Serializable> imple
 
 	
 	@Override
-	public Entity createRecord(Entity e) throws DaoException {
+	public Entity createRecord(Entity e) throws DaoException, InvalidOperationException {
 		Entity createdEntity = this.crudDao.createRecord(e);
 		return createdEntity;
 	}

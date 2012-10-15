@@ -21,6 +21,7 @@ import com.cdz.sh.model.request.CheckAvailabilityRequest;
 import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.BudgetService;
 import com.cdz.sh.service.OccupationService;
+import com.cdz.sh.service.exception.InvalidOperationException;
 import com.cdz.sh.service.exception.NoAvailableAlternativesException;
 import com.cdz.sh.service.exception.NoRateException;
 import com.cdz.sh.util.DateUtil;
@@ -53,6 +54,12 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	}
 	
 	
+	
+
+	@Override
+	public Occupation createRecord(Occupation e) throws DaoException, InvalidOperationException {
+		throw new InvalidOperationException(ExceptionErrorCodes.INVALID_OPERATION, "Invalid operation. You should use the 'book' method");
+	}
 
 	@Override
 	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException {
