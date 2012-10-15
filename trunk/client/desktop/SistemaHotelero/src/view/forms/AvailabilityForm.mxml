@@ -10,10 +10,13 @@
 			import model.AlternativeWrapper;
 			import model.CheckAvailabilityRequest;
 			import model.Occupation;
+			import model.ReservationForm;
 			import model.Room;
 			
 			import mx.collections.ArrayCollection;
+			import mx.containers.TitleWindow;
 			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
@@ -24,6 +27,10 @@
 			
 			import utils.DateRange;
 			import utils.DateTimeUtils;
+			import utils.WindowsUtils;
+			
+			import view.forms.crud.ReservationFormCRUDForm;
+			import view.forms.crud.individual.ReservationFormIndividualCRUDForm;
 			
 			[Bindable]
 			public var loc:Object;
@@ -39,6 +46,8 @@
 			
 			private var nextRangeIndex:int;
 			private var outOfPeriodRanges:ArrayCollection;
+			private var titleWindow:TitleWindow;
+			private var reservationFormForm:ReservationFormIndividualCRUDForm;
 			
 			
 			protected function consultButton_clickHandler(event:MouseEvent):void
@@ -166,6 +175,35 @@
 				}
 			}
 			
+			protected function bookButton_clickHandler():void
+			{
+				reservationFormForm = new ReservationFormIndividualCRUDForm();
+				reservationFormForm.loc = loc;
+				reservationFormForm.isUpdate = false;
+				reservationFormForm.addEventListener("saveSuccess",reservationForm_saveSuccess);
+				reservationFormForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.reservationForm.singular,reservationFormForm);
+				//creates a reservationForm pre-loaded
+				var rf:ReservationForm = new ReservationForm();
+				rf.adultsQuantity = adultsQtyStepper.value;
+				rf.childrenQuantity = childrenQtyStepper.value;
+				rf.monetaryReserve = 0;
+				rf.pricePerDay = alternativeSelected.alternative.budget.basePricePlusAllServicesIncludedInBasePrice;
+				rf.dateFrom = alternativeSelected.dateFrom;
+				rf.dateTo = alternativeSelected.dateTo;
+				rf.creationDate = new Date();
+				reservationFormForm.currentReservationForm = rf;
+				reservationFormForm.alternative = alternativeSelected.alternative;
+			}
+			
+			private function titleWindow_close(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
+			private function reservationForm_saveSuccess(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -244,7 +282,7 @@
 		</mx:VDividedBox>
 		<s:HGroup width="100%" horizontalAlign="right" paddingRight="10" paddingBottom="10">
 			<s:Button label="{loc.alternative.buttons.budget}" enabled="{alternativeSelected!=null}"/>
-			<s:Button label="{loc.alternative.buttons.book}" enabled="{alternativeSelected!=null}"/>
+			<s:Button id="bookButton" label="{loc.alternative.buttons.book}" enabled="{alternativeSelected!=null}" click="bookButton_clickHandler()"/>
 		</s:HGroup>
 	</s:VGroup>
 </s:Group>

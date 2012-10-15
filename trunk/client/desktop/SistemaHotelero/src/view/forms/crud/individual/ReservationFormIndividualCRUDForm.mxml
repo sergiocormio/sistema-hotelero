@@ -8,8 +8,11 @@
 	</fx:Metadata> 
 	<fx:Script>
 		<![CDATA[
+			import flash.sampler.NewObjectSample;
+			
 			import locales.Locale;
 			
+			import model.Alternative;
 			import model.ReservationForm;
 			import model.StateReservationForm;
 			
@@ -46,10 +49,22 @@
 			
 			private var _currentReservationForm:ReservationForm;
 			
+			private var _alternative:Alternative = new Alternative();
+			
 			private var titleWindow:TitleWindow;
 			private var customerForm:CustomerIndividualCRUDForm;
 			private var bankForm:BankIndividualCRUDForm;
 			
+			public function get alternative():Alternative
+			{
+				return _alternative;
+			}
+
+			public function set alternative(value:Alternative):void
+			{
+				_alternative = value;
+			}
+
 			public function get currentReservationForm():ReservationForm
 			{
 				return _currentReservationForm;
@@ -113,7 +128,7 @@
 				if(isUpdate){
 					new ReservationFormService().updateRecord(_currentReservationForm,reservationFormSaved_resultHandler,faultHandler);
 				}else{
-					new ReservationFormService().createRecord(_currentReservationForm,reservationFormSaved_resultHandler,faultHandler);
+					new ReservationFormService().book(alternative,_currentReservationForm,reservationFormSaved_resultHandler,faultHandler);
 				}
 			}
 			
@@ -136,6 +151,7 @@
 				currentReservationForm = new ReservationForm();
 				retrieveCustomers();
 				loadStates();
+				retrieveBanks();
 			}
 			
 			private function retrieveCustomers():void{
