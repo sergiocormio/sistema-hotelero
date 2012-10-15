@@ -18,9 +18,9 @@ public class Alternative implements Comparable<Alternative>{
 	
 	private List<Room> distinctRooms;
 	
-	
-	public Alternative(){}
-			
+	public Alternative(){
+		this(0);
+	}
 	
 	public Alternative(int peopleQuantity){
 		
