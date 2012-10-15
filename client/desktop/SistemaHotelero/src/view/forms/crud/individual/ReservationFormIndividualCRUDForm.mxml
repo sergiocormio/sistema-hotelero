@@ -23,6 +23,7 @@
 			import resources.Colors;
 			import resources.icons.Icons;
 			
+			import services.crud.BankService;
 			import services.crud.CustomerService;
 			import services.crud.ReservationFormService;
 			
@@ -38,12 +39,16 @@
 			public var customers:ArrayCollection  = new ArrayCollection();
 			
 			[Bindable]
+			public var banks:ArrayCollection  = new ArrayCollection();
+			
+			[Bindable]
 			private var reservationFormStates:ArrayCollection; 
 			
 			private var _currentReservationForm:ReservationForm;
 			
 			private var titleWindow:TitleWindow;
 			private var customerForm:CustomerIndividualCRUDForm;
+			private var bankForm:BankIndividualCRUDForm;
 			
 			public function get currentReservationForm():ReservationForm
 			{
@@ -53,6 +58,38 @@
 			public function set currentReservationForm(value:ReservationForm):void
 			{
 				_currentReservationForm = value;
+				//load whole form
+				if(_currentReservationForm.id != null){
+					idText.text = _currentReservationForm.id.toString();
+				}else{
+					idText.text = "";
+				}
+				WindowsUtils.autoSelectComboBox(customersCombo,_currentReservationForm.customer);
+				WindowsUtils.autoSelectDropDownList(stateList,_currentReservationForm.state);
+				//adds creation date
+				if(_currentReservationForm.creationDate == null){
+					_currentReservationForm.creationDate = new Date();
+				}
+				creationDateChooser.selectedDate = _currentReservationForm.creationDate;
+				dateFromChooser.selectedDate = _currentReservationForm.dateFrom;
+				dateToChooser.selectedDate = _currentReservationForm.dateTo;
+				adultsQtyStepper.value = _currentReservationForm.adultsQuantity;
+				childrenQtyStepper.value = _currentReservationForm.childrenQuantity;
+				//avoids showing NaN
+				if(_currentReservationForm.pricePerDay >= 0){
+					pricePerDayText.text = _currentReservationForm.pricePerDay.toString();
+				}else{
+					pricePerDayText.text = '';
+				}
+				
+				//avoids showing NaN
+				if(_currentReservationForm.monetaryReserve >= 0){
+					monetaryReserveText.text = _currentReservationForm.monetaryReserve.toString();
+				}else{
+					monetaryReserveText.text = '';
+				}
+				WindowsUtils.autoSelectComboBox(banksCombo,_currentReservationForm.bank);
+				bankDocumentNumberText.text = _currentReservationForm.bankDocumentNumber;
 			}
 			
 			private function save():void{
@@ -60,7 +97,17 @@
 				//if(!allFieldsAreValid()){
 				//	return;
 				//}
-				
+				_currentReservationForm.customer = customersCombo.selectedItem;
+				_currentReservationForm.state = (stateList.selectedItem as StateReservationForm).id;
+				//_currentReservationForm.creationDate
+				_currentReservationForm.dateFrom = dateFromChooser.selectedDate;
+				_currentReservationForm.dateTo = dateToChooser.selectedDate;
+				_currentReservationForm.adultsQuantity = adultsQtyStepper.value;
+				_currentReservationForm.childrenQuantity = childrenQtyStepper.value;
+				_currentReservationForm.pricePerDay = Number(pricePerDayText.text);
+				_currentReservationForm.monetaryReserve = Number(monetaryReserveText.text);
+				_currentReservationForm.bank = banksCombo.selectedItem;
+				_currentReservationForm.bankDocumentNumber = bankDocumentNumberText.text;
 				
 				//calls service
 				if(isUpdate){
@@ -97,7 +144,7 @@
 			}
 			
 			private function retrieveCustomers_resultHandler(event:ResultEvent,token:Object=null):void {
-				//fills the documentTypes ComboBox
+				//fills the ComboBox
 				customers.removeAll();
 				customers.addAll(event.result as ArrayCollection);
 			}
@@ -131,9 +178,36 @@
 				if(currentReservationForm == null || currentReservationForm.state == null){
 					stateList.selectedIndex = 0;
 				}else{
-					WindowsUtils.autoSelectDropDownList(stateList,currentReservationForm.state.id);
+					WindowsUtils.autoSelectDropDownList(stateList,currentReservationForm.state);
 				}
 			}
+			
+			private function retrieveBanks():void{
+				var bankServ:BankService = new BankService();
+				bankServ.retrieveAll(retrieveBanks_resultHandler,faultHandler);
+			}
+			
+			private function retrieveBanks_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				banks.removeAll();
+				banks.addAll(event.result as ArrayCollection);
+			}
+			
+			private function addBank():void{
+				bankForm = new BankIndividualCRUDForm();
+				bankForm.loc = loc;
+				bankForm.isUpdate = false;
+				bankForm.addEventListener("saveSuccess",bank_saveSuccess);
+				bankForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.bank.singular,bankForm);
+			}
+			
+			private function bank_saveSuccess(evt:Object):void {
+				banks.addItem(bankForm.currentBank);
+				WindowsUtils.autoSelectComboBox(banksCombo, bankForm.currentBank);
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -158,7 +232,7 @@
 				
 				<s:FormItem id="customerItem" label="{loc.customer.singular}:" required="true">
 					<s:HGroup>
-						<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="lastName"/>
+						<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name"/>
 						<s:Button width="24" height="24" click="retrieveCustomers();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addCustomer();" icon="{Icons.add}"
@@ -172,6 +246,13 @@
 						<s:Button width="24" height="24" click="loadStates();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 					</s:HGroup>
+				</s:FormItem>
+				
+				<s:FormItem label="{loc.reservationForm.creationDate}:" required="false" enabled="false">
+					<mx:DateField id="creationDateChooser" width="120"
+								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+								  formatString="{loc.dateFormat.toUpperCase()}"
+								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.reservationForm.dateFrom}:" required="true">
@@ -188,6 +269,12 @@
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
 				
+			</s:Form>
+			<s:Form>
+				<s:layout>
+					<s:FormLayout gap="-14"/>
+				</s:layout>  
+				
 				<s:FormItem label="{loc.reservationForm.adultsQuantity}:" required="true">
 					<s:NumericStepper id="adultsQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
 				</s:FormItem>
@@ -195,7 +282,27 @@
 				<s:FormItem label="{loc.reservationForm.childrenQuantity}:" required="true">
 					<s:NumericStepper id="childrenQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
 				</s:FormItem>
+				<s:FormItem label="{loc.reservationForm.pricePerDay}:" required="true">
+					<s:TextInput id="pricePerDayText"/>
+				</s:FormItem>
 				
+				<s:FormItem label="{loc.reservationForm.monetaryReserve}:" required="false">
+					<s:TextInput id="monetaryReserveText"/>
+				</s:FormItem>
+				
+				<s:FormItem id="bankItem" label="{loc.bank.singular}:" required="false">
+					<s:HGroup>
+						<s:ComboBox id="banksCombo" dataProvider="{banks}" labelField="name"/>
+						<s:Button width="24" height="24" click="retrieveBanks();"
+								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+						<s:Button width="24" height="24" click="addBank();" icon="{Icons.add}"
+								  toolTip="{loc.button.add}"/>
+					</s:HGroup>
+				</s:FormItem>
+				
+				<s:FormItem label="{loc.reservationForm.bankDocumentNumber}:" required="false">
+					<s:TextInput id="bankDocumentNumberText"/>
+				</s:FormItem>
 			</s:Form>
 		</s:HGroup>
 		<!-- BUTTONS -->

@@ -21,6 +21,12 @@ public class Customer
 	private var _profession:String;
 	
 	private var _lastLodgementDate:Date;
+	
+	public function get name():String
+	{
+		return _lastName + ", " + firstName;
+	}
+
 
 	public function get lastLodgementDate():Date
 	{
