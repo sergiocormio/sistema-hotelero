@@ -23,6 +23,7 @@ import com.cdz.sh.model.StateReservationForm;
 import com.cdz.sh.report.PDFReportManager;
 import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.ReservationFormService;
+import com.cdz.sh.service.exception.InvalidOperationException;
 
 /**
  * Implementation of ReservationFormService facade
@@ -76,6 +77,11 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	}
 	
 	
+
+	@Override
+	public ReservationForm createRecord(ReservationForm e) throws DaoException, InvalidOperationException {
+		throw new InvalidOperationException(ExceptionErrorCodes.INVALID_OPERATION, "Invalid operation. You should use the 'book' method");
+	}
 
 	@Override
 	public void updateRecord(ReservationForm reservationForm) throws DaoException {
