@@ -96,7 +96,7 @@
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
 		<s:HGroup width="100%" height="60%">
-			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{seasons}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{seasons}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
 				<s:columns>
 					<s:ArrayList>
 						<s:GridColumn dataField="name" headerText="{loc.season.singular}"></s:GridColumn>
