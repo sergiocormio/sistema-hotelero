@@ -52,8 +52,13 @@
 				numberStepper.value = _currentRoom.number;
 				descriptionText.text = _currentRoom.description;
 				WindowsUtils.autoSelectComboBox(roomTypesCombo,_currentRoom.roomType);
-				withExtraBedCheck.selected = _currentRoom.withExtraBed;
-				withMaritalBedCheck.selected = _currentRoom.withMaritalBed;
+				
+				if(_currentRoom.withMaritalBed){
+					maritalOrExtraBed.selectedValue = loc.room.withMaritalBed;
+				}else{
+					maritalOrExtraBed.selectedValue = loc.room.withExtraBed;
+				}
+				
 				peopleQuantityStepper.value = _currentRoom.peopleQuantity;
 			}
 			
@@ -96,8 +101,14 @@
 				_currentRoom.number = numberStepper.value;
 				_currentRoom.description = descriptionText.text;
 				_currentRoom.roomType = roomTypesCombo.selectedItem;
-				_currentRoom.withExtraBed = withExtraBedCheck.selected;
-				_currentRoom.withMaritalBed = withMaritalBedCheck.selected;
+				_currentRoom.withExtraBed = false;
+				_currentRoom.withMaritalBed = false;
+				if(maritalOrExtraBed.selectedValue == loc.room.withMaritalBed){
+					_currentRoom.withMaritalBed = true;
+				}else{
+					_currentRoom.withExtraBed = true;
+				}
+				
 				_currentRoom.peopleQuantity = peopleQuantityStepper.value;
 				
 				//calls service
@@ -132,6 +143,7 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RadioButtonGroup id="maritalOrExtraBed"/>
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>
@@ -161,11 +173,9 @@
 				<s:FormItem label="{loc.room.peopleQuantity}:" required="true">
 					<s:NumericStepper id="peopleQuantityStepper" maximum="{Number.MAX_VALUE}" minimum="1" width="50"/>
 				</s:FormItem>
-				<s:FormItem label="{loc.room.withMaritalBed}:" required="true">
-					<s:CheckBox id="withMaritalBedCheck"/>
-				</s:FormItem>
 				<s:FormItem label="{loc.room.withExtraBed}:" required="true">
-					<s:CheckBox id="withExtraBedCheck"/>
+					<s:RadioButton id="marital" groupName="maritalOrExtraBed" label="{loc.room.withMaritalBed}" selected="true"/>
+					<s:RadioButton id="extra" groupName="maritalOrExtraBed" label="{loc.room.withExtraBed}"/>
 				</s:FormItem>
 			</s:Form>
 			<s:Form>

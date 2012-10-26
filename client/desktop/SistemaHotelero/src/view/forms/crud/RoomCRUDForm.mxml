@@ -77,9 +77,31 @@
 			protected function addRoom():void
 			{
 				grid.selectedItem = null;
-				individual.currentRoom = new Room();
+				var room:Room = new Room();
+				room.number = calculateNextRoomNumber();
+				individual.currentRoom = room;
 				individual.isUpdate = false;
 				individual.enabled = true;
+			}
+			
+			private function calculateNextRoomNumber():int{
+				var numberToRoomMap:Dictionary = new Dictionary();
+				var result:int = 0;
+				var exists:Boolean = true;
+				
+				for each (var room:Room in rooms){
+					numberToRoomMap[room.number] = room;
+				}
+				
+				while(exists){
+					result ++;
+					if(numberToRoomMap[result]==null){
+						exists = false;
+					}
+				}
+				
+				
+				return result;
 			}
 			
 			private function booleanFormat(item:Object,column:GridColumn):String
