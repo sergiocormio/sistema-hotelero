@@ -69,8 +69,15 @@ package utils
 		//returns the amount of days between dateFrom and dateTo
 		public static function getQuantityOfDays(dateFrom:Date,dateTo:Date):Number{
 			var dateDiff:Number;
-			dateDiff = dateTo.time-dateFrom.time;
+			dateDiff = removeHoursToDate(dateTo).time-removeHoursToDate(dateFrom).time;
 			return Math.round((dateDiff/86400000));
+		}
+		
+		//For example removes "12:07:32" from "12/12/2012 12:07:32"
+		public static function removeHoursToDate(dateToModify:Date):Date{
+			var result:Date = new Date(dateToModify.fullYear,dateToModify.month,dateToModify.date);
+			return result;
+			
 		}
 		
 	}
