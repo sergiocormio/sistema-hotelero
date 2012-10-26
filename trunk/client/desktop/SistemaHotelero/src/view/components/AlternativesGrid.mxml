@@ -51,7 +51,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{alternatives}" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}"
-				selectionChange="grid_selectionChangeHandler(event)">
+				selectionChange="grid_selectionChangeHandler(event)" skinClass="view.skins.CustomDataGridSkin">
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn dataField="involvedRooms" headerText="{loc.alternative.involvedRooms}"></s:GridColumn>
