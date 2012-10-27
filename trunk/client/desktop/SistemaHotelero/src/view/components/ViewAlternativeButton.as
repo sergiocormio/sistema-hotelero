@@ -7,6 +7,7 @@ package view.components
 	import model.Alternative;
 	import model.AlternativeWrapper;
 	
+	import mx.collections.ArrayCollection;
 	import mx.containers.TitleWindow;
 	import mx.controls.Alert;
 	import mx.core.Window;
@@ -33,6 +34,8 @@ package view.components
 		protected override function clickHandler(event:MouseEvent):void{
 			if(alternative!=null){
 				var alternativeInCalendar: AlternativeViewInCalendar = new AlternativeViewInCalendar();
+				alternativeInCalendar.roomsToShow = new ArrayCollection();
+				alternativeInCalendar.roomsToShow.addItem(alternative.alternative.lastRoom);
 				alternativeInCalendar.alternative = alternative;
 				alternativeInCalendar.addEventListener("closeClicked",titleWindow_close);
 				titleWindow = WindowsUtils.openDialog(Locale.getInstance().getCurrentLocale().alternative.singular,alternativeInCalendar);
