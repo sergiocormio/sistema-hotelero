@@ -15,6 +15,7 @@
 			import resources.icons.Icons;
 			
 			import services.OccupationService;
+			import services.crud.RoomService;
 			
 			import spark.components.gridClasses.GridColumn;
 			
@@ -31,9 +32,22 @@
 			protected function init(event:FlexEvent):void
 			{
 				dateFrom = DateTimeUtils.removeHoursToDate(new Date());
-				loadOccupations();
+				fillCalendar();
 			}
 			
+			private function fillCalendar():void{
+				loadRoomsToShow();
+			}
+			
+			private function loadRoomsToShow():void{
+				new RoomService().retrieveAll(retrieveAllRooms_resultHandler,faultHandler);
+			}
+			
+			private function retrieveAllRooms_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.roomsToShow = event.result as ArrayCollection;
+				loadOccupations();
+			}
+
 			private function loadOccupations():void{
 				dateTo = DateTimeUtils.rollDaysToDate(dateFrom,daysToShow);
 				var serv:OccupationService = new OccupationService();
@@ -57,13 +71,13 @@
 			protected function increaseDaysToShowButton_clickHandler(event:MouseEvent):void
 			{
 				daysToShow += 7;
-				loadOccupations();
+				fillCalendar();
 			}
 			
 			protected function decreaseDaysToShowButton_clickHandler(event:MouseEvent):void
 			{
 				daysToShow -= 7;
-				loadOccupations();
+				fillCalendar();
 			}
 			
 			protected function increaseOneDayFromButton_clickHandler(event:MouseEvent):void
@@ -74,7 +88,7 @@
 			protected function rollDaysFromAndLoadOccupations(daysToRoll:int):void
 			{
 				dateFrom = DateTimeUtils.rollDaysToDate(dateFrom,daysToRoll);
-				loadOccupations();
+				fillCalendar();
 			}
 			
 			protected function decreaseOneDayFromButton_clickHandler(event:MouseEvent):void
@@ -106,7 +120,7 @@
 			
 			protected function refreshButton_clickHandler(event:MouseEvent):void
 			{
-				loadOccupations();
+				fillCalendar();
 			}
 			
 		]]>

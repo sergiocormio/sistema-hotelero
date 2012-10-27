@@ -19,6 +19,10 @@ package model
 			_label = loc.reservationForm.state[id];
 		}
 		
+		public static function convertToLabel(id:String,loc:Object):String{
+			return loc.reservationForm.state[id];
+		}
+		
 		public function get label():String
 		{
 			return _label;

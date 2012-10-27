@@ -24,7 +24,7 @@ public class Customer
 	
 	public function get name():String
 	{
-		return _lastName + ", " + firstName;
+		return _lastName + ", " + firstName + " [" + id.docType.name + ": " + id.idNumber + "]";
 	}
 
 
