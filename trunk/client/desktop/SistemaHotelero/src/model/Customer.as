@@ -22,6 +22,10 @@ public class Customer
 	
 	private var _lastLodgementDate:Date;
 	
+	private var _cellphoneNumber:String;
+	
+	private var _phoneNumber:String;
+	
 	public function get name():String
 	{
 		return _lastName + ", " + firstName + " [" + id.docType.name + ": " + id.idNumber + "]";
@@ -117,6 +121,27 @@ public class Customer
 	{
 		_id = value;
 	}
+
+	public function get cellphoneNumber():String
+	{
+		return _cellphoneNumber;
+	}
+
+	public function set cellphoneNumber(value:String):void
+	{
+		_cellphoneNumber = value;
+	}
+
+	public function get phoneNumber():String
+	{
+		return _phoneNumber;
+	}
+
+	public function set phoneNumber(value:String):void
+	{
+		_phoneNumber = value;
+	}
+
 
 }
 

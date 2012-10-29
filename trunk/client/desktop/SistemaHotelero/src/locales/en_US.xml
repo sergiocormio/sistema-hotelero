@@ -75,6 +75,8 @@
 	    <lastLodgementDate>Last Lodgement Date</lastLodgementDate>
 	    <email>E-Mail</email>
 	    <profession>Profession</profession>
+	    <phoneNumber>Phone Number</phoneNumber>
+	    <cellphoneNumber>Cellphone Number</cellphoneNumber>
     </customer>
     <customerPK>
     	<idNumber>Id Number</idNumber>

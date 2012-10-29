@@ -100,6 +100,8 @@
 				}else{
 					languagesCombo.selectedIndex = -1;	
 				}
+				phoneNumberText.text = _currentCustomer.phoneNumber;
+				cellphoneNumberText.text = _currentCustomer.cellphoneNumber;
 			}
 
 			protected function init(event:FlexEvent):void
@@ -278,6 +280,8 @@
 				currentCustomer.profession = professionText.text;
 				currentCustomer.language = languagesCombo.selectedItem;
 				currentCustomer.region = regionsCombo.selectedItem;
+				currentCustomer.phoneNumber = phoneNumberText.text;
+				currentCustomer.cellphoneNumber = cellphoneNumberText.text;
 				
 				//calls service
 				if(isUpdate){
@@ -391,18 +395,18 @@
 				<s:FormItem label="{loc.customer.profession}:">
 					<s:TextInput id="professionText"/>
 				</s:FormItem>
-			</s:Form>
-			<s:Form>
-				<s:layout>
-					<s:FormLayout gap="-14"/>
-				</s:layout>  
-				
 				<s:FormItem label="{loc.customer.dateOfBirth}:">
 					<mx:DateField id="dateOfBirthChooser" width="120"
 								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
 								  formatString="{loc.dateFormat.toUpperCase()}"
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
+			</s:Form>
+			<s:Form>
+				<s:layout>
+					<s:FormLayout gap="-14"/>
+				</s:layout>  
+				
 				<s:FormItem label="{loc.customer.lastLodgementDate}:">
 					<mx:DateField id="lastLodgementDateChooser" width="120"
 								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
@@ -435,6 +439,12 @@
 						<s:Button width="24" height="24" click="addLanguage();" icon="{Icons.add}"
 								  toolTip="{loc.button.add}"/>
 					</s:HGroup>
+				</s:FormItem>
+				<s:FormItem label="{loc.customer.phoneNumber}:">
+					<s:TextInput id="phoneNumberText"/>
+				</s:FormItem>
+				<s:FormItem label="{loc.customer.cellphoneNumber}:">
+					<s:TextInput id="cellphoneNumberText"/>
 				</s:FormItem>
 			</s:Form>
 		</s:HGroup>
