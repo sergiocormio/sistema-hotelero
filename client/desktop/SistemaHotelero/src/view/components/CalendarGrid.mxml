@@ -15,9 +15,11 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
+			import mx.controls.dataGridClasses.DataGridColumn;
 			import mx.events.FlexEvent;
 			
 			import spark.components.gridClasses.GridColumn;
+			import spark.skins.spark.DefaultGridItemRenderer;
 			
 			import utils.DateTimeUtils;
 			
@@ -53,17 +55,32 @@
 					var auxDate:Date = DateTimeUtils.rollDaysToDate(dateFrom,i);
 					var col:GridColumn = DateTimeUtils.getColumnForDate(auxDate,"day_" + i);
 					col.labelFunction = calendarFormat;
+//					col.itemRenderer= new ClassFactory(view.components.CalendarCustomCellRenderer);
+//					col.itemRenderer= new ClassFactory(DefaultGridItemRenderer);
+					col.itemRendererFunction = selectRenderer;
+
 					grid.columns.addItem(col);
 					i++;
 				}
 			}
 			
+			private function selectRenderer(item:Object, column: GridColumn):IFactory
+			{
+				if(item!=null){
+					return new ClassFactory(view.components.CalendarCustomCellRenderer);
+				}else{
+					return new ClassFactory(DefaultGridItemRenderer);
+				}
+			}
+
 			private function calendarFormat(item:Object,column:GridColumn):String
 			{
 				var qtyAlternative:int = 0;
 				var qtyConfirmed:int = 0;
 				var qtyPreBooking:int = 0;
 				var qtyCancelled:int = 0;
+				var qtyExpired:int = 0;
+				
 				var result:String = '';
 				var value:ArrayCollection = item [column.dataField] as ArrayCollection;
 				if(value != null){
@@ -80,7 +97,10 @@
 									 qtyPreBooking++;
 									 break;
 								 case StateReservationForm.CANCELLED:
-									 qtyCancelled++
+									 qtyCancelled++;
+									 break;
+								 case StateReservationForm.EXPIRED:
+									 qtyExpired++;
 									 break;
 							 }
 						 }
@@ -97,7 +117,10 @@
 						if (result.length > 0 ) {result += ", "}
 						result += StateReservationForm.convertToLabel(StateReservationForm.CANCELLED,loc);
 					}
-					
+					if(qtyExpired>0){
+						if (result.length > 0 ) {result += ", "}
+						result += StateReservationForm.convertToLabel(StateReservationForm.EXPIRED,loc);
+					}
 					if(qtyAlternative>0){
 						if (result.length > 0 ) {result += ", "}
 						result += "X";
