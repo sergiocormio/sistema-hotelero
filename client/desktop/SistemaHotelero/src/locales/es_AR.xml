@@ -75,6 +75,8 @@
 	    <lastLodgementDate>Última Fecha de Alojamiento</lastLodgementDate>
 	    <email>E-Mail</email>
 	    <profession>Profesión</profession>
+	    <phoneNumber>Teléfono</phoneNumber>
+	    <cellphoneNumber>Celular</cellphoneNumber>
     </customer>
     <customerPK>
     	<idNumber>Número de Documento</idNumber>
