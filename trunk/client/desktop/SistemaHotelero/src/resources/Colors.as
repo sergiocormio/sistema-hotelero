@@ -9,6 +9,7 @@ package resources
 		public static const SKIN_COLOR:uint = 0xFFF1D7;
 		public static const LIGHT_BLUE:uint = 0xEFF3FA;
 		public static const LIGHT_ORANGE_COLOR:uint = 0xFFEC9F;
+		public static const GREEN_COLOR:uint = 0x00FF00;
 		
 		public static const ALTERNATING_ROW_COLORS:Array = new Array(SKIN_COLOR,WHITE_COLOR); 
 		
