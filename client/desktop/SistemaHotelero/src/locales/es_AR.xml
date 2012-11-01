@@ -181,7 +181,11 @@
 	    <childrenQuantity>Menores</childrenQuantity>
 	    <pricePerDay>Precio por Día</pricePerDay>
 	    <monetaryReserve>Reserva</monetaryReserve>
-	    <bankDocumentNumber>Número de Documento Bancario</bankDocumentNumber>
+	    <bankDocumentNumber>Nro. de Documento Bancario</bankDocumentNumber>
+	    <buttons>
+			<confirm>Confirmar</confirm>
+			<cancel>Cancelar</cancel>
+		</buttons>
     </reservationForm>
     <room>
    		<singular>Habitación</singular>
