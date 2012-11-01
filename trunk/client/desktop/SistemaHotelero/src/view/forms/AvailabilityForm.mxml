@@ -12,6 +12,7 @@
 			import model.Occupation;
 			import model.ReservationForm;
 			import model.Room;
+			import model.StateReservationForm;
 			
 			import mx.collections.ArrayCollection;
 			import mx.containers.TitleWindow;
@@ -194,6 +195,9 @@
 				rf.creationDate = new Date();
 				reservationFormForm.currentReservationForm = rf;
 				reservationFormForm.alternative = alternativeSelected.alternative;
+				var possibleStates:ArrayCollection = new ArrayCollection();
+				possibleStates.addItem(new StateReservationForm(StateReservationForm.PRE_BOOKING, loc));
+				reservationFormForm.setPossibleStates(possibleStates);
 			}
 			
 			private function titleWindow_close(evt:Object):void {

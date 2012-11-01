@@ -6,6 +6,7 @@
 	<fx:Script>
 		<![CDATA[
 			import model.ReservationForm;
+			import model.StateReservationForm;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -48,18 +49,31 @@
 				refreshGrid();
 			}
 			
-			protected function refreshGrid():void
+			protected function refreshGrid(event:ResultEvent=null,token:Object=null):void
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
+				confirmReservationButton.enabled = false;
+				cancelReservationButton.enabled = false;
 				new ReservationFormService().retrieveAll(retrieveAll_resultHandler,faultHandler);
 			}
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
+				confirmReservationButton.enabled = false;
+				cancelReservationButton.enabled = false;
+				
 				if(grid.selectedItem !=null){
-					individual.currentReservationForm = grid.selectedItem as ReservationForm;
+					var reservation:ReservationForm = grid.selectedItem as ReservationForm;
+					individual.currentReservationForm = reservation;
+					if(reservation.state == StateReservationForm.PRE_BOOKING){
+						confirmReservationButton.enabled = true;
+						cancelReservationButton.enabled = true;
+					}else if(reservation.state == StateReservationForm.CONFIRMED){
+						cancelReservationButton.enabled = true;
+					}
 				}
+				
 				individual.enabled = false;
 			}
 			
@@ -105,6 +119,23 @@
 				var value:String = item [column.dataField] as String; 
 				return loc.reservationForm.state[value];
 			}
+			
+			protected function confirmReservationButton_clickHandler(event:MouseEvent):void
+			{
+				updateCurrentReservationForm(StateReservationForm.CONFIRMED);		
+			}
+			
+			private function updateCurrentReservationForm(stateId:String):void{
+				var reservation:ReservationForm = grid.selectedItem as ReservationForm;
+				reservation.state = stateId;
+				new ReservationFormService().updateRecord(reservation,refreshGrid,faultHandler);				
+			}
+			
+			protected function cancelReservationButton_clickHandler(event:MouseEvent):void
+			{
+				updateCurrentReservationForm(StateReservationForm.CANCELLED);				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -131,10 +162,16 @@
 				</s:columns>
 			</s:DataGrid>
 			<!-- BUTTONS -->
-			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addReservationForm()"
+			<s:VGroup>
+				<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addReservationForm()"
 									modifyClicked="modifyReservationForm()" removeClicked="deleteReservationForm()"
 									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
 									removeButtonEnabled="{grid.selectedItem!=null}"/>
+				<s:Button id="confirmReservationButton" click="confirmReservationButton_clickHandler(event)" label="{loc.reservationForm.buttons.confirm}" 
+						  toolTip="{loc.reservationForm.buttons.confirm} {loc.reservationForm.singular}" enabled="false"/>
+				<s:Button id="cancelReservationButton" click="cancelReservationButton_clickHandler(event)" label="{loc.reservationForm.buttons.cancel}" 
+						  toolTip="{loc.reservationForm.buttons.cancel} {loc.reservationForm.singular}" enabled="false"/>
+			</s:VGroup>
 		</s:HGroup>
 		<individual:ReservationFormIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="50%"/>
 	</mx:VDividedBox>

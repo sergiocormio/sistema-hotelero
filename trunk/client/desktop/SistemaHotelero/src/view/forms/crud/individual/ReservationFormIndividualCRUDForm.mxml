@@ -198,6 +198,11 @@
 				}
 			}
 			
+			public function setPossibleStates(states:ArrayCollection):void{
+				reservationFormStates = states;
+				refreshStates.enabled = false;
+			}
+			
 			private function retrieveBanks():void{
 				var bankServ:BankService = new BankService();
 				bankServ.retrieveAll(retrieveBanks_resultHandler,faultHandler);
@@ -248,7 +253,7 @@
 				
 				<s:FormItem id="customerItem" label="{loc.customer.singular}:" required="true">
 					<s:HGroup>
-						<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name"/>
+						<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="200"/>
 						<s:Button width="24" height="24" click="retrieveCustomers();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addCustomer();" icon="{Icons.add}"
@@ -256,10 +261,10 @@
 					</s:HGroup>
 				</s:FormItem>
 				
-				<s:FormItem label="{loc.reservationForm.state.singular}:" required="true">
+				<s:FormItem label="{loc.reservationForm.state.singular}:" required="true" enabled="false">
 					<s:HGroup verticalAlign="middle">
 						<s:DropDownList id="stateList" dataProvider="{reservationFormStates}" width="150"/>
-						<s:Button width="24" height="24" click="loadStates();"
+						<s:Button width="24" height="24" id="refreshStates" click="loadStates();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 					</s:HGroup>
 				</s:FormItem>
@@ -271,14 +276,14 @@
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
 				
-				<s:FormItem label="{loc.reservationForm.dateFrom}:" required="true">
+				<s:FormItem label="{loc.reservationForm.dateFrom}:" required="true" enabled="false">
 					<mx:DateField id="dateFromChooser" width="120"
 								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
 								  formatString="{loc.dateFormat.toUpperCase()}"
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
 				
-				<s:FormItem label="{loc.reservationForm.dateTo}:" required="true">
+				<s:FormItem label="{loc.reservationForm.dateTo}:" required="true" enabled="false">
 					<mx:DateField id="dateToChooser" width="120"
 								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
 								  formatString="{loc.dateFormat.toUpperCase()}"
@@ -308,7 +313,7 @@
 				
 				<s:FormItem id="bankItem" label="{loc.bank.singular}:" required="false">
 					<s:HGroup>
-						<s:ComboBox id="banksCombo" dataProvider="{banks}" labelField="name"/>
+						<s:ComboBox id="banksCombo" dataProvider="{banks}" labelField="name" width="200"/>
 						<s:Button width="24" height="24" click="retrieveBanks();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addBank();" icon="{Icons.add}"
