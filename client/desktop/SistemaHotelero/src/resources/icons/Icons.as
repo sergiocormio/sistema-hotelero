@@ -117,6 +117,10 @@ package resources.icons
 		[Bindable]
 		[Embed(source='resources/icons/advertisment.png')]
 		public static var promotions:Class;
+
+		[Bindable]
+		[Embed(source='resources/icons/Bank-icon 24.png')]
+		public static var banks:Class;
 		
 		//-------- Rooms' Icons ------------------
 		[Bindable]
@@ -142,6 +146,15 @@ package resources.icons
 		[Bindable]
 		[Embed(source='resources/icons/eye.png')]
 		public static var view:Class;
+		
+		//-----------Reservation Icons ------------
+		[Bindable]
+		[Embed(source='resources/icons/thumb-up.png')]
+		public static var confirmReservation:Class;		
+		
+		[Bindable]
+		[Embed(source='resources/icons/thumb.png')]
+		public static var cancelReservation:Class;
 		
 		public function Icons()
 		{

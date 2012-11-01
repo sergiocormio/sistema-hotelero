@@ -93,7 +93,7 @@
 				</s:layout>  
 				
 				<s:FormItem label="{loc.bank.name}:" required="true">
-					<s:TextInput id="bankText"/>
+					<s:TextInput id="bankText" width="200"/>
 				</s:FormItem>
 				
 			</s:Form>

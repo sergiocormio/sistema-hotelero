@@ -15,7 +15,7 @@
 	</fx:Declarations>
 	<s:ButtonBar dataProvider="{roomsViewStack}" requireSelection="true" iconPlacement="top" horizontalCenter="0" verticalCenter="0" height="100%">
 		<s:layout>
-			<s:TileLayout verticalGap="-1" requestedColumnCount="1"/>
+			<s:TileLayout verticalGap="12" requestedColumnCount="1"/>
 		</s:layout>
 	</s:ButtonBar>
 	

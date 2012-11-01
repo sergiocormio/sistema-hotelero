@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
+		  creationComplete="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import model.Bank;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.Colors;
+			
+			import services.crud.BankService;
+			
+			import spark.events.GridSelectionEvent;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			private var banks:ArrayCollection = new ArrayCollection();
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				Alert.show("Bank Form: Received fault: " + event.fault + "\n");
+			}
+			
+			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedItem = null;
+				banks.removeAll();
+				banks.addAll(event.result as ArrayCollection);
+			}
+			
+			
+			private function delete_resultHandler(event:ResultEvent,token:Object=null):void {
+				refreshGrid();
+			}
+			
+			
+			protected function init(event:FlexEvent):void{
+				refreshGrid();
+			}
+			
+			protected function refreshGrid():void
+			{
+				individual.enabled = false;
+				grid.selectedItem = null;
+				new BankService().retrieveAll(retrieveAll_resultHandler,faultHandler);
+			}
+			
+			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
+			{
+				if(grid.selectedItem !=null){
+					individual.currentBank = grid.selectedItem as Bank;
+				}
+				individual.enabled = false;
+			}
+			
+			protected function modifyBank():void
+			{
+				individual.currentBank = grid.selectedItem as Bank;
+				individual.isUpdate = true;
+				individual.enabled=true;
+				
+			}
+			
+			protected function deleteBank():void
+			{
+				new BankService().deleteRecord(grid.selectedItem as Bank,delete_resultHandler,faultHandler);
+			}
+			
+			protected function addBank():void
+			{
+				grid.selectedItem = null;
+				individual.currentBank = new Bank();
+				individual.isUpdate = false;
+				individual.enabled = true;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:HGroup width="100%" height="70%">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{banks}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="name" headerText="{loc.bank.singular}"></s:GridColumn>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+			<!-- BUTTONS -->
+			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addBank()"
+									modifyClicked="modifyBank()" removeClicked="deleteBank()"
+									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
+									removeButtonEnabled="{grid.selectedItem!=null}"/>
+		</s:HGroup>
+		<individual:BankIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
+	</mx:VDividedBox>
+</s:VGroup>
+
