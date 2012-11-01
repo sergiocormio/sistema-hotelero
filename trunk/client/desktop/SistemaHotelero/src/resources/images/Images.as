@@ -9,5 +9,9 @@ package resources.images
 		[Bindable]
 		[Embed(source='resources/images/dellosky_logo h70.png')]
 		public static var logo:Class;
+		
+		[Bindable]
+		[Embed(source='resources/images/under_construction.jpg')]
+		public static var under_construction:Class;
 	}
 }

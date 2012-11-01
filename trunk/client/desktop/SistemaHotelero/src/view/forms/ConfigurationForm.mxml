@@ -5,6 +5,7 @@
 	<fx:Script>
 		<![CDATA[
 			import resources.icons.Icons;
+			import resources.images.Images;
 			
 			[Bindable]
 			public var loc:Object;
@@ -14,10 +15,10 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:ButtonBar dataProvider="{configViewStack}" requireSelection="true" iconPlacement="top" horizontalCenter="0"
+	<s:ButtonBar dataProvider="{configViewStack}" requireSelection="true" iconPlacement="left" horizontalCenter="0"
 				 verticalCenter="0" height="100%">
 		<s:layout>
-			<s:TileLayout verticalGap="-1" requestedColumnCount="1"/>
+			<s:TileLayout verticalGap="12" requestedColumnCount="1"/>
 		</s:layout>
 	</s:ButtonBar>
 	<mx:ViewStack id="configViewStack" borderStyle="none" width="100%" height="100%">
@@ -41,8 +42,8 @@
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="promotion" label="Promotions" icon="{Icons.promotions}" width="100%" height="100%">
-			<s:VGroup width="100%" height="100%">
-				<s:Label text="testing new panel"/>
+			<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+				<s:Image source="{Images.under_construction}"/>
 			</s:VGroup>
 		</s:NavigatorContent>
 		
@@ -64,6 +65,10 @@
 		
 		<s:NavigatorContent id="languages" label="{loc.language.plural}" icon="{Icons.language}" width="100%" height="100%">
 			<crud:LanguageCRUDForm loc="{loc}" width="100%" height="100%"/>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent id="banks" label="{loc.bank.plural}" icon="{Icons.banks}" width="100%" height="100%">
+			<crud:BankCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 	</mx:ViewStack>
 </s:HGroup>

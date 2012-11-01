@@ -35,7 +35,11 @@
 			<s:Group click="navigateToURL(new URLRequest('http://www.dellosky.com'));" toolTip="www.dellosky.com">
 				<s:BitmapImage source="{Images.logo}" left="0" right="0" top="0" bottom="0" scaleMode="letterbox"/>
 			</s:Group>
-			<s:ButtonBar dataProvider="{mainViewStack}" requireSelection="true" iconPlacement="top" useHandCursor="true"/>
+			<s:ButtonBar dataProvider="{mainViewStack}" requireSelection="true" iconPlacement="top" useHandCursor="true" width="100%">
+				<s:layout>
+					<s:HorizontalLayout gap="10"/>
+				</s:layout>
+			</s:ButtonBar>
 		</s:HGroup>
 		
 		<mx:ViewStack id="mainViewStack" width="100%" height="100%" backgroundColor="{Colors.RED_COLOR}" 
@@ -51,26 +55,26 @@
 			</s:NavigatorContent>
 			
 			<s:NavigatorContent id="transports" label="Transports" icon="{Icons.transports}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%">
-					<s:Label text="testing new panel"/>
+				<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+					<s:Image source="{Images.under_construction}"/>
 				</s:VGroup>
 			</s:NavigatorContent>
 			
 			<s:NavigatorContent id="maintain" label="Maintain" icon="{Icons.cleaning}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%">
-					<s:Label text="testing new panel"/>
+				<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+					<s:Image source="{Images.under_construction}"/>
 				</s:VGroup>
 			</s:NavigatorContent>
 			
 			<s:NavigatorContent id="consumption" label="Consumption" icon="{Icons.consumption}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%">
-					<s:Label text="testing new panel"/>
+				<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+					<s:Image source="{Images.under_construction}"/>
 				</s:VGroup>
 			</s:NavigatorContent>
 			
 			<s:NavigatorContent id="advertisement" label="Advertisements" icon="{Icons.mail_and_pictures}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%">
-					<s:Label text="testing new panel"/>
+				<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+					<s:Image source="{Images.under_construction}"/>
 				</s:VGroup>
 			</s:NavigatorContent>
 			
