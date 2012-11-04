@@ -75,7 +75,7 @@
 		</s:RemoteObject>
 		-->
 	</fx:Declarations>
-	<s:Group id="backgroundRect">
+	<s:Group id="backgroundRect" width="100%" height="100%">
 		<s:BitmapImage source="{Images.background}" left="0" right="0" top="0" bottom="0" scaleMode="stretch"/>
 	</s:Group>
 	<s:VGroup width="100%" height="100%" gap="0">
