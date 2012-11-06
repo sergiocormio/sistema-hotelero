@@ -156,6 +156,10 @@ package resources.icons
 		[Embed(source='resources/icons/thumb.png')]
 		public static var cancelReservation:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/icon-pdf.png')]
+		public static var exportReservation:Class;
+		
 		public function Icons()
 		{
 		}

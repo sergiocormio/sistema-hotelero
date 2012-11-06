@@ -10,6 +10,8 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.core.UIComponent;
+			import mx.effects.Pause;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -22,6 +24,8 @@
 			import spark.events.GridSelectionEvent;
 			
 			import utils.DateTimeUtils;
+			
+			import view.components.Mask;
 			
 			[Bindable]
 			public var loc:Object;
@@ -56,14 +60,38 @@
 				grid.selectedItem = null;
 				confirmReservationButton.enabled = false;
 				cancelReservationButton.enabled = false;
+				exportReservationButton.enabled = false;
 				new ReservationFormService().retrieveAll(retrieveAll_resultHandler,faultHandler);
 			}
+			
+			protected function displayPDF(event:ResultEvent=null,token:Object=null):void
+			{
+				var pdf:ByteArray = event.result as ByteArray;
+				
+				var destFile:File = File.applicationStorageDirectory; 
+				
+				var fileName:String = new Date().time.toString() + ".pdf";
+				
+				destFile = destFile.resolvePath(fileName);  
+				var outStream:FileStream = new FileStream();
+				
+				outStream.open(destFile, FileMode.WRITE);
+				
+				outStream.writeBytes(pdf, 0, pdf.length);
+				
+				outStream.close();
+				
+				destFile.openWithDefaultApplication();
+				
+				Mask.close();
+			}
+			
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
 				confirmReservationButton.enabled = false;
 				cancelReservationButton.enabled = false;
-				
+				exportReservationButton.enabled = false;
 				if(grid.selectedItem !=null){
 					var reservation:ReservationForm = grid.selectedItem as ReservationForm;
 					individual.currentReservationForm = reservation;
@@ -73,6 +101,8 @@
 					}else if(reservation.state == StateReservationForm.CONFIRMED){
 						cancelReservationButton.enabled = true;
 					}
+					// always
+					exportReservationButton.enabled = true;
 				}
 				
 				individual.enabled = false;
@@ -137,6 +167,14 @@
 				updateCurrentReservationForm(StateReservationForm.CANCELLED);				
 			}
 			
+			protected function exportReservationButton_clickHandler(event:MouseEvent):void
+			{
+				Mask.show("Please wait...");
+				
+				var reservation:ReservationForm = grid.selectedItem as ReservationForm;
+				new ReservationFormService().exportData(reservation, displayPDF, faultHandler);
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -163,8 +201,7 @@
 				</s:columns>
 			</s:DataGrid>
 			<!-- BUTTONS -->
-			
-				
+							
 			<s:VGroup height="100%">
 				<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addReservationForm()"
 									modifyClicked="modifyReservationForm()" removeClicked="deleteReservationForm()"
@@ -176,13 +213,16 @@
 							<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
 						</s:stroke>
 					</s:Rect>
-					<s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+					<s:VGroup width="100%" height="100%" verticalAlign="top" horizontalAlign="center" paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5">
 						<s:Button id="confirmReservationButton" click="confirmReservationButton_clickHandler(event)" label="{loc.reservationForm.buttons.confirm}" 
 								  toolTip="{loc.reservationForm.buttons.confirm} {loc.reservationForm.singular}" enabled="false"
 								  icon="{Icons.confirmReservation}" iconPlacement="top"/>
 						<s:Button id="cancelReservationButton" click="cancelReservationButton_clickHandler(event)" label="{loc.reservationForm.buttons.cancel}" 
 								  toolTip="{loc.reservationForm.buttons.cancel} {loc.reservationForm.singular}" enabled="false"
 								  icon="{Icons.cancelReservation}" iconPlacement="top"/>
+						<s:Button id="exportReservationButton" click="exportReservationButton_clickHandler(event)" label="{loc.reservationForm.buttons.print}" 
+								  toolTip="{loc.reservationForm.buttons.print} {loc.reservationForm.singular}" enabled="false"
+								  icon="{Icons.exportReservation}" iconPlacement="top"/>
 					</s:VGroup>
 				</s:Group>
 			</s:VGroup>
