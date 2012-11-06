@@ -185,6 +185,7 @@
 	    <buttons>
 			<confirm>Confirmar</confirm>
 			<cancel>Cancelar</cancel>
+			<print>Imprimir</print>
 		</buttons>
     </reservationForm>
     <room>
