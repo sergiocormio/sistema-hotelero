@@ -38,11 +38,25 @@
 				bankText.text = _currentBank.name;
 			}
 			
+			private function allFieldsAreValid():Boolean{
+				var valid:Boolean = true;
+				setEnabledValidators(true);
+				if(bankNameValidator.validate().type != "valid"){
+					valid = false;
+				}
+				setEnabledValidators(false);
+				return valid;
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				bankNameValidator.enabled = enabled;
+			}
+			
 			private function save():void{
-				//TODO: validate all data
-				//if(!allFieldsAreValid()){
-				//	return;
-				//}
+				// validate all data
+				if(!allFieldsAreValid()){
+					return;
+				}
 				
 				_currentBank.name = bankText.text;
 				
@@ -78,6 +92,11 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:StringValidator id="bankNameValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}" 
+							source="{bankText}"
+							property="text"/>
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>

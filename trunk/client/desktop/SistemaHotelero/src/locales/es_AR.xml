@@ -227,4 +227,10 @@
 	    <includedInBudget>Incluido en el Presupuesto</includedInBudget>
 	    <includedInBasePrice>Incluido en el Precio Base</includedInBasePrice>
     </serviceType>
+    <validator>
+    	<requiredFieldError>Campo requerido</requiredFieldError>
+    	<regExp>
+    		<noMatchError>El campo no es valido</noMatchError>
+    	</regExp>
+    </validator>
 </locale>
