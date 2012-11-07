@@ -31,6 +31,7 @@
 			import mx.validators.RegExpValidationResult;
 			import mx.validators.ValidationResult;
 			
+				
 			import resources.Colors;
 			import resources.icons.Icons;
 			
@@ -248,7 +249,8 @@
 					if(regExpV.validate().type != "valid"){
 						valid = false;
 					}
-				}else{
+				}
+				else{
 					valid = false;
 				}
 				enabledValidators(false);
@@ -352,10 +354,19 @@
 							invalid="handleResult(event);"
 							noMatchError="{loc.validator.regExp.noMatchError}" property="text"
 							source="{idNumberText}" valid="handleResult(event);"/>
-		<mx:EmailValidator id="emV" property="text" required="false" source="{emailText}"/>
+		<mx:EmailValidator id="emV" property="text" required="true" source="{emailText}"
+						   enabled="true"
+						   invalidCharError="invalid mail"
+						   requiredFieldError="lala"
+						   />
 		<mx:NumberValidator id="comboboxValidator" enabled="false"
 							lowerThanMinError="{loc.validator.requiredFieldError}" minValue="0"
 							property="selectedIndex" source="{documentTypesCombo}"/>
+		<mx:StringValidator id="fnv" enabled="true"
+							required="true"
+							requiredFieldError="Este campete es requerido" 
+							source="{firstNameText}"
+							property="text"/>
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>
@@ -373,7 +384,7 @@
 				<s:FormItem label="{loc.customerPK.idNumber}:" required="true" enabled="{!isUpdate}">
 					<s:TextInput id="idNumberText"/>
 				</s:FormItem>
-				<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:" enabled="{!isUpdate}">
+				<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:" enabled="{!isUpdate}" required="true">
 					<s:HGroup>
 						<s:ComboBox id="documentTypesCombo" dataProvider="{documentTypes}"
 									labelField="name"/>
@@ -383,10 +394,10 @@
 								  toolTip="{loc.button.add}"/>
 					</s:HGroup>
 				</s:FormItem>
-				<s:FormItem label="{loc.customer.firstName}:">
+				<s:FormItem label="{loc.customer.firstName}:" required="true">
 					<s:TextInput id="firstNameText"/>
 				</s:FormItem>
-				<s:FormItem label="{loc.customer.lastName}:">
+				<s:FormItem label="{loc.customer.lastName}:" required="true">
 					<s:TextInput id="lastNameText"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.customer.email}:">
