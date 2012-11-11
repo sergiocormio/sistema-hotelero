@@ -68,5 +68,8 @@ package locales
 		public function getLocaleName():String{
 			return localeName;
 		}
+		
+				
+		
 	}
 }

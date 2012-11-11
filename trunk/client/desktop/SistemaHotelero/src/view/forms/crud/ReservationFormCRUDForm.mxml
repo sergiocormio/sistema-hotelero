@@ -35,7 +35,9 @@
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				Alert.show("ReservationForm Form: Received fault: " + event.fault + "\n");
+				var errCode:String = event.fault.rootCause.errorCode;
+				
+				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
 			}
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
