@@ -8,6 +8,7 @@
 	</fx:Metadata> 
 	<fx:Script>
 		<![CDATA[
+			import mx.validators.Validator;
 			import model.Rate;
 			import model.RatePK;
 			import model.Season;
@@ -75,11 +76,36 @@
 			
 			}
 			
+			private function allFieldsAreValid():Boolean{
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(seasonValidator);
+				valArray.push(roomTypeValidator);
+				valArray.push(seasonPriceValidator);
+				
+				var validatorErrorArray:Array = Validator.validateAll(valArray);;
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				
+				return isValidForm;
+				
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				seasonValidator.enabled = enabled;
+				roomTypeValidator.enabled = enabled;
+				seasonPriceValidator.enabled = enabled;
+			}
+			
 			private function save():void{
-				//TODO: validate all data
-				//if(!allFieldsAreValid()){
-				//	return;
-				//}
+				// validate all data
+				if(!allFieldsAreValid()){
+					return;
+				}
 				
 				//_currentRate.name = rateText.text;
 				
@@ -192,6 +218,38 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:NumberValidator id="seasonValidator"
+							enabled="false"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{seasonsCombo}"
+							property="selectedIndex"
+							/>
+		<mx:NumberValidator id="roomTypeValidator"
+							enabled="false"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{roomTypesCombo}"
+							property="selectedIndex"
+							/>
+		<mx:NumberValidator id="seasonPriceValidator"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							domain="real"
+							allowNegative="false"
+							precision="3"
+							precisionError="{loc.validator.precisionError}"
+							separationError="{loc.validator.invalidFieldValueError}"
+							negativeError="{loc.validator.invalidFieldValueError}"
+							lowerThanMinError="{loc.validator.invalidFieldValueError}"
+							invalidCharError="{loc.validator.invalidFieldValueError}"
+							invalidFormatCharsError="{loc.validator.invalidFieldValueError}"
+							decimalPointCountError="{loc.validator.invalidFieldValueError}"
+							source="{priceText}"
+							property="text"
+							/>
+		
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>
@@ -208,7 +266,7 @@
 				
 				<s:FormItem id="seasonItem" label="{loc.season.singular}:">
 					<s:HGroup>
-						<s:ComboBox id="seasonsCombo" dataProvider="{seasons}" labelField="name"/>
+						<s:ComboBox id="seasonsCombo" dataProvider="{seasons}" labelField="name" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveSeasons();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addSeason();" icon="{Icons.add}"
@@ -218,7 +276,7 @@
 				
 				<s:FormItem id="roomTypeItem" label="{loc.roomType.singular}:">
 					<s:HGroup>
-						<s:ComboBox id="roomTypesCombo" dataProvider="{roomTypes}" labelField="name"/>
+						<s:ComboBox id="roomTypesCombo" dataProvider="{roomTypes}" labelField="name" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveRoomTypes();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addRoomType();" icon="{Icons.add}"

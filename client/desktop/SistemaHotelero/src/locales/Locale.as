@@ -21,7 +21,7 @@ package locales
 		
 		public function Locale(){
 			//TODO loads current locale from saved data
-			setCurrentLocale("en_US");
+			setCurrentLocale("es_AR");
 		}
 		
 		static public function getInstance():Locale{

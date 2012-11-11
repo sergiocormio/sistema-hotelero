@@ -16,11 +16,14 @@
 			import mx.formatters.DateFormatter;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
+			import mx.validators.Validator;
 			
 			import resources.Colors;
 			import resources.icons.Icons;
 			
 			import services.crud.SeasonService;
+			
+			import utils.DateRange;
 			
 			[Bindable]
 			public var loc:Object;
@@ -43,15 +46,45 @@
 				dateToChooser.selectedDate = _currentSeason.dateTo;
 			}
 			
+			private function allFieldsAreValid():Boolean{
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(seasonTextValidator);
+				valArray.push(seasonDateFromValidator);
+				valArray.push(seasonDateToValidator);
+				
+				var validatorErrorArray:Array = Validator.validateAll(valArray);;
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				
+				return isValidForm;
+				
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				seasonTextValidator.enabled = enabled;
+				seasonDateFromValidator.enabled = enabled;
+				seasonDateToValidator.enabled = enabled;
+			}
+			
 			private function save():void{
-				//TODO: validate all data
-				//if(!allFieldsAreValid()){
-				//	return;
-				//}
+				// validate all data
+				if(!allFieldsAreValid()){
+					return;
+				}
+				
+				if(!DateRange.validRange(dateFromChooser.selectedDate, dateToChooser.selectedDate)){
+					Alert.show(loc.validator.invalidrange, loc.validator.error);	
+				}
 				
 				_currentSeason.name = seasonText.text;
 				_currentSeason.dateFrom = dateFromChooser.selectedDate;
 				_currentSeason.dateTo = dateToChooser.selectedDate;
+				
 				
 				//calls service
 				if(isUpdate){
@@ -85,6 +118,38 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:StringValidator id="seasonTextValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}" 
+							source="{seasonText}"
+							property="text"
+							/>
+		<mx:DateValidator id="seasonDateFromValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateFromChooser}"
+						  property="text"
+						  />
+		<mx:DateValidator id="seasonDateToValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateToChooser}"
+						  property="text"
+						  />
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>

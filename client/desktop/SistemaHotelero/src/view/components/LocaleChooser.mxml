@@ -7,15 +7,22 @@
 	</fx:Metadata> 
 	<fx:Script>
 		<![CDATA[
+			import mx.core.FlexGlobals;
+			
 			import locales.Locale;
 			
+			import mx.core.Window;
+			
 			import resources.icons.Icons;
+			
+			import spark.components.Window;
 			[Bindable]
 			public var loc:Object;
 			
 			protected function changeLocale(newLocale:String):void
 			{
 				Locale.getInstance().setCurrentLocale(newLocale);
+						
 				dispatchEvent(new Event("localeChanged"));
 			}
 			
