@@ -246,5 +246,25 @@
     	<regExp>
     		<noMatchError>El campo no es valido</noMatchError>
     	</regExp>
+    	<server>
+    		<PkViolationWhenCreate>Ya existe un registro con el mismo identificador</PkViolationWhenCreate>
+    		<PkViolationWhenUpdate>Ya existe un registro con el mismo identificador</PkViolationWhenUpdate>
+			<entityToUpdateNotFound>El registro que desea actualizar no existe</entityToUpdateNotFound>
+			<entityToDeleteNotFound>El registro que desea borrar no existe</entityToDeleteNotFound>
+			<FkViolationWhenDelete>No se ha podido eliminar el registro seleccionado, ya que esta siendo usado por otros registros (Ejemplo: Cada Habitación hace referencia a un "Tipo de Habitación"). Para poder eliminar este registro, el mismo no debe estar siendo usado por otros.</FkViolationWhenDelete>
+			<noParamsSpeficied>Debe especificar algún filtro</noParamsSpeficied>
+			<InvalidReservationForm>La ficha de reserva es inválida</InvalidReservationForm>
+			<overlapingDateRange>El rango de fechas se solapa con otro(s) existente(s)</overlapingDateRange>
+			<noAvailableOccupations>No existen ocupaciones disponibles</noAvailableOccupations>
+			<noAvailableAlternatives>No existen alternativas disponibles</noAvailableAlternatives>
+			<noRate>No existe una tarifa para calcular el presupuesto deseado</noRate>
+			<emailNotSent>El email no fue enviado</emailNotSent>
+			<invalidFromEmail>El email emisor es inválido</invalidFromEmail>
+			<invalidFromPassword>La contraseña del email emisor es inválida</invalidFromPassword>
+			<toListEmpty>Debe especificar al menos una casilla de correo destino</toListEmpty>
+			<invalidToEmail>La lista de casillas de correo destino es inválida</invalidToEmail>
+			<invalidBody></invalidBody>
+    		
+    	</server>
     </validator>
 </locale>

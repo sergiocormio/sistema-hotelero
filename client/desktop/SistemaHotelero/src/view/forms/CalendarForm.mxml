@@ -64,7 +64,9 @@
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				Alert.show("Received fault: " + event.fault + "\n");
+				var errCode:String = event.fault.rootCause.errorCode;
+				
+				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
 			}
 			
 			
