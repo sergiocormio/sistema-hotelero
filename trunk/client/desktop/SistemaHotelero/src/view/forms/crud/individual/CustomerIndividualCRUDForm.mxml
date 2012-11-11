@@ -30,8 +30,8 @@
 			import mx.rpc.events.ResultEvent;
 			import mx.validators.RegExpValidationResult;
 			import mx.validators.ValidationResult;
+			import mx.validators.Validator;
 			
-				
 			import resources.Colors;
 			import resources.icons.Icons;
 			
@@ -241,30 +241,73 @@
 			}
 			
 			private function allFieldsAreValid():Boolean{
-				var valid:Boolean = true;
-				comboboxValidator.enabled = true;
-				if(comboboxValidator.validate().type == "valid"){
-					regExpV.expression = documentTypesCombo.selectedItem.regExp;
-					regExpV.enabled = true;
-					if(regExpV.validate().type != "valid"){
-						valid = false;
-					}
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(docTypeValidator);
+				valArray.push(regExpValidator);
+				valArray.push(firstNameValidator);
+				valArray.push(lastNameValidator);
+				valArray.push(dateOfBirthValidator);
+				valArray.push(lastLodgementDateValidator);
+				valArray.push(countryValidator);
+				valArray.push(regionValidator);
+				valArray.push(langValidator);
+				
+				var validatorErrorArray:Array = Validator.validateAll(valArray);
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				
+				if(isValidForm){
+					isValidForm = validateEmailAndPhones();
 				}
-				else{
-					valid = false;
-				}
-				enabledValidators(false);
-				return valid;
+				return isValidForm;
+				
 			}
 			
-			private function enabledValidators(enabled:Boolean):void{
-				comboboxValidator.enabled = enabled;
-				regExpV.enabled = enabled;
+			private function validateEmailAndPhones():Boolean{
+				var validForm:Boolean = false;
+				if(emailText.text != null && emailText.text.length > 0){
+					emailValidator.enabled = true;
+					if(emailValidator.validate().type == "valid"){
+						validForm = true;			
+					}
+					emailValidator.enabled = false;
+					return validForm	//so as not to show the alert message if this field is invalid
+				}
+				
+				if(phoneNumberText.text != null && phoneNumberText.text.length > 0){
+					validForm = true;
+				}
+				
+				if(cellphoneNumberText.text != null && cellphoneNumberText.text.length > 0){
+					validForm = true;
+				}
+				
+				if(!validForm){
+					Alert.show(loc.validator.emptyEmailAndPhonesError, loc.validator.error);
+				}
+				return validForm;
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				docTypeValidator.enabled = enabled;
+				regExpValidator.enabled = enabled;
+				firstNameValidator.enabled = enabled;
+				lastNameValidator.enabled = enabled;
+				dateOfBirthValidator.enabled = enabled;
+				lastLodgementDateValidator.enabled = enabled;
+				countryValidator.enabled = enabled;
+				regionValidator.enabled = enabled;
+				langValidator.enabled = enabled;
 			}
 			
 			protected function save():void
 			{
-				//TODO: validate all data
+				// validate all data
 				if(!allFieldsAreValid()){
 					return;
 				}
@@ -299,28 +342,7 @@
 				dispatchEvent(new Event("cancelClicked"));
 			}
 			
-			private function handleResult(event:ValidationResultEvent):void {
-				if (event.type == "valid")
-				{
-					// For valid events, the results Array contains
-					// RegExpValidationResult objects.
-					var xResult:RegExpValidationResult;
-					
-					for (var i:uint = 0; i < event.results.length; i++)
-					{
-						xResult = event.results[i];
-						trace(xResult.matchedIndex + " " +
-							xResult.matchedString + "\n");
-					}
-				}
-				else
-				{
-					// Not necessary, but if you needed to access it, 
-					// the results array contains ValidationResult objects. 
-					var result:ValidationResult =event.results[0];
-				}       
-			}
-			
+						
 			protected function countriesCombo_changeHandler(event:IndexChangeEvent):void
 			{
 				//Loads regions to selected country
@@ -349,24 +371,96 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
-		<mx:RegExpValidator id="regExpV" enabled="false"
-							expression="{documentTypesCombo.selectedItem.regExp}" flags="g"
-							invalid="handleResult(event);"
-							noMatchError="{loc.validator.regExp.noMatchError}" property="text"
-							source="{idNumberText}" valid="handleResult(event);"/>
-		<mx:EmailValidator id="emV" property="text" required="true" source="{emailText}"
-						   enabled="true"
-						   invalidCharError="invalid mail"
-						   requiredFieldError="lala"
-						   />
-		<mx:NumberValidator id="comboboxValidator" enabled="false"
-							lowerThanMinError="{loc.validator.requiredFieldError}" minValue="0"
-							property="selectedIndex" source="{documentTypesCombo}"/>
-		<mx:StringValidator id="fnv" enabled="true"
+		<mx:NumberValidator id="docTypeValidator" 
+							enabled="false"
 							required="true"
-							requiredFieldError="Este campete es requerido" 
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{documentTypesCombo}"
+							property="selectedIndex" 
+							/>
+		<mx:RegExpValidator id="regExpValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							flags="g"
+							noMatchError="{loc.validator.regExp.noMatchError}"
+							expression="{documentTypesCombo.selectedItem.regExp}" 
+							source="{idNumberText}" 
+							property="text"
+							/>
+		<mx:StringValidator id="firstNameValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
 							source="{firstNameText}"
-							property="text"/>
+							property="text"
+							/>
+		<mx:StringValidator id="lastNameValidator" 
+							enabled="false"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							source="{lastNameText}"
+							property="text"
+							/>
+		<mx:NumberValidator id="countryValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{countriesCombo}"
+							property="selectedIndex" 
+							/>
+		<mx:NumberValidator id="regionValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{regionsCombo}"
+							property="selectedIndex" 
+							/>
+		<mx:NumberValidator id="langValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{languagesCombo}"
+							property="selectedIndex" 
+							/>
+		<mx:DateValidator id="dateOfBirthValidator"
+						  required="false"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateOfBirthChooser}"
+						  property="text"
+						  />
+		<mx:DateValidator id="lastLodgementDateValidator"
+						  required="false"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{lastLodgementDateChooser}"
+						  property="text"
+						  />
+		<mx:EmailValidator id="emailValidator" 
+						   enabled="false"
+						   invalidCharError="{loc.validator.invalidFieldValueError}"
+						   invalidPeriodsInDomainError="{loc.validator.invalidFieldValueError}"
+						   missingAtSignError="{loc.validator.invalidFieldValueError}"
+						   missingPeriodInDomainError="{loc.validator.invalidFieldValueError}"
+						   missingUsernameError="{loc.validator.invalidFieldValueError}"
+						   tooManyAtSignsError="{loc.validator.invalidFieldValueError}"
+						   source="{emailText}"
+						   property="text" 
+						   />
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>
@@ -381,18 +475,18 @@
 					<s:FormLayout gap="-14"/>
 				</s:layout>  
 		
-				<s:FormItem label="{loc.customerPK.idNumber}:" required="true" enabled="{!isUpdate}">
-					<s:TextInput id="idNumberText"/>
-				</s:FormItem>
 				<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:" enabled="{!isUpdate}" required="true">
 					<s:HGroup>
 						<s:ComboBox id="documentTypesCombo" dataProvider="{documentTypes}"
-									labelField="name"/>
+									labelField="name" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveDocumentTypes();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addDocumentType();" icon="{Icons.add}"
 								  toolTip="{loc.button.add}"/>
 					</s:HGroup>
+				</s:FormItem>
+				<s:FormItem label="{loc.customerPK.idNumber}:" required="true" enabled="{!isUpdate}">
+					<s:TextInput id="idNumberText"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.customer.firstName}:" required="true">
 					<s:TextInput id="firstNameText"/>
@@ -424,27 +518,29 @@
 								  formatString="{loc.dateFormat.toUpperCase()}"
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
-				<s:FormItem id="countryItem" label="{loc.country.singular}:">
+				<s:FormItem id="countryItem" label="{loc.country.singular}:" required="true">
 					<s:HGroup>
-						<s:ComboBox id="countriesCombo" dataProvider="{countries}" labelField="name" change="countriesCombo_changeHandler(event)"/>
+						<s:ComboBox id="countriesCombo" dataProvider="{countries}" labelField="name" 
+							change="countriesCombo_changeHandler(event)" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveCountries();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addCountry();" icon="{Icons.add}"
 								  toolTip="{loc.button.add}"/>
 					</s:HGroup>
 				</s:FormItem>
-				<s:FormItem id="regionItem" label="{loc.region.singular}:">
+				<s:FormItem id="regionItem" label="{loc.region.singular}:" required="true">
 					<s:HGroup>
-						<s:ComboBox id="regionsCombo" dataProvider="{regions}" labelField="name" change="regionsCombo_changeHandler(event)"/>
+						<s:ComboBox id="regionsCombo" dataProvider="{regions}" labelField="name" 
+							change="regionsCombo_changeHandler(event)" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveRegions();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addRegion();" icon="{Icons.add}"
 								  toolTip="{loc.button.add}"/>
 					</s:HGroup>
 				</s:FormItem>
-				<s:FormItem id="languageItem" label="{loc.language.singular}:">
+				<s:FormItem id="languageItem" label="{loc.language.singular}:" required="true">
 					<s:HGroup>
-						<s:ComboBox id="languagesCombo" dataProvider="{languages}" labelField="name"/>
+						<s:ComboBox id="languagesCombo" dataProvider="{languages}" labelField="name" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveLanguages();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addLanguage();" icon="{Icons.add}"

@@ -30,6 +30,16 @@ package utils
 		{
 			_dateFrom = value;
 		}
+		
+		public static function validRange(dateFrom:Date, dateTo:Date):Boolean{
+		
+			if(dateFrom.time < dateTo.time){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
 
 	}
 }

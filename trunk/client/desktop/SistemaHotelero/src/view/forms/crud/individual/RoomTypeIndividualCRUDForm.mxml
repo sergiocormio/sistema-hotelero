@@ -41,11 +41,25 @@
 				descriptionText.text = _currentRoomType.description;
 			}
 			
+			private function allFieldsAreValid():Boolean{
+				var valid:Boolean = true;
+				setEnabledValidators(true);
+				if(roomTypeNameValidator.validate().type != "valid"){
+					valid = false;
+				}
+				setEnabledValidators(false);
+				return valid;
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				roomTypeNameValidator.enabled = enabled;
+			}
+			
 			private function save():void{
-				//TODO: validate all data
-				//if(!allFieldsAreValid()){
-				//	return;
-				//}
+				// validate all data
+				if(!allFieldsAreValid()){
+					return;
+				}
 				
 				_currentRoomType.name = roomTypeText.text;
 				_currentRoomType.description = descriptionText.text;
@@ -81,6 +95,12 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:StringValidator id="roomTypeNameValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}" 
+							source="{roomTypeText}"
+							property="text"
+							/>
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>

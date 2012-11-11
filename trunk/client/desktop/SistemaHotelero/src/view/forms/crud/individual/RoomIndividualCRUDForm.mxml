@@ -92,11 +92,25 @@
 				roomTypes.addAll(event.result as ArrayCollection);
 			}
 			
+			private function allFieldsAreValid():Boolean{
+				var valid:Boolean = true;
+				setEnabledValidators(true);
+				if(roomTypeValidator.validate().type != "valid"){
+					valid = false;
+				}
+				setEnabledValidators(false);
+				return valid;
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				roomTypeValidator.enabled = enabled;
+			}
+			
 			private function save():void{
-				//TODO: validate all data
-				//if(!allFieldsAreValid()){
-				//	return;
-				//}
+				// validate all data
+				if(!allFieldsAreValid()){
+					return;
+				}
 				
 				_currentRoom.number = numberStepper.value;
 				_currentRoom.description = descriptionText.text;
@@ -143,8 +157,18 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:NumberValidator id="roomTypeValidator"
+							enabled="false"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{roomTypesCombo}"
+							property="selectedIndex"
+							/>
+		
+		
 		<s:RadioButtonGroup id="maritalOrExtraBed"/>
 	</fx:Declarations>
+	
 	<s:Rect width="100%" height="100%">
 		<s:stroke>
 			<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
@@ -159,11 +183,11 @@
 				</s:layout>  
 				
 				<s:FormItem label="{loc.room.number}:" required="true">
-					<s:NumericStepper id="numberStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+					<s:NumericStepper id="numberStepper" minimum="1" maximum="{Number.MAX_VALUE}" width="50"/>
 				</s:FormItem>
 				<s:FormItem id="roomTypeItem" label="{loc.roomType.singular}:" required="true">
 					<s:HGroup>
-						<s:ComboBox id="roomTypesCombo" dataProvider="{roomTypes}" labelField="name"/>
+						<s:ComboBox id="roomTypesCombo" dataProvider="{roomTypes}" labelField="name" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveRoomTypes();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addRoomType();" icon="{Icons.add}"
@@ -171,7 +195,7 @@
 					</s:HGroup>
 				</s:FormItem>
 				<s:FormItem label="{loc.room.peopleQuantity}:" required="true">
-					<s:NumericStepper id="peopleQuantityStepper" maximum="{Number.MAX_VALUE}" minimum="1" width="50"/>
+					<s:NumericStepper id="peopleQuantityStepper" minimum="1" maximum="{Number.MAX_VALUE}" width="50"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.room.withExtraBed}:" required="true">
 					<s:RadioButton id="marital" groupName="maritalOrExtraBed" label="{loc.room.withMaritalBed}" selected="true"/>
@@ -179,7 +203,7 @@
 				</s:FormItem>
 			</s:Form>
 			<s:Form>
-				<s:FormItem label="{loc.room.description}:" required="true">
+				<s:FormItem label="{loc.room.description}:">
 					<s:TextArea id="descriptionText"/>
 				</s:FormItem>
 				

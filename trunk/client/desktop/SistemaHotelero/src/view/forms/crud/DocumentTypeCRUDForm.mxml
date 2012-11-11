@@ -98,7 +98,8 @@
 				<s:columns>
 					<s:ArrayList>
 						<s:GridColumn dataField="name" headerText="{loc.documentType.singular}"></s:GridColumn>
-						<s:GridColumn dataField="regExp" headerText="{loc.documentType.regExp}"></s:GridColumn>
+						<s:GridColumn dataField="format" headerText="{loc.documentType.format}"></s:GridColumn>
+						<s:GridColumn dataField="digits" headerText="{loc.documentType.digitsquantity}"></s:GridColumn>
 					</s:ArrayList>
 				</s:columns>
 			</s:DataGrid>

@@ -8,6 +8,7 @@
 	</fx:Metadata> 
 	<fx:Script>
 		<![CDATA[
+			import mx.validators.Validator;
 			import model.ServiceType;
 			import model.ServiceTypeModality;
 			
@@ -56,11 +57,34 @@
 				}
 			}
 			
+			private function allFieldsAreValid():Boolean{
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(serviceTypeNameValidator);
+				valArray.push(priceValidator);
+								
+				var validatorErrorArray:Array = Validator.validateAll(valArray);
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				
+				return isValidForm;
+				
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				serviceTypeNameValidator.enabled = enabled;
+				priceValidator.enabled = enabled;
+			}
+			
 			private function save():void{
-				//TODO: validate all data
-				//if(!allFieldsAreValid()){
-				//	return;
-				//}
+				// validate all data
+				if(!allFieldsAreValid()){
+					return;
+				}
 				
 				_currentServiceType.name = serviceTypeText.text;
 				_currentServiceType.modality = (modalityList.selectedItem as ServiceTypeModality).id;
@@ -96,6 +120,19 @@
 				currentServiceType = new ServiceType();
 				//serviceTypeText.setFocus();
 				loadModalities();
+				includedInBasePrice.enabled = false;
+			}
+			
+			private function checkIncludedInBasePrice():void{
+				
+				if(includedInBudget.selected == true){
+					includedInBasePrice.enabled = true;
+				}
+				else{
+					includedInBasePrice.selected = false;
+					includedInBasePrice.enabled = false;
+				}
+				
 			}
 			
 			private function loadModalities():void{
@@ -116,6 +153,29 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:StringValidator id="serviceTypeNameValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}" 
+							source="{serviceTypeText}"
+							property="text"
+							/>
+		<mx:NumberValidator id="priceValidator"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							domain="real"
+							allowNegative="false"
+							precision="3"
+							precisionError="{loc.validator.precisionError}"
+							separationError="{loc.validator.invalidFieldValueError}"
+							negativeError="{loc.validator.invalidFieldValueError}"
+							lowerThanMinError="{loc.validator.invalidFieldValueError}"
+							invalidCharError="{loc.validator.invalidFieldValueError}"
+							invalidFormatCharsError="{loc.validator.invalidFieldValueError}"
+							decimalPointCountError="{loc.validator.invalidFieldValueError}"
+							source="{priceText}"
+							property="text"
+							/>
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>
@@ -146,17 +206,17 @@
 					</s:HGroup>
 				</s:FormItem>
 	
-				<s:FormItem label="{loc.serviceType.includedInBudget}:" required="true">
-					<s:CheckBox id="includedInBudget"/>
+				<s:FormItem label="{loc.serviceType.includedInBudgetQuery}:">
+					<s:CheckBox id="includedInBudget" click="checkIncludedInBasePrice()"/>
 				</s:FormItem>
 				
-				<s:FormItem label="{loc.serviceType.includedInBasePrice}:" required="true">
+				<s:FormItem label="{loc.serviceType.includedInBasePriceQuery}:">
 					<s:CheckBox id="includedInBasePrice"/>
 				</s:FormItem>
 				
 			</s:Form>
 			<s:Form>
-				<s:FormItem label="{loc.serviceType.description}:" required="true">
+				<s:FormItem label="{loc.serviceType.description}:">
 					<s:TextArea id="descriptionText"/>
 				</s:FormItem>
 			</s:Form>

@@ -11,6 +11,7 @@
 			import model.DocumentType;
 			
 			import mx.controls.Alert;
+			import mx.controls.Text;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -37,17 +38,51 @@
 			{
 				_currentDocType = value;
 				documentTypeText.text = _currentDocType.name;
-				regExpText.text = _currentDocType.regExp;
+				
+				if(_currentDocType.isNumericFormat == true){
+					numeric.selected = true;
+					alpahNumeric.selected = false;
+				}
+				else{
+					numeric.selected = false;
+					alpahNumeric.selected = true;
+				}
+				
+				digitsqty.value = _currentDocType.digits;
 			}
 
+			private function allFieldsAreValid():Boolean{
+				var valid:Boolean = true;
+				setEnabledValidators(true);
+				if(docTypeNameValidator.validate().type != "valid"){
+					valid = false;
+				}
+				setEnabledValidators(false);
+				return valid;
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				docTypeNameValidator.enabled = enabled;
+			}
+			
 			private function save():void{
-				//TODO: validate all data
-				//if(!allFieldsAreValid()){
-				//	return;
-				//}
+				// validate all data
+				if(!allFieldsAreValid()){
+					return;
+				}
 
 				_currentDocType.name = documentTypeText.text;
-				_currentDocType.regExp = regExpText.text;
+				var regExp:String = "^";
+				if(numeric.selected == true){
+					regExp += "[0-9]";
+				}
+				else if(alpahNumeric.selected == true){
+					regExp += "[0-9,a-z,A-Z]";
+				}
+				
+				regExp += "{" + digitsqty.value + "}$";
+				
+				_currentDocType.regExp = regExp;
 				
 				//calls service
 				if(isUpdate){
@@ -80,6 +115,12 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:StringValidator id="docTypeNameValidator" enabled="false"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}" 
+							source="{documentTypeText}"
+							property="text"/>
+		
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>
@@ -94,13 +135,17 @@
 					<s:FormLayout gap="-14"/>
 				</s:layout>  
 				
-				<s:FormItem label="{loc.documentType.name}:" required="true">
+				<s:FormItem label="{loc.documentType.singular}:" required="true">
 					<s:TextInput id="documentTypeText"/>
 				</s:FormItem>
-				
-				<s:FormItem label="{loc.documentType.regExp}:" required="true">
-					<s:TextInput id="regExpText" text="{DocumentType.DEFAULT_REGEXP}"/>
+				<s:FormItem label="{loc.documentType.format}:" required="true">
+					<s:RadioButton id="numeric" groupName="numOrAlphaNum" label="{loc.documentType.formats.numeric}" selected="true"/>
+					<s:RadioButton id="alpahNumeric" groupName="numOrAlphaNum" label="{loc.documentType.formats.alphanumeric}"/>
 				</s:FormItem>
+				<s:FormItem label="{loc.documentType.digitsquantity}:" required="true">
+					<s:NumericStepper id="digitsqty" maximum="{Number.MAX_VALUE}" minimum="1" width="50"/>
+				</s:FormItem>
+				
 			</s:Form>
 		</s:HGroup>
 		<!-- BUTTONS -->
