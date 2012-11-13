@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:crud="view.forms.crud.*">
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:crud="view.forms.crud.*" xmlns:migration="view.forms.migration.*">
 	<fx:Script>
 		<![CDATA[
 			import resources.icons.Icons;
@@ -69,6 +69,10 @@
 		
 		<s:NavigatorContent id="banks" label="{loc.bank.plural}" icon="{Icons.banks}" width="100%" height="100%">
 			<crud:BankCRUDForm loc="{loc}" width="100%" height="100%"/>
+		</s:NavigatorContent>
+		
+		<s:NavigatorContent id="migration" label="{loc.saveloaddata}" icon="{Icons.saveloaddata}" width="100%" height="100%">
+			<migration:MigrationForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 	</mx:ViewStack>
 </s:HGroup>

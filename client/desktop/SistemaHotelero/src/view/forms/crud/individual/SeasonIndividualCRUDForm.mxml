@@ -12,11 +12,11 @@
 			
 			import model.Season;
 			
+			import mx.validators.Validator;
 			import mx.controls.Alert;
 			import mx.formatters.DateFormatter;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
-			import mx.validators.Validator;
 			
 			import resources.Colors;
 			import resources.icons.Icons;
