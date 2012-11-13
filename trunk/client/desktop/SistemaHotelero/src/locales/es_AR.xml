@@ -145,6 +145,11 @@
     	<singular>Hospedaje</singular>
     	<plural>Hospedajes</plural>
     </lodgement>
+    <migration>
+    	<destfile>Archivo destino</destfile>
+	    <savedata>Guardar datos</savedata>
+    	<loaddata>Cargar datos</loaddata>
+    </migration>
     <month>
     	<january>Enero</january>
     	<february>Febrero</february>
@@ -210,6 +215,7 @@
 	    <name>Nombre</name>
 	    <description>Descripción</description>
     </roomType>
+    <saveloaddata>Guardar/Cargar datos</saveloaddata>
     <season>
     	<singular>Temporada</singular>
 	    <plural>Temporadas</plural>

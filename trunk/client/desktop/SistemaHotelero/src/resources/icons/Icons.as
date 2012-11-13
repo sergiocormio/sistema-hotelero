@@ -160,6 +160,20 @@ package resources.icons
 		[Embed(source='resources/icons/icon-pdf.png')]
 		public static var exportReservation:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/arrow_up_down.png')]
+		public static var saveloaddata:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/arrow_down.png')]
+		public static var savedata:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/arrow_up.png')]
+		public static var loaddata:Class;
+		
+		
+		
 		public function Icons()
 		{
 		}

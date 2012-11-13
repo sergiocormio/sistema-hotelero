@@ -4,6 +4,8 @@
 		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:components="view.components.*">
 	<fx:Script>
 		<![CDATA[
+			import mx.validators.Validator;
+			
 			import locales.Locale;
 			
 			import model.Alternative;
@@ -51,9 +53,37 @@
 			private var reservationFormForm:ReservationFormIndividualCRUDForm;
 			
 			
+			private function allFieldsAreValid():Boolean{
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(dateFromValidator);
+				valArray.push(dateToValidator);
+				
+				var validatorErrorArray:Array = Validator.validateAll(valArray);;
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				
+				return isValidForm;
+				
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				dateFromValidator.enabled = enabled;
+				dateToValidator.enabled = enabled;
+			}
+			
+			
+				
 			protected function consultButton_clickHandler(event:MouseEvent):void
 			{
-				//TODO: Validate all form
+				// Validate all form
+				if(!allFieldsAreValid()){
+					return;
+				}
 				outOfPeriodAlternatives.removeAll();
 				outOfPeriodRanges = getOutOfPeriodRanges(variationStepper.value);
 				nextRangeIndex = -1;
@@ -214,6 +244,32 @@
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:DateValidator id="dateFromValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateFromChooser}"
+						  property="text"
+						  />
+		<mx:DateValidator id="dateToValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateToChooser}"
+						  property="text"
+						  />
 		<s:RadioButtonGroup id="singleOrMarital"/>
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
