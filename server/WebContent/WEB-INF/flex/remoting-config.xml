@@ -80,6 +80,13 @@
 		</properties>
     </destination>
     
+	<destination id="migrationService">
+		<properties>
+			<source>com.cdz.sh.service.impl.MigrationServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+	
     <destination id="masterDataService">
 		<properties>
 			<source>com.cdz.sh.service.impl.MasterDataServiceImpl</source>
