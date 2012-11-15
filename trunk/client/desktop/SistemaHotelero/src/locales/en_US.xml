@@ -118,6 +118,10 @@
 	    <name>Name</name>
 	    <regExp>Regular Expression</regExp>
     </documentType>
+    <errorMessage>
+    	<serverNotFound>Server not found</serverNotFound>
+    	<javaHomeNotFound>JavaHome not found</javaHomeNotFound>
+    </errorMessage>
     <exchangeRate>
     	<singular>Exchange Rate</singular>
 	    <plural>Exchange Rates</plural>

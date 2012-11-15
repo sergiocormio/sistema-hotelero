@@ -3,7 +3,8 @@
 					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   xmlns:services="services.*" width="1024" height="720"
-					   creationComplete="init(event)" 
+					   creationComplete="init(event)"
+					   closing="closingHandler(event)"
 					   xmlns:crud="view.forms.crud.*" 
 					   xmlns:components="view.components.*" 
 					   xmlns:forms="view.forms.*" 
@@ -11,70 +12,42 @@
 					   showStatusBar="false">
 	<fx:Script>
 		<![CDATA[
-			import flashx.textLayout.events.ModelChange;
+			import embeddedServer.EmbeddedServer;
 			
-			import locales.Locale;
-			
-			import model.Customer;
-			import model.CustomerPK;
-			import model.DocumentType;
-			
-			import mx.collections.ArrayCollection;
-			import mx.controls.Alert;
 			import mx.events.FlexEvent;
-			import mx.messaging.ChannelSet;
-			import mx.messaging.channels.AMFChannel;
-			import mx.messaging.management.ObjectInstance;
-			import mx.rpc.AbstractOperation;
-			import mx.rpc.AsyncResponder;
-			import mx.rpc.AsyncToken;
-			import mx.rpc.events.FaultEvent;
-			import mx.rpc.events.ResultEvent;
-			import mx.rpc.remoting.RemoteObject;
-			import mx.utils.ArrayUtil;
-			import mx.utils.ObjectProxy;
 			
-			import resources.icons.Icons;
 			import resources.images.Images;
-			
-			import services.MasterDataService;
-			import services.crud.DocumentTypeService;
 			
 			import utils.Utils;
 			
-			private	var lastCustomer:Customer;
-			private var lastDocumentType:DocumentType;
-			
-			//[Bindable]
-			//private var loc:Object ;
+			private var server:EmbeddedServer;
 			
 			protected function init(event:FlexEvent):void
 			{
-				/*
-				//TODO retrieve channel information from an external file
-				var myChannel:AMFChannel = new AMFChannel("my-amf", "http://localhost:8400/SistemaHotelero/messagebroker/amf");
- 				var cs:ChannelSet = new ChannelSet();
-				cs.addChannel(myChannel);
-				//customerService.channelSet = cs;
-				documentTypeService.channelSet = cs;
-				*/
+				server = new EmbeddedServer();
+				if(server.initialize()){
+					server.startTomcat();
+				}
 				//centers main window on screen
-				Utils.centerWindowOnScreen(this);
-				this.maximize();
+ 				Utils.centerWindowOnScreen(this);
+				this.maximize(); 
 			}
 			
+			
+			//Stops server before closing
+			protected function closingHandler(event:Event):void
+			{
+				if (server != null){
+					server.stopTomcat();
+				}
+			}
 			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
-		<!--
-		<s:RemoteObject id="documentTypeService" destination="documentTypeService" fault="faultHandler(event);">
-			<s:method name="createRecord" result="createDocumentType_resultHandler(event)"/>
-			<s:method name="retrieveAll" result="retrieveAllDocuementTypes_resultHandler(event)"/>
-		</s:RemoteObject>
-		-->
 	</fx:Declarations>
+
 	<s:Group id="backgroundRect" width="100%" height="100%">
 		<s:BitmapImage source="{Images.background}" left="0" right="0" top="0" bottom="0" scaleMode="stretch"/>
 	</s:Group>

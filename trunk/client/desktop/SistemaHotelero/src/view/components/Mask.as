@@ -5,6 +5,7 @@ package view.components
 	import mx.containers.Box;
 	import mx.controls.ProgressBar;
 	import mx.core.Application;
+	import mx.core.FlexGlobals;
 	import mx.managers.PopUpManager;
 	
 	public class Mask extends Box
@@ -23,7 +24,7 @@ package view.components
 		{
 			_mask = new Mask();
 			_mask._message = message;
-			PopUpManager.addPopUp(_mask, parent||Sprite(Application.application), true);
+			PopUpManager.addPopUp(_mask, parent||Sprite(FlexGlobals.topLevelApplication), true);
 			PopUpManager.centerPopUp(_mask);
 			
 			return _mask;	
