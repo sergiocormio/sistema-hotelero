@@ -5,33 +5,52 @@
 		  creationComplete="init(event)">
 	<fx:Script>
 		<![CDATA[
+			import model.Customer;
+			import locales.Locale;
+			
 			import model.ReservationForm;
 			import model.StateReservationForm;
 			
 			import mx.collections.ArrayCollection;
+			import mx.containers.TitleWindow;
 			import mx.controls.Alert;
 			import mx.core.UIComponent;
 			import mx.effects.Pause;
 			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
 			import resources.Colors;
 			import resources.icons.Icons;
 			
+			import services.crud.CustomerService;
 			import services.crud.ReservationFormService;
 			
 			import spark.events.GridSelectionEvent;
 			
 			import utils.DateTimeUtils;
+			import utils.WindowsUtils;
 			
 			import view.components.Mask;
+			import view.forms.crud.individual.CustomerIndividualCRUDForm;
+			
+			private var titleWindow:TitleWindow;
+			private var customerForm:CustomerIndividualCRUDForm;
 			
 			[Bindable]
 			public var loc:Object;
 			
 			[Bindable]
 			private var reservationForms:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			public var customers:ArrayCollection  = new ArrayCollection();
+						
+			[Bindable]
+			private var reservationFormStates:ArrayCollection;
+			
+			
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
@@ -53,7 +72,48 @@
 			
 			
 			protected function init(event:FlexEvent):void{
+				retrieveCustomers();
+				loadStates();
+				
+				cleanFilterForm();
 				refreshGrid();
+			}
+			
+			private function retrieveCustomers():void{
+				var customerServ:CustomerService = new CustomerService();
+				customerServ.retrieveAll(retrieveCustomers_resultHandler,faultHandler);
+			}
+			
+			private function retrieveCustomers_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				customers.removeAll();
+				customers.addAll(event.result as ArrayCollection);
+			}
+			
+			private function addCustomer():void{
+				customerForm = new CustomerIndividualCRUDForm();
+				customerForm.loc = loc;
+				customerForm.isUpdate = false;
+				customerForm.addEventListener("saveSuccess",customer_saveSuccess);
+				customerForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.customer.singular,customerForm);
+			}
+			
+			private function titleWindow_close(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
+			private function customer_saveSuccess(evt:Object):void {
+				customers.addItem(customerForm.currentCustomer);
+				WindowsUtils.autoSelectComboBox(customersCombo, customerForm.currentCustomer);
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
+			private function loadStates():void{
+				reservationFormStates = new ArrayCollection();
+				for each (var id:String in StateReservationForm.stateReservationIds){
+					reservationFormStates.addItem(new StateReservationForm(id, loc));
+				}
 			}
 			
 			protected function refreshGrid(event:ResultEvent=null,token:Object=null):void
@@ -177,31 +237,184 @@
 				new ReservationFormService().exportData(reservation, displayPDF, faultHandler);
 			}
 			
+			protected function consultButton_clickHandler(event:MouseEvent):void
+			{
+				if(!validFilters()){
+					return;
+				}
+				
+				filterReservationForms();						
+			}
+			
+			protected function cleanButton_clickHandler(event:MouseEvent):void
+			{
+				cleanFilterForm();
+				refreshGrid();
+			}
+			
+			private function cleanFilterForm():void
+			{
+				dateFromChooser.selectedDate = null;
+				dateToChooser.selectedDate = null;
+				customersCombo.selectedIndex = -1;
+				stateList.selectedIndex = -1;
+			}
+			
+			private function validFilters():Boolean
+			{
+				var validFilters:Boolean = false;
+				if(dateFromChooser.selectedDate != null && dateFromValidator.validate().type == ("valid")){
+						
+					validFilters = true;
+				}
+				if(dateToChooser.selectedDate != null && dateToValidator.validate().type == ("valid")){
+					
+					validFilters = true;
+				}
+				if(customersCombo.selectedIndex > -1){
+					validFilters = true;
+				}
+				if(stateList.selectedIndex > -1){
+					validFilters = true;
+					
+				}
+				
+				return validFilters;
+			}
+			
+			private function filterReservationForms():void
+			{
+				var dateFrom:Date = null;
+				var dateTo:Date = null;
+				var customer:Customer = null;
+				var state:String = null;
+				
+				if(dateFromChooser.selectedDate != null){
+					dateFrom = dateFromChooser.selectedDate 
+				}
+				if(dateToChooser.selectedDate != null){
+					dateTo = dateToChooser.selectedDate
+				}
+				if(customersCombo.selectedIndex > -1){
+					customer = customersCombo.selectedItem as Customer;
+				}
+				if(stateList.selectedIndex > -1){
+					state = (stateList.selectedItem as StateReservationForm).id;
+				}
+				
+				new ReservationFormService().retrieveReservationForms(dateFrom, dateTo, customer, state, retrieveAll_resultHandler, faultHandler);
+			}
+									
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:DateValidator id="dateFromValidator"
+						  required="false"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateFromChooser}"
+						  property="text"
+						  />
+		<mx:DateValidator id="dateToValidator"
+						  required="false"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateToChooser}"
+						  property="text"
+						  />
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
-		<s:HGroup width="100%" height="50%">
-			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{reservationForms}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
-				<s:columns>
-					<s:ArrayList>
-						<s:GridColumn dataField="id" headerText="{loc.reservationForm.id}"/>
-						<s:GridColumn dataField="customer.name" headerText="{loc.customer.singular}"/>
-						<s:GridColumn dataField="state" headerText="{loc.reservationForm.state.singular}"  labelFunction="stateFormat"/>
-						<s:GridColumn dataField="creationDate" headerText="{loc.reservationForm.creationDate}" labelFunction="dateFormat"/>
-						<s:GridColumn dataField="dateFrom" headerText="{loc.reservationForm.dateFrom}" labelFunction="dateFormat"/>
-						<s:GridColumn dataField="dateTo" headerText="{loc.reservationForm.dateTo}" labelFunction="dateFormat"/>
-						<s:GridColumn dataField="adultsQuantity" headerText="{loc.reservationForm.adultsQuantity}"/>
-						<s:GridColumn dataField="childrenQuantity" headerText="{loc.reservationForm.childrenQuantity}"/>
-						<s:GridColumn dataField="pricePerDay" headerText="{loc.reservationForm.pricePerDay}"/>
-						<s:GridColumn dataField="monetaryReserve" headerText="{loc.reservationForm.monetaryReserve}"/>
-						<s:GridColumn dataField="bank.name" headerText="{loc.bank.singular}"/>
-						<s:GridColumn dataField="bankDocumentNumber" headerText="{loc.reservationForm.bankDocumentNumber}"/>
-					</s:ArrayList>
-				</s:columns>
-			</s:DataGrid>
+		<s:HGroup width="100%" height="60%">
+			<s:Group width="100%" height="100%">
+				<s:Rect width="100%" height="100%">
+					<s:stroke>
+						<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+					</s:stroke>
+					<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+				</s:Rect>
+				<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
+					<s:VGroup width="100%" height="35%">
+						<s:HGroup width="100%" height="100%" horizontalAlign="center">
+							<s:Form>
+								<s:layout>
+									<s:FormLayout gap="-14"/>
+								</s:layout>  
+								
+								<s:FormItem label="{loc.availability.dateFrom}:">
+									<mx:DateField id="dateFromChooser" width="120"
+												  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+												  formatString="{loc.dateFormat.toUpperCase()}"
+												  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+								</s:FormItem>
+								
+								<s:FormItem label="{loc.availability.dateTo}:">
+									<mx:DateField id="dateToChooser" width="120"
+												  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+												  formatString="{loc.dateFormat.toUpperCase()}"
+												  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+								</s:FormItem>
+							</s:Form>
+							<s:Form>
+								<s:layout>
+									<s:FormLayout gap="-14"/>
+								</s:layout>  
+								<s:FormItem id="customerItem" label="{loc.customer.singular}:">
+									<s:HGroup>
+										<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="200"/>
+										<s:Button width="24" height="24" click="retrieveCustomers();"
+												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+										<s:Button width="24" height="24" click="addCustomer();" icon="{Icons.add}"
+												  toolTip="{loc.button.add}"/>
+									</s:HGroup>
+								</s:FormItem>
+								<s:FormItem label="{loc.reservationForm.state.singular}:">
+									<s:HGroup verticalAlign="middle">
+										<s:DropDownList id="stateList" dataProvider="{reservationFormStates}" width="150"/>
+										<s:Button width="24" height="24" id="refreshStates" click="loadStates();"
+												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+									</s:HGroup>
+								</s:FormItem>
+							</s:Form>
+						</s:HGroup>
+						<s:HGroup width="100%" horizontalAlign="center">
+							<s:Button id="consultButton" label="{loc.availability.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+							<s:Button id="cleanButton" label="{loc.availability.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
+						</s:HGroup>
+					</s:VGroup>
+				
+					<s:DataGrid id="grid" width="100%" height="65%" dataProvider="{reservationForms}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+						<s:columns>
+							<s:ArrayList>
+								<s:GridColumn dataField="id" headerText="{loc.reservationForm.id}"/>
+								<s:GridColumn dataField="customer.name" headerText="{loc.customer.singular}"/>
+								<s:GridColumn dataField="state" headerText="{loc.reservationForm.state.singular}"  labelFunction="stateFormat"/>
+								<s:GridColumn dataField="creationDate" headerText="{loc.reservationForm.creationDate}" labelFunction="dateFormat"/>
+								<s:GridColumn dataField="dateFrom" headerText="{loc.reservationForm.dateFrom}" labelFunction="dateFormat"/>
+								<s:GridColumn dataField="dateTo" headerText="{loc.reservationForm.dateTo}" labelFunction="dateFormat"/>
+								<s:GridColumn dataField="adultsQuantity" headerText="{loc.reservationForm.adultsQuantity}"/>
+								<s:GridColumn dataField="childrenQuantity" headerText="{loc.reservationForm.childrenQuantity}"/>
+								<s:GridColumn dataField="pricePerDay" headerText="{loc.reservationForm.pricePerDay}"/>
+								<s:GridColumn dataField="monetaryReserve" headerText="{loc.reservationForm.monetaryReserve}"/>
+								<s:GridColumn dataField="bank.name" headerText="{loc.bank.singular}"/>
+								<s:GridColumn dataField="bankDocumentNumber" headerText="{loc.reservationForm.bankDocumentNumber}"/>
+							</s:ArrayList>
+						</s:columns>
+					</s:DataGrid>
+				
+				</mx:VDividedBox>
+			
+			</s:Group>
 			<!-- BUTTONS -->
 							
 			<s:VGroup height="100%">
@@ -229,7 +442,7 @@
 				</s:Group>
 			</s:VGroup>
 		</s:HGroup>
-		<individual:ReservationFormIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="50%"/>
+		<individual:ReservationFormIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="40%"/>
 	</mx:VDividedBox>
 </s:VGroup>
 

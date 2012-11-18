@@ -286,7 +286,7 @@
 					</s:HGroup>
 				</s:FormItem>
 				
-				<s:FormItem label="{loc.rate.price}:" required="true">
+				<s:FormItem label="{loc.rate.priceperday}:" required="true">
 					<s:TextInput id="priceText"/>
 				</s:FormItem>
 			</s:Form>

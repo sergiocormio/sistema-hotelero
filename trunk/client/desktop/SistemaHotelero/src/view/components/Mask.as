@@ -20,10 +20,10 @@ package view.components
 			super();
 		}
 		
-		public static function show(message:String, parent:Sprite=null):Mask
+		public static function show(loc:Object, parent:Sprite=null):Mask
 		{
 			_mask = new Mask();
-			_mask._message = message;
+			_mask._message = loc.pleasewait;
 			PopUpManager.addPopUp(_mask, parent||Sprite(FlexGlobals.topLevelApplication), true);
 			PopUpManager.centerPopUp(_mask);
 			

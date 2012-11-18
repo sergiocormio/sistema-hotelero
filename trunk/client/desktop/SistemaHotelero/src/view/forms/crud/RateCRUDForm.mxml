@@ -96,7 +96,7 @@
 					<s:ArrayList>
 						<s:GridColumn dataField="id.season.name" headerText="{loc.season.singular}"></s:GridColumn>
 						<s:GridColumn dataField="id.roomType.name" headerText="{loc.roomType.singular}"></s:GridColumn>
-						<s:GridColumn dataField="price" headerText="{loc.rate.price}"></s:GridColumn>
+						<s:GridColumn dataField="priceWithDefaultCurrency" headerText="{loc.rate.priceperday}"></s:GridColumn>
 					</s:ArrayList>
 				</s:columns>
 			</s:DataGrid>

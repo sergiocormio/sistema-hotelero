@@ -15,11 +15,18 @@ package model
 			return _price;
 		}
 
+		[Transient]
+		public function get priceWithDefaultCurrency():String
+		{
+			return "R$" + _price.toString();
+		}
+		
 		public function set price(value:Number):void
 		{
 			_price = value;
 		}
 
+		
 		public function get id():RatePK
 		{
 			return _id;
