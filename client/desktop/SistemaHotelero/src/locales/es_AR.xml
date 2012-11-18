@@ -153,6 +153,7 @@
     	<destfile>Archivo destino</destfile>
 	    <savedata>Guardar datos</savedata>
     	<loaddata>Cargar datos</loaddata>
+    	<zipfiles>Archivos Zip</zipfiles>
     </migration>
     <month>
     	<january>Enero</january>
@@ -168,10 +169,12 @@
     	<november>Noviembre</november>
     	<december>Deciembre</december>
     </month>
+    <pleasewait>Por favor espere...</pleasewait>
     <rate>
     	<singular>Tarifa</singular>
 	    <plural>Tarifas</plural>
 	    <price>Precio</price>
+	    <priceperday>Precio por día</priceperday>
     </rate>
     <region>
    		<singular>Región</singular>
