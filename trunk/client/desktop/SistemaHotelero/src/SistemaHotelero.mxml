@@ -19,14 +19,17 @@
 			import resources.images.Images;
 			
 			import utils.Utils;
+			import utils.config.Config;
 			
 			private var server:EmbeddedServer;
 			
 			protected function init(event:FlexEvent):void
 			{
-				server = new EmbeddedServer();
-				if(server.initialize()){
-					server.startTomcat();
+				if(Config.isEnabledLocalServer()){
+					server = new EmbeddedServer();
+					if(server.initialize()){
+						server.startTomcat();
+					}
 				}
 				//centers main window on screen
  				Utils.centerWindowOnScreen(this);
