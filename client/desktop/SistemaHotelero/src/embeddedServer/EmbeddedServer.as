@@ -14,6 +14,7 @@ package embeddedServer
 	
 	import mx.controls.Alert;
 	
+	import utils.config.Config;
 	import utils.log.DebugLog;
 
 	public class EmbeddedServer
@@ -42,7 +43,7 @@ package embeddedServer
 				Alert.show("NativeProcess not supported");
 			}
 			//TODO: Read all Path from a configuration FILE
-			tomcatHomePath = "C:\\apache-tomcat-7.0.32";
+			tomcatHomePath = Config.getTomcatHomePath();
 			tomcatHomeDir = new File(tomcatHomePath);
 //			tomcatHomeDir = File.applicationStorageDirectory.resolvePath("tomcat");
 			if (!tomcatHomeDir.exists)
@@ -62,11 +63,7 @@ package embeddedServer
 			// If no known last home, present default/sample values
 			if (Capabilities.os.toLowerCase().indexOf("win") > -1){
 				// default/sample values for Windows users
-//				javaHome = "C:\\Program Files (x86)\\Java\\jdk1.6.0_21";
-				javaHomePath = "C:\\Program Files\\Java\\jre7";
-			}else if (Capabilities.os.toLowerCase().indexOf("mac") > -1){
-				// default/sample values for Mac users
-				javaHomePath = "/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0_21";
+				javaHomePath = Config.getJavaHomePath();
 			}
 			
 			var javaDir:File = new File(javaHomePath);
@@ -84,23 +81,6 @@ package embeddedServer
 		} 
 		private function fileMoveIOErrorEventHandler(event:Object):void { 
 			Alert.show("I/O Error.");  
-		}*/
-		
-		/*private function readConfig():XML
-		{
-			var file:File = File.applicationStorageDirectory.resolvePath("config.xml");
-			if (file.exists)
-			{
-				var fileStream:FileStream = new FileStream();
-				fileStream.open(file, FileMode.READ);
-				var xml:XML = XML(fileStream.readUTFBytes(fileStream.bytesAvailable));
-				fileStream.close();
-				return xml;
-			}
-			else
-			{
-				return null;
-			}
 		}*/
 		
 		public function startTomcat():void
