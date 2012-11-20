@@ -39,8 +39,14 @@
 		<trueValue>Si</trueValue>
 	</boolean>
 	<budget>
-		<basePrice>Precio Base</basePrice>
-		<basePricePlusAllServicesIncludedInBasePrice>Precio con Servicios Básicos</basePricePlusAllServicesIncludedInBasePrice>
+		<basePrice>Precio base</basePrice>
+		<basePricePlusAllServicesIncludedInBasePrice>Precio con todos los servicios básicos</basePricePlusAllServicesIncludedInBasePrice>
+		<title>Presupuesto</title>
+		<additionalServices>Servicios adicionales</additionalServices>
+		<detail>Detalle</detail>
+		<modality>Modalidad</modality>
+		<price>Precio</price>
+		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
 	</budget>
     <button>
     	<add>Agregar</add>
@@ -51,6 +57,7 @@
     	<remove>Eliminar</remove>
     	<save>Guardar</save>
     	<close>Cerrar</close>
+    	<print>Imprimir</print>
     </button>
     <calendar>
     	<singular>Calendario</singular>
