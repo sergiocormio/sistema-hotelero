@@ -96,7 +96,7 @@ public class TestCustomersReport {
 		String pdfFileName = "C:\\pdf\\pdf.pdf";
 		
 		//	PDFReportManager pdfReportManager = new PDFReportManager(templateFile.getPath(), pdfFileName, params);
-			PDFReportManager pdfReportManager = new PDFReportManager(templateFileName, pdfFileName, params);
+			PDFReportManager pdfReportManager = new PDFReportManager(templateFileName, params);
 		pdfReportManager.createReport(customers);
 	}
 

@@ -268,7 +268,7 @@ public class TestReservationFormService {
 		
 		ReservationForm reservationForm = this.reservationFormService.getRecordById(1L);
 		
-		this.reservationFormService.exportData(reservationForm, "C:\\pdf\\reservationForm.pdf");
+		this.reservationFormService.exportData(reservationForm);
 	
 	}
 	

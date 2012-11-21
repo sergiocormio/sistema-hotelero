@@ -22,7 +22,7 @@ import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Budget;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
-import com.cdz.sh.model.ServiceType;
+import com.cdz.sh.model.ServiceAddedInBasePrice;
 import com.cdz.sh.model.ServiceTypeModality;
 import com.cdz.sh.service.exception.NoRateException;
 import com.cdz.sh.service.impl.BudgetServiceImpl;
@@ -80,14 +80,14 @@ public class TestBudgetService {
 		assertTrue(budget.getServicesToBeAddedInBasePrice().size() == 2);
 		
 		
-		for(ServiceType serviceIncludedInBasePrice : budget.getServicePriceAddedInBasePriceMap().keySet()){
-			Double price = budget.getServicePriceAddedInBasePriceMap().get(serviceIncludedInBasePrice);
+		for(ServiceAddedInBasePrice serviceIncludedInBasePrice : budget.getServicePricesAddedInBasePrice()){
+			Double price = serviceIncludedInBasePrice.getPrice();
 			
-			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_PERSON)){
+			if(serviceIncludedInBasePrice.getServiceType().getModality().equals(ServiceTypeModality.PER_PERSON)){
 				
 				assertTrue(price.doubleValue() == 510d);	
 			}
-			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_NIGHT)){
+			else if(serviceIncludedInBasePrice.getServiceType().getModality().equals(ServiceTypeModality.PER_NIGHT)){
 				
 				assertTrue(price.doubleValue() == 480d);
 			}
@@ -119,14 +119,14 @@ public class TestBudgetService {
 		assertTrue(budget.getAdditionalServices().size() == 7);
 		assertTrue(budget.getServicesToBeAddedInBasePrice().size() == 2);
 		
-		for(ServiceType serviceIncludedInBasePrice : budget.getServicePriceAddedInBasePriceMap().keySet()){
-			Double price = budget.getServicePriceAddedInBasePriceMap().get(serviceIncludedInBasePrice);
+		for(ServiceAddedInBasePrice serviceIncludedInBasePrice : budget.getServicePricesAddedInBasePrice()){
+			Double price = serviceIncludedInBasePrice.getPrice();
 			
-			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_PERSON)){
+			if(serviceIncludedInBasePrice.getServiceType().getModality().equals(ServiceTypeModality.PER_PERSON)){
 				
 				assertTrue(price.doubleValue() == 1290d);	
 			}
-			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_NIGHT)){
+			else if(serviceIncludedInBasePrice.getServiceType().getModality().equals(ServiceTypeModality.PER_NIGHT)){
 				
 				assertTrue(price.doubleValue() == 1230d);
 			}
@@ -161,14 +161,14 @@ public class TestBudgetService {
 		assertTrue(budget.getServicesToBeAddedInBasePrice().size() == 2);
 		
 		
-		for(ServiceType serviceIncludedInBasePrice : budget.getServicePriceAddedInBasePriceMap().keySet()){
-			Double price = budget.getServicePriceAddedInBasePriceMap().get(serviceIncludedInBasePrice);
+		for(ServiceAddedInBasePrice serviceIncludedInBasePrice : budget.getServicePricesAddedInBasePrice()){
+			Double price = serviceIncludedInBasePrice.getPrice();
 			
-			if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_PERSON)){
+			if(serviceIncludedInBasePrice.getServiceType().getModality().equals(ServiceTypeModality.PER_PERSON)){
 				
 				assertTrue(price.doubleValue() == 2630d);	
 			}
-			else if(serviceIncludedInBasePrice.getModality().equals(ServiceTypeModality.PER_NIGHT)){
+			else if(serviceIncludedInBasePrice.getServiceType().getModality().equals(ServiceTypeModality.PER_NIGHT)){
 				
 				assertTrue(price.doubleValue() == 2530d);
 			}
