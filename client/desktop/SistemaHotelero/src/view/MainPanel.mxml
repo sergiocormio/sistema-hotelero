@@ -11,6 +11,7 @@
 			import resources.images.Images;
 			
 			import utils.Utils;
+			import utils.config.Config;
 			[Bindable]
 			public var loc:Object;
 		]]>
@@ -32,7 +33,7 @@
 	-->
 	<s:VGroup height="100%" width="100%" paddingLeft="20" paddingRight="20" paddingTop="10" paddingBottom="10">
 		<s:HGroup width="100%">
-			<s:Group click="navigateToURL(new URLRequest('http://www.dellosky.com'));" toolTip="www.dellosky.com">
+			<s:Group click="navigateToURL(new URLRequest('http://'+Config.getHotelWebSite()));" toolTip="{Config.getHotelWebSite()}">
 				<s:BitmapImage source="{Images.logo}" left="0" right="0" top="0" bottom="0" scaleMode="letterbox"/>
 			</s:Group>
 			<s:ButtonBar dataProvider="{mainViewStack}" requireSelection="true" iconPlacement="top" useHandCursor="true" width="100%">

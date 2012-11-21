@@ -5,6 +5,8 @@ package locales
 	import flash.filesystem.FileStream;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	
+	import utils.config.Config;
 
 	public class Locale
 	{
@@ -20,8 +22,7 @@ package locales
 		public var monthNames:Array;
 		
 		public function Locale(){
-			//TODO loads current locale from saved data
-			setCurrentLocale("es_AR");
+			setCurrentLocale(Config.getDefaultLocale());
 		}
 		
 		static public function getInstance():Locale{
