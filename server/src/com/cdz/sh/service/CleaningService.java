@@ -3,6 +3,7 @@ package com.cdz.sh.service;
 import java.util.Date;
 import java.util.List;
 
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Cleaning;
 
 /**
@@ -20,7 +21,7 @@ public interface CleaningService extends CrudService<Cleaning, Long>{
 	 * @param date
 	 * @return
 	 */
-	public List<Cleaning> retrieveRoomsToClean(Date date);
+	public List<Cleaning> retrieveRoomsToClean(Date date) throws DaoException;
 	
 	/**
 	 * Export to PDF the information given

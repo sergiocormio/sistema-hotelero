@@ -1,5 +1,6 @@
 package com.cdz.sh.report;
 
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 /**
  * Assumptions:
@@ -25,14 +28,12 @@ public class PDFReportManager {
 	
 	
 	private String templateFileName;
-	private String pdfFileName;
 	private Map<String, Object> parameters;
 	
 	
 	
-	public PDFReportManager(String templateFileName, String pdfFileName, Map<String, Object> parameters) {
+	public PDFReportManager(String templateFileName, Map<String, Object> parameters) {
 		super();
-		this.pdfFileName = pdfFileName;
 		this.templateFileName = templateFileName;
 		this.parameters = parameters;
 	}
@@ -40,13 +41,17 @@ public class PDFReportManager {
 
 
 	@SuppressWarnings("rawtypes")
-	public void createReport(Collection collection){
+	public byte[] createReport(Collection collection){
 		
 	    try{
 	    	
 	    	JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
-	    	
-	    	JasperReport jasperReport = JasperCompileManager.compileReport(templateFileName);
+	
+	    	InputStream input = this.getClass().getResourceAsStream(templateFileName);
+            JasperDesign design = JRXmlLoader.load(input);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            
+//	    	JasperReport jasperReport = JasperCompileManager.compileReport(templateFileName);
 	        
 	    	JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 	
@@ -60,14 +65,16 @@ public class PDFReportManager {
 //            exporter.exportReport();
             /* */
             
-	    	JasperExportManager.exportReportToPdfFile(jasperPrint, this.pdfFileName);
-	        
-	        System.out.println("Done!");
+//	    	JasperExportManager.exportReportToPdfFile(jasperPrint, this.pdfFileName);
+	    	byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
+
+	    	System.out.println("Done!");
+	    	return pdf;
 	    }
 	    catch (Exception e){
 			e.printStackTrace();
 	    }
-	    
+	    return null;
 	}
 	
 	

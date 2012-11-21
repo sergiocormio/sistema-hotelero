@@ -1,6 +1,10 @@
 package com.cdz.sh.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import com.cdz.sh.dao.crud.CrudDao;
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Cleaning;
 
 /**
@@ -11,8 +15,7 @@ import com.cdz.sh.model.Cleaning;
  */
 public interface CleaningDao extends CrudDao<Cleaning, Long> {
 
-	/**
-	 * TODO: declare specific query methods
-	 */
+
+	public List<Cleaning> retrieveRoomsToClean(Date date) throws DaoException;
 
 }

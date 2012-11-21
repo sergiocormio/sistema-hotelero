@@ -20,15 +20,65 @@ import com.cdz.sh.model.request.CheckAvailabilityRequest;
 public interface OccupationDao extends CrudDao<Occupation, OccupationPK> {
 
 	
+	/**
+	 * To be used to display current occupations (grid from main screen)
+	 * 
+	 * @param dateFrom
+	 * @param dateTo
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException;
 	
+	
+	/**
+	 * To be used by the CORE algorithm
+	 * 
+	 * @param request
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<Occupation> retrieveConfirmedOccupations(CheckAvailabilityRequest request) throws DaoException;
 
+	
+	/**
+	 * To be used from Cleaning report 
+	 * 
+	 * @param date
+	 * @throws DaoException
+	 */
+	public List<Occupation> retrieveConfirmedOccupations(Date date) throws DaoException;
+	
+	/**
+	 * To be used for canceling overlaped occupations when updateing a reservation form
+	 * 
+	 * @param reservationForm
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException;
 
+	/**
+	 * Retrieves overlaped occupations
+	 * 
+	 * @param occupation
+	 * @param reservationForm
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<Occupation> retrieveOverlapedOccupations(Occupation occupation, ReservationForm reservationForm) throws DaoException;
 
+	/**
+	 * Used for checking valid last day of a room change 
+	 * 
+	 * @param dateFrom
+	 * @param dateTo
+	 * @param room
+	 * @return
+	 * @throws DaoException
+	 */
 	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo, Room room) throws DaoException;
+
 
 
 }

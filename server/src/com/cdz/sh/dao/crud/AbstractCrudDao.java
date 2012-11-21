@@ -157,7 +157,7 @@ public abstract class AbstractCrudDao<Entity, Id extends Serializable> implement
 				catch(PersistenceException persistenceException){
 					// disassociate the object from the current session, hence it will not attempt this action again
 					entityManager.clear();
-					throw new DaoException(persistenceException.getCause().getMessage());
+					throw new DaoException(ExceptionErrorCodes.FK_VIOLATION_WHEN_DELETE, persistenceException.getCause().getMessage());
 				}
 				finally{
 					entityManager.close();

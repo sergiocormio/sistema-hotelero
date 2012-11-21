@@ -1,9 +1,7 @@
 package com.cdz.sh.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Budget {
 	
@@ -21,14 +19,14 @@ public class Budget {
 	 */
 	private List<ServiceType> additionalServices;
 	
-	private Map<ServiceType, Double> servicePriceAddedInBasePriceMap;
+	private List<ServiceAddedInBasePrice> servicePricesAddedInBasePrice;
 
 	private Double basePricePlusAllServicesIncludedInBasePrice;
 
 	public Budget(){
 		this.additionalServices = new ArrayList<ServiceType>();
 		this.servicesToBeAddedInBasePrice = new ArrayList<ServiceType>();
-		this.servicePriceAddedInBasePriceMap = new HashMap<ServiceType, Double>();
+		this.servicePricesAddedInBasePrice = new ArrayList<ServiceAddedInBasePrice>();
 	}
 	
 	public Budget(Alternative alternative){
@@ -76,11 +74,9 @@ public class Budget {
 	}
 	
 	
-	public Map<ServiceType, Double> getServicePriceAddedInBasePriceMap() {
-		return servicePriceAddedInBasePriceMap;
+	public List<ServiceAddedInBasePrice> getServicePricesAddedInBasePrice() {
+		return servicePricesAddedInBasePrice;
 	}
-
-
 
 	public Double getBasePricePlusAllServicesIncludedInBasePrice() {
 		return basePricePlusAllServicesIncludedInBasePrice;
@@ -93,9 +89,9 @@ public class Budget {
 	 * 
 	 * @param servicePriceAddedInBasePriceMap
 	 */
-	public void setServicePriceAddedInBasePriceMap(
-			Map<ServiceType, Double> servicePriceAddedInBasePriceMap) {
-		this.servicePriceAddedInBasePriceMap = servicePriceAddedInBasePriceMap;
+	public void setServicePricesAddedInBasePrice(
+			List<ServiceAddedInBasePrice> servicePricesAddedInBasePrice) {
+		this.servicePricesAddedInBasePrice = servicePricesAddedInBasePrice;
 	}
 
 
@@ -109,6 +105,8 @@ public class Budget {
 	}
 
 
+
+	
 
 	public void calculateServicesInCombinationWithBasePrice(){
 		
@@ -124,7 +122,11 @@ public class Budget {
 			Double basePricePlusService = this.basePrice;
 			basePricePlusService += getCalculatedPrice(serviceType);
 			
-			this.servicePriceAddedInBasePriceMap.put(serviceType, basePricePlusService);
+			ServiceAddedInBasePrice serviceAddedInBasePrice = new ServiceAddedInBasePrice();
+			serviceAddedInBasePrice.setServiceType(serviceType);
+			serviceAddedInBasePrice.setPrice(basePricePlusService);
+			
+			this.servicePricesAddedInBasePrice.add(serviceAddedInBasePrice);
 		}
 	
 	}
