@@ -79,5 +79,23 @@ package utils.config
 			}
 		}
 		
+		public static function getDefaultLocale():String{
+			loadConfig();
+			if(_configXML!=null){
+				return _configXML.defaultLocale;
+			}else{
+				return "es_AR";
+			}
+		}
+		
+		public static function getHotelWebSite():String{
+			loadConfig();
+			if(_configXML!=null){
+				return _configXML.hotelWebSite;
+			}else{
+				return "www.dellosky.com";
+			}
+		}
+		
 	}
 }

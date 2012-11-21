@@ -1,6 +1,9 @@
 <config>
-	<enableLocalServer>False</enableLocalServer>
-	<tomcatHomePath>C:\apache-tomcat-7.0.32</tomcatHomePath>
+	<defaultLocale>es_AR</defaultLocale>
+	<enableLocalServer>true</enableLocalServer>
 	<javaHomePath>C:\Program Files\Java\jre7</javaHomePath>
+<!-- 	<javaHomePath>C:\Program Files (x86)\Java\jdk1.6.0_21</javaHomePath> -->
+	<hotelWebSite>www.dellosky.com</hotelWebSite>
+	<tomcatHomePath>C:\apache-tomcat-7.0.32</tomcatHomePath>
 	<serverURL>http://localhost:8400/SistemaHotelero/messagebroker/amf</serverURL>
 </config>
