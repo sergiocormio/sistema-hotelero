@@ -335,7 +335,7 @@
 						  />
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
-		<s:HGroup width="100%" height="60%">
+		<s:HGroup width="100%" height="57%">
 			<s:Group width="100%" height="100%">
 				<s:Rect width="100%" height="100%">
 					<s:stroke>
@@ -344,31 +344,21 @@
 					<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 				</s:Rect>
 				<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
-					<s:VGroup width="100%" height="35%">
-						<s:HGroup width="100%" height="100%" horizontalAlign="center">
-							<s:Form>
-								<s:layout>
-									<s:FormLayout gap="-14"/>
-								</s:layout>  
-								
+					<s:VGroup width="100%" height="25%" verticalAlign="top">
+						<s:HGroup width="100%" height="100%" horizontalAlign="center" gap="-50">
 								<s:FormItem label="{loc.availability.dateFrom}:">
 									<mx:DateField id="dateFromChooser" width="120"
 												  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
 												  formatString="{loc.dateFormat.toUpperCase()}"
 												  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
 								</s:FormItem>
-								
+							
 								<s:FormItem label="{loc.availability.dateTo}:">
 									<mx:DateField id="dateToChooser" width="120"
 												  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
 												  formatString="{loc.dateFormat.toUpperCase()}"
 												  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
 								</s:FormItem>
-							</s:Form>
-							<s:Form>
-								<s:layout>
-									<s:FormLayout gap="-14"/>
-								</s:layout>  
 								<s:FormItem id="customerItem" label="{loc.customer.singular}:">
 									<s:HGroup>
 										<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="200"/>
@@ -380,12 +370,11 @@
 								</s:FormItem>
 								<s:FormItem label="{loc.reservationForm.state.singular}:">
 									<s:HGroup verticalAlign="middle">
-										<s:DropDownList id="stateList" dataProvider="{reservationFormStates}" width="150"/>
+										<s:DropDownList id="stateList" dataProvider="{reservationFormStates}" width="120"/>
 										<s:Button width="24" height="24" id="refreshStates" click="loadStates();"
 												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 									</s:HGroup>
 								</s:FormItem>
-							</s:Form>
 						</s:HGroup>
 						<s:HGroup width="100%" horizontalAlign="center">
 							<s:Button id="consultButton" label="{loc.availability.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
@@ -393,7 +382,7 @@
 						</s:HGroup>
 					</s:VGroup>
 				
-					<s:DataGrid id="grid" width="100%" height="65%" dataProvider="{reservationForms}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+					<s:DataGrid id="grid" width="100%" height="75%" dataProvider="{reservationForms}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
 						<s:columns>
 							<s:ArrayList>
 								<s:GridColumn dataField="id" headerText="{loc.reservationForm.id}"/>
@@ -416,7 +405,6 @@
 			
 			</s:Group>
 			<!-- BUTTONS -->
-							
 			<s:VGroup height="100%">
 				<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addReservationForm()"
 									modifyClicked="modifyReservationForm()" removeClicked="deleteReservationForm()"
@@ -442,7 +430,7 @@
 				</s:Group>
 			</s:VGroup>
 		</s:HGroup>
-		<individual:ReservationFormIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="40%"/>
+		<individual:ReservationFormIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="43%"/>
 	</mx:VDividedBox>
 </s:VGroup>
 

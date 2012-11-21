@@ -366,5 +366,16 @@ package utils
 			//return text.length * 7 - (Utils.getQuantityOfChar(text,' ') *5.5);
 			return length as int; 
 		}
+	
+		/**
+		 * converts a String to Boolean
+		 */
+		public static function stringToBoolean(str:String):Boolean{
+			if(str.toLowerCase() == "true" || str == "1"){
+				return true;
+			}else{
+				return false;
+			}
+		}
 	}
 }

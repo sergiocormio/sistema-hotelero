@@ -6,6 +6,7 @@ package utils.config
 	
 	import mx.controls.Alert;
 	
+	import utils.Utils;
 	import utils.log.DebugLog;
 
 	public class Config
@@ -63,7 +64,7 @@ package utils.config
 		public static function isEnabledLocalServer():Boolean{ 
 			loadConfig();
 			if(_configXML!=null){
-				return _configXML.enableLocalServer;
+				return Utils.stringToBoolean(_configXML.enableLocalServer);
 			}else{
 				return true;
 			}

@@ -18,7 +18,7 @@
 	<s:ButtonBar dataProvider="{configViewStack}" requireSelection="true" iconPlacement="left" horizontalCenter="0"
 				 verticalCenter="0" height="100%">
 		<s:layout>
-			<s:TileLayout verticalGap="10" requestedColumnCount="1"/>
+			<s:TileLayout verticalGap="9" requestedColumnCount="1"/>
 		</s:layout>
 	</s:ButtonBar>
 	<mx:ViewStack id="configViewStack" borderStyle="none" width="100%" height="100%">

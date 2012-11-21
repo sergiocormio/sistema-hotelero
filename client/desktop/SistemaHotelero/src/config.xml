@@ -1,5 +1,5 @@
 <config>
-	<enableLocalServer>true</enableLocalServer>
+	<enableLocalServer>False</enableLocalServer>
 	<tomcatHomePath>C:\apache-tomcat-7.0.32</tomcatHomePath>
 	<javaHomePath>C:\Program Files\Java\jre7</javaHomePath>
 	<serverURL>http://localhost:8400/SistemaHotelero/messagebroker/amf</serverURL>
