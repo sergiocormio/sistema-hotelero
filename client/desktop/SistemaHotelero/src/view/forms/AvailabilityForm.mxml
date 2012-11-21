@@ -68,8 +68,12 @@
 				
 				setEnabledValidators(false);
 				
-				return isValidForm;
+				if(isValidForm && adultsQtyStepper.value == 0 && childrenQtyStepper.value == 0){
+						
+					isValidForm = false;
+				}
 				
+				return isValidForm;
 			}
 			
 			private function setEnabledValidators(enabled:Boolean):void{
@@ -244,7 +248,7 @@
 			private function displayBudget():void{
 				budgetForm = new DisplayBudgetFrom();
 				budgetForm.loc = loc;
-				budgetForm.alternativeSelected = alternativeSelected;
+				budgetForm.alternativeSelectedInDefaultPrice = alternativeSelected;
 				
 				//budgetForm.addEventListener("saveSuccess",customer_saveSuccess);
 				budgetForm.addEventListener("cancelClicked",titleWindow_close);
