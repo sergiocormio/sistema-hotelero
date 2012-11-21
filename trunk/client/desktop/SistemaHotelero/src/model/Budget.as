@@ -5,6 +5,14 @@ package model
 	[RemoteClass (alias="com.cdz.sh.model.Budget")]
 	public class Budget
 	{
+		// only to tell Blaze DS the arrayCollection data type
+		private var _serviceAddedInBasePriceStupid:ServiceAddedInBasePrice; 
+		
+		// only to tell Blaze DS the arrayCollection data type
+		private var _serviceTypeStupid:ServiceType;
+		
+		
+		
 		private var _relatedAlternative:Alternative;
 		
 		private var _basePrice:Number;
@@ -12,9 +20,9 @@ package model
 		private var _basePricePlusAllServicesIncludedInBasePrice:Number;
 		
 		/*
-		* The price of these ones have to be calculated according to the serciveTypeModality
+		* The price of these ones are calculated according to the serciveTypeModality
 		*/
-		private var _servicesToBeAddedInBasePrice:ArrayCollection;
+		private var _servicePricesAddedInBasePrice:ArrayCollection;
 		
 		/*
 		* There is no need in calculating the price of the ones below, because they will not be added in the basePrice
@@ -45,14 +53,14 @@ package model
 			_additionalServices = value;
 		}
 
-		public function get servicesToBeAddedInBasePrice():ArrayCollection
+		public function get servicePricesAddedInBasePrice():ArrayCollection
 		{
-			return _servicesToBeAddedInBasePrice;
+			return _servicePricesAddedInBasePrice;
 		}
 
-		public function set servicesToBeAddedInBasePrice(value:ArrayCollection):void
+		public function set servicePricesAddedInBasePrice(value:ArrayCollection):void
 		{
-			_servicesToBeAddedInBasePrice = value;
+			_servicePricesAddedInBasePrice = value;
 		}
 
 		public function get basePrice():Number

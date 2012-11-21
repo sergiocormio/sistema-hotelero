@@ -47,6 +47,7 @@
 		<modality>Modalidad</modality>
 		<price>Precio</price>
 		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
+		<convertpricesto>Convertir precios a</convertpricesto>
 	</budget>
     <button>
     	<add>Agregar</add>
@@ -58,6 +59,7 @@
     	<save>Guardar</save>
     	<close>Cerrar</close>
     	<print>Imprimir</print>
+    	<clean>Limpiar</clean>
     </button>
     <calendar>
     	<singular>Calendario</singular>
@@ -290,4 +292,5 @@
 			<invalidBody></invalidBody>
     	</server>
     </validator>
+    <withh>Con</withh>
 </locale>
