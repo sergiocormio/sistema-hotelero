@@ -156,6 +156,11 @@
     	<singular>Hospedaje</singular>
     	<plural>Hospedajes</plural>
     </lodgement>
+    <messages>
+	    <pleaseWait>Por favor espere...</pleaseWait>
+	    <startingServer>Iniciando el Servidor...</startingServer>
+	    <stoppingServer>Deteniendo el Servidor...</stoppingServer>
+    </messages>
     <migration>
     	<destfile>Archivo destino</destfile>
 	    <savedata>Guardar datos</savedata>
@@ -176,7 +181,6 @@
     	<november>Noviembre</november>
     	<december>Deciembre</december>
     </month>
-    <pleasewait>Por favor espere...</pleasewait>
     <rate>
     	<singular>Tarifa</singular>
 	    <plural>Tarifas</plural>

@@ -14,12 +14,17 @@
 		<![CDATA[
 			import embeddedServer.EmbeddedServer;
 			
+			import locales.Locale;
+			
+			import mx.controls.Alert;
 			import mx.events.FlexEvent;
 			
 			import resources.images.Images;
 			
 			import utils.Utils;
 			import utils.config.Config;
+			
+			import view.components.Mask;
 			
 			private var server:EmbeddedServer;
 			
@@ -28,6 +33,8 @@
 				if(Config.isEnabledLocalServer()){
 					server = new EmbeddedServer();
 					if(server.initialize()){
+						Mask.show(Locale.getInstance().getCurrentLocale().messages.startingServer);
+						server.addEventListener(EmbeddedServer.SERVER_STARTED,serverStartedHandler);
 						server.startTomcat();
 					}
 				}
@@ -36,11 +43,16 @@
 				this.maximize(); 
 			}
 			
+			private function serverStartedHandler(event:Event):void{
+				Mask.close();
+			}
+			
 			
 			//Stops server before closing
 			protected function closingHandler(event:Event):void
 			{
 				if (server != null){
+					Mask.show(Locale.getInstance().getCurrentLocale().messages.stoppingServer);
 					server.stopTomcat();
 				}
 			}

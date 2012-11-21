@@ -9,9 +9,11 @@ package embeddedServer
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
 	import flash.system.Capabilities;
+	import flash.utils.Dictionary;
 	
 	import locales.Locale;
 	
+	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	
 	import utils.config.Config;
@@ -29,6 +31,11 @@ package embeddedServer
 		private var _initialized:Boolean = false;
 		private var _started:Boolean = false;
 		
+		private var eventToFunctionsMap:Dictionary = new Dictionary();
+		
+		public static const SERVER_STARTED:String = "ServerStarted";
+		public static const SERVER_STOPPED:String = "ServerStopped";
+		
 		
 		public function EmbeddedServer()
 		{
@@ -42,7 +49,6 @@ package embeddedServer
 				_initialized = false;
 				Alert.show("NativeProcess not supported");
 			}
-			//TODO: Read all Path from a configuration FILE
 			tomcatHomePath = Config.getTomcatHomePath();
 			tomcatHomeDir = new File(tomcatHomePath);
 //			tomcatHomeDir = File.applicationStorageDirectory.resolvePath("tomcat");
@@ -58,13 +64,7 @@ package embeddedServer
 				Alert.show(Locale.getInstance().getCurrentLocale().errorMessage.serverNotFound + File.lineEnding + tomcatHomePath);
 			}
 			
-
-			
-			// If no known last home, present default/sample values
-			if (Capabilities.os.toLowerCase().indexOf("win") > -1){
-				// default/sample values for Windows users
-				javaHomePath = Config.getJavaHomePath();
-			}
+			javaHomePath = Config.getJavaHomePath();
 			
 			var javaDir:File = new File(javaHomePath);
 			if(!javaDir.exists){
@@ -104,7 +104,7 @@ package embeddedServer
 			}
 			DebugLog.log("Stopping Tomcat..." + File.lineEnding);
 			stopTomcatProcess = new NativeProcess();
-			execute(startTomcatProcess, "stop");
+			execute(stopTomcatProcess, "stop");
 			_started = false;
 		}
 		
@@ -134,12 +134,11 @@ package embeddedServer
 				processArgs[3] = "org.apache.catalina.startup.Bootstrap";
 				processArgs[4] = arg;
 				nativeProcessStartupInfo.arguments = processArgs;
-				startTomcatProcess = new NativeProcess();
 				DebugLog.log("Trying to run: " + file.nativePath + File.lineEnding + " " + processArgs[0]  + " " + processArgs[1] + " " + processArgs[2] + " " + processArgs[3] + " " + processArgs[4]);
-				startTomcatProcess.start(nativeProcessStartupInfo);
-				startTomcatProcess.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA,
+				process.start(nativeProcessStartupInfo);
+				process.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA,
 					outputDataHandler);
-				startTomcatProcess.addEventListener(ProgressEvent.STANDARD_ERROR_DATA,
+				process.addEventListener(ProgressEvent.STANDARD_ERROR_DATA,
 					errorOutputDataHandler);
 			}
 			catch (e:Error)
@@ -153,6 +152,7 @@ package embeddedServer
 			var process:NativeProcess = event.target as NativeProcess;
 			var data:String = process.standardOutput.readUTFBytes(process.standardOutput.bytesAvailable);
 			log(data);
+			verifyServerOutputAndDispatchEvents(data);
 		}
 		
 		private function errorOutputDataHandler(event:ProgressEvent):void
@@ -160,11 +160,55 @@ package embeddedServer
 			var process:NativeProcess = event.target as NativeProcess;
 			var data:String = process.standardError.readUTFBytes(startTomcatProcess.standardError.bytesAvailable);
 			log(data);
+			verifyServerOutputAndDispatchEvents(data);
+		}
+		
+		private function verifyServerOutputAndDispatchEvents(data:String):void{
+			if(data.indexOf("INFO: Server startup in")>-1){
+				dispatchEvent(new Event(SERVER_STARTED));
+			}else if(data.indexOf("INFO: Server stopped")>-1){
+				dispatchEvent(new Event(SERVER_STOPPED));
+			}
 		}
 		
 		private function log(msg:String):void{
 			DebugLog.log("Tomcat says: " + msg);
 		}
 		
+		//EVENT Dispatcher Implementation
+		public function addEventListener(type:String, listener:Function):void{
+			if(eventToFunctionsMap[type]==null){
+				eventToFunctionsMap[type] = new ArrayCollection();
+			}
+			eventToFunctionsMap[type].addItem(listener);
+		}
+		
+		public function removeEventListener(type:String, listener:Function):void{
+			if(eventToFunctionsMap[type]!=null){
+				var ac:ArrayCollection = eventToFunctionsMap[type];
+				var index:int = -1;
+				for (var i:int=0; i<ac.length ; i++){
+					var f:Function = ac.getItemAt(i) as Function;
+					if(f==listener){
+						index=i;
+						break;
+					}
+				}
+				if(index!=-1){
+					ac.removeItemAt(index);
+				}
+			}
+		}
+		
+		public function dispatchEvent(event:Event):void{
+			if(eventToFunctionsMap[event.type]!=null){
+				var ac:ArrayCollection = eventToFunctionsMap[event.type];
+				for (var i:int=0; i<ac.length ; i++){
+					var f:Function = ac.getItemAt(i) as Function;
+					f(event);
+				}
+			}
+		}
+		//END of EVENT Dispatcher Implementation
 	}
 }

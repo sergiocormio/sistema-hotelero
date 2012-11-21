@@ -53,7 +53,7 @@
 			
 			private function onSelectToSave(e:Event):void
 			{
-				Mask.show(loc);
+				Mask.show();
 				var destZipFile:String = e.target.nativePath + ".zip";
 				
 				new MigrationService().backupDatabase(destZipFile, resultHandler, faultHandler);
@@ -70,7 +70,7 @@
 			
 			private function onSelectToLoad(e:Event):void
 			{
-				Mask.show(loc);
+				Mask.show();
 				var sourceZipFile:String = e.target.nativePath;
 				new MigrationService().restoreDatabase(sourceZipFile, resultHandler, faultHandler);
 			}

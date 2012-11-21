@@ -2,6 +2,8 @@ package view.components
 {
 	import flash.display.Sprite;
 	
+	import locales.Locale;
+	
 	import mx.containers.Box;
 	import mx.controls.ProgressBar;
 	import mx.core.Application;
@@ -20,10 +22,14 @@ package view.components
 			super();
 		}
 		
-		public static function show(loc:Object, parent:Sprite=null):Mask
+		public static function show(msg:String=null, parent:Sprite=null):Mask
 		{
 			_mask = new Mask();
-			_mask._message = loc.pleasewait;
+			if(msg==null){
+				_mask._message = Locale.getInstance().getCurrentLocale().messages.pleaseWait;
+			}else{
+				_mask._message = msg;
+			}
 			PopUpManager.addPopUp(_mask, parent||Sprite(FlexGlobals.topLevelApplication), true);
 			PopUpManager.centerPopUp(_mask);
 			
