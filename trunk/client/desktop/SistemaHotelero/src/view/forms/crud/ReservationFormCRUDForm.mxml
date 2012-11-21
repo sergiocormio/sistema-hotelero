@@ -231,7 +231,7 @@
 			
 			protected function exportReservationButton_clickHandler(event:MouseEvent):void
 			{
-				Mask.show(loc);
+				Mask.show();
 				
 				var reservation:ReservationForm = grid.selectedItem as ReservationForm;
 				new ReservationFormService().exportData(reservation, displayPDF, faultHandler);
