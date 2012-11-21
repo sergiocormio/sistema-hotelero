@@ -34,7 +34,7 @@ import com.cdz.sh.service.exception.InvalidOperationException;
 public class ReservationFormServiceImpl extends AbstractCrudService<ReservationForm, Long> implements ReservationFormService {
 
 		
-	private static final String RESERVATION_FORM_TEMPLATE = "resources/report/reservationForm_ES.jrxml";
+	private static final String RESERVATION_FORM_TEMPLATE = "reservationForm_ES.jrxml";
 	
 	private ReservationFormDao reservationFormDao ;
 	private OccupationDao occupationDao;
@@ -103,17 +103,17 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	}
 
 	@Override
-	public String exportData(ReservationForm reservationForm, String absolutePath) throws DaoException {
+	public byte[] exportData(ReservationForm reservationForm) throws DaoException {
 						
 		Map<String, Object> params = new HashMap<String, Object>();
-		PDFReportManager pdfReportManager = new PDFReportManager(RESERVATION_FORM_TEMPLATE, absolutePath, params);
+		PDFReportManager pdfReportManager = new PDFReportManager(RESERVATION_FORM_TEMPLATE, params);
 		
 		Collection<ReservationForm> collection = new ArrayList<ReservationForm>();
 		collection.add(reservationForm);
 		
-		pdfReportManager.createReport(collection);
+		byte[] report = pdfReportManager.createReport(collection);
 		
-		return absolutePath;
+		return report;
 	}
 
 

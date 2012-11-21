@@ -1,5 +1,6 @@
 package com.cdz.sh.service;
 
+import com.cdz.sh.model.Budget;
 import com.cdz.sh.model.ExchangeRate;
 
 /**
@@ -15,4 +16,5 @@ public interface ExchangeRateService extends CrudService<ExchangeRate, String>{
 	 * TODO: declare specific behavior
 	 */
 
+	public Budget convertTo(Budget budget, ExchangeRate exchangeRate);
 }

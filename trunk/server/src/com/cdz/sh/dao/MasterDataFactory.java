@@ -12,7 +12,6 @@ import com.cdz.sh.dao.impl.ExchangeRateDaoImpl;
 import com.cdz.sh.dao.impl.LanguageDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
 import com.cdz.sh.model.Bank;
-import com.cdz.sh.model.CleaningType;
 import com.cdz.sh.model.Country;
 import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.ExchangeRate;
@@ -66,7 +65,7 @@ public class MasterDataFactory {
 			createBanks();
 						
 			// Cleaning Types 
-			createCleaningTypes();
+//			createCleaningTypes();
 			
 			// Exchange rates 
 			createExchangeRates();
@@ -79,26 +78,26 @@ public class MasterDataFactory {
 
 
 
-	private void createCleaningTypes() throws DaoException {
-		CleaningType typeBasic = this.cleanigTypeDao.getRecordById(1L);
-		if(typeBasic == null){
-			typeBasic = new CleaningType();
-			typeBasic.setName("Basica");
-			this.cleanigTypeDao.createRecord(typeBasic);
-		}
-		CleaningType typeGral = this.cleanigTypeDao.getRecordById(2L);
-		if(typeGral == null){
-			typeGral = new CleaningType();
-			typeGral.setName("General");
-			this.cleanigTypeDao.createRecord(typeGral);
-		}
-		CleaningType typeBedClothe = this.cleanigTypeDao.getRecordById(3L);
-		if(typeBedClothe == null){
-			typeBedClothe = new CleaningType();
-			typeBedClothe.setName("Cambio de ropa de cama");
-			this.cleanigTypeDao.createRecord(typeBedClothe);
-		}
-	}
+//	private void createCleaningTypes() throws DaoException {
+//		CleaningType typeBasic = this.cleanigTypeDao.getRecordById(1L);
+//		if(typeBasic == null){
+//			typeBasic = new CleaningType();
+//			typeBasic.setName("Basica");
+//			this.cleanigTypeDao.createRecord(typeBasic);
+//		}
+//		CleaningType typeGral = this.cleanigTypeDao.getRecordById(2L);
+//		if(typeGral == null){
+//			typeGral = new CleaningType();
+//			typeGral.setName("General");
+//			this.cleanigTypeDao.createRecord(typeGral);
+//		}
+//		CleaningType typeBedClothe = this.cleanigTypeDao.getRecordById(3L);
+//		if(typeBedClothe == null){
+//			typeBedClothe = new CleaningType();
+//			typeBedClothe.setName("Cambio de ropa de cama");
+//			this.cleanigTypeDao.createRecord(typeBedClothe);
+//		}
+//	}
 
 	private void createExchangeRates() throws DaoException {
 		ExchangeRate excUsd = this.exchangeRateDao.getRecordById("USD");
@@ -234,7 +233,7 @@ public class MasterDataFactory {
 		if(docTypeDNI == null){
 			docTypeDNI = new DocumentType();
 			docTypeDNI.setName("DNI");
-			docTypeDNI.setRegExp("^[0-9]");
+			docTypeDNI.setRegExp("^[0-9]{9}");
 			
 			this.documentTypeDao.createRecord(docTypeDNI);
 		}
@@ -242,7 +241,7 @@ public class MasterDataFactory {
 		if(docTypeRG == null){
 			docTypeRG = new DocumentType();
 			docTypeRG.setName("RG");
-			docTypeRG.setRegExp("^[0-9]");
+			docTypeRG.setRegExp("^[0-9]{8}");
 			
 			this.documentTypeDao.createRecord(docTypeRG);
 		}
@@ -250,7 +249,7 @@ public class MasterDataFactory {
 		if(docTypeSSN == null){
 			docTypeSSN = new DocumentType();
 			docTypeSSN.setName("SSN");
-			docTypeSSN.setRegExp("^[0-9]");
+			docTypeSSN.setRegExp("^[0-9]{9}");
 			
 			this.documentTypeDao.createRecord(docTypeSSN);
 		}

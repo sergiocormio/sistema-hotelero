@@ -10,9 +10,12 @@ public class ExceptionErrorCodes {
 	 */
 	public static final String DUPLICATE_PK_VIOLATION_WHEN_CREATE = "PkViolationWhenCreate";
 	public static final String DUPLICATE_PK_VIOLATION_WHEN_UPDATE = "PkViolationWhenCreate";
-
+	
 	public static final String ENTITY_TO_UPDATE_NOT_FOUND = "entityToUpdateNotFound";
 	public static final String ENTITY_TO_DELETE_NOT_FOUND = "entityToDeleteNotFound";
+	
+	public static final String FK_VIOLATION_WHEN_DELETE = "FkViolationWhenDelete";
+	
 
 	/**
 	 * CORE and other error codes 
