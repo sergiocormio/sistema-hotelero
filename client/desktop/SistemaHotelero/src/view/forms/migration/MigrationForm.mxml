@@ -70,7 +70,7 @@
 			
 			private function onSelectToLoad(e:Event):void
 			{
-				Mask.show();
+				Mask.show(loc.messages.pleaseWaitLong);
 				var sourceZipFile:String = e.target.nativePath;
 				new MigrationService().restoreDatabase(sourceZipFile, resultHandler, faultHandler);
 			}

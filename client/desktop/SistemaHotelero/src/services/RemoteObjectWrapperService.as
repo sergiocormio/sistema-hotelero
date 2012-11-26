@@ -14,6 +14,10 @@ package services
 		{
 			remoteObject = new RemoteObject(destination);
 			var myChannel:AMFChannel = new AMFChannel("my-amf",Config.getServerURL());
+			
+			// set request timeout to 1 hour
+			myChannel.netConnection.httpIdleTimeout = new Number(1000 * 60 * 60);
+			
 			var cs:ChannelSet = new ChannelSet();
 			cs.addChannel(myChannel);
 			remoteObject.channelSet = cs;
