@@ -55,8 +55,8 @@
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn dataField="involvedRooms" headerText="{loc.alternative.involvedRooms}"></s:GridColumn>
-				<s:GridColumn dataField="alternative.budget.basePrice" headerText="{loc.budget.basePrice}"></s:GridColumn>
-				<s:GridColumn dataField="alternative.budget.basePricePlusAllServicesIncludedInBasePrice" headerText="{loc.budget.basePricePlusAllServicesIncludedInBasePrice}"></s:GridColumn>
+				<s:GridColumn dataField="alternative.budget.basePriceWithDefaultCurrency" headerText="{loc.budget.basePrice}"></s:GridColumn>
+				<s:GridColumn dataField="alternative.budget.basePricePlusAllServicesIncludedInBasePriceWithDefaultCurrency" headerText="{loc.budget.basePricePlusAllServicesIncludedInBasePrice}"></s:GridColumn>
 				<s:GridColumn dataField="dateFrom" headerText="{loc.alternative.dateFrom}" labelFunction="dateFormat"></s:GridColumn>
 				<s:GridColumn dataField="dateTo" headerText="{loc.alternative.dateTo}" labelFunction="dateFormat"></s:GridColumn>
 				<s:GridColumn width="80" headerText="{loc.alternative.view}" resizable="false">

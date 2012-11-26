@@ -139,6 +139,18 @@ package model
 		{
 			_id = value;
 		}
+		
+		/*** CRUD form screen */
+		
+		public function get pricePerDayWithDefaultCurrency():String
+		{
+			return "R$ " + _pricePerDay.toFixed(2);
+		}
+		
+		public function get monetaryReserveWithDefaultCurrency():String
+		{
+			return "R$ " + _monetaryReserve.toFixed(2);
+		}
 
 	}
 }

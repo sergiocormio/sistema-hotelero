@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <locale>
+	<advertising>
+		<singular>Advertising</singular>
+	</advertising>
 	<alternative>
 		<dateTo>Date To</dateTo>
 		<dateFrom>Date From</dateFrom>
@@ -41,6 +44,14 @@
 	<budget>
 		<basePrice>Base Price</basePrice>
 		<basePricePlusAllServicesIncludedInBasePrice>Price with Basic Services</basePricePlusAllServicesIncludedInBasePrice>
+		<title>Presupuesto</title>
+		<additionalServices>Servicios adicionales</additionalServices>
+		<detail>Detalle</detail>
+		<modality>Modalidad</modality>
+		<price>Precio</price>
+		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
+		<convertpricesto>Convertir precios a</convertpricesto>
+		<valuesIn>Valores expresados en</valuesIn>
 	</budget>
     <button>
     	<add>Add</add>
@@ -51,20 +62,25 @@
     	<remove>Remove</remove>
     	<save>Save</save>
     	<close>Close</close>
+    	<print>Imprimir</print>
+    	<clean>Limpiar</clean>
     </button>
     <calendar>
     	<singular>Calendar</singular>
     	<plural>Calendars</plural>
     </calendar>
-    <configuration>
-    	<singular>Configuration</singular>
-	    <plural>Configurations</plural>
-    </configuration>
+    <consumption>
+    	<singular>Consumption</singular>
+    </consumption>
 	<country>
 	    <singular>Country</singular>
 	    <plural>Countries</plural>
 	    <name>Name</name>
 	</country>
+	<configuration>
+    	<singular>Configuración</singular>
+	    <plural>Configuraciones</plural>
+    </configuration>
     <customer>
 	    <singular>Customer</singular>
 	    <plural>Customers</plural>
@@ -81,6 +97,9 @@
     <customerPK>
     	<idNumber>Id Number</idNumber>
     </customerPK>
+    <date>
+    	<format>DD/MM/YYYY</format>
+    </date>
     <day>
     	<monday>
     		<name>Monday</name>
@@ -113,10 +132,14 @@
     </day>
     <dateFormat>MM/dd/yyyy</dateFormat>
     <documentType>
-    	<singular>Document Type</singular>
-	    <plural>Document Types</plural>
-	    <name>Name</name>
-	    <regExp>Regular Expression</regExp>
+    	<singular>Tipo de Documento</singular>
+	    <plural>Tipos de Documento</plural>
+	    <format>Formato</format>
+	    <formats>
+	    	<numeric>Solo números</numeric>
+	    	<alphanumeric>Números y letras</alphanumeric>
+    	</formats>
+    	<digitsquantity>Cantidad de dígitos</digitsquantity>
     </documentType>
     <errorMessage>
     	<serverNotFound>Server not found</serverNotFound>
@@ -129,6 +152,13 @@
 	    <currencyCode>Currency Code</currencyCode>
 	    <currencySymbol>Currency Symbol</currencySymbol>
 	    <valueAgainstReal>Value against Real</valueAgainstReal>
+	    <defaultCurrency>
+	    	<name>
+	    		<singular>Real</singular>
+	    		<plural>Reales</plural>
+    		</name>
+	    	<symbol>R$</symbol>
+    	</defaultCurrency>
     </exchangeRate>
     <language>
    		<singular>Language</singular>
@@ -142,6 +172,20 @@
     	<singular>Lodgement</singular>
     	<plural>Lodgements</plural>
     </lodgement>
+    <maintenance>
+    	<singular>Maintenance</singular>
+    </maintenance>
+    <messages>
+	    <pleaseWait>Por favor espere...</pleaseWait>
+	    <startingServer>Iniciando el Servidor...</startingServer>
+	    <stoppingServer>Deteniendo el Servidor...</stoppingServer>
+    </messages>
+    <migration>
+    	<destfile>Archivo destino</destfile>
+	    <savedata>Guardar datos</savedata>
+    	<loaddata>Cargar datos</loaddata>
+    	<zipfiles>Archivos Zip</zipfiles>
+    </migration>
     <month>
     	<january>January</january>
     	<february>February</february>
@@ -156,12 +200,6 @@
     	<november>November</november>
     	<december>December</december>
     </month>
-    <validator>
-    	<requiredFieldError>The field is required</requiredFieldError>
-    	<regExp>
-    		<noMatchError>The field is invalid</noMatchError>
-    	</regExp>
-    </validator>
     <rate>
     	<singular>Rate</singular>
 	    <plural>Rates</plural>
@@ -234,7 +272,43 @@
 	    	<PER_ROOM>Per Room</PER_ROOM>
 	    </modality>
 	    <price>Price</price>
+	    <includedInBudgetQuery>¿Desea incluirlo para el cálculo de presupuestos?</includedInBudgetQuery>
+	    <includedInBasePriceQuery>¿Desea incluirlo como item sumado al precio base?</includedInBasePriceQuery>
 	    <includedInBudget>Included In Budget</includedInBudget>
 	    <includedInBasePrice>Included In Base Price</includedInBasePrice>
     </serviceType>
+    <transport>
+    	<singular>Transport</singular>
+    </transport>
+    <validator>
+    	<error>Error</error>
+    	<requiredFieldError>Campo requerido</requiredFieldError>
+    	<invalidFieldValueError>Valor inválido</invalidFieldValueError>
+    	<precisionError>No se permiten más de tres digitos decimales</precisionError>
+    	<invalidrange>Rango de fechas inválido</invalidrange>
+    	<emptyEmailAndPhonesError>Al menos alguno de los siguientes campos debe ser completado: E-Mail, Teléfono, Celular</emptyEmailAndPhonesError>
+    	<regExp>
+    		<noMatchError>El campo no es valido</noMatchError>
+    	</regExp>
+    	<server>
+    		<PkViolationWhenCreate>Ya existe un registro con el mismo identificador</PkViolationWhenCreate>
+    		<PkViolationWhenUpdate>Ya existe un registro con el mismo identificador</PkViolationWhenUpdate>
+			<entityToUpdateNotFound>El registro que desea actualizar no existe</entityToUpdateNotFound>
+			<entityToDeleteNotFound>El registro que desea borrar no existe</entityToDeleteNotFound>
+			<FkViolationWhenDelete>No se ha podido eliminar el registro seleccionado, ya que esta siendo usado por otros registros (Ejemplo: Cada Habitación hace referencia a un "Tipo de Habitación"). Para poder eliminar este registro, el mismo no debe estar siendo usado por otros.</FkViolationWhenDelete>
+			<noParamsSpeficied>Debe especificar algún filtro</noParamsSpeficied>
+			<InvalidReservationForm>La ficha de reserva es inválida</InvalidReservationForm>
+			<overlapingDateRange>El rango de fechas se solapa con otro(s) existente(s)</overlapingDateRange>
+			<noAvailableOccupations>No existen ocupaciones disponibles</noAvailableOccupations>
+			<noAvailableAlternatives>No existen alternativas disponibles</noAvailableAlternatives>
+			<noRate>No existe una tarifa para calcular el presupuesto deseado</noRate>
+			<emailNotSent>El email no fue enviado</emailNotSent>
+			<invalidFromEmail>El email emisor es inválido</invalidFromEmail>
+			<invalidFromPassword>La contraseña del email emisor es inválida</invalidFromPassword>
+			<toListEmpty>Debe especificar al menos una casilla de correo destino</toListEmpty>
+			<invalidToEmail>La lista de casillas de correo destino es inválida</invalidToEmail>
+			<invalidBody></invalidBody>
+    	</server>
+    </validator>
+    <withh>Con</withh>
 </locale>

@@ -115,7 +115,7 @@
 						<s:GridColumn dataField="name" headerText="{loc.serviceType.singular}"></s:GridColumn>
 						<s:GridColumn dataField="description" headerText="{loc.serviceType.description}"></s:GridColumn>
 						<s:GridColumn dataField="modality" headerText="{loc.serviceType.modality.singular}" labelFunction="modalityFormat"></s:GridColumn>
-						<s:GridColumn dataField="price" headerText="{loc.serviceType.price}"></s:GridColumn>
+						<s:GridColumn dataField="priceWithDefaultCurrency" headerText="{loc.serviceType.price}"></s:GridColumn>
 						<s:GridColumn dataField="includedInBudget" headerText="{loc.serviceType.includedInBudget}" labelFunction="booleanFormat"></s:GridColumn>
 						<s:GridColumn dataField="includedInBasePrice" headerText="{loc.serviceType.includedInBasePrice}" labelFunction="booleanFormat"></s:GridColumn>
 					</s:ArrayList>

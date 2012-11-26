@@ -101,7 +101,7 @@
 						<s:GridColumn dataField="name" headerText="{loc.exchangeRate.singular}"></s:GridColumn>
 						<s:GridColumn dataField="currencySymbol"
 									  headerText="{loc.exchangeRate.currencySymbol}"></s:GridColumn>
-						<s:GridColumn dataField="valueAgainstReal"
+						<s:GridColumn dataField="valueAgainstRealFormatted"
 									  headerText="{loc.exchangeRate.valueAgainstReal}"></s:GridColumn>
 					</s:ArrayList>
 				</s:columns>

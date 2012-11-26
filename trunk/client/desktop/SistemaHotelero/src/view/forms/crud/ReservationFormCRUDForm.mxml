@@ -381,8 +381,8 @@
 								<s:GridColumn dataField="dateTo" headerText="{loc.reservationForm.dateTo}" labelFunction="dateFormat"/>
 								<s:GridColumn dataField="adultsQuantity" headerText="{loc.reservationForm.adultsQuantity}"/>
 								<s:GridColumn dataField="childrenQuantity" headerText="{loc.reservationForm.childrenQuantity}"/>
-								<s:GridColumn dataField="pricePerDay" headerText="{loc.reservationForm.pricePerDay}"/>
-								<s:GridColumn dataField="monetaryReserve" headerText="{loc.reservationForm.monetaryReserve}"/>
+								<s:GridColumn dataField="pricePerDayWithDefaultCurrency" headerText="{loc.reservationForm.pricePerDay}"/>
+								<s:GridColumn dataField="monetaryReserveWithDefaultCurrency" headerText="{loc.reservationForm.monetaryReserve}"/>
 								<s:GridColumn dataField="bank.name" headerText="{loc.bank.singular}"/>
 								<s:GridColumn dataField="bankDocumentNumber" headerText="{loc.reservationForm.bankDocumentNumber}"/>
 							</s:ArrayList>

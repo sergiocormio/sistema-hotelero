@@ -1,104 +1,316 @@
 <?xml version="1.0"?>
 <locale>
+	<advertising>
+		<singular>Publicidad</singular>
+	</advertising>
+	<alternative>
+		<dateTo>Fecha Desde</dateTo>
+		<dateFrom>Fecha Hasta</dateFrom>
+		<involvedRooms>Habitaciones Involucradas</involvedRooms>
+		<view>Ver</view>
+		<buttons>
+			<book>Reservar</book>
+			<budget>Presupuestar</budget>
+		</buttons>
+	</alternative>
+	<availability>
+	   	<singular>Disponibilidad</singular>
+    	<plural>Disponibilidades</plural>
+    	<days>Días</days>
+    	<dateFrom>Fecha Desde</dateFrom>
+    	<dateTo>Fecha Hasta</dateTo>
+    	<adultsQuantity>Cantidad de Adultos</adultsQuantity>
+    	<childrenQuantity>Cantidad de Menores</childrenQuantity>
+    	<variation>Disponibilidad +/-</variation>
+    	<consult>Consultar</consult>
+    	<clean>Limpiar</clean>
+    	<otherAlternatives>Otras Alternativas</otherAlternatives>
+    	<bed>
+    		<singular>Cama</singular>
+    		<plural>Camas</plural>
+	    	<single>Simple</single>
+	    	<marital>Matrimonial</marital>
+    	</bed>
+	</availability>
+	<bank>
+		<singular>Banco</singular>
+		<plural>Bancos</plural>
+		<name>Nombre</name>
+	</bank>
+	<boolean>
+		<falseValue>No</falseValue>
+		<trueValue>Si</trueValue>
+	</boolean>
+	<budget>
+		<basePrice>Precio base</basePrice>
+		<basePricePlusAllServicesIncludedInBasePrice>Precio con todos los servicios básicos</basePricePlusAllServicesIncludedInBasePrice>
+		<title>Presupuesto</title>
+		<additionalServices>Servicios adicionales</additionalServices>
+		<detail>Detalle</detail>
+		<modality>Modalidad</modality>
+		<price>Precio</price>
+		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
+		<convertpricesto>Convertir precios a</convertpricesto>
+		<valuesIn>Valores expresados en</valuesIn>
+	</budget>
     <button>
-    	<add>Add</add>
-    	<modify>Modify</modify>
-    	<refresh>Refresh</refresh>
-    	<remove>Remove</remove>
-    	<save>Save</save>
-    	<cancel>Cancel</cancel>
+    	<add>Agregar</add>
+    	<cancel>Cancelar</cancel>
+    	<modify>Modificar</modify>
+    	<newLabel>Nuevo</newLabel>
+    	<refresh>Refrescar</refresh>
+    	<remove>Eliminar</remove>
+    	<save>Guardar</save>
+    	<close>Cerrar</close>
+    	<print>Imprimir</print>
+    	<clean>Limpiar</clean>
     </button>
+    <calendar>
+    	<singular>Calendario</singular>
+    	<plural>Calendarios</plural>
+    </calendar>
+    <consumption>
+    	<singular>Consumo</singular>
+    </consumption>
 	<country>
-	    <singular>Country</singular>
-	    <plural>Countries</plural>
-	    <name>Name</name>
+	    <singular>País</singular>
+	    <plural>Países</plural>
+	    <name>Nombre</name>
 	</country>
+	<configuration>
+    	<singular>Configuración</singular>
+	    <plural>Configuraciones</plural>
+    </configuration>
     <customer>
-	    <singular>Customer</singular>
-	    <plural>Customers</plural>
-	    <dateOfBirth>Date of Birth</dateOfBirth>
-	    <region>Region</region>
-	    <firstName>First Name</firstName>
-	    <lastName>Last Name</lastName>
-	    <lastLodgementDate>Last Lodgement Date</lastLodgementDate>
+	    <singular>Cliente</singular>
+	    <plural>Clientes</plural>
+	    <dateOfBirth>Fecha de Nacimiento</dateOfBirth>
+	    <region>Región</region>
+	    <firstName>Nombre</firstName>
+	    <lastName>Apellido</lastName>
+	    <lastLodgementDate>Última Fecha de Alojamiento</lastLodgementDate>
 	    <email>E-Mail</email>
-	    <profession>Profession</profession>
+	    <profession>Profesión</profession>
+	    <phoneNumber>Teléfono</phoneNumber>
+	    <cellphoneNumber>Celular</cellphoneNumber>
     </customer>
     <customerPK>
-    	<idNumber>Id Number</idNumber>
+    	<idNumber>Número de Documento</idNumber>
     </customerPK>
+    <date>
+    	<format>DD/MM/YYYY</format>
+    </date>
     <day>
     	<monday>
-    		<name>Primera</name>
-    		<abbr>Pri</abbr>
+    		<name>Lunes</name>
+    		<abbr>Lun</abbr>
     	</monday>
     	<tuesday>
-    		<name>Segunda</name>
-    		<abbr>Seg</abbr>
+    		<name>Martes</name>
+    		<abbr>Mar</abbr>
    		</tuesday>
     	<wednesday>
-    		<name>Tercera</name>
-    		<abbr>Ter</abbr>
+    		<name>Miércoles</name>
+    		<abbr>Mie</abbr>
    		</wednesday>
     	<thursday>
-    		<name>Cuarta</name>
-    		<abbr>Cua</abbr>
+    		<name>Jueves</name>
+    		<abbr>Jue</abbr>
    		</thursday>
     	<friday>
-    		<name>Quinta</name>
-    		<abbr>Qui</abbr>
+    		<name>Viernes</name>
+    		<abbr>Vie</abbr>
 		</friday>
     	<saturday>
-    		<name>Sexta</name>
-    		<abbr>Sex</abbr>
+    		<name>Sábado</name>
+    		<abbr>Sáb</abbr>
    		</saturday>
     	<sunday>
-    		<name>Septima</name>
-    		<abbr>Sep</abbr>
+    		<name>Domingo</name>
+    		<abbr>Dom</abbr>
    		</sunday>
     </day>
-    <dateFormat>MM/dd/yyyy</dateFormat>
+    <dateFormat>dd/MM/yyyy</dateFormat>
     <documentType>
-    	<singular>Document Type</singular>
-	    <plural>Document Types</plural>
-	    <name>Name</name>
-	    <regExp>Regular Expression</regExp>
+    	<singular>Tipo de Documento</singular>
+	    <plural>Tipos de Documento</plural>
+	    <format>Formato</format>
+	    <formats>
+	    	<numeric>Solo números</numeric>
+	    	<alphanumeric>Números y letras</alphanumeric>
+    	</formats>
+    	<digitsquantity>Cantidad de dígitos</digitsquantity>
     </documentType>
+    <errorMessage>
+    	<serverNotFound>No se encuentra la ruta del servidor</serverNotFound>
+    	<javaHomeNotFound>No se encuentra la ruta de JAVAHOME</javaHomeNotFound>
+    </errorMessage>
+    <exchangeRate>
+    	<singular>Tipo de Cambio</singular>
+	    <plural>Tipos de Cambio</plural>
+	    <name>Nombre</name>
+	    <currencyCode>Código de Moneda</currencyCode>
+	    <currencySymbol>Símbolo de Moneda</currencySymbol>
+	    <valueAgainstReal>Cotización contra el Real</valueAgainstReal>
+	    <defaultCurrency>
+	    	<name>
+	    		<singular>Real</singular>
+	    		<plural>Reales</plural>
+    		</name>
+	    	<symbol>R$</symbol>
+    	</defaultCurrency>
+    </exchangeRate>
     <language>
-    	<english>English</english>
-    	<portuguese>Portuguese</portuguese>
-    	<spanish>Spanish</spanish>
+   		<singular>Idioma</singular>
+	    <plural>Idiomas</plural>
+	    <name>Nombre</name>
+    	<english>Inglés</english>
+    	<portuguese>Portugués</portuguese>
+    	<spanish>Español</spanish>
     </language>
+    <lodgement>
+    	<singular>Hospedaje</singular>
+    	<plural>Hospedajes</plural>
+    </lodgement>
+    <maintenance>
+    	<singular>Mantenimiento</singular>
+    </maintenance>
+    <messages>
+	    <pleaseWait>Por favor espere...</pleaseWait>
+	    <startingServer>Iniciando el Servidor...</startingServer>
+	    <stoppingServer>Deteniendo el Servidor...</stoppingServer>
+    </messages>
+    <migration>
+    	<destfile>Archivo destino</destfile>
+	    <savedata>Guardar datos</savedata>
+    	<loaddata>Cargar datos</loaddata>
+    	<zipfiles>Archivos Zip</zipfiles>
+    </migration>
     <month>
-    	<january>January</january>
-    	<february>February</february>
-    	<march>March</march>
-    	<april>April</april>
-    	<may>May</may>
-    	<june>June</june>
-    	<july>July</july>
-    	<august>August</august>
-    	<september>September</september>
-    	<october>October</october>
-    	<november>November</november>
-    	<december>December</december>
+    	<january>Enero</january>
+    	<february>Febrero</february>
+    	<march>Marzo</march>
+    	<april>Abril</april>
+    	<may>Mayo</may>
+    	<june>Junio</june>
+    	<july>Julio</july>
+    	<august>Agosto</august>
+    	<september>Septiembre</september>
+    	<october>Octubre</october>
+    	<november>Noviembre</november>
+    	<december>Deciembre</december>
     </month>
+    <rate>
+    	<singular>Tarifa</singular>
+	    <plural>Tarifas</plural>
+	    <price>Precio</price>
+	    <priceperday>Precio por día</priceperday>
+    </rate>
+    <region>
+   		<singular>Región</singular>
+	    <plural>Regiones</plural>
+	    <name>Nombre</name>
+    </region>
+    <reservationForm>
+    	<singular>Ficha de Reserva</singular>
+	    <plural>Fichas de Reserva</plural>
+	    <id>Id</id>
+	    <state>
+	    	<singular>Estado</singular>
+	    	<plural>Estados</plural>
+	    	<PRE_BOOKING>Pre-Reserva</PRE_BOOKING>
+	    	<CONFIRMED>Confirmada</CONFIRMED>
+	    	<CANCELLED>Cancelada</CANCELLED>
+	    	<EXPIRED>Vencida</EXPIRED>
+	    </state>
+	    <creationDate>Fecha de Creación</creationDate>
+	    <dateFrom>Fecha Desde</dateFrom>
+	    <dateTo>Fecha Hasta</dateTo>
+	    <adultsQuantity>Adultos</adultsQuantity>
+	    <childrenQuantity>Menores</childrenQuantity>
+	    <pricePerDay>Precio por Día</pricePerDay>
+	    <monetaryReserve>Reserva</monetaryReserve>
+	    <bankDocumentNumber>Nro. de Documento Bancario</bankDocumentNumber>
+	    <buttons>
+			<confirm>Confirmar</confirm>
+			<cancel>Cancelar</cancel>
+			<print>Imprimir</print>
+		</buttons>
+    </reservationForm>
+    <room>
+   		<singular>Habitación</singular>
+	    <plural>Habitaciones</plural>
+	    <description>Descripción</description>
+	    <number>Número</number>
+	    <peopleQuantity>Cantidad de Personas</peopleQuantity>
+	    <withMaritalBed>Con Cama Matrimonial</withMaritalBed>
+	    <withExtraBed>Con Cama Extra</withExtraBed>
+    </room>
+    <roomType>
+   		<singular>Tipo de Habitación</singular>
+	    <plural>Tipos de Habitación</plural>
+	    <name>Nombre</name>
+	    <description>Descripción</description>
+    </roomType>
+    <saveloaddata>Guardar/Cargar datos</saveloaddata>
+    <season>
+    	<singular>Temporada</singular>
+	    <plural>Temporadas</plural>
+	    <dateFrom>Fecha Desde</dateFrom>
+	    <dateTo>Fecha Hasta</dateTo>
+    </season>
     <serviceType>
-    	<singular>Service</singular>
-	    <plural>Service Types</plural>
-	    <name>Name</name>
-	    <description>Description</description>
+    	<singular>Servicio</singular>
+	    <plural>Tipos de Servicios</plural>
+	    <name>Nombre</name>
+	    <description>Descripción</description>
 	    <modality>
-	    	<singular>Modality</singular>
-	    	<plural>Modalities</plural>
-	    	<PER_PERSON>Per Person</PER_PERSON>
-	    	<PER_TIME>Per Time</PER_TIME>
-	    	<PER_NIGHT>Per Night</PER_NIGHT>
-	    	<PER_UNIT>Per Unit</PER_UNIT>
-	    	<PER_ROOM>Per Room</PER_ROOM>
+	    	<singular>Modalidad</singular>
+	    	<plural>Modalidades</plural>
+	    	<PER_PERSON>Por Persona</PER_PERSON>
+	    	<PER_TIME>Por Vez</PER_TIME>
+	    	<PER_NIGHT>Por Noche</PER_NIGHT>
+	    	<PER_UNIT>Por Unidad</PER_UNIT>
+	    	<PER_ROOM>Por Habitación</PER_ROOM>
 	    </modality>
-	    <price>Price</price>
-	    <includedInBudget>Included In Budget</includedInBudget>
-	    <includedInBasePrice>Included In Base Price</includedInBasePrice>
+	    <price>Precio</price>
+	    <includedInBudgetQuery>¿Desea incluirlo para el cálculo de presupuestos?</includedInBudgetQuery>
+	    <includedInBasePriceQuery>¿Desea incluirlo como item sumado al precio base?</includedInBasePriceQuery>
+	    <includedInBudget>Incluido en el Presupuesto</includedInBudget>
+	    <includedInBasePrice>Incluido en el Precio Base</includedInBasePrice>
     </serviceType>
+    <transport>
+    	<singular>Transporte</singular>
+    </transport>
+    <validator>
+    	<error>Error</error>
+    	<requiredFieldError>Campo requerido</requiredFieldError>
+    	<invalidFieldValueError>Valor inválido</invalidFieldValueError>
+    	<precisionError>No se permiten más de tres digitos decimales</precisionError>
+    	<invalidrange>Rango de fechas inválido</invalidrange>
+    	<emptyEmailAndPhonesError>Al menos alguno de los siguientes campos debe ser completado: E-Mail, Teléfono, Celular</emptyEmailAndPhonesError>
+    	<regExp>
+    		<noMatchError>El campo no es valido</noMatchError>
+    	</regExp>
+    	<server>
+    		<PkViolationWhenCreate>Ya existe un registro con el mismo identificador</PkViolationWhenCreate>
+    		<PkViolationWhenUpdate>Ya existe un registro con el mismo identificador</PkViolationWhenUpdate>
+			<entityToUpdateNotFound>El registro que desea actualizar no existe</entityToUpdateNotFound>
+			<entityToDeleteNotFound>El registro que desea borrar no existe</entityToDeleteNotFound>
+			<FkViolationWhenDelete>No se ha podido eliminar el registro seleccionado, ya que esta siendo usado por otros registros (Ejemplo: Cada Habitación hace referencia a un "Tipo de Habitación"). Para poder eliminar este registro, el mismo no debe estar siendo usado por otros.</FkViolationWhenDelete>
+			<noParamsSpeficied>Debe especificar algún filtro</noParamsSpeficied>
+			<InvalidReservationForm>La ficha de reserva es inválida</InvalidReservationForm>
+			<overlapingDateRange>El rango de fechas se solapa con otro(s) existente(s)</overlapingDateRange>
+			<noAvailableOccupations>No existen ocupaciones disponibles</noAvailableOccupations>
+			<noAvailableAlternatives>No existen alternativas disponibles</noAvailableAlternatives>
+			<noRate>No existe una tarifa para calcular el presupuesto deseado</noRate>
+			<emailNotSent>El email no fue enviado</emailNotSent>
+			<invalidFromEmail>El email emisor es inválido</invalidFromEmail>
+			<invalidFromPassword>La contraseña del email emisor es inválida</invalidFromPassword>
+			<toListEmpty>Debe especificar al menos una casilla de correo destino</toListEmpty>
+			<invalidToEmail>La lista de casillas de correo destino es inválida</invalidToEmail>
+			<invalidBody></invalidBody>
+    	</server>
+    </validator>
+    <withh>Con</withh>
 </locale>

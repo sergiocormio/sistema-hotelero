@@ -19,6 +19,11 @@ package model
 		{
 			return _valueAgainstReal;
 		}
+		
+		public function get valueAgainstRealFormatted():String
+		{
+			return _valueAgainstReal.toFixed(2);
+		}
 
 		public function set valueAgainstReal(value:Number):void
 		{

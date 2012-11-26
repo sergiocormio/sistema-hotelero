@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <locale>
+	<advertising>
+		<singular>Publicidad</singular>
+	</advertising>
 	<alternative>
 		<dateTo>Fecha Desde</dateTo>
 		<dateFrom>Fecha Hasta</dateFrom>
@@ -66,6 +69,9 @@
     	<singular>Calendario</singular>
     	<plural>Calendarios</plural>
     </calendar>
+    <consumption>
+    	<singular>Consumo</singular>
+    </consumption>
 	<country>
 	    <singular>País</singular>
 	    <plural>Países</plural>
@@ -166,6 +172,9 @@
     	<singular>Hospedaje</singular>
     	<plural>Hospedajes</plural>
     </lodgement>
+    <maintenance>
+    	<singular>Mantenimiento</singular>
+    </maintenance>
     <messages>
 	    <pleaseWait>Por favor espere...</pleaseWait>
 	    <startingServer>Iniciando el Servidor...</startingServer>
@@ -270,6 +279,9 @@
 	    <includedInBudget>Incluido en el Presupuesto</includedInBudget>
 	    <includedInBasePrice>Incluido en el Precio Base</includedInBasePrice>
     </serviceType>
+    <transport>
+    	<singular>Transporte</singular>
+    </transport>
     <validator>
     	<error>Error</error>
     	<requiredFieldError>Campo requerido</requiredFieldError>
