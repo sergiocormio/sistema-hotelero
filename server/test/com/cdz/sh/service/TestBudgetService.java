@@ -294,4 +294,25 @@ public class TestBudgetService {
 		}
 		return occupations;
 	}
+	
+	@Test
+	public void testExportData() throws DaoException, NoRateException{
+		
+		Alternative alternative = new Alternative(4);
+		
+		Date dateFrom  = new GregorianCalendar(2012, 7, 1).getTime();
+	
+		Date dateTo = new GregorianCalendar(2012, 7, 3).getTime();
+		
+		List<Occupation> occupations = createOccupationWithoutRoomChange(dateFrom, dateTo);
+		
+		for (Occupation occupation : occupations) {
+			alternative.addOccupation(occupation);
+		}
+				
+		Budget budget = this.budgetService.populateBudget(alternative).getBudget();
+		
+		//this.budgetService.exportData(budget, "es_AR");
+		
+	}
 }

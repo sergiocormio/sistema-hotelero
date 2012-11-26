@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import com.cdz.sh.util.DateUtil;
+import com.cdz.sh.util.PriceFormater;
 
 @Entity
 public class ReservationForm {
@@ -166,12 +167,29 @@ public class ReservationForm {
     
     @Transient
     public int getDaysQuantity(){
-    	return DateUtil.getDaysDifference(this.dateFrom, this.dateTo);
+    	return DateUtil.getDaysDifference(this.dateFrom, this.dateTo) + 1;
     }
     
     @Transient
     public int getNightsQuantity(){
-    	return getDaysQuantity()-1;
+    	return DateUtil.getDaysDifference(this.dateFrom, this.dateTo);
     }
+    
+    @Transient
+    public String getTotalAmount(){
+    	
+    	Double totalPrice = this.getNightsQuantity() * getPricePerDay();
+    	return PriceFormater.formatPrice(totalPrice);
+    }
+    
+    @Transient
+    public String getPricePerDayFormatted() {
+		return PriceFormater.formatPrice(pricePerDay);
+	}
+
+    @Transient
+    public String getMonetaryReserveFormatted() {
+		return PriceFormater.formatPrice(monetaryReserve);
+	}
 	
 }

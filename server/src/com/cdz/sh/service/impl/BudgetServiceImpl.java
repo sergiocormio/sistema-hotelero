@@ -28,6 +28,7 @@ import com.cdz.sh.model.export.ExportServiceType;
 import com.cdz.sh.report.PDFReportManager;
 import com.cdz.sh.service.BudgetService;
 import com.cdz.sh.service.exception.NoRateException;
+import com.cdz.sh.util.PriceFormater;
 
 public class BudgetServiceImpl implements BudgetService {
 
@@ -116,9 +117,9 @@ public class BudgetServiceImpl implements BudgetService {
 		
 		ExportBudget exportBudget = new ExportBudget();
 		
-		exportBudget.setBasePrice( formatPrice(budget.getBasePrice(), exchangeRate) );
+		exportBudget.setBasePrice( PriceFormater.formatPrice(budget.getBasePrice(), exchangeRate) );
 		
-		exportBudget.setBasePricePlusAllServicesIncludedInBasePrice(formatPrice(budget.getBasePricePlusAllServicesIncludedInBasePrice(), exchangeRate));
+		exportBudget.setBasePricePlusAllServicesIncludedInBasePrice(PriceFormater.formatPrice(budget.getBasePricePlusAllServicesIncludedInBasePrice(), exchangeRate));
 		
 		
 		List<ExportServiceType> exportServiceTypes = new ArrayList<ExportServiceType>();
@@ -127,7 +128,7 @@ public class BudgetServiceImpl implements BudgetService {
 			ExportServiceType exportServiceType = new ExportServiceType();
 		
 			exportServiceType.setName(serviceType.getName());
-			exportServiceType.setPrice(formatPrice(serviceType.getPrice(), exchangeRate));
+			exportServiceType.setPrice(PriceFormater.formatPrice(serviceType.getPrice(), exchangeRate));
 			
 			exportServiceTypes.add(exportServiceType);
 		}
@@ -144,11 +145,11 @@ public class BudgetServiceImpl implements BudgetService {
 			
 			ExportServiceType exportServiceType = new ExportServiceType();
 			exportServiceType.setName(serviceType.getName());
-			exportServiceType.setPrice(formatPrice(serviceType.getPrice(), exchangeRate));
+			exportServiceType.setPrice(PriceFormater.formatPrice(serviceType.getPrice(), exchangeRate));
 			
 			exportServiceAddedInBasePrice.setServiceType(exportServiceType);
 			
-			exportServiceAddedInBasePrice.setPrice(formatPrice(serviceAddedInBasePrice.getPrice(), exchangeRate));
+			exportServiceAddedInBasePrice.setPrice(PriceFormater.formatPrice(serviceAddedInBasePrice.getPrice(), exchangeRate));
 			
 			exportServicesAddedInBasePrice.add(exportServiceAddedInBasePrice);
 		}
@@ -159,8 +160,6 @@ public class BudgetServiceImpl implements BudgetService {
 		
 	}
 	
-	private String formatPrice(Double price, ExchangeRate exchangeRate){
-		return exchangeRate.getCurrencySymbol() + " " + new DecimalFormat("#.00").format(price);
-	}
+	
 
 }

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb22989f-db85-46ba-977d-8bb124583fbf">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="18"/>
+	<property name="ireport.y" value="71"/>
 	<style name="table" fill="Solid">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -173,7 +173,7 @@
 			<staticText>
 				<reportElement uuid="c9d43277-a20f-4b6b-a7ed-547d9f0cc8c2" positionType="Float" x="48" y="122" width="180" height="20"/>
 				<textElement/>
-				<text><![CDATA[Precio con todos los servicios:]]></text>
+				<text><![CDATA[Preço com todos os serviços:]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="b9e9b2e3-ce0d-4614-b90a-631a4dedcfce" positionType="Float" x="248" y="122" width="240" height="20"/>
