@@ -162,17 +162,19 @@ package resources.icons
 		
 		[Bindable]
 		[Embed(source='resources/icons/arrow_up_down.png')]
-		public static var saveloaddata:Class;
+		public static var saveLoadData:Class;
 		
 		[Bindable]
 		[Embed(source='resources/icons/arrow_down.png')]
-		public static var savedata:Class;
+		public static var saveData:Class;
 		
 		[Bindable]
 		[Embed(source='resources/icons/arrow_up.png')]
-		public static var loaddata:Class;
+		public static var loadData:Class;
 		
-		
+		[Bindable]
+		[Embed(source='resources/icons/money-bag.png')]
+		public static var moneyBag:Class;
 		
 		public function Icons()
 		{

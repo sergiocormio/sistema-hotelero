@@ -34,11 +34,15 @@
 			import resources.Colors;
 			import resources.icons.Icons;
 			
+			import services.BudgetService;
 			import services.crud.ExchangeRateService;
 			
 			import spark.events.IndexChangeEvent;
 			
+			import utils.PdfDisplayer;
 			import utils.WindowsUtils;
+			
+			import view.components.Mask;
 			
 			
 			[Bindable]
@@ -49,6 +53,9 @@
 			
 			[Bindable]
 			public var alternativeSelectedInDefaultPrice:AlternativeWrapper;
+			
+			[Bindable]
+			private var selectedExchangeRate:ExchangeRate; 
 			
 			[Bindable]
 			private var budgetToShow:Budget;
@@ -76,6 +83,13 @@
 				retrieveExchangeRates();
 				
 				budgetToShow = alternativeSelectedInDefaultPrice.alternative.budget;
+				selectedExchangeRate = ExchangeRate.getDefault(loc);
+				budgetToShow.exchangeRate = selectedExchangeRate;
+				
+				basePriceLabel.text = budgetToShow.basePriceWithCurrency;
+				basePricePlusAllServicesIncludedInBasePriceWithCurrencyLabel.text = budgetToShow.basePricePlusAllServicesIncludedInBasePriceWithCurrency;
+				
+				valuesIn.label = loc.budget.valuesIn + " " + loc.exchangeRate.defaultCurrency.name.plural;
 			}
 			
 			
@@ -103,7 +117,7 @@
 			
 			protected function convertToSelectecExchangeRate(event:IndexChangeEvent):void
 			{
-				var selectedExchangeRate:ExchangeRate = exchangeratesCombo.selectedItem as ExchangeRate;
+				selectedExchangeRate = exchangeratesCombo.selectedItem as ExchangeRate;
 				
 				var exchangeRatesService:ExchangeRateService = new ExchangeRateService();
 				exchangeRatesService.convertTo(alternativeSelectedInDefaultPrice.alternative.budget, selectedExchangeRate,
@@ -113,13 +127,44 @@
 			private function convert_resultHandler(event:ResultEvent,token:Object=null):void
 			{
 				budgetToShow = event.result as Budget;
+				budgetToShow.exchangeRate = selectedExchangeRate;
+				
+				basePriceLabel.text = budgetToShow.basePriceWithCurrency;
+				basePricePlusAllServicesIncludedInBasePriceWithCurrencyLabel.text = budgetToShow.basePricePlusAllServicesIncludedInBasePriceWithCurrency;
+				
+				valuesIn.label = loc.budget.valuesIn + " " + selectedExchangeRate.name;
+				
 			}
 			
-			private function restoreDefaultExchangeRate()
+			private function restoreDefaultExchangeRate():void
 			{
 				budgetToShow = alternativeSelectedInDefaultPrice.alternative.budget;
+				selectedExchangeRate = ExchangeRate.getDefault(loc);
+				budgetToShow.exchangeRate = selectedExchangeRate;
+				
+				basePriceLabel.text = budgetToShow.basePriceWithCurrency;
+				basePricePlusAllServicesIncludedInBasePriceWithCurrencyLabel.text = budgetToShow.basePricePlusAllServicesIncludedInBasePriceWithCurrency;
+				
+				exchangeratesCombo.selectedIndex = -1;
+				valuesIn.label = loc.budget.valuesIn + " " + loc.exchangeRate.defaultCurrency.name.plural;
 			}
 			
+			protected function exportBudgetButton_clickHandler(event:MouseEvent):void
+			{
+				Mask.show();
+				
+				new BudgetService().exportData(budgetToShow, Locale.getInstance().getLocaleName(), selectedExchangeRate, displayPDF, faultHandler);
+			}
+			
+			
+			protected function displayPDF(event:ResultEvent=null,token:Object=null):void
+			{
+				var pdfFile:ByteArray = event.result as ByteArray;
+				
+				PdfDisplayer.displayPdf(pdfFile);
+				
+				Mask.close();
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -136,19 +181,23 @@
 			<s:layout>
 				<s:FormLayout gap="-10"/>
 			</s:layout>
+			
+			<s:FormHeading id="valuesIn" textAlign="left" fontWeight="bold" fontSize="12"/>
+			
+			<s:FormItem />
+			
 			<s:FormItem label="{loc.budget.basePrice}:">
-				<s:Label text="{budgetToShow.basePrice}" />
+				<s:Label id="basePriceLabel" text="{budgetToShow.basePriceWithCurrency}" />
 			</s:FormItem>
-			
-			<s:FormItem label="{loc.budget.basePricePlusAddServices}:" >
-			</s:FormItem>
-			
-			<s:DataGrid id="servicesToBeAddedInBasePrice" width="100%" height="100%" dataProvider="{budgetToShow.servicePricesAddedInBasePrice}" 
-						alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+						
+			<s:FormHeading label="{loc.budget.basePricePlusAddServices}:" textAlign="center" fontWeight="bold" fontSize="12"/>
+						
+			<s:DataGrid id="servicesToBeAddedInBasePrice" width="100%" height="40%" dataProvider="{budgetToShow.servicePricesAddedInBasePrice}" 
+						alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin" >
 				<s:columns>
 					<s:ArrayList>
 						<s:GridColumn dataField="serviceType.name" headerText="{loc.withh}"></s:GridColumn>
-						<s:GridColumn dataField="price" headerText="{loc.budget.price}"></s:GridColumn>
+						<s:GridColumn dataField="priceWithCurrency" headerText="{loc.budget.price}"></s:GridColumn>
 					</s:ArrayList>
 				</s:columns>
 			</s:DataGrid>
@@ -157,18 +206,17 @@
 			
 			
 			<s:FormItem label="{loc.budget.basePricePlusAllServicesIncludedInBasePrice}:">
-				<s:Label text="{budgetToShow.basePricePlusAllServicesIncludedInBasePrice}" />
+				<s:Label id="basePricePlusAllServicesIncludedInBasePriceWithCurrencyLabel" text="{budgetToShow.basePricePlusAllServicesIncludedInBasePriceWithCurrency}" />
 			</s:FormItem>
 			
-			<s:FormItem label="{loc.budget.additionalServices}:">
-			</s:FormItem>
+			<s:FormHeading label="{loc.budget.additionalServices}:" textAlign="center" fontWeight="bold" fontSize="12"/>
 			
-			<s:DataGrid id="additionalServices" width="100%" height="100%" dataProvider="{budgetToShow.additionalServices}" 
+			<s:DataGrid id="additionalServices" width="100%" height="40%" dataProvider="{budgetToShow.additionalServices}" 
 				alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
 				<s:columns>
 					<s:ArrayList>
 						<s:GridColumn dataField="name" headerText="{loc.budget.detail}"></s:GridColumn>
-						<s:GridColumn dataField="price" headerText="{loc.budget.price}"></s:GridColumn>
+						<s:GridColumn dataField="priceWithCurrency" headerText="{loc.budget.price}"></s:GridColumn>
 					</s:ArrayList>
 				</s:columns>
 			</s:DataGrid>
@@ -186,8 +234,8 @@
 		</s:Form>
 		
 		<!-- BUTTONS -->
-		<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
-			<s:Button label="{loc.button.print}" click="cancel()" icon="{Icons.exportReservation}"/>
+		<s:HGroup width="100%" height="10%" horizontalAlign="center" verticalAlign="middle">
+			<s:Button label="{loc.button.print}" click="exportBudgetButton_clickHandler(event)" icon="{Icons.exportReservation}"/>
 			<s:Button label="{loc.button.cancel}" click="cancel()" icon="{Icons.cancel}"/>
 		</s:HGroup>
 		<s:Spacer height="5"/>

@@ -5,9 +5,9 @@
 		  creationComplete="init(event)">
 	<fx:Script>
 		<![CDATA[
-			import model.Customer;
 			import locales.Locale;
 			
+			import model.Customer;
 			import model.ReservationForm;
 			import model.StateReservationForm;
 			
@@ -30,6 +30,7 @@
 			import spark.events.GridSelectionEvent;
 			
 			import utils.DateTimeUtils;
+			import utils.PdfDisplayer;
 			import utils.WindowsUtils;
 			
 			import view.components.Mask;
@@ -128,22 +129,9 @@
 			
 			protected function displayPDF(event:ResultEvent=null,token:Object=null):void
 			{
-				var pdf:ByteArray = event.result as ByteArray;
+				var pdfFile:ByteArray = event.result as ByteArray;
 				
-				var destFile:File = File.applicationStorageDirectory; 
-				
-				var fileName:String = new Date().time.toString() + ".pdf";
-				
-				destFile = destFile.resolvePath(fileName);  
-				var outStream:FileStream = new FileStream();
-				
-				outStream.open(destFile, FileMode.WRITE);
-				
-				outStream.writeBytes(pdf, 0, pdf.length);
-				
-				outStream.close();
-				
-				destFile.openWithDefaultApplication();
+				PdfDisplayer.displayPdf(pdfFile);
 				
 				Mask.close();
 			}

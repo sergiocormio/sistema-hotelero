@@ -1,6 +1,7 @@
 package model
 {
 	import mx.collections.ArrayCollection;
+	import flash.events.Event;
 
 	[RemoteClass (alias="com.cdz.sh.model.Budget")]
 	public class Budget
@@ -11,7 +12,8 @@ package model
 		// only to tell Blaze DS the arrayCollection data type
 		private var _serviceTypeStupid:ServiceType;
 		
-		
+		//to be used only in UI
+		private var _exchangeRate:ExchangeRate;
 		
 		private var _relatedAlternative:Alternative;
 		
@@ -82,6 +84,32 @@ package model
 		{
 			_relatedAlternative = value;
 		}
+		
+		public function set exchangeRate(exchangeRate:ExchangeRate):void
+		{
+			_exchangeRate = exchangeRate;
+			
+			for each (var serviceAddedInBasePrice:ServiceAddedInBasePrice in _servicePricesAddedInBasePrice) 
+			{
+				serviceAddedInBasePrice.setExchangeRate(exchangeRate);
+			}
+			
+			for each (var serviceType:ServiceType in _additionalServices) 
+			{
+				serviceType.setExchangeRate(exchangeRate);
+			}
+		}
+		
+		public function get basePriceWithCurrency():String
+		{
+			return _exchangeRate.currencySymbol + " " + _basePrice.toFixed(2);
+		}
+		
+		public function get basePricePlusAllServicesIncludedInBasePriceWithCurrency():String
+		{
+			return _exchangeRate.currencySymbol + " " + _basePricePlusAllServicesIncludedInBasePrice..toFixed(2);
+		}
 
+		
 	}
 }
