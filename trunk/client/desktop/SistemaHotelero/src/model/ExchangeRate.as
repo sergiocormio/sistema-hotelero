@@ -22,7 +22,7 @@ package model
 		
 		public function get valueAgainstRealFormatted():String
 		{
-			return _valueAgainstReal.toFixed(2);
+			return _currencySymbol + " " + _valueAgainstReal.toFixed(2);
 		}
 
 		public function set valueAgainstReal(value:Number):void

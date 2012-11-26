@@ -177,6 +177,7 @@
     </maintenance>
     <messages>
 	    <pleaseWait>Por favor espere...</pleaseWait>
+	    <pleaseWaitLong>Esto puede llevar unos minutos. Por favor espere...</pleaseWaitLong>
 	    <startingServer>Iniciando el Servidor...</startingServer>
 	    <stoppingServer>Deteniendo el Servidor...</stoppingServer>
     </messages>
