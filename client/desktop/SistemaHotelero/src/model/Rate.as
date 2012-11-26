@@ -18,7 +18,7 @@ package model
 		[Transient]
 		public function get priceWithDefaultCurrency():String
 		{
-			return "R$" + _price.toString();
+			return "R$ " + _price..toFixed(2);
 		}
 		
 		public function set price(value:Number):void

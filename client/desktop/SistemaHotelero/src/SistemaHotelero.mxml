@@ -12,6 +12,8 @@
 					   showStatusBar="false">
 	<fx:Script>
 		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import services.MasterDataService;
 			import embeddedServer.EmbeddedServer;
 			
 			import locales.Locale;
@@ -38,6 +40,9 @@
 						server.startTomcat();
 					}
 				}
+				
+				createMasterData();
+				
 				//centers main window on screen
  				Utils.centerWindowOnScreen(this);
 				this.maximize(); 
@@ -55,6 +60,25 @@
 					Mask.show(Locale.getInstance().getCurrentLocale().messages.stoppingServer);
 					server.stopTomcat();
 				}
+			}
+			
+			
+			
+			protected function createMasterData():void
+			{
+				Mask.show(Locale.getInstance().getCurrentLocale().messages.pleaseWait);
+				
+				new MasterDataService().createMasterData(createMasterData_success, faultHandler);
+			}
+			
+			private function createMasterData_success(event:ResultEvent,token:Object=null):void {
+				Mask.close();
+			}
+			
+			private function faultHandler():void
+			{
+				Mask.close();
+				Alert.show("Error!");	
 			}
 			
 		]]>

@@ -85,6 +85,21 @@ package model
 			_relatedAlternative = value;
 		}
 		
+		
+		/* availability screen */
+		public function get basePriceWithDefaultCurrency():String
+		{
+			return "R$ " + _basePrice.toFixed(2);
+		}
+		
+		public function get basePricePlusAllServicesIncludedInBasePriceWithDefaultCurrency():String
+		{
+			return "R$ " + _basePricePlusAllServicesIncludedInBasePrice..toFixed(2);
+		}
+		
+		/**************/
+		
+		/* budget screen */
 		public function set exchangeRate(exchangeRate:ExchangeRate):void
 		{
 			_exchangeRate = exchangeRate;

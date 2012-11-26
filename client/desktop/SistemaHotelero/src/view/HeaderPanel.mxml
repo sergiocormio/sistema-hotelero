@@ -39,7 +39,9 @@
 	</s:Rect>
 	-->
 	<s:HGroup width="100%" horizontalAlign="right" verticalAlign="middle">
-		<s:Button label="create Master Data" click="createMasterData()"/>
+		
+		<!-- <s:Button label="create Master Data" click="createMasterData()"/> -->
+		
 		<components:LocaleChooser loc="{loc}" localeChanged="loc = Locale.getInstance().getCurrentLocale();"/>
 	</s:HGroup>
 </s:Group>

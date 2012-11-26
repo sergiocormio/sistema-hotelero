@@ -24,6 +24,11 @@ package model
 			return _price;
 		}
 
+		public function get priceWithDefaultCurrency():String
+		{
+			return "R$ " + _price.toFixed(2);
+		}
+		
 		public function set price(value:Number):void
 		{
 			_price = value;
