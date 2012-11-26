@@ -104,7 +104,7 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 
 	@Override
 	public byte[] exportData(ReservationForm reservationForm) throws DaoException {
-						
+			
 		Map<String, Object> params = new HashMap<String, Object>();
 		PDFReportManager pdfReportManager = new PDFReportManager(RESERVATION_FORM_TEMPLATE, params);
 		
@@ -115,6 +115,8 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 		
 		return report;
 	}
+
+	
 
 
 	

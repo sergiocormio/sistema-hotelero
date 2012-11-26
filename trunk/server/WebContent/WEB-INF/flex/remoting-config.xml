@@ -11,6 +11,13 @@
     </default-channels>
 
    
+   <destination id="budgetService">
+		<properties>
+			<source>com.cdz.sh.service.impl.BudgetServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
 	<destination id="customerService">
 		<properties>
 			<source>com.cdz.sh.service.impl.CustomerServiceImpl</source>

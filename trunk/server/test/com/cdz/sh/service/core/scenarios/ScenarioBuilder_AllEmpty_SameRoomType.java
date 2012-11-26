@@ -85,7 +85,7 @@ public class ScenarioBuilder_AllEmpty_SameRoomType {
 		masterDataFactory.createMasterData();
 		
 		SameRoomTypeBuilder sameRoomTypeBuilder = new SameRoomTypeBuilder();
-		sameRoomTypeBuilder.buildRooms();
+		sameRoomTypeBuilder.buildRoomsWithMaritalBed();
 		
 		ServiceTypesBuilder serviceTypesBuilder = new ServiceTypesBuilder();
 		serviceTypesBuilder.buildServiceTypes();
