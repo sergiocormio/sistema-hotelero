@@ -23,6 +23,9 @@ public class Budget {
 
 	private Double basePricePlusAllServicesIncludedInBasePrice;
 
+	
+	private ExchangeRate exchangeRate;
+	
 	public Budget(){
 		this.additionalServices = new ArrayList<ServiceType>();
 		this.servicesToBeAddedInBasePrice = new ArrayList<ServiceType>();

@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
+import com.cdz.sh.model.Budget;
+import com.cdz.sh.model.ExchangeRate;
+import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.service.exception.NoRateException;
 
 public interface BudgetService {
@@ -24,4 +27,14 @@ public interface BudgetService {
 	 */
 	public List<Alternative> populatesBudgets(List<Alternative> alternatives) throws DaoException, NoRateException;
 
+	
+	/**
+	 * Exports the given budget object in a PDF file
+	 *  
+	 * @param budget
+	 * @param selectedLocale: Possible values 'es_AR', 'pt_BR', 'en_US'.
+	 * @return
+	 * @throws DaoException
+	 */
+	public byte[] exportData(Budget budget, String selectedLocale, ExchangeRate exchangeRate) throws DaoException; 
 }
