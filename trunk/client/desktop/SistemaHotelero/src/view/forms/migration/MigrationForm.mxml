@@ -33,8 +33,8 @@
 				
 				Mask.close();
 				
-				var errCode:String = event.fault.rootCause.errorCode;
-				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
+				// var errCode:String = event.fault.rootCause.errorCode;
+				//Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
 			}
 			
 			
@@ -94,8 +94,8 @@
 				
 				<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" textAlign="center">
 									
-					<s:Button label="{loc.migration.loaddata}" icon="{Icons.loaddata}" iconPlacement="top" click="chooseToLoad()"/>
-					<s:Button label="{loc.migration.savedata}" icon="{Icons.savedata}" iconPlacement="top" click="chooseToSave()"/>
+					<s:Button label="{loc.migration.loaddata}" icon="{Icons.loadData}" iconPlacement="top" click="chooseToLoad()"/>
+					<s:Button label="{loc.migration.savedata}" icon="{Icons.saveData}" iconPlacement="top" click="chooseToSave()"/>
 						
 		
 				</s:HGroup>

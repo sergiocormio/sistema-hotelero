@@ -16,7 +16,8 @@ package model
 		
 		private var _price:Number;
 
-		
+		//to be used only in UI
+		private var _exchangeRate:ExchangeRate;
 		
 		public function get price():Number
 		{
@@ -87,6 +88,19 @@ package model
 		{
 			_id = value;
 		}    
+		
+		[Transient]
+		public function setExchangeRate(exchangeRate:ExchangeRate):void
+		{
+			_exchangeRate = exchangeRate;
+		}
+		
+		[Transient]
+		public function get priceWithCurrency():String
+		{
+			return _exchangeRate.currencySymbol + " " + _price.toFixed(2);
+		}
+		
 		
 		public function ServiceType()
 		{

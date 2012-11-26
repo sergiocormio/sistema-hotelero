@@ -54,5 +54,17 @@ package model
 		{
 			_id = value;
 		}    
+		
+		[Transient]
+		static public function getDefault(loc:Object):ExchangeRate
+		{
+			var er:ExchangeRate = new ExchangeRate();
+			
+			er._name = loc.exchangeRate.defaultCurrency.name.singular;
+			er._currencySymbol = loc.exchangeRate.defaultCurrency.symbol;
+			er._valueAgainstReal = new Number(1);
+			
+			return er;
+		}
 	}
 }

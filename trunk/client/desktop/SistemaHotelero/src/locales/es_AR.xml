@@ -48,6 +48,7 @@
 		<price>Precio</price>
 		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
 		<convertpricesto>Convertir precios a</convertpricesto>
+		<valuesIn>Valores expresados en</valuesIn>
 	</budget>
     <button>
     	<add>Agregar</add>
@@ -145,6 +146,13 @@
 	    <currencyCode>Código de Moneda</currencyCode>
 	    <currencySymbol>Símbolo de Moneda</currencySymbol>
 	    <valueAgainstReal>Cotización contra el Real</valueAgainstReal>
+	    <defaultCurrency>
+	    	<name>
+	    		<singular>Real</singular>
+	    		<plural>Reales</plural>
+    		</name>
+	    	<symbol>R$</symbol>
+    	</defaultCurrency>
     </exchangeRate>
     <language>
    		<singular>Idioma</singular>

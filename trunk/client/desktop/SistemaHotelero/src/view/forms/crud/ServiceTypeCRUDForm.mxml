@@ -82,6 +82,7 @@
 				individual.currentServiceType = new ServiceType();
 				individual.isUpdate = false;
 				individual.enabled = true;
+				individual.includedInBasePrice.enabled = false;
 			}
 			
 			private function booleanFormat(item:Object,column:GridColumn):String
