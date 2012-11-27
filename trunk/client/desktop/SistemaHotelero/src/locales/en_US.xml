@@ -4,8 +4,9 @@
 		<singular>Advertising</singular>
 	</advertising>
 	<alternative>
-		<dateTo>Date To</dateTo>
+		<alternativeView>Alternative View</alternativeView>
 		<dateFrom>Date From</dateFrom>
+		<dateTo>Date To</dateTo>
 		<involvedRooms>Involved Rooms</involvedRooms>
 		<view>View</view>
 		<buttons>
@@ -50,7 +51,7 @@
 		<modality>Modalidad</modality>
 		<price>Precio</price>
 		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
-		<convertpricesto>Convertir precios a</convertpricesto>
+		<convertPricesTo>Convertir precios a</convertPricesTo>
 		<valuesIn>Valores expresados en</valuesIn>
 	</budget>
     <button>
@@ -182,9 +183,9 @@
 	    <stoppingServer>Deteniendo el Servidor...</stoppingServer>
     </messages>
     <migration>
-    	<destfile>Archivo destino</destfile>
-	    <savedata>Guardar datos</savedata>
-    	<loaddata>Cargar datos</loaddata>
+    	<destFile>Archivo destino</destFile>
+	    <saveData>Guardar datos</saveData>
+    	<loadData>Cargar datos</loadData>
     	<zipfiles>Archivos Zip</zipfiles>
     </migration>
     <month>
@@ -286,7 +287,7 @@
     	<requiredFieldError>Campo requerido</requiredFieldError>
     	<invalidFieldValueError>Valor inválido</invalidFieldValueError>
     	<precisionError>No se permiten más de tres digitos decimales</precisionError>
-    	<invalidrange>Rango de fechas inválido</invalidrange>
+    	<invalidRange>Rango de fechas inválido</invalidRange>
     	<emptyEmailAndPhonesError>Al menos alguno de los siguientes campos debe ser completado: E-Mail, Teléfono, Celular</emptyEmailAndPhonesError>
     	<regExp>
     		<noMatchError>El campo no es valido</noMatchError>

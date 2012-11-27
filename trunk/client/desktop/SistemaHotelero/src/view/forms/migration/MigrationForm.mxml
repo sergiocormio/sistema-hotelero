@@ -47,7 +47,7 @@
 				
 				var file:File = new File();
 				file.addEventListener(Event.SELECT, onSelectToSave);
-				file.browseForSave(loc.migration.savedata);
+				file.browseForSave(loc.migration.saveData);
 			}
 			
 			
@@ -94,8 +94,8 @@
 				
 				<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" textAlign="center">
 									
-					<s:Button label="{loc.migration.loaddata}" icon="{Icons.loadData}" iconPlacement="top" click="chooseToLoad()"/>
-					<s:Button label="{loc.migration.savedata}" icon="{Icons.saveData}" iconPlacement="top" click="chooseToSave()"/>
+					<s:Button label="{loc.migration.loadData}" icon="{Icons.loadData}" iconPlacement="top" click="chooseToLoad()"/>
+					<s:Button label="{loc.migration.saveData}" icon="{Icons.saveData}" iconPlacement="top" click="chooseToSave()"/>
 						
 		
 				</s:HGroup>

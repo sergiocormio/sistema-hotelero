@@ -33,7 +33,7 @@
 			import utils.DateTimeUtils;
 			import utils.WindowsUtils;
 			
-			import view.forms.DisplayBudgetFrom;
+			import view.forms.DisplayBudgetForm;
 			import view.forms.crud.ReservationFormCRUDForm;
 			import view.forms.crud.individual.ReservationFormIndividualCRUDForm;
 			
@@ -54,7 +54,7 @@
 			private var outOfPeriodRanges:ArrayCollection;
 			private var titleWindow:TitleWindow;
 			private var reservationFormForm:ReservationFormIndividualCRUDForm;
-			private var budgetForm:DisplayBudgetFrom;
+			private var budgetForm:DisplayBudgetForm;
 			
 			private function allFieldsAreValid():Boolean{
 				
@@ -261,7 +261,7 @@
 			}
 			
 			private function displayBudget():void{
-				budgetForm = new DisplayBudgetFrom();
+				budgetForm = new DisplayBudgetForm();
 				budgetForm.loc = loc;
 				budgetForm.alternativeSelectedInDefaultPrice = alternativeSelected;
 				

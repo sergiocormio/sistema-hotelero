@@ -223,7 +223,7 @@
 			
 			<s:FormItem />
 			
-			<s:FormItem label="{loc.budget.convertpricesto}:">
+			<s:FormItem label="{loc.budget.convertPricesTo}:">
 				<s:HGroup>
 					<s:ComboBox id="exchangeratesCombo" dataProvider="{exchangeRates}" labelField="name" 
 								change="convertToSelectecExchangeRate(event)" requireSelection="false"/>

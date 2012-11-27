@@ -4,8 +4,9 @@
 		<singular>Publicidad</singular>
 	</advertising>
 	<alternative>
-		<dateTo>Fecha Desde</dateTo>
-		<dateFrom>Fecha Hasta</dateFrom>
+		<alternativeView>Vista de Alternativa</alternativeView>
+		<dateFrom>Fecha Desde</dateFrom>
+		<dateTo>Fecha Hasta</dateTo>
 		<involvedRooms>Habitaciones Involucradas</involvedRooms>
 		<view>Ver</view>
 		<buttons>
@@ -50,7 +51,7 @@
 		<modality>Modalidad</modality>
 		<price>Precio</price>
 		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
-		<convertpricesto>Convertir precios a</convertpricesto>
+		<convertPricesTo>Convertir precios a</convertPricesTo>
 		<valuesIn>Valores expresados en</valuesIn>
 	</budget>
     <button>
@@ -182,9 +183,9 @@
 	    <stoppingServer>Deteniendo el Servidor...</stoppingServer>
     </messages>
     <migration>
-    	<destfile>Archivo destino</destfile>
-	    <savedata>Guardar datos</savedata>
-    	<loaddata>Cargar datos</loaddata>
+    	<destFile>Archivo destino</destFile>
+	    <saveData>Guardar datos</saveData>
+    	<loadData>Cargar datos</loadData>
     	<zipfiles>Archivos Zip</zipfiles>
     </migration>
     <month>
@@ -253,7 +254,7 @@
 	    <name>Nombre</name>
 	    <description>Descripción</description>
     </roomType>
-    <saveloaddata>Guardar/Cargar datos</saveloaddata>
+    <saveLoadData>Guardar/Cargar datos</saveLoadData>
     <season>
     	<singular>Temporada</singular>
 	    <plural>Temporadas</plural>
@@ -288,7 +289,7 @@
     	<requiredFieldError>Campo requerido</requiredFieldError>
     	<invalidFieldValueError>Valor inválido</invalidFieldValueError>
     	<precisionError>No se permiten más de tres digitos decimales</precisionError>
-    	<invalidrange>Rango de fechas inválido</invalidrange>
+    	<invalidRange>Rango de fechas inválido</invalidRange>
     	<emptyEmailAndPhonesError>Al menos alguno de los siguientes campos debe ser completado: E-Mail, Teléfono, Celular</emptyEmailAndPhonesError>
     	<regExp>
     		<noMatchError>El campo no es valido</noMatchError>
