@@ -176,6 +176,39 @@ package resources.icons
 		[Embed(source='resources/icons/money-bag.png')]
 		public static var moneyBag:Class;
 		
+		//-----------Calendar Icons ------------
+		[Bindable]
+		[Embed(source='resources/icons/calendar-plus.png')]
+		public static var calendarPlus:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/calendar-minus.png')]
+		public static var calendarMinus:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/calendar-right-30.png')]
+		public static var calendarRight30:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/calendar-left-30.png')]
+		public static var calendarLeft30:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/calendar-right-7.png')]
+		public static var calendarRight7:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/calendar-left-7.png')]
+		public static var calendarLeft7:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/calendar-right-1.png')]
+		public static var calendarRight1:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/calendar-left-1.png')]
+		public static var calendarLeft1:Class;
+		
 		public function Icons()
 		{
 		}

@@ -69,6 +69,14 @@
     <calendar>
     	<singular>Calendar</singular>
     	<plural>Calendars</plural>
+    	<showMoreDays>Show more days</showMoreDays>
+    	<showFewerDays>Show fewer days</showFewerDays>
+    	<decreaseOneDay>Displace one day before</decreaseOneDay>
+    	<decreaseOneWeek>Displace one week before</decreaseOneWeek>
+    	<decreaseOneMonth>Displace one month before</decreaseOneMonth>
+    	<increaseOneDay>Displace one day after</increaseOneDay>
+    	<increaseOneWeek>Displace one week after</increaseOneWeek>
+    	<increaseOneMonth>Displace one month after</increaseOneMonth>
     </calendar>
     <consumption>
     	<singular>Consumption</singular>
