@@ -253,6 +253,7 @@
 	    <name>Name</name>
 	    <description>Description</description>
     </roomType>
+    <saveLoadData>Save/Load data</saveLoadData>
     <season>
     	<singular>Season</singular>
 	    <plural>Seasons</plural>
