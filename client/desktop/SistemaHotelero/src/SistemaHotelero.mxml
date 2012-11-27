@@ -32,6 +32,10 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				//centers main window on screen
+ 				Utils.centerWindowOnScreen(this);
+				this.maximize(); 
+
 				if(Config.isEnabledLocalServer()){
 					server = new EmbeddedServer();
 					if(server.initialize()){
@@ -39,17 +43,15 @@
 						server.addEventListener(EmbeddedServer.SERVER_STARTED,serverStartedHandler);
 						server.startTomcat();
 					}
+				}else{
+					serverStartedHandler(null);
 				}
 				
-				createMasterData();
-				
-				//centers main window on screen
- 				Utils.centerWindowOnScreen(this);
-				this.maximize(); 
 			}
 			
 			private function serverStartedHandler(event:Event):void{
 				Mask.close();
+				createMasterData();
 			}
 			
 			

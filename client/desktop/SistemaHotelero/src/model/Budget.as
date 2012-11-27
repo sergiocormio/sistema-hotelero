@@ -45,6 +45,7 @@ package model
 			_basePricePlusAllServicesIncludedInBasePrice = value;
 		}
 
+		[Bindable]
 		public function get additionalServices():ArrayCollection
 		{
 			return _additionalServices;
@@ -55,6 +56,7 @@ package model
 			_additionalServices = value;
 		}
 
+		[Bindable]
 		public function get servicePricesAddedInBasePrice():ArrayCollection
 		{
 			return _servicePricesAddedInBasePrice;

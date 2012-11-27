@@ -22,6 +22,9 @@ package view.components
 			super();
 		}
 		
+		/**
+		 * Shows a indefined progress bar with the text "msg". If msg is null shows "pleaseWait"
+		 */ 
 		public static function show(msg:String=null, parent:Sprite=null):Mask
 		{
 			_mask = new Mask();

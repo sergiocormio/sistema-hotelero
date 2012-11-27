@@ -78,7 +78,7 @@
 				}
 				
 				if(!DateRange.validRange(dateFromChooser.selectedDate, dateToChooser.selectedDate)){
-					Alert.show(loc.validator.invalidrange, loc.validator.error);	
+					Alert.show(loc.validator.invalidRange, loc.validator.error);	
 					return;
 				}
 				

@@ -71,7 +71,7 @@
 			<crud:BankCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="migration" label="{loc.saveloaddata}" icon="{Icons.saveLoadData}" width="100%" height="100%">
+		<s:NavigatorContent id="migration" label="{loc.saveLoadData}" icon="{Icons.saveLoadData}" width="100%" height="100%">
 			<migration:MigrationForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 	</mx:ViewStack>

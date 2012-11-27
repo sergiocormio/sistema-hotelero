@@ -45,7 +45,7 @@
 				if(data[column.dataField] is ArrayCollection){
 					var list:ArrayCollection = data[column.dataField] as ArrayCollection;
 					for each (var o:Object in list){
-						if (o is String){
+						if (o is String){ //o == "Alternative"
 							qtyAlternative++;
 						}else if (o is ReservationForm){
 							var resForm:ReservationForm = o as ReservationForm;
@@ -69,15 +69,15 @@
 					if(qtyConfirmed>0){
 						background.color = Colors.RED_COLOR;
 						lblData.setStyle("color",Colors.WHITE_COLOR);
+					}else if(qtyAlternative>0){
+						background.color = Colors.GREEN_COLOR;
+						lblData.setStyle("color",Colors.WHITE_COLOR);
 					}else if(qtyPreBooking>0){
 						background.color = Colors.YELLOW_COLOR;
 					}else if(qtyCancelled>0){
 						background.color = Colors.YELLOW_COLOR;
 					}else if(qtyExpired>0){
 						background.color = Colors.YELLOW_COLOR;
-					}else if(qtyAlternative>0){
-						background.color = Colors.GREEN_COLOR;
-						lblData.setStyle("color",Colors.WHITE_COLOR);
 					}
 				}
 				

@@ -55,8 +55,6 @@
 					var auxDate:Date = DateTimeUtils.rollDaysToDate(dateFrom,i);
 					var col:GridColumn = DateTimeUtils.getColumnForDate(auxDate,"day_" + i);
 					col.labelFunction = calendarFormat;
-//					col.itemRenderer= new ClassFactory(view.components.CalendarCustomCellRenderer);
-//					col.itemRenderer= new ClassFactory(DefaultGridItemRenderer);
 					col.itemRendererFunction = selectRenderer;
 
 					grid.columns.addItem(col);
@@ -64,6 +62,9 @@
 				}
 			}
 			
+			/**
+			 * Chooses a renderer dependendig on "column"
+			 */ 
 			private function selectRenderer(item:Object, column: GridColumn):IFactory
 			{
 				if(item!=null){
