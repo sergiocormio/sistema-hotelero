@@ -69,6 +69,14 @@
     <calendar>
     	<singular>Calendario</singular>
     	<plural>Calendarios</plural>
+    	<showMoreDays>Mostrar más días</showMoreDays>
+    	<showFewerDays>Mostrar menos días</showFewerDays>
+    	<decreaseOneDay>Desplazar un día antes</decreaseOneDay>
+    	<decreaseOneWeek>Desplazar una semana antes</decreaseOneWeek>
+    	<decreaseOneMonth>Desplazar un mes antes</decreaseOneMonth>
+    	<increaseOneDay>Desplazar un día después</increaseOneDay>
+    	<increaseOneWeek>Desplazar una semana después</increaseOneWeek>
+    	<increaseOneMonth>Desplazar un mes después</increaseOneMonth>
     </calendar>
     <consumption>
     	<singular>Consumo</singular>

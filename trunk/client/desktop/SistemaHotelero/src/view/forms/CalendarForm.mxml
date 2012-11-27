@@ -132,14 +132,22 @@
 	
 	<components:CalendarGrid id="grid" height="100%" width="100%" loc="{loc}" occupations="{occupations}" />
 	<s:HGroup width="100%">
-		<s:Button id="decreaseOneMonthFromButton" label="30-" click="decreaseOneMonthFromButton_clickHandler(event)"/>
-		<s:Button id="decreaseOneWeekFromButton" label="7-" click="decreaseOneWeekFromButton_clickHandler(event)"/>
-		<s:Button id="decreaseOneDayFromButton" label="1-" click="decreaseOneDayFromButton_clickHandler(event)"/>
-		<s:Button id="increaseOneDayFromButton" label="1+" click="increaseOneDayFromButton_clickHandler(event)"/>
-		<s:Button id="increaseOneWeekFromButton" label="7+" click="increaseOneWeekFromButton_clickHandler(event)"/>
-		<s:Button id="increaseOneMonthFromButton" label="30+" click="increaseOneMonthFromButton_clickHandler(event)"/>
-		<s:Button id="decreaseDaysToShowButton" label="-" click="decreaseDaysToShowButton_clickHandler(event)"/>
-		<s:Button id="increaseDaysToShowButton" label="+" click="increaseDaysToShowButton_clickHandler(event)"/>
-		<s:Button id="refreshButton" label="{loc.button.refresh}" icon="{Icons.refresh}" click="refreshCalendar()"/>
+		<s:HGroup width="33%" horizontalAlign="left">
+			<s:Button id="decreaseOneMonthFromButton" icon="{Icons.calendarLeft30}" click="decreaseOneMonthFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.decreaseOneMonth}"/>
+			<s:Button id="decreaseOneWeekFromButton" icon="{Icons.calendarLeft7}" click="decreaseOneWeekFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.decreaseOneWeek}"/>
+			<s:Button id="decreaseOneDayFromButton" icon="{Icons.calendarLeft1}" click="decreaseOneDayFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.decreaseOneDay}"/>
+		</s:HGroup>
+		
+		<s:HGroup width="34%" horizontalAlign="center">
+			<s:Button id="decreaseDaysToShowButton" icon="{Icons.calendarMinus}" click="decreaseDaysToShowButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.showFewerDays}"/>
+			<s:Button id="increaseDaysToShowButton" icon="{Icons.calendarPlus}" click="increaseDaysToShowButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.showMoreDays}"/>
+			<s:Button id="refreshButton" label="{loc.button.refresh}" icon="{Icons.refresh}" click="refreshCalendar()"/>
+		</s:HGroup>
+		
+		<s:HGroup width="33%" horizontalAlign="right">
+			<s:Button id="increaseOneDayFromButton" icon="{Icons.calendarRight1}" click="increaseOneDayFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.increaseOneDay}"/>
+			<s:Button id="increaseOneWeekFromButton" icon="{Icons.calendarRight7}" click="increaseOneWeekFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.increaseOneWeek}"/>
+			<s:Button id="increaseOneMonthFromButton" icon="{Icons.calendarRight30}" click="increaseOneMonthFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.increaseOneMonth}"/>
+		</s:HGroup>
 	</s:HGroup>
 </s:VGroup>
