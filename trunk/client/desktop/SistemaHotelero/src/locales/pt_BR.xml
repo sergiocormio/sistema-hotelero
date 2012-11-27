@@ -26,6 +26,7 @@
     	<consult>Consultar</consult>
     	<clean>Limpiar</clean>
     	<otherAlternatives>Otras Alternativas</otherAlternatives>
+    	<consultAvailability>Consultar Disponibilidad</consultAvailability>
     	<bed>
     		<singular>Cama</singular>
     		<plural>Camas</plural>

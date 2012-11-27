@@ -26,6 +26,7 @@
     	<consult>Consult</consult>
     	<clean>Clean</clean>
     	<otherAlternatives>Other Alternatives</otherAlternatives>
+    	<consultAvailability>Consult Availability</consultAvailability>
     	<bed>
     		<singular>Bed</singular>
     		<plural>Beds</plural>
