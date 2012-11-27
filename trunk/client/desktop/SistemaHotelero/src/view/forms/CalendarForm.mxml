@@ -120,11 +120,9 @@
 				
 			}
 			
-			protected function refreshButton_clickHandler(event:MouseEvent):void
-			{
+			public function refreshCalendar():void{
 				fillCalendar();
 			}
-			
 		]]>
 	</fx:Script>	
 	
@@ -142,6 +140,6 @@
 		<s:Button id="increaseOneMonthFromButton" label="30+" click="increaseOneMonthFromButton_clickHandler(event)"/>
 		<s:Button id="decreaseDaysToShowButton" label="-" click="decreaseDaysToShowButton_clickHandler(event)"/>
 		<s:Button id="increaseDaysToShowButton" label="+" click="increaseDaysToShowButton_clickHandler(event)"/>
-		<s:Button id="refreshButton" label="{loc.button.refresh}" icon="{Icons.refresh}" click="refreshButton_clickHandler(event)"/>
+		<s:Button id="refreshButton" label="{loc.button.refresh}" icon="{Icons.refresh}" click="refreshCalendar()"/>
 	</s:HGroup>
 </s:VGroup>

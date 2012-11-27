@@ -12,19 +12,21 @@
 					   showStatusBar="false">
 	<fx:Script>
 		<![CDATA[
-			import mx.rpc.events.ResultEvent;
-			import services.MasterDataService;
 			import embeddedServer.EmbeddedServer;
 			
 			import locales.Locale;
 			
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
 			
 			import resources.images.Images;
 			
+			import services.MasterDataService;
+			
 			import utils.Utils;
 			import utils.config.Config;
+			import utils.log.DebugLog;
 			
 			import view.components.Mask;
 			
@@ -80,7 +82,7 @@
 			private function faultHandler():void
 			{
 				Mask.close();
-				Alert.show("Error!");	
+				DebugLog.log("ERROR creating master data");
 			}
 			
 		]]>
