@@ -128,11 +128,11 @@ package resources.icons
 		public static var availability:Class;
 		
 		[Bindable]
-		[Embed(source='resources/icons/go-icon 24.png')]
+		[Embed(source='resources/icons/go-icon 16.png')]
 		public static var go:Class;
 		
 		[Bindable]
-		[Embed(source='resources/icons/cross.png')]
+		[Embed(source='resources/icons/cross-script.png')]
 		public static var clean:Class;
 		
 		[Bindable]
