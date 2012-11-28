@@ -72,13 +72,13 @@
 			
 			protected function increaseDaysToShowButton_clickHandler(event:MouseEvent):void
 			{
-				daysToShow += 7;
+				daysToShow += 1;
 				fillCalendar();
 			}
 			
 			protected function decreaseDaysToShowButton_clickHandler(event:MouseEvent):void
 			{
-				daysToShow -= 7;
+				daysToShow -= 1;
 				fillCalendar();
 			}
 			
@@ -140,8 +140,8 @@
 		
 		<s:HGroup width="34%" horizontalAlign="center">
 			<s:Button id="decreaseDaysToShowButton" icon="{Icons.calendarMinus}" click="decreaseDaysToShowButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.showFewerDays}"/>
-			<s:Button id="increaseDaysToShowButton" icon="{Icons.calendarPlus}" click="increaseDaysToShowButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.showMoreDays}"/>
 			<s:Button id="refreshButton" label="{loc.button.refresh}" icon="{Icons.refresh}" click="refreshCalendar()"/>
+			<s:Button id="increaseDaysToShowButton" icon="{Icons.calendarPlus}" click="increaseDaysToShowButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.showMoreDays}"/>
 		</s:HGroup>
 		
 		<s:HGroup width="33%" horizontalAlign="right">

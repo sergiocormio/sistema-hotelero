@@ -227,8 +227,8 @@
 				<s:HGroup>
 					<s:ComboBox id="exchangeratesCombo" dataProvider="{exchangeRates}" labelField="name" 
 								change="convertToSelectecExchangeRate(event)" requireSelection="false"/>
-					<s:Button width="24" height="24" click="restoreDefaultExchangeRate()"
-							  icon="{Icons.refresh}" toolTip="{loc.button.clean}"/>
+					<s:Button label="{loc.availability.clean}" icon="{Icons.clean}" click="restoreDefaultExchangeRate()"
+							    toolTip="{loc.button.clean}"/>
 				</s:HGroup>
 			</s:FormItem>
 		</s:Form>

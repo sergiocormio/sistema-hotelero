@@ -46,6 +46,8 @@
 				var roomColumn:GridColumn = new GridColumn();
 				roomColumn.headerText = loc.room.singular;
 				roomColumn.dataField = "room.number";
+				roomColumn.itemRendererFunction = selectRenderer;
+				
 				grid.columns.addItem(roomColumn);
 			}
 			
@@ -56,7 +58,7 @@
 					var col:GridColumn = DateTimeUtils.getColumnForDate(auxDate,"day_" + i);
 					col.labelFunction = calendarFormat;
 					col.itemRendererFunction = selectRenderer;
-
+					
 					grid.columns.addItem(col);
 					i++;
 				}
