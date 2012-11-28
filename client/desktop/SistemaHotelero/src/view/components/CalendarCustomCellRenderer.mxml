@@ -81,6 +81,11 @@
 					}
 				}
 				
+				if(column.columnIndex == 0){
+					background.color = Colors.GRAY_COLOR;
+					lblData.horizontalCenter = 0;
+				}
+				
 			}
 		]]>
 	</fx:Script>
