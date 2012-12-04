@@ -209,6 +209,10 @@ package resources.icons
 		[Embed(source='resources/icons/calendar-left-1.png')]
 		public static var calendarLeft1:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/calendar-blue 24x24.png')]
+		public static var calendarEdit:Class;
+		
 		public function Icons()
 		{
 		}
