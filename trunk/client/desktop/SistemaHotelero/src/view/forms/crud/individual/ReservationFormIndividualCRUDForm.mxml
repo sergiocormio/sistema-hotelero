@@ -277,7 +277,7 @@
 								  formatString="{loc.dateFormat.toUpperCase()}"
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
-				
+
 				<s:FormItem label="{loc.reservationForm.dateFrom}:" required="true" enabled="false">
 					<mx:DateField id="dateFromChooser" width="120"
 								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
@@ -291,8 +291,13 @@
 								  formatString="{loc.dateFormat.toUpperCase()}"
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
-				
 			</s:Form>
+			
+			<s:VGroup paddingLeft="-140">
+				<s:Spacer height="130"/>
+				<s:Button id="loadManualAlternativeButton" label="{loc.lodgement.singular}" icon="{Icons.calendarEdit}" iconPlacement="top"/>
+			</s:VGroup>
+			
 			<s:Form>
 				<s:layout>
 					<s:FormLayout gap="-14"/>
