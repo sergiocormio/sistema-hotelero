@@ -32,6 +32,8 @@
 			
 			import utils.WindowsUtils;
 			
+			import view.components.ManualAlternativeForm;
+			
 			[Bindable]
 			public var loc:Object;
 			
@@ -54,6 +56,7 @@
 			private var titleWindow:TitleWindow;
 			private var customerForm:CustomerIndividualCRUDForm;
 			private var bankForm:BankIndividualCRUDForm;
+			private var manualAlternativeForm:ManualAlternativeForm;
 			
 			public function get alternative():Alternative
 			{
@@ -231,6 +234,14 @@
 				PopUpManager.removePopUp(titleWindow);
 			}
 			
+			protected function loadManualAlternative():void
+			{
+				manualAlternativeForm = new ManualAlternativeForm();
+				manualAlternativeForm.loc = loc;
+				manualAlternativeForm.addEventListener("saveClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel,manualAlternativeForm);
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -295,7 +306,7 @@
 			
 			<s:VGroup paddingLeft="-140">
 				<s:Spacer height="130"/>
-				<s:Button id="loadManualAlternativeButton" label="{loc.lodgement.singular}" icon="{Icons.calendarEdit}" iconPlacement="top"/>
+				<s:Button id="loadManualAlternativeButton" label="{loc.lodgement.singular}" icon="{Icons.calendarEdit}" iconPlacement="top" click="loadManualAlternative()"/>
 			</s:VGroup>
 			
 			<s:Form>

@@ -86,5 +86,9 @@ package model
 		{
 			_id = value;
 		}
+		
+		public function equals(room:Room):Boolean{
+			return (room!=null && this.id == room.id);
+		}
 	}
 }

@@ -9,19 +9,23 @@
 			
 			import model.Alternative;
 			import model.Occupation;
+			import model.OccupationPK;
 			import model.ReservationForm;
 			import model.Room;
 			import model.StateReservationForm;
 			
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
+			import mx.controls.Alert;
 			import mx.controls.dataGridClasses.DataGridColumn;
 			import mx.events.FlexEvent;
 			
 			import spark.components.gridClasses.GridColumn;
+			import spark.events.GridEvent;
 			import spark.skins.spark.DefaultGridItemRenderer;
 			
 			import utils.DateTimeUtils;
+
 			
 			[Bindable]
 			private var calendarRows:ArrayCollection;
@@ -40,6 +44,11 @@
 			public var dateTo:Date;
 			
 			public var roomsToShow:ArrayCollection; //roomsToShow even if these don't have occupation
+			
+			public var editable:Boolean = false; //grid is not editable by default
+			
+			//Contains all the occupations generated manually by user's clicks
+			private var manualOccupations:ArrayCollection = new ArrayCollection(); 
 			
 			
 			private function addRoomColumn():void{
@@ -139,7 +148,7 @@
 				for each (var room:Room in roomsToShow){
 					var roomId:Object = room.id;
 					var row:Object = new Object();
-					row.room = room;
+					row["room"] = room;
 					calendarRows.addItem(row);
 					roomIdToCalendarRowMap[roomId] = row;
 				}
@@ -156,6 +165,13 @@
 				addRoomColumn();
 				addDayColumns(dateFrom,dateTo);
 				
+				loadOccupationsOnGrid(occupations);
+				//loads manualOccupations too, to avoid missing them on refresh
+				loadOccupationsOnGrid(manualOccupations);
+				
+			}
+			
+			private function loadOccupationsOnGrid(occupations:ArrayCollection):void{
 				for each (var occupation:Occupation in occupations){
 					var isNew:Boolean = false;
 					var roomId:Object = occupation.id.room.id;
@@ -173,14 +189,118 @@
 					}else{
 						cellArray.addItem(occupation.id.reservationForm);
 					}
-					
+				}
+			}
+			
+			protected function gridClickHandler(event:GridEvent):void
+			{
+				if(!editable){	return;	}
+				
+				var row:Object = event.item;
+				//if there was a valid row o user clicked on room cell, do nothing.
+				if(row == null || event.columnIndex == 0) { 
+					return;
 				}
 				
+				//i.e: event.item has a room and a day_0 that it's an ArrayCollection
+				var day:String = event.column.dataField;
+				var reservationForms:ArrayCollection = row[day];
+				//if it's a empty cell... adds an ArrayCollection
+				if(reservationForms == null){
+					reservationForms = new ArrayCollection();
+					row[day] = reservationForms;
+				}	
+				
+				//if there isn't a confirmed reservation on that cell..
+				if(!hasConfirmedReservation(reservationForms)){
+					//calculates date from "day"
+					var dayNumber:String = day.substr("day_".length);
+					var date:Date = DateTimeUtils.rollDaysToDate(dateFrom,int(dayNumber));
+					//if already has an Alternative, removes it
+					if(hasAlternativeReservation(reservationForms)){
+						removeAlternative(reservationForms,row["room"],date);
+					}else{
+						addAlternative(reservationForms,row["room"],date);
+					}
+					//repaints the cell
+					grid.invalidateCell(event.rowIndex,event.columnIndex);
+				}
 			}
+			
+			private function hasConfirmedReservation(reservationForms:ArrayCollection):Boolean{
+				return hasStateReservation(reservationForms,StateReservationForm.CONFIRMED);
+			}
+			
+			private function hasAlternativeReservation(reservationForms:ArrayCollection):Boolean{
+				return hasStateReservation(reservationForms,IT_IS_AN_ALTERNATIVE);
+			}
+			
+			//returns true if there is a reservation in reservationForms with state = "state"
+			//note: state can be IT_IS_AN_ALTERNATIVE
+			private function hasStateReservation(reservationForms:ArrayCollection,state:String):Boolean{
+				var found:Boolean = false;
+				for each (var o:Object in reservationForms){
+					if(o is String){
+						if (o == state){
+							found=true;
+							break;
+						}
+					}
+					else if (o is ReservationForm){
+						var resForm:ReservationForm = o as ReservationForm;
+						if (resForm.state ==  state){
+							found=true;
+							break;
+						}
+					}
+				}
+				return found;
+			}
+			
+			//removes an Alternative from an Array of reservationForms and from mannualOccupations
+			private function removeAlternative(reservationForms:ArrayCollection,room:Room,date:Date):void{
+				//removes from reservationForms
+				for (var i:int = 0 ; i<reservationForms.length ; i++){
+					var o:Object = reservationForms[i];
+					if(o is String){
+						reservationForms.removeItemAt(i);
+						break;
+					}
+				}
+				//removes from manual occupations
+				for (var j:int = 0 ; j<manualOccupations.length ; j++){
+					var manualOccupation:Occupation = manualOccupations[j];
+					if(manualOccupation.id.room == room && manualOccupation.id.date.getTime() == date.getTime() 
+						&& manualOccupation.id.reservationForm == null){
+						manualOccupations.removeItemAt(j);
+						break;
+					}
+				}
+			}
+			
+			//adds alternative to reservationForms and to manualOccupations 
+			private function addAlternative(reservationForms:ArrayCollection,room:Room,date:Date):void{
+				reservationForms.addItem(IT_IS_AN_ALTERNATIVE);
+				var manualOccupation:Occupation = new Occupation();
+				manualOccupation.id = new OccupationPK();
+				manualOccupation.id.room = room;
+				manualOccupation.id.date = date;
+				manualOccupations.addItem(manualOccupation);
+			}
+			
+			//returns an Alternative provided by user selection
+			public function getUserAlternative():Alternative{
+				var alternative:Alternative = new Alternative();
+				alternative.occupations = new ArrayCollection();
+				alternative.occupations.addAll(manualOccupations);
+				return alternative;
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{calendarRows}" skinClass="view.skins.CustomDataGridSkin"/>
+	<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{calendarRows}" skinClass="view.skins.CustomDataGridSkin"
+			gridClick="gridClickHandler(event)"/>
 </s:Group>

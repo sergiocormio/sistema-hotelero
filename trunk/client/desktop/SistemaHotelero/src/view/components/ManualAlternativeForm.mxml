@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="800" height="600"
+		 creationComplete="init(event)" xmlns:components="view.components.*">
+	<fx:Metadata> 
+		[Event(name="saveClicked", type="flash.events.Event")]
+	</fx:Metadata> 
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.Colors;
+			import resources.icons.Icons;
+			
+			import services.OccupationService;
+			import services.crud.RoomService;
+			
+			import utils.DateTimeUtils;
+			import utils.log.DebugLog;
+			[Bindable]
+			public var loc:Object = Locale.getInstance().getCurrentLocale();
+			[Bindable]
+			private var dateFrom:Date = DateTimeUtils.removeHoursToDate(new Date());
+			[Bindable]
+			private var dateTo:Date =  DateTimeUtils.removeHoursToDate(DateTimeUtils.rollDaysToDate(new Date(),7));
+			
+			
+			protected function init(event:FlexEvent):void
+			{
+				Mask.show();
+				loadRoomsToShow();
+			}
+			
+			private function loadRoomsToShow():void{
+				new RoomService().retrieveAll(retrieveAllRooms_resultHandler,faultHandler);
+			}
+			
+			private function retrieveAllRooms_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.roomsToShow = event.result as ArrayCollection;
+				loadOccupations();
+			}
+			
+			private function loadOccupations():void{
+				new OccupationService().retrieveOccupations(dateFrom,dateTo,retrieveOccupations_resultHandler,faultHandler);
+			}
+			
+			private function retrieveOccupations_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.occupations = new ArrayCollection();
+				grid.occupations.addAll(event.result as ArrayCollection);
+				Mask.close();
+				grid.init();
+			}
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				//var errCode:String = event.fault.rootCause.errorCode;
+				Mask.close();
+				DebugLog.log("ERROR trying to load rooms and occupations.");
+				//Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
+			}
+			
+			protected function saveButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent(new Event("saveClicked"));
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Rect width="100%" height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+		</s:stroke>
+		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+	</s:Rect>
+	<s:VGroup width="100%" height="100%" paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">
+		<components:CalendarGrid id="grid" width="100%" height="100%" dateFrom="{dateFrom}" dateTo="{dateTo}" loc="{loc}" editable="true"/>
+		<s:HGroup width="100%" horizontalAlign="right">
+			<s:Button id="saveButton" label="{loc.button.save}" icon="{Icons.save}" click="saveButton_clickHandler(event)"/>
+		</s:HGroup>
+	</s:VGroup>
+	
+</s:Group>
