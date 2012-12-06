@@ -130,7 +130,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<components:CalendarGrid id="grid" height="100%" width="100%" loc="{loc}" occupations="{occupations}" />
+	<components:CalendarGrid id="grid" height="100%" width="100%" loc="{loc}" occupations="{occupations}" editable="false"/>
 	<s:HGroup width="100%">
 		<s:HGroup width="33%" horizontalAlign="left">
 			<s:Button id="decreaseOneMonthFromButton" icon="{Icons.calendarLeft30}" click="decreaseOneMonthFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.decreaseOneMonth}"/>
