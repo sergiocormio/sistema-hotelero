@@ -181,6 +181,7 @@
     <lodgement>
     	<singular>Hospedaje</singular>
     	<plural>Hospedajes</plural>
+    	<loadLodgementManually>Cargar Hospedaje Manualmente</loadLodgementManually>
     </lodgement>
     <maintenance>
     	<singular>Mantenimiento</singular>
