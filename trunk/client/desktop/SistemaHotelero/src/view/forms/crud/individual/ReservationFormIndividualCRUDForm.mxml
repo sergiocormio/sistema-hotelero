@@ -13,6 +13,7 @@
 			import locales.Locale;
 			
 			import model.Alternative;
+			import model.AlternativeWrapper;
 			import model.ReservationForm;
 			import model.StateReservationForm;
 			
@@ -112,9 +113,9 @@
 			
 			private function save():void{
 				//TODO: validate all data
-				//if(!allFieldsAreValid()){
-				//	return;
-				//}
+//				 if(!allFieldsAreValid()){
+//					return;
+//				} 
 				_currentReservationForm.customer = customersCombo.selectedItem;
 				_currentReservationForm.state = (stateList.selectedItem as StateReservationForm).id;
 				//_currentReservationForm.creationDate
@@ -231,15 +232,25 @@
 			private function bank_saveSuccess(evt:Object):void {
 				banks.addItem(bankForm.currentBank);
 				WindowsUtils.autoSelectComboBox(banksCombo, bankForm.currentBank);
-				PopUpManager.removePopUp(titleWindow);
+				titleWindow_close(null);
 			}
 			
 			protected function loadManualAlternative():void
 			{
 				manualAlternativeForm = new ManualAlternativeForm();
 				manualAlternativeForm.loc = loc;
-				manualAlternativeForm.addEventListener("saveClicked",titleWindow_close);
-				titleWindow = WindowsUtils.openDialog(loc.button.newLabel,manualAlternativeForm);
+				manualAlternativeForm.alternative = alternative;
+				manualAlternativeForm.addEventListener("saveClicked",manualAlternative_saveSuccess);
+				manualAlternativeForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.lodgement.loadLodgementManually,manualAlternativeForm);
+			}
+			
+			private function manualAlternative_saveSuccess(evt:Object):void {
+				alternative = manualAlternativeForm.getManualAlternative();
+				var wrapper:AlternativeWrapper = new AlternativeWrapper(alternative); 
+				dateFromChooser.selectedDate = wrapper.dateFrom;
+				dateToChooser.selectedDate = wrapper.dateTo;
+				titleWindow_close(null);
 			}
 			
 		]]>
@@ -306,7 +317,9 @@
 			
 			<s:VGroup paddingLeft="-140">
 				<s:Spacer height="130"/>
-				<s:Button id="loadManualAlternativeButton" label="{loc.lodgement.singular}" icon="{Icons.calendarEdit}" iconPlacement="top" click="loadManualAlternative()"/>
+				<s:Button id="loadManualAlternativeButton" label="{loc.lodgement.singular}" 
+						  icon="{Icons.calendarEdit}" iconPlacement="top" click="loadManualAlternative()"
+						  enabled="{!isUpdate}"/>
 			</s:VGroup>
 			
 			<s:Form>

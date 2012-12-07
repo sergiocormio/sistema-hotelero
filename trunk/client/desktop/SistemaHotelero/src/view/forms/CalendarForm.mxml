@@ -20,22 +20,21 @@
 			import spark.components.gridClasses.GridColumn;
 			
 			import utils.DateTimeUtils;
+			import utils.log.DebugLog;
+			
+			import view.components.Mask;
 			[Bindable]
 			public var loc:Object;
 			
 			[Bindable] private var occupations:ArrayCollection = new ArrayCollection();
 			
-			private var dateFrom:Date;
-			private var dateTo:Date;
-			private var daysToShow:int = 7; //by default shows a week
-			
 			protected function init(event:FlexEvent):void
 			{
-				dateFrom = DateTimeUtils.removeHoursToDate(new Date());
 				fillCalendar();
 			}
 			
 			private function fillCalendar():void{
+				Mask.show();
 				loadRoomsToShow();
 			}
 			
@@ -49,78 +48,33 @@
 			}
 
 			private function loadOccupations():void{
-				dateTo = DateTimeUtils.rollDaysToDate(dateFrom,daysToShow);
 				var serv:OccupationService = new OccupationService();
-				serv.retrieveOccupations(dateFrom,dateTo,retrieveOccupations_resultHandler,faultHandler);
+				serv.retrieveOccupations(calendarNavigationBar.dateFrom,calendarNavigationBar.dateTo,retrieveOccupations_resultHandler,faultHandler);
 			}
 			
 			private function retrieveOccupations_resultHandler(event:ResultEvent,token:Object=null):void {
 				occupations.removeAll();
 				occupations.addAll(event.result as ArrayCollection);
-				grid.dateFrom = dateFrom;
-				grid.dateTo = dateTo;
+				grid.dateFrom = calendarNavigationBar.dateFrom;
+				grid.dateTo = calendarNavigationBar.dateTo;
 				grid.init();
+				Mask.close();
 			}
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
 				//var errCode:String = event.fault.rootCause.errorCode;
-				//TODO Log ERROR!
+				Mask.close();
+				DebugLog.log("ERROR Loading Rooms or Loading Occupations in CalendarForm");
 				//Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
 			}
 			
 			
-			protected function increaseDaysToShowButton_clickHandler(event:MouseEvent):void
-			{
-				daysToShow += 1;
-				fillCalendar();
-			}
-			
-			protected function decreaseDaysToShowButton_clickHandler(event:MouseEvent):void
-			{
-				daysToShow -= 1;
-				fillCalendar();
-			}
-			
-			protected function increaseOneDayFromButton_clickHandler(event:MouseEvent):void
-			{
-				rollDaysFromAndLoadOccupations(1);
-			}
-			
-			protected function rollDaysFromAndLoadOccupations(daysToRoll:int):void
-			{
-				dateFrom = DateTimeUtils.rollDaysToDate(dateFrom,daysToRoll);
-				fillCalendar();
-			}
-			
-			protected function decreaseOneDayFromButton_clickHandler(event:MouseEvent):void
-			{
-				rollDaysFromAndLoadOccupations(-1);
-			}
-			
-			protected function decreaseOneWeekFromButton_clickHandler(event:MouseEvent):void
-			{
-				rollDaysFromAndLoadOccupations(-7);				
-			}
-			
-			protected function increaseOneWeekFromButton_clickHandler(event:MouseEvent):void
-			{
-				rollDaysFromAndLoadOccupations(7);								
-			}
-			
-			protected function decreaseOneMonthFromButton_clickHandler(event:MouseEvent):void
-			{
-				rollDaysFromAndLoadOccupations(-30);
-				
-			}
-			
-			protected function increaseOneMonthFromButton_clickHandler(event:MouseEvent):void
-			{
-				rollDaysFromAndLoadOccupations(30);
-				
-			}
-			
 			public function refreshCalendar():void{
+				fillCalendar();
+			}
+			
+			private function navigationChanged():void{
 				fillCalendar();
 			}
 		]]>
@@ -131,23 +85,7 @@
 	</fx:Declarations>
 	
 	<components:CalendarGrid id="grid" height="100%" width="100%" loc="{loc}" occupations="{occupations}" editable="false"/>
-	<s:HGroup width="100%">
-		<s:HGroup width="33%" horizontalAlign="left">
-			<s:Button id="decreaseOneMonthFromButton" icon="{Icons.calendarLeft30}" click="decreaseOneMonthFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.decreaseOneMonth}"/>
-			<s:Button id="decreaseOneWeekFromButton" icon="{Icons.calendarLeft7}" click="decreaseOneWeekFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.decreaseOneWeek}"/>
-			<s:Button id="decreaseOneDayFromButton" icon="{Icons.calendarLeft1}" click="decreaseOneDayFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.decreaseOneDay}"/>
-		</s:HGroup>
-		
-		<s:HGroup width="34%" horizontalAlign="center">
-			<s:Button id="decreaseDaysToShowButton" icon="{Icons.calendarMinus}" click="decreaseDaysToShowButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.showFewerDays}"/>
-			<s:Button id="refreshButton" label="{loc.button.refresh}" icon="{Icons.refresh}" click="refreshCalendar()"/>
-			<s:Button id="increaseDaysToShowButton" icon="{Icons.calendarPlus}" click="increaseDaysToShowButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.showMoreDays}"/>
-		</s:HGroup>
-		
-		<s:HGroup width="33%" horizontalAlign="right">
-			<s:Button id="increaseOneDayFromButton" icon="{Icons.calendarRight1}" click="increaseOneDayFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.increaseOneDay}"/>
-			<s:Button id="increaseOneWeekFromButton" icon="{Icons.calendarRight7}" click="increaseOneWeekFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.increaseOneWeek}"/>
-			<s:Button id="increaseOneMonthFromButton" icon="{Icons.calendarRight30}" click="increaseOneMonthFromButton_clickHandler(event)" maxWidth="24" toolTip="{loc.calendar.increaseOneMonth}"/>
-		</s:HGroup>
-	</s:HGroup>
+	<components:CalendarNavigationBar id="calendarNavigationBar"  width="100%" loc="{loc}" 
+									  navigationChanged="{navigationChanged()}"
+									  refreshCalendarPressed="{refreshCalendar()}"/>
 </s:VGroup>

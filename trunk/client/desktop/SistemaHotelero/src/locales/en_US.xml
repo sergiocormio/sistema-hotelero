@@ -181,6 +181,7 @@
     <lodgement>
     	<singular>Lodgement</singular>
     	<plural>Lodgements</plural>
+    	<loadLodgementManually>Load Lodgement Manually</loadLodgementManually>
     </lodgement>
     <maintenance>
     	<singular>Maintenance</singular>

@@ -33,6 +33,10 @@
 			private var roomIdToCalendarRowMap:Dictionary;
 
 			private const IT_IS_AN_ALTERNATIVE:String = "Alternative";
+			
+			private const DAY_PREFIX_COLUMN:String = "day_";
+			
+			private const ROOM_COLUMN:String = "room";
 
 			[Bindable]
 			public var loc:Object = Locale.getInstance().getCurrentLocale();
@@ -48,7 +52,7 @@
 			public var editable:Boolean = false; //grid is not editable by default
 			
 			//Contains all the occupations generated manually by user's clicks
-			private var manualOccupations:ArrayCollection = new ArrayCollection(); 
+			public var manualOccupations:ArrayCollection = new ArrayCollection(); 
 			
 			
 			private function addRoomColumn():void{
@@ -64,7 +68,7 @@
 				var i:int = 0;
 				while(DateTimeUtils.rollDaysToDate(dateFrom,i) <= dateTo){
 					var auxDate:Date = DateTimeUtils.rollDaysToDate(dateFrom,i);
-					var col:GridColumn = DateTimeUtils.getColumnForDate(auxDate,"day_" + i);
+					var col:GridColumn = DateTimeUtils.getColumnForDate(auxDate,DAY_PREFIX_COLUMN + i);
 					col.labelFunction = calendarFormat;
 					col.itemRendererFunction = selectRenderer;
 					
@@ -148,7 +152,7 @@
 				for each (var room:Room in roomsToShow){
 					var roomId:Object = room.id;
 					var row:Object = new Object();
-					row["room"] = room;
+					row[ROOM_COLUMN] = room;
 					calendarRows.addItem(row);
 					roomIdToCalendarRowMap[roomId] = row;
 				}
@@ -176,7 +180,7 @@
 					var isNew:Boolean = false;
 					var roomId:Object = occupation.id.room.id;
 					var row:Object = roomIdToCalendarRowMap[roomId];
-					var attributeName:String = "day_" + DateTimeUtils.getQuantityOfDays(dateFrom,occupation.id.date);
+					var attributeName:String = DAY_PREFIX_COLUMN + DateTimeUtils.getQuantityOfDays(dateFrom,occupation.id.date);
 					
 					if( row[attributeName] == null){
 						//every cell has an ArrayCollection, could have more than 1 reservationForm
@@ -214,13 +218,13 @@
 				//if there isn't a confirmed reservation on that cell..
 				if(!hasConfirmedReservation(reservationForms)){
 					//calculates date from "day"
-					var dayNumber:String = day.substr("day_".length);
+					var dayNumber:String = day.substr(DAY_PREFIX_COLUMN.length);
 					var date:Date = DateTimeUtils.rollDaysToDate(dateFrom,int(dayNumber));
 					//if already has an Alternative, removes it
 					if(hasAlternativeReservation(reservationForms)){
-						removeAlternative(reservationForms,row["room"],date);
+						removeAlternative(reservationForms,row[ROOM_COLUMN],date);
 					}else{
-						addAlternative(reservationForms,row["room"],date);
+						addAlternative(reservationForms,row[ROOM_COLUMN],date);
 					}
 					//repaints the cell
 					grid.invalidateCell(event.rowIndex,event.columnIndex);
@@ -270,7 +274,7 @@
 				//removes from manual occupations
 				for (var j:int = 0 ; j<manualOccupations.length ; j++){
 					var manualOccupation:Occupation = manualOccupations[j];
-					if(manualOccupation.id.room == room && manualOccupation.id.date.getTime() == date.getTime() 
+					if(manualOccupation.id.room.id == room.id && manualOccupation.id.date.getTime() == date.getTime() 
 						&& manualOccupation.id.reservationForm == null){
 						manualOccupations.removeItemAt(j);
 						break;
@@ -291,8 +295,7 @@
 			//returns an Alternative provided by user selection
 			public function getUserAlternative():Alternative{
 				var alternative:Alternative = new Alternative();
-				alternative.occupations = new ArrayCollection();
-				alternative.occupations.addAll(manualOccupations);
+				alternative.occupations = manualOccupations;
 				return alternative;
 			}
 			
