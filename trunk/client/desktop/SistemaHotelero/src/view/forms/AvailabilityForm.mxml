@@ -244,7 +244,9 @@
 				rf.adultsQuantity = adultsQtyStepper.value;
 				rf.childrenQuantity = childrenQtyStepper.value;
 				rf.monetaryReserve = 0;
-				rf.pricePerDay = alternativeSelected.alternative.budget.basePricePlusAllServicesIncludedInBasePrice;
+				
+				rf.pricePerDay = 0; // TODO set pricePerDay
+				
 				rf.dateFrom = alternativeSelected.dateFrom;
 				rf.dateTo = alternativeSelected.dateTo;
 				rf.creationDate = new Date();

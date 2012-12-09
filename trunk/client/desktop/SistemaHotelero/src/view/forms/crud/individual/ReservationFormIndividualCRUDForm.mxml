@@ -14,7 +14,9 @@
 			
 			import model.Alternative;
 			import model.AlternativeWrapper;
+			import model.Occupation;
 			import model.ReservationForm;
+			import model.Room;
 			import model.StateReservationForm;
 			
 			import mx.collections.ArrayCollection;
@@ -23,6 +25,7 @@
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
+			import mx.validators.Validator;
 			
 			import resources.Colors;
 			import resources.icons.Icons;
@@ -111,11 +114,53 @@
 				bankDocumentNumberText.text = _currentReservationForm.bankDocumentNumber;
 			}
 			
+			private function allFieldsAreValid():Boolean{
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(customerValidator);
+				valArray.push(dateFromValidator);
+				valArray.push(dateToValidator);
+				
+				var validatorErrorArray:Array = Validator.validateAll(valArray);;
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				if(!isValidForm){
+					return isValidForm;
+				}
+				
+				
+				isValidForm = validateSelectedPeople();
+				
+				if(!isValidForm){
+					Alert.show(loc.validator.reservationFormCreation.peopleQtyNotSelected);
+					return isValidForm;
+				}
+				
+				isValidForm = validateRoomsCapacity();
+				
+				if(!isValidForm){
+					Alert.show(loc.validator.reservationFormCreation.noAvalaibleRoomsForThatPeopleQty);
+				}
+				
+				return isValidForm;
+				
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				customerValidator.enabled = enabled;
+				dateFromValidator.enabled = enabled;
+				dateToValidator.enabled = enabled;
+			}
+			
 			private function save():void{
 				//TODO: validate all data
-//				 if(!allFieldsAreValid()){
-//					return;
-//				} 
+				 if(!allFieldsAreValid()){
+					return;
+				} 
 				_currentReservationForm.customer = customersCombo.selectedItem;
 				_currentReservationForm.state = (stateList.selectedItem as StateReservationForm).id;
 				//_currentReservationForm.creationDate
@@ -253,10 +298,92 @@
 				titleWindow_close(null);
 			}
 			
+			private function validateSelectedPeople():Boolean
+			{
+				if(adultsQtyStepper.value == 0 && childrenQtyStepper.value == 0){
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+			
+			private function validateRoomsCapacity():Boolean
+			{
+				// get the sum of children and adults qty
+				var selectedPeopleQuantity:Number = adultsQtyStepper.value + childrenQtyStepper.value;
+				
+				var distinctRooms:ArrayCollection = getDistinctRooms();
+				
+				// check if all distinct rooms can store people qty
+				for(var i:int = 0; i < distinctRooms.length; i++){
+					var room:Room = distinctRooms.getItemAt(i) as Room;
+					if(room.peopleQuantity < selectedPeopleQuantity){
+						return false;
+					}
+				}
+				return true;
+			}
+			
+			private function getDistinctRooms():ArrayCollection
+			{
+				var distinctRooms:ArrayCollection = new ArrayCollection();
+				var lastRoom:Room = null;
+				
+				for(var i:int = 0; i < alternative.occupations.length; i++){
+					var occupationi:Occupation= alternative.occupations.getItemAt(i) as Occupation;
+					var roomi:Room = occupationi.id.room;
+					if(lastRoom == null){
+						lastRoom = roomi;
+						distinctRooms.addItem(lastRoom);
+					}
+					else if(lastRoom.id != roomi.id){
+						lastRoom = roomi;
+						distinctRooms.addItem(lastRoom);
+					}
+				}
+				return distinctRooms;
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:NumberValidator id="customerValidator"
+							enabled="false"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{customersCombo}"
+							property="selectedIndex" 
+							/>
+		<mx:DateValidator id="dateFromValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateFromChooser}"
+						  property="text"
+						  />
+		<mx:DateValidator id="dateToValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateToChooser}"
+						  property="text"
+						  />
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:stroke>

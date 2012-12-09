@@ -91,6 +91,7 @@
 	</s:Rect>
 	<s:VGroup width="100%" height="100%" paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">
 		<components:CalendarGrid id="grid" width="100%" height="100%" dateFrom="{alternative.dateFrom}" dateTo="{alternative.dateTo}" loc="{loc}" roomsToShow="{roomsToShow}"/>
+		
 		<s:HGroup width="100%" horizontalAlign="right">
 			<s:Button id="closeButton" label="{loc.button.close}" icon="{Icons.cancel}" click="closeButton_clickHandler(event)"/>
 		</s:HGroup>
