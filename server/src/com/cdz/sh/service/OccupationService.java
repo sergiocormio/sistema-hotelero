@@ -7,6 +7,7 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
+import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.request.CheckAvailabilityRequest;
 import com.cdz.sh.service.exception.NoAvailableAlternativesException;
 import com.cdz.sh.service.exception.NoRateException;
@@ -45,5 +46,12 @@ public interface OccupationService extends CrudService<Occupation, OccupationPK>
 	public List<Alternative> checkAvailability(CheckAvailabilityRequest request) throws DaoException, NoAvailableAlternativesException, NoRateException;
 	
 	
-
+	/**
+	 * Retrieves occupations related to a given reservation form
+	 * 
+	 * @param reservationForm
+	 * @return
+	 * @throws DaoException
+	 */
+	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException;
 }

@@ -16,6 +16,7 @@ import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
+import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.model.request.CheckAvailabilityRequest;
 import com.cdz.sh.service.AbstractCrudService;
@@ -331,7 +332,10 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	}
 
 
-	
+	@Override
+	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException {
+		return this.occupationDao.retrieveOccupations(reservationForm);
+	}
 	
 	
 
