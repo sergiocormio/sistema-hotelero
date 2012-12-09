@@ -83,8 +83,9 @@
 				
 				if(column.columnIndex == 0){
 					background.color = Colors.GRAY_COLOR;
-					lblData.horizontalCenter = 0;
 				}
+				//all cells must be centered
+				lblData.horizontalCenter = 0;
 				
 			}
 		]]>

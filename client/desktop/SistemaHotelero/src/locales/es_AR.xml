@@ -304,6 +304,14 @@
     	<regExp>
     		<noMatchError>El campo no es valido</noMatchError>
     	</regExp>
+    	<reservationFormCreation>
+	    	<manual>
+	    		<noOccupationsSelected>Debe seleccionar alguna ocupación hotelera.</noOccupationsSelected>
+	    		<occupationsNotContiguous>Las ocupaciones seleccionadas no son contiguas.</occupationsNotContiguous>
+	   		</manual>
+    		<peopleQtyNotSelected>Debe seleccionar una cantidad de personas</peopleQtyNotSelected>
+    		<noAvalaibleRoomsForThatPeopleQty>Las habitaciones seleccionadas no pueden albergar la cantidad de personas especificada.</noAvalaibleRoomsForThatPeopleQty>
+    	</reservationFormCreation>
     	<server>
     		<PkViolationWhenCreate>Ya existe un registro con el mismo identificador</PkViolationWhenCreate>
     		<PkViolationWhenUpdate>Ya existe un registro con el mismo identificador</PkViolationWhenUpdate>

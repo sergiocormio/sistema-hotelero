@@ -12,8 +12,11 @@
 			import locales.Locale;
 			
 			import model.Alternative;
+			import model.Occupation;
+			import model.Room;
 			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -72,7 +75,12 @@
 			
 			protected function saveButton_clickHandler(event:MouseEvent):void
 			{
-				dispatchEvent(new Event("saveClicked"));
+				if(!selectedOccupationsAreValid()){
+					return;
+				}
+				else{
+					dispatchEvent(new Event("saveClicked"));
+				}
 			}
 			
 			protected function cancelButton_clickHandler(event:MouseEvent):void
@@ -92,6 +100,63 @@
 			private function navigationChanged():void{
 				init(null);
 			}
+			
+			private function selectedOccupationsAreValid():Boolean
+			{
+				if(grid.manualOccupations == null || grid.manualOccupations.length == 0){
+					Alert.show(loc.validator.reservationFormCreation.manual.noOccupationsSelected);
+					return false;
+				}
+				// order selected occupations ascending
+				var sortedOccupations:ArrayCollection = sortOccupationsByDate(grid.manualOccupations);
+				
+				// check that are contiguous
+				var occupationCurrentDay:Occupation = sortedOccupations.getItemAt(0) as Occupation;
+				for(var i:int = 1; i < sortedOccupations.length; i++){
+					var occupationNextDay:Occupation = sortedOccupations.getItemAt(i) as Occupation;
+					
+					if(!areContiguous(occupationCurrentDay, occupationNextDay)){
+						Alert.show(loc.validator.reservationFormCreation.manual.occupationsNotContiguous);
+						return false;
+					}
+					
+					occupationCurrentDay = occupationNextDay;
+				}
+				
+				return true;
+			}
+			
+			private function sortOccupationsByDate(occupations:ArrayCollection):ArrayCollection
+			{
+				for(var i:int = 0; i < occupations.length; i++){
+					for(var j:int = i; j < occupations.length; j++){
+						var occupationi:Occupation = occupations.getItemAt(i) as Occupation;
+						var occupationj:Occupation = occupations.getItemAt(j) as Occupation;
+						
+						if(occupationi.compareTo(occupationj) == 1){ // i > j
+							occupations.setItemAt(occupationj, i);
+							occupations.setItemAt(occupationi, j);
+						}
+					}
+				}
+				return occupations;
+				
+			}
+			
+			
+			
+			private function areContiguous(occupationCurrentDay:Occupation, occupationNextDay:Occupation):Boolean
+			{
+				if(DateTimeUtils.getQuantityOfDays(occupationCurrentDay.id.date, occupationNextDay.id.date) == 1){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+			
+			
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
