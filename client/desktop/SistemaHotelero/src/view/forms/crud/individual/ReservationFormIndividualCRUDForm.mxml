@@ -112,6 +112,8 @@
 				}
 				WindowsUtils.autoSelectComboBox(banksCombo,_currentReservationForm.bank);
 				bankDocumentNumberText.text = _currentReservationForm.bankDocumentNumber;
+				//resets alternative
+				alternative = new Alternative();
 			}
 			
 			private function allFieldsAreValid():Boolean{
