@@ -27,6 +27,10 @@ package view.components
 		 */ 
 		public static function show(msg:String=null, parent:Sprite=null):Mask
 		{
+			//closes previous mask
+			if(_mask!=null){
+				close();
+			}
 			_mask = new Mask();
 			if(msg==null){
 				_mask._message = Locale.getInstance().getCurrentLocale().messages.pleaseWait;
