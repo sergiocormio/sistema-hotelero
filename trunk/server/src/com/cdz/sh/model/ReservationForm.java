@@ -201,6 +201,11 @@ public class ReservationForm {
 		return totalPrice;
 	}
 
+	@Transient
+	public String getTotalPriceFormatted() {
+		return PriceFormater.formatPrice(totalPrice);
+	}
+	
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
@@ -209,6 +214,11 @@ public class ReservationForm {
 		return remainingAmount;
 	}
 
+	@Transient
+	public String getRemainingAmountFormatted() {
+		return PriceFormater.formatPrice(remainingAmount);
+	}
+	
 	public void setRemainingAmount(Double remainingAmount) {
 		this.remainingAmount = remainingAmount;
 	}

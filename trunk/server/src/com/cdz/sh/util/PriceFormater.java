@@ -8,12 +8,22 @@ public class PriceFormater {
 	
 	
 	public static String formatPrice(Double price){
-		return "R$ " + new DecimalFormat("#.00").format(price);
+		if(price != null){
+			return "R$ " + new DecimalFormat("#.00").format(price);
+		}
+		else{
+			return "";
+		}
 	}
 	
 	
 	public static String formatPrice(Double price, ExchangeRate exchangeRate){
-		return exchangeRate.getCurrencySymbol() + " " + new DecimalFormat("#.00").format(price);
+		if(price != null){
+			return exchangeRate.getCurrencySymbol() + " " + new DecimalFormat("#.00").format(price);
+		}
+		else{
+			return "";
+		}
 	}
 
 }
