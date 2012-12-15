@@ -6,7 +6,6 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Budget;
 import com.cdz.sh.model.ExchangeRate;
-import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.service.exception.NoRateException;
 
 public interface BudgetService {

@@ -38,7 +38,12 @@ public class ReservationForm {
     
     private Double pricePerDay;
     
+    private Double totalPrice;
+    
     private Double monetaryReserve;
+    
+    private Double remainingAmount;
+    
     
     @ManyToOne
 	@JoinColumn(name="Bank_ID")
@@ -191,5 +196,23 @@ public class ReservationForm {
     public String getMonetaryReserveFormatted() {
 		return PriceFormater.formatPrice(monetaryReserve);
 	}
-	
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public Double getRemainingAmount() {
+		return remainingAmount;
+	}
+
+	public void setRemainingAmount(Double remainingAmount) {
+		this.remainingAmount = remainingAmount;
+	}
+
+    
+    
 }

@@ -48,6 +48,8 @@ public class BudgetServiceImpl implements BudgetService {
 		
 		Budget budget = new Budget(alternative);
 		
+		Double basePricePerDay = new Double(0);
+		boolean firstOccupation = true;
 		Double basePrice = new Double(0);
 		RoomType roomType = null;
 		Rate rate = null;
@@ -63,8 +65,13 @@ public class BudgetServiceImpl implements BudgetService {
 				}
 			}
 			
+			if(firstOccupation){
+				basePricePerDay = rate.getPrice();
+				firstOccupation = false;
+			}
 			basePrice += rate.getPrice();
 		}
+		budget.setPricePerDay(basePricePerDay);
 		budget.setBasePrice(basePrice);
 		
 		
