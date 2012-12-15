@@ -168,6 +168,7 @@
 				individual.currentReservationForm = grid.selectedItem as ReservationForm;
 				individual.isUpdate = true;
 				individual.enabled=true;
+				individual.displayBudgetButton.visible = false;
 				
 			}
 			
@@ -184,6 +185,7 @@
 				individual.stateList.selectedIndex = 0;
 				individual.customersCombo.selectedIndex = 0;
 				individual.enabled = true;
+				individual.displayBudgetButton.visible = false;
 			}
 			
 			private function dateFormat(item:Object,column:GridColumn):String

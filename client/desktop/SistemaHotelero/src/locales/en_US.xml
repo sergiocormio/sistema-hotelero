@@ -242,6 +242,8 @@
 	    <pricePerDay>Price per Day</pricePerDay>
 	    <monetaryReserve>Monetary Reserve</monetaryReserve>
 	    <bankDocumentNumber>Bank Document Number</bankDocumentNumber>
+	    <totalPrice>Total price</totalPrice>
+	    <remainingAmount>Ramaining amount</remainingAmount>
 	    <buttons>
 			<confirm>Confirm</confirm>
 			<cancel>Cancel</cancel>

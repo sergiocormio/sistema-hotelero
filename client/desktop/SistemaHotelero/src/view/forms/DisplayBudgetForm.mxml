@@ -52,7 +52,7 @@
 			private var exchangeRates:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
-			public var alternativeSelectedInDefaultPrice:AlternativeWrapper;
+			public var alternativeSelectedInDefaultPrice:Alternative;
 			
 			[Bindable]
 			private var selectedExchangeRate:ExchangeRate; 
@@ -82,7 +82,7 @@
 			{
 				retrieveExchangeRates();
 				
-				budgetToShow = alternativeSelectedInDefaultPrice.alternative.budget;
+				budgetToShow = alternativeSelectedInDefaultPrice.budget;
 				selectedExchangeRate = ExchangeRate.getDefault(loc);
 				budgetToShow.exchangeRate = selectedExchangeRate;
 				
@@ -120,7 +120,7 @@
 				selectedExchangeRate = exchangeratesCombo.selectedItem as ExchangeRate;
 				
 				var exchangeRatesService:ExchangeRateService = new ExchangeRateService();
-				exchangeRatesService.convertTo(alternativeSelectedInDefaultPrice.alternative.budget, selectedExchangeRate,
+				exchangeRatesService.convertTo(alternativeSelectedInDefaultPrice.budget, selectedExchangeRate,
 													convert_resultHandler, faultHandler);
 			}
 			
@@ -138,7 +138,7 @@
 			
 			private function restoreDefaultExchangeRate():void
 			{
-				budgetToShow = alternativeSelectedInDefaultPrice.alternative.budget;
+				budgetToShow = alternativeSelectedInDefaultPrice.budget;
 				selectedExchangeRate = ExchangeRate.getDefault(loc);
 				budgetToShow.exchangeRate = selectedExchangeRate;
 				
