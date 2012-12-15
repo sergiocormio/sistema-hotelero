@@ -7,6 +7,8 @@ public class Budget {
 	
 	private Alternative relatedAlternative;
 	
+	private Double pricePerDay;
+	
 	private Double basePrice;
 		
 	/*
@@ -159,4 +161,14 @@ public class Budget {
 		
 		return null;
 	}
+
+	public Double getPricePerDay() {
+		return pricePerDay;
+	}
+
+	public void setPricePerDay(Double pricePerDay) {
+		this.pricePerDay = pricePerDay;
+	}
+	
+	
 }
