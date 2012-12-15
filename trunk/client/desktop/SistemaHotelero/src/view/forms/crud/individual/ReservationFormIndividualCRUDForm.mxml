@@ -30,6 +30,7 @@
 			import resources.Colors;
 			import resources.icons.Icons;
 			
+			import services.BudgetService;
 			import services.crud.BankService;
 			import services.crud.CustomerService;
 			import services.crud.ReservationFormService;
@@ -37,6 +38,7 @@
 			import utils.WindowsUtils;
 			
 			import view.components.ManualAlternativeForm;
+			import view.forms.DisplayBudgetForm;
 			
 			[Bindable]
 			public var loc:Object;
@@ -61,6 +63,7 @@
 			private var customerForm:CustomerIndividualCRUDForm;
 			private var bankForm:BankIndividualCRUDForm;
 			private var manualAlternativeForm:ManualAlternativeForm;
+			private var budgetForm:DisplayBudgetForm;
 			
 			public function get alternative():Alternative
 			{
@@ -97,19 +100,21 @@
 				dateToChooser.selectedDate = _currentReservationForm.dateTo;
 				adultsQtyStepper.value = _currentReservationForm.adultsQuantity;
 				childrenQtyStepper.value = _currentReservationForm.childrenQuantity;
+				
 				//avoids showing NaN
 				if(_currentReservationForm.pricePerDay >= 0){
 					pricePerDayText.text = _currentReservationForm.pricePerDay.toString();
+					totalPriceText.text = _currentReservationForm.totalPrice.toString();
+					monetaryReserveText.text = _currentReservationForm.monetaryReserve.toString();
+					remainingAmountText.text = _currentReservationForm.remainingAmount.toString();
 				}else{
 					pricePerDayText.text = '';
+					totalPriceText.text = '';
+					monetaryReserveText.text = '';
+					remainingAmountText.text = '';
 				}
 				
-				//avoids showing NaN
-				if(_currentReservationForm.monetaryReserve >= 0){
-					monetaryReserveText.text = _currentReservationForm.monetaryReserve.toString();
-				}else{
-					monetaryReserveText.text = '';
-				}
+				
 				WindowsUtils.autoSelectComboBox(banksCombo,_currentReservationForm.bank);
 				bankDocumentNumberText.text = _currentReservationForm.bankDocumentNumber;
 				//resets alternative
@@ -170,8 +175,12 @@
 				_currentReservationForm.dateTo = dateToChooser.selectedDate;
 				_currentReservationForm.adultsQuantity = adultsQtyStepper.value;
 				_currentReservationForm.childrenQuantity = childrenQtyStepper.value;
+				
 				_currentReservationForm.pricePerDay = Number(pricePerDayText.text);
+				_currentReservationForm.totalPrice = Number(totalPriceText.text);
 				_currentReservationForm.monetaryReserve = Number(monetaryReserveText.text);
+				_currentReservationForm.remainingAmount = Number(remainingAmountText.text);
+				
 				_currentReservationForm.bank = banksCombo.selectedItem;
 				_currentReservationForm.bankDocumentNumber = bankDocumentNumberText.text;
 				
@@ -293,6 +302,8 @@
 			}
 			
 			private function manualAlternative_saveSuccess(evt:Object):void {
+				displayBudgetButton.visible = true;
+				displayBudgetButton.enabled = true;
 				alternative = manualAlternativeForm.getManualAlternative();
 				var wrapper:AlternativeWrapper = new AlternativeWrapper(alternative); 
 				dateFromChooser.selectedDate = wrapper.dateFrom;
@@ -347,7 +358,39 @@
 				return distinctRooms;
 			}
 			
+			private function displayBudget():void{
+				if(manualAlternativeForm != null && manualAlternativeForm.getManualAlternative() != null){
+					
+					if(!validateSelectedPeople()){
+						Alert.show(loc.validator.reservationFormCreation.peopleQtyNotSelected);
+						return;
+					}
+					if(!validateRoomsCapacity()){
+						Alert.show(loc.validator.reservationFormCreation.noAvalaibleRoomsForThatPeopleQty);
+						return;
+					}
+					var manualAlternative:Alternative = manualAlternativeForm.getManualAlternative();
+					manualAlternative.peopleQuantity = adultsQtyStepper.value + childrenQtyStepper.value;
+					
+					new BudgetService().populateBudget(manualAlternative, populateBudget_resultHandler, faultHandler);
+				}
+			}
+			
+			private function populateBudget_resultHandler(event:ResultEvent,token:Object=null):void {
+			
+				budgetForm = new DisplayBudgetForm();
+				budgetForm.loc = loc;
+				
+				budgetForm.alternativeSelectedInDefaultPrice = event.result as Alternative;
+				
+				//budgetForm.addEventListener("saveSuccess",customer_saveSuccess);
+				budgetForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.budget.title + ":", budgetForm);
+			}
+			
+			
 		]]>
+		
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -442,6 +485,11 @@
 								  formatString="{loc.dateFormat.toUpperCase()}"
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
+			
+				<s:FormItem label="{loc.reservationForm.monetaryReserve}:" required="false">
+					<s:TextInput id="monetaryReserveText"/>
+				</s:FormItem>
+												
 			</s:Form>
 			
 			<s:VGroup paddingLeft="-140">
@@ -450,6 +498,8 @@
 						  icon="{Icons.calendarEdit}" iconPlacement="top" click="loadManualAlternative()"
 						  enabled="{!isUpdate}"/>
 			</s:VGroup>
+			
+			
 			
 			<s:Form>
 				<s:layout>
@@ -467,8 +517,8 @@
 					<s:TextInput id="pricePerDayText"/>
 				</s:FormItem>
 				
-				<s:FormItem label="{loc.reservationForm.monetaryReserve}:" required="false">
-					<s:TextInput id="monetaryReserveText"/>
+				<s:FormItem label="{loc.reservationForm.totalPrice}:" required="true">
+					<s:TextInput id="totalPriceText"/>
 				</s:FormItem>
 				
 				<s:FormItem id="bankItem" label="{loc.bank.singular}:" required="false">
@@ -484,10 +534,16 @@
 				<s:FormItem label="{loc.reservationForm.bankDocumentNumber}:" required="false">
 					<s:TextInput id="bankDocumentNumberText"/>
 				</s:FormItem>
+				
+				<s:FormItem label="{loc.reservationForm.remainingAmount}:"  required="true">
+					<s:TextInput id="remainingAmountText"/>
+				</s:FormItem>
 			</s:Form>
 		</s:HGroup>
 		<!-- BUTTONS -->
 		<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+			<s:Button label="{loc.alternative.buttons.budget}" visible="false" 
+					  id="displayBudgetButton" click="displayBudget()" icon="{Icons.moneyBag}"/>
 			<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
 			<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
 		</s:HGroup>

@@ -8,7 +8,6 @@
 	</fx:Metadata> 
 	<fx:Script>
 		<![CDATA[
-			import mx.events.FlexEvent;
 			import locales.Locale;
 			
 			import model.Alternative;
@@ -22,6 +21,7 @@
 			import mx.collections.ArrayCollection;
 			import mx.containers.TitleWindow;
 			import mx.controls.Alert;
+			import mx.events.FlexEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -243,9 +243,11 @@
 				var rf:ReservationForm = new ReservationForm();
 				rf.adultsQuantity = adultsQtyStepper.value;
 				rf.childrenQuantity = childrenQtyStepper.value;
-				rf.monetaryReserve = 0;
-				
-				rf.pricePerDay = 0; // TODO set pricePerDay
+								
+				rf.pricePerDay = alternativeSelected.alternative.budget.pricePerDay;
+				rf.totalPrice = alternativeSelected.alternative.budget.basePrice;
+				rf.monetaryReserve = rf.totalPrice * 0.3;
+				rf.remainingAmount = rf.totalPrice - rf.monetaryReserve;
 				
 				rf.dateFrom = alternativeSelected.dateFrom;
 				rf.dateTo = alternativeSelected.dateTo;
@@ -269,7 +271,7 @@
 			private function displayBudget():void{
 				budgetForm = new DisplayBudgetForm();
 				budgetForm.loc = loc;
-				budgetForm.alternativeSelectedInDefaultPrice = alternativeSelected;
+				budgetForm.alternativeSelectedInDefaultPrice = alternativeSelected.alternative;
 				
 				//budgetForm.addEventListener("saveSuccess",customer_saveSuccess);
 				budgetForm.addEventListener("cancelClicked",titleWindow_close);

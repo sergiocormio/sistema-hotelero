@@ -1,7 +1,8 @@
 package model
 {
-	import mx.collections.ArrayCollection;
 	import flash.events.Event;
+	
+	import mx.collections.ArrayCollection;
 
 	[RemoteClass (alias="com.cdz.sh.model.Budget")]
 	public class Budget
@@ -16,6 +17,8 @@ package model
 		private var _exchangeRate:ExchangeRate;
 		
 		private var _relatedAlternative:Alternative;
+		
+		private var _pricePerDay:Number;
 		
 		private var _basePrice:Number;
 		
@@ -67,6 +70,16 @@ package model
 			_servicePricesAddedInBasePrice = value;
 		}
 
+		public function get pricePerDay():Number
+		{
+			return _pricePerDay;
+		}
+		
+		public function set pricePerDay(value:Number):void
+		{
+			_pricePerDay = value;
+		}
+		
 		public function get basePrice():Number
 		{
 			return _basePrice;

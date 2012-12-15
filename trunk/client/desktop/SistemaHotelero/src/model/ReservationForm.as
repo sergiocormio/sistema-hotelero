@@ -11,8 +11,12 @@ package model
 		private var _dateTo:Date;
 		private var _adultsQuantity:int;
 		private var _childrenQuantity:int;
+		
 		private var _pricePerDay:Number;
+		private var _totalPrice:Number;
 		private var _monetaryReserve:Number;
+		private var _remainingAmount:Number;
+				
 		private var _bank:Bank;
 		private var _bankDocumentNumber:String;
 		
@@ -59,6 +63,28 @@ package model
 		{
 			_pricePerDay = value;
 		}
+		
+		public function get totalPrice():Number
+		{
+			return _totalPrice;
+		}
+		
+		public function set totalPrice(value:Number):void
+		{
+			_totalPrice = value;
+		}
+		
+		public function get remainingAmount():Number
+		{
+			return _remainingAmount;
+		}
+		
+		public function set remainingAmount(value:Number):void
+		{
+			_remainingAmount = value;
+		}
+		
+		
 
 		public function get childrenQuantity():int
 		{
@@ -152,5 +178,7 @@ package model
 			return "R$ " + _monetaryReserve.toFixed(2);
 		}
 
+		
+		
 	}
 }

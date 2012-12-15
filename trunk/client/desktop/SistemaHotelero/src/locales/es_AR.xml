@@ -243,6 +243,8 @@
 	    <pricePerDay>Precio por Día</pricePerDay>
 	    <monetaryReserve>Reserva</monetaryReserve>
 	    <bankDocumentNumber>Nro. de Documento Bancario</bankDocumentNumber>
+	    <totalPrice>Precio total</totalPrice>
+	    <remainingAmount>Falta pagar</remainingAmount>
 	    <buttons>
 			<confirm>Confirmar</confirm>
 			<cancel>Cancelar</cancel>
