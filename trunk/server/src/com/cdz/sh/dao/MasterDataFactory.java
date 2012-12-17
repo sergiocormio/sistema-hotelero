@@ -11,6 +11,7 @@ import com.cdz.sh.dao.impl.ExchangeRateDaoImpl;
 import com.cdz.sh.dao.impl.LanguageDaoImpl;
 import com.cdz.sh.dao.impl.MasterDataFlagDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
+import com.cdz.sh.dao.impl.ReservationFormExpirationDaysDaoImpl;
 import com.cdz.sh.model.Bank;
 import com.cdz.sh.model.Country;
 import com.cdz.sh.model.DocumentType;
@@ -18,6 +19,7 @@ import com.cdz.sh.model.ExchangeRate;
 import com.cdz.sh.model.Language;
 import com.cdz.sh.model.MasterDataFlag;
 import com.cdz.sh.model.Region;
+import com.cdz.sh.model.ReservationFormExpirationDays;
 
 /**
  * Creates all master data. 
@@ -27,6 +29,8 @@ import com.cdz.sh.model.Region;
  */
 public class MasterDataFactory {
 	
+	private static final int DAYS_TO_EXPIRE = 2;
+	
 	private MasterDataFlagDao masterDataFlagDao;
 	private DocumentTypeDao documentTypeDao;
 	private CountryDao countryDao;
@@ -34,6 +38,7 @@ public class MasterDataFactory {
 	private LanguageDao languageDao;
 	private BankDao bankDao;
 	private ExchangeRateDao exchangeRateDao;
+	private ReservationFormExpirationDaysDao expirationDaysDao;
 	
 	public MasterDataFactory() {
 	
@@ -44,7 +49,7 @@ public class MasterDataFactory {
 		this.languageDao = new LanguageDaoImpl();
 		this.bankDao = new BankDaoImpl();
 		this.exchangeRateDao = new ExchangeRateDaoImpl();
-		
+		this.expirationDaysDao = new ReservationFormExpirationDaysDaoImpl();
 	}
 
 	public void  createMasterData() {
@@ -101,6 +106,9 @@ public class MasterDataFactory {
 		
 		// Exchange rates 
 		createExchangeRates();
+		
+		// create record for checking reservation forms expiration
+		createReserrvationFormExpirationRecord();
 	}
 
 
@@ -125,6 +133,17 @@ public class MasterDataFactory {
 //			this.cleanigTypeDao.createRecord(typeBedClothe);
 //		}
 //	}
+
+	private void createReserrvationFormExpirationRecord() throws DaoException {
+		
+		ReservationFormExpirationDays expirationDaysRecord = this.expirationDaysDao.getRecordById(1l);
+		if(expirationDaysRecord == null){
+			expirationDaysRecord = new ReservationFormExpirationDays(); 
+			expirationDaysRecord.setDaysToExpire(DAYS_TO_EXPIRE);
+			
+			this.expirationDaysDao.createRecord(expirationDaysRecord);
+		}
+	}
 
 	private void createExchangeRates() throws DaoException {
 		ExchangeRate excUsd = this.exchangeRateDao.getRecordById("USD");

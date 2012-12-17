@@ -172,12 +172,12 @@ public class ReservationForm {
     
     @Transient
     public int getDaysQuantity(){
-    	return DateUtil.getDaysDifference(this.dateFrom, this.dateTo) + 1;
+    	return DateUtil.getDaysQuantity(dateFrom, dateTo);
     }
     
     @Transient
     public int getNightsQuantity(){
-    	return DateUtil.getDaysDifference(this.dateFrom, this.dateTo);
+    	return DateUtil.getDaysQuantity(this.dateFrom, this.dateTo) - 1;
     }
     
     @Transient

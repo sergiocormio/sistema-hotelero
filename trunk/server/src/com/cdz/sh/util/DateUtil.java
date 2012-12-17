@@ -61,9 +61,13 @@ public class DateUtil {
 				date = DateUtil.getNextDay(date);
 				daysQuantity++;
 			}
-			return daysQuantity;
+			return daysQuantity--;
 		}
 	}
 	
+	public static int getDaysQuantity(Date dateFrom, Date dateTo) {
+
+		return getDaysDifference(dateFrom, dateTo) + 1; //add las day inclusive
+	}
 	
 }

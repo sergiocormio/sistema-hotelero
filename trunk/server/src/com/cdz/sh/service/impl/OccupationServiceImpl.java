@@ -25,6 +25,8 @@ import com.cdz.sh.service.OccupationService;
 import com.cdz.sh.service.exception.InvalidOperationException;
 import com.cdz.sh.service.exception.NoAvailableAlternativesException;
 import com.cdz.sh.service.exception.NoRateException;
+import com.cdz.sh.trigger.CheckReservationFormsExpirationTrigger;
+import com.cdz.sh.trigger.Trigger;
 import com.cdz.sh.util.DateUtil;
 
 /**
@@ -36,6 +38,7 @@ import com.cdz.sh.util.DateUtil;
 public class OccupationServiceImpl extends AbstractCrudService<Occupation, OccupationPK> implements OccupationService {
 
 	
+	private Trigger checkReservationFormsExpirationTrigger;
 	private OccupationDao occupationDao; 
 	private RoomDao roomDao;
 	
@@ -43,6 +46,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	public OccupationServiceImpl(){
 		super();
 		this.roomDao = new RoomDaoImpl();
+		this.checkReservationFormsExpirationTrigger = new CheckReservationFormsExpirationTrigger();
 	}
 	
 	@Override
@@ -64,11 +68,16 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 	@Override
 	public List<Occupation> retrieveOccupations(Date dateFrom, Date dateTo) throws DaoException {
+		
+		this.checkReservationFormsExpirationTrigger.executeAction();
+		
 		return this.occupationDao.retrieveOccupations(dateFrom, dateTo);
 	}
 
 	@Override
 	public List<Alternative> checkAvailability(CheckAvailabilityRequest request) throws DaoException, NoAvailableAlternativesException, NoRateException {
+		
+		this.checkReservationFormsExpirationTrigger.executeAction();
 		
 		List<Room> roomsByCapacity = this.roomDao.retrieveRoomsByCapacity(request.getAdultsQty(), request.getChildrenQty(), request.isWithMaritalBed());
 		
@@ -334,6 +343,9 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 
 	@Override
 	public List<Occupation> retrieveOccupations(ReservationForm reservationForm) throws DaoException {
+		
+		this.checkReservationFormsExpirationTrigger.executeAction();
+		
 		return this.occupationDao.retrieveOccupations(reservationForm);
 	}
 	
