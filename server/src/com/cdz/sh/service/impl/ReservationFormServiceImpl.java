@@ -24,6 +24,8 @@ import com.cdz.sh.report.PDFReportManager;
 import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.ReservationFormService;
 import com.cdz.sh.service.exception.InvalidOperationException;
+import com.cdz.sh.trigger.CheckReservationFormsExpirationTrigger;
+import com.cdz.sh.trigger.Trigger;
 
 /**
  * Implementation of ReservationFormService facade
@@ -33,13 +35,16 @@ import com.cdz.sh.service.exception.InvalidOperationException;
  */
 public class ReservationFormServiceImpl extends AbstractCrudService<ReservationForm, Long> implements ReservationFormService {
 
-		
+	private Trigger checkReservationFormsExpirationTrigger;
+	
 	private static final String RESERVATION_FORM_TEMPLATE = "reservationForm_ES.jrxml";
 	
 	private ReservationFormDao reservationFormDao ;
 	private OccupationDao occupationDao;
 	
 	public ReservationFormServiceImpl() {
+		this.checkReservationFormsExpirationTrigger = new CheckReservationFormsExpirationTrigger();
+		
 		this.occupationDao = new OccupationDaoImpl();
 	}
 	
@@ -54,6 +59,8 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 
 	@Override
 	public List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, Customer customer, StateReservationForm state) throws InvalidParameterException, DaoException {
+		
+		this.checkReservationFormsExpirationTrigger.executeAction();
 		
 		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(dateFrom, dateTo, customer, state);
 		return reservationForms;
@@ -116,9 +123,17 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 		return report;
 	}
 
+	@Override
+	public Collection<ReservationForm> retrieveAll() throws DaoException {
+		
+		this.checkReservationFormsExpirationTrigger = new CheckReservationFormsExpirationTrigger();
+		
+		return super.retrieveAll();
+	}
+
 	
 
-
+	
 	
 	
 	
