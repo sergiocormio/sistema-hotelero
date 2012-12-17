@@ -250,6 +250,12 @@
 			<print>Print</print>
 		</buttons>
     </reservationForm>
+    <reservationFormExpirationDate>
+    	<plural>Reservation Forms Expiration</plural>
+    	<descriptionLabel>Reservation Forms with "Pre-book" state will be automatically updated to "Expired" after</descriptionLabel>
+    	<days>Days</days>
+    	<changesSaved>Changes have been saved.</changesSaved>
+    </reservationFormExpirationDate>
     <room>
    		<singular>Room</singular>
 	    <plural>Rooms</plural>
@@ -331,6 +337,7 @@
 			<toListEmpty>Debe especificar al menos una casilla de correo destino</toListEmpty>
 			<invalidToEmail>La lista de casillas de correo destino es inválida</invalidToEmail>
 			<invalidBody></invalidBody>
+			<invalidOperation>Invalid Operation</invalidOperation>
     	</server>
     </validator>
     <withh>Con</withh>

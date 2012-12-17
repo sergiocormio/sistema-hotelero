@@ -1,10 +1,10 @@
 <config>
 	<defaultLocale>es_AR</defaultLocale>
 	<enableLocalServer>false</enableLocalServer>
-<!-- 	<javaHomePath>C:\Program Files\Java\jre7</javaHomePath> -->
-	<javaHomePath>C:\Program Files (x86)\Java\jdk1.6.0_21</javaHomePath>
+	<javaHomePath>C:\Program Files\Java\jre7</javaHomePath>
+<!-- 	<javaHomePath>C:\Program Files (x86)\Java\jdk1.6.0_21</javaHomePath> -->
 	<hotelWebSite>www.dellosky.com</hotelWebSite>
-	<tomcatHomePath>C:\apache-tomcat-7.0.32</tomcatHomePath>
+	<tomcatHomePath>C:\Program Files\Apache Software Foundation\apache-tomcat-7.0.33</tomcatHomePath>
 	<serverURL>http://localhost:8400/SistemaHotelero/messagebroker/amf</serverURL>
 	<defaultQuantityOfDaysToShow>7</defaultQuantityOfDaysToShow>
 </config>

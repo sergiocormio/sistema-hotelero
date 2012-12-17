@@ -251,6 +251,12 @@
 			<print>Imprimir</print>
 		</buttons>
     </reservationForm>
+    <reservationFormExpirationDate>
+    	<plural>Vencimiento de Fichas de Reserva</plural>
+    	<descriptionLabel>Las fichas de reserva en estado "Pre-reserva" pasarán automaticamente al estado "Vencida" luego de</descriptionLabel>
+    	<days>Días</days>
+    	<changesSaved>Los cambios han sido guardados.</changesSaved>
+    </reservationFormExpirationDate>
     <room>
    		<singular>Habitación</singular>
 	    <plural>Habitaciones</plural>
@@ -332,6 +338,7 @@
 			<toListEmpty>Debe especificar al menos una casilla de correo destino</toListEmpty>
 			<invalidToEmail>La lista de casillas de correo destino es inválida</invalidToEmail>
 			<invalidBody></invalidBody>
+			<invalidOperation>Operación no válida</invalidOperation>
     	</server>
     </validator>
     <withh>Con</withh>

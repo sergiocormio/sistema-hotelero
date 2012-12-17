@@ -213,6 +213,10 @@ package resources.icons
 		[Embed(source='resources/icons/calendar-blue 24x24.png')]
 		public static var calendarEdit:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/expired.png')]
+		public static var expired:Class;
+		
 		public function Icons()
 		{
 		}
