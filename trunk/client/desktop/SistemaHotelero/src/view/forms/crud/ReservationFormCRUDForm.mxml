@@ -343,7 +343,7 @@
 						  />
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
-		<s:HGroup width="100%" height="57%">
+		<s:HGroup width="100%" height="53%">
 			<s:Group width="100%" height="100%">
 				<s:Rect width="100%" height="100%">
 					<s:stroke>
@@ -352,8 +352,8 @@
 					<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 				</s:Rect>
 				<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
-					<s:VGroup width="100%" height="25%" verticalAlign="top">
-						<s:HGroup width="100%" height="100%" horizontalAlign="center" gap="-50">
+					<s:VGroup width="100%" verticalAlign="top" gap="0">
+						<s:HGroup width="100%" horizontalAlign="center" gap="-50">
 								<s:FormItem label="{loc.availability.dateFrom}:">
 									<mx:DateField id="dateFromChooser" width="120"
 												  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
@@ -390,7 +390,7 @@
 						</s:HGroup>
 					</s:VGroup>
 				
-					<s:DataGrid id="grid" width="100%" height="75%" dataProvider="{reservationForms}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+					<s:DataGrid id="grid" width="100%" dataProvider="{reservationForms}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
 						<s:columns>
 							<s:ArrayList>
 								<s:GridColumn dataField="id" headerText="{loc.reservationForm.id}"/>
@@ -438,7 +438,7 @@
 				</s:Group>
 			</s:VGroup>
 		</s:HGroup>
-		<individual:ReservationFormIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="individual_saveSuccessHandler(event)" cancelClicked="individual.enabled=false;" height="43%"/>
+		<individual:ReservationFormIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="individual_saveSuccessHandler(event)" cancelClicked="individual.enabled=false;" height="47%"/>
 	</mx:VDividedBox>
 </s:VGroup>
 
