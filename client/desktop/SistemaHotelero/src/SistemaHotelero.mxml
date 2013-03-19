@@ -94,12 +94,12 @@
 	<s:Group id="backgroundRect" width="100%" height="100%">
 		<s:BitmapImage source="{Images.background}" left="0" right="0" top="0" bottom="0" scaleMode="stretch"/>
 	</s:Group>
-	<s:VGroup width="100%" height="100%" gap="0">
+	<s:Group width="100%" height="100%">
 		<!-- HEADER PANEL -->
 		<view:HeaderPanel width="100%" id="headerPanel" />
 
 		<!-- MAIN PANEL -->
 		<view:MainPanel height="100%" width="100%" loc="{headerPanel.loc}"/>
-	</s:VGroup>
+	</s:Group>
 	
 </s:WindowedApplication>
