@@ -28,6 +28,7 @@
 			import spark.components.gridClasses.GridColumn;
 			
 			import utils.DateTimeUtils;
+			import utils.FaultHandler;
 			import utils.log.DebugLog;
 			
 			[Bindable]
@@ -73,10 +74,9 @@
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				//var errCode:String = event.fault.rootCause.errorCode;
 				Mask.close();
 				DebugLog.log("ERROR trying to load rooms and occupations.");
-				//Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
+				FaultHandler.defaultFaultHandler(event,token);
 			}
 			
 			public function refreshCalendar():void{

@@ -20,6 +20,7 @@
 			import spark.components.gridClasses.GridColumn;
 			
 			import utils.DateTimeUtils;
+			import utils.FaultHandler;
 			import utils.log.DebugLog;
 			
 			import view.components.Mask;
@@ -63,10 +64,9 @@
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				//var errCode:String = event.fault.rootCause.errorCode;
 				Mask.close();
 				DebugLog.log("ERROR Loading Rooms or Loading Occupations in CalendarForm");
-				//Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
+				FaultHandler.defaultFaultHandler(event,token);
 			}
 			
 			

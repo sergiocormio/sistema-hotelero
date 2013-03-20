@@ -35,6 +35,7 @@
 			import services.crud.CustomerService;
 			import services.crud.ReservationFormService;
 			
+			import utils.FaultHandler;
 			import utils.WindowsUtils;
 			
 			import view.components.ManualAlternativeForm;
@@ -186,9 +187,9 @@
 				
 				//calls service
 				if(isUpdate){
-					new ReservationFormService().updateRecord(_currentReservationForm,reservationFormSaved_resultHandler,faultHandler);
+					new ReservationFormService().updateRecord(_currentReservationForm,reservationFormSaved_resultHandler,FaultHandler.defaultFaultHandler);
 				}else{
-					new ReservationFormService().book(alternative,_currentReservationForm,reservationFormSaved_resultHandler,faultHandler);
+					new ReservationFormService().book(alternative,_currentReservationForm,reservationFormSaved_resultHandler,FaultHandler.defaultFaultHandler);
 				}
 			}
 			
@@ -201,13 +202,6 @@
 				dispatchEvent(new Event("cancelClicked"));
 			}
 			
-			// Handle a message fault.
-			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				var errCode:String = event.fault.rootCause.errorCode;
-				
-				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
-			}
-			
 			protected function init():void
 			{
 				currentReservationForm = new ReservationForm();
@@ -218,7 +212,7 @@
 			
 			private function retrieveCustomers():void{
 				var customerServ:CustomerService = new CustomerService();
-				customerServ.retrieveAll(retrieveCustomers_resultHandler,faultHandler);
+				customerServ.retrieveAll(retrieveCustomers_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveCustomers_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -267,7 +261,7 @@
 			
 			private function retrieveBanks():void{
 				var bankServ:BankService = new BankService();
-				bankServ.retrieveAll(retrieveBanks_resultHandler,faultHandler);
+				bankServ.retrieveAll(retrieveBanks_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveBanks_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -375,7 +369,7 @@
 					var manualAlternative:Alternative = manualAlternativeForm.getManualAlternative();
 					manualAlternative.peopleQuantity = adultsQtyStepper.value + childrenQtyStepper.value;
 					
-					new BudgetService().populateBudget(manualAlternative, populateBudget_resultHandler, faultHandler);
+					new BudgetService().populateBudget(manualAlternative, populateBudget_resultHandler, FaultHandler.defaultFaultHandler);
 				}
 			}
 			
