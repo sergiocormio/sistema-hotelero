@@ -19,18 +19,13 @@
 			
 			import spark.events.GridSelectionEvent;
 			
+			import utils.FaultHandler;
+			
 			[Bindable]
 			public var loc:Object;
 			
 			[Bindable]
 			private var countries:ArrayCollection = new ArrayCollection();
-			
-			// Handle a message fault.
-			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				var errCode:String = event.fault.rootCause.errorCode;
-				
-				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
-			}
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
 				grid.selectedItem = null;
@@ -52,7 +47,7 @@
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
-				new CountryService().retrieveAll(retrieveAll_resultHandler,faultHandler);
+				new CountryService().retrieveAll(retrieveAll_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
@@ -73,7 +68,7 @@
 			
 			protected function deleteCountry():void
 			{
-				new CountryService().deleteRecord(grid.selectedItem as Country,delete_resultHandler,faultHandler);
+				new CountryService().deleteRecord(grid.selectedItem as Country,delete_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			protected function addCountry():void

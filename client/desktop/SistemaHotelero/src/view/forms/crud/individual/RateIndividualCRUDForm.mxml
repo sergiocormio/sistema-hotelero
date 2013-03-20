@@ -8,7 +8,6 @@
 	</fx:Metadata> 
 	<fx:Script>
 		<![CDATA[
-			import mx.validators.Validator;
 			import model.Rate;
 			import model.RatePK;
 			import model.Season;
@@ -19,6 +18,7 @@
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
+			import mx.validators.Validator;
 			
 			import resources.Colors;
 			import resources.icons.Icons;
@@ -27,6 +27,7 @@
 			import services.crud.RoomTypeService;
 			import services.crud.SeasonService;
 			
+			import utils.FaultHandler;
 			import utils.WindowsUtils;
 			
 			[Bindable]
@@ -119,9 +120,9 @@
 				
 				//calls service
 				if(isUpdate){
-					new RateService().updateRecord(_currentRate,rateSaved_resultHandler,faultHandler);
+					new RateService().updateRecord(_currentRate,rateSaved_resultHandler,FaultHandler.defaultFaultHandler);
 				}else{
-					new RateService().createRecord(_currentRate,rateSaved_resultHandler,faultHandler);
+					new RateService().createRecord(_currentRate,rateSaved_resultHandler,FaultHandler.defaultFaultHandler);
 				}
 			}
 			
@@ -134,13 +135,6 @@
 				dispatchEvent(new Event("cancelClicked"));
 			}
 			
-			// Handle a message fault.
-			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				var errCode:String = event.fault.rootCause.errorCode;
-				
-				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
-			}
-			
 			protected function init():void
 			{
 				currentRate = new Rate();
@@ -151,7 +145,7 @@
 			
 			private function retrieveSeasons():void{
 				var seasonServ:SeasonService = new SeasonService();
-				seasonServ.retrieveAll(retrieveSeasons_resultHandler,faultHandler);
+				seasonServ.retrieveAll(retrieveSeasons_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveSeasons_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -187,7 +181,7 @@
 			//Room Type
 			private function retrieveRoomTypes():void{
 				var roomTypeServ:RoomTypeService = new RoomTypeService();
-				roomTypeServ.retrieveAll(retrieveRoomTypes_resultHandler,faultHandler);
+				roomTypeServ.retrieveAll(retrieveRoomTypes_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveRoomTypes_resultHandler(event:ResultEvent,token:Object=null):void {

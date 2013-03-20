@@ -43,6 +43,7 @@
 			
 			import spark.events.IndexChangeEvent;
 			
+			import utils.FaultHandler;
 			import utils.WindowsUtils;
 			[Bindable]
 			public var loc:Object;
@@ -118,7 +119,7 @@
 			
 			private function retrieveDocumentTypes():void{
 				var docTypeServ:DocumentTypeService = new DocumentTypeService();
-				docTypeServ.retrieveAll(retrieveDocumentTypes_resultHandler,faultHandler);
+				docTypeServ.retrieveAll(retrieveDocumentTypes_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function addDocumentType():void{
@@ -199,7 +200,7 @@
 			
 			private function retrieveCountries():void{
 				var countryServ:CountryService = new CountryService();
-				countryServ.retrieveAll(retrieveCountries_resultHandler,faultHandler);
+				countryServ.retrieveAll(retrieveCountries_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveCountries_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -211,9 +212,9 @@
 			private function retrieveRegions(country:Country = null):void{
 				var regionServ:RegionService = new RegionService();
 				if(country==null){
-					regionServ.retrieveAll(retrieveRegions_resultHandler,faultHandler);
+					regionServ.retrieveAll(retrieveRegions_resultHandler,FaultHandler.defaultFaultHandler);
 				}else{
-					regionServ.retrieveRegions(country,retrieveRegions_resultHandler,faultHandler);
+					regionServ.retrieveRegions(country,retrieveRegions_resultHandler,FaultHandler.defaultFaultHandler);
 				}
 			}
 			
@@ -226,21 +227,13 @@
 			//LANGUAGES
 			private function retrieveLanguages():void{
 				var langServ:LanguageService = new LanguageService();
-				langServ.retrieveAll(retrieveLanguages_resultHandler,faultHandler);
+				langServ.retrieveAll(retrieveLanguages_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveLanguages_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				languages.removeAll();
 				languages.addAll(event.result as ArrayCollection);
-			}
-			
-			// Handle a message fault.
-			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				
-				var errCode:String = event.fault.rootCause.errorCode;
-				
-				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
 			}
 			
 			private function allFieldsAreValid():Boolean{
@@ -333,9 +326,9 @@
 				
 				//calls service
 				if(isUpdate){
-					new CustomerService().updateRecord(currentCustomer,customerSaved_resultHandler,faultHandler);
+					new CustomerService().updateRecord(currentCustomer,customerSaved_resultHandler,FaultHandler.defaultFaultHandler);
 				}else{
-					new CustomerService().createRecord(currentCustomer,customerSaved_resultHandler,faultHandler);
+					new CustomerService().createRecord(currentCustomer,customerSaved_resultHandler,FaultHandler.defaultFaultHandler);
 				}
 				
 			}
