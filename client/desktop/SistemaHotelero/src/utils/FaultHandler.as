@@ -14,7 +14,10 @@ package utils
 		}
 		
 		// Handle a message fault.
-		public static function defaultFaultHandler(event:FaultEvent,token:Object=null):void {
+		public static function defaultFaultHandler(event:FaultEvent=null,token:Object=null):void {
+			if(event == null){
+				return;
+			}
 			var loc:Object = Locale.getInstance().getCurrentLocale();
 			var errMsg:String;
 			try

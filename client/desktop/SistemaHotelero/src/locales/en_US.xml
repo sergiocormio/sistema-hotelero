@@ -139,6 +139,8 @@
     		<name>Sunday</name>
     		<abbr>Sun</abbr>
    		</sunday>
+   		<singular>day</singular>
+   		<plural>days</plural>
     </day>
     <dateFormat>MM/dd/yyyy</dateFormat>
     <documentType>

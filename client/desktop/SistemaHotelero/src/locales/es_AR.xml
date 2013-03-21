@@ -139,6 +139,8 @@
     		<name>Domingo</name>
     		<abbr>Dom</abbr>
    		</sunday>
+   		<singular>día</singular>
+   		<plural>días</plural>
     </day>
     <dateFormat>dd/MM/yyyy</dateFormat>
     <documentType>
