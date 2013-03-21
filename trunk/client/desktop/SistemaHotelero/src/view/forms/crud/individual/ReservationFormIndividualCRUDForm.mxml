@@ -35,6 +35,7 @@
 			import services.crud.CustomerService;
 			import services.crud.ReservationFormService;
 			
+			import utils.DateTimeUtils;
 			import utils.FaultHandler;
 			import utils.WindowsUtils;
 			
@@ -305,7 +306,28 @@
 				dateFromChooser.selectedDate = wrapper.dateFrom;
 				dateToChooser.selectedDate = wrapper.dateTo;
 				//TODO: pre-load fields: price per day and total price
+				calculateAmountOfDays();
 				titleWindow_close(null);
+			}
+			
+			private function calculateAmountOfDays():void
+			{
+				var label:String = "(";
+				var days:Number;
+				if(dateFromChooser.selectedDate != null && dateToChooser.selectedDate!=null){
+					days = DateTimeUtils.getQuantityOfDays(dateFromChooser.selectedDate, dateToChooser.selectedDate) + 1;
+				}else{
+					days = 0;
+				}
+				if(days==0){
+					label+="- " + loc.day.plural;
+				}else if(days == 1){
+					label+="1 " + loc.day.singular;
+				}else{
+					label+= days + " " + loc.day.plural;
+				}
+				label +=")";
+				amountOfDays.text = label;
 			}
 			
 			private function validateSelectedPeople():Boolean
@@ -513,7 +535,10 @@
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.reservationForm.totalPrice}:" required="true">
-					<s:TextInput id="totalPriceText"/>
+					<s:HGroup verticalAlign="middle">
+						<s:TextInput id="totalPriceText"/>
+						<s:Label id="amountOfDays" fontWeight="bold"/>
+					</s:HGroup>
 				</s:FormItem>
 				
 				<s:FormItem id="bankItem" label="{loc.bank.singular}:" required="false">
