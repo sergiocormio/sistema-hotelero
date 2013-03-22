@@ -26,8 +26,14 @@ package utils
 				errMsg = loc.validator.server.child(errCode).text();
 			} 
 			catch(error:Error) 
-			{
-				errMsg = event.fault.rootCause.faultDetail;
+			{   try
+				{
+					errMsg = event.fault.rootCause.faultDetail;
+				} 
+				catch(error:Error) 
+				{
+					errMsg = event.fault.faultString;
+				}
 			}
 			DebugLog.log(errMsg);
 			Alert.show(errMsg , loc.validator.error );
