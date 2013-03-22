@@ -306,19 +306,33 @@
 				dateFromChooser.selectedDate = wrapper.dateFrom;
 				dateToChooser.selectedDate = wrapper.dateTo;
 				//TODO: pre-load fields: price per day and total price
-				calculateAmountOfDays();
+				updateDaysLabel(calculateAmountOfDays());
+				new BudgetService().populateBudget(alternative, preLoadBudget_resultHandler, FaultHandler.defaultFaultHandler);
 				titleWindow_close(null);
 			}
 			
-			private function calculateAmountOfDays():void
+			private function preLoadBudget_resultHandler(event:ResultEvent,token:Object=null):void {
+				alternative = event.result as Alternative;
+				pricePerDayText.text = alternative.budget.pricePerDay.toString();
+				totalPriceText.text = alternative.budget.basePricePlusAllServicesIncludedInBasePriceWithDefaultCurrency;
+			}
+			
+			//calculates amount of days
+			private function calculateAmountOfDays():Number
 			{
-				var label:String = "(";
 				var days:Number;
 				if(dateFromChooser.selectedDate != null && dateToChooser.selectedDate!=null){
 					days = DateTimeUtils.getQuantityOfDays(dateFromChooser.selectedDate, dateToChooser.selectedDate) + 1;
 				}else{
 					days = 0;
 				}
+				return days;
+			}
+			
+			//updates days label.
+			private function updateDaysLabel(days:Number):void
+			{
+				var label:String = "(";
 				if(days==0){
 					label+="- " + loc.day.plural;
 				}else if(days == 1){
@@ -396,7 +410,6 @@
 			}
 			
 			private function populateBudget_resultHandler(event:ResultEvent,token:Object=null):void {
-			
 				budgetForm = new DisplayBudgetForm();
 				budgetForm.loc = loc;
 				
