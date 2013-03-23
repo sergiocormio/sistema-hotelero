@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  width="100%" height="100%" creationComplete="init(event)" xmlns:ns="http://www.adobe.com/2006/fc" xmlns:crud="view.forms.crud.*" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*" >
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import model.Consumption;
+			import model.Room;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.AsyncResponder;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.validators.Validator;
+			
+			import resources.Colors;
+			import resources.icons.Icons;
+			
+			import services.crud.ConsumptionService;
+			import services.crud.RoomService;
+			
+			import spark.events.GridSelectionEvent;
+			
+			import utils.DateTimeUtils;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			private var consumptions:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var totalConsumption:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var rooms:ArrayCollection = new ArrayCollection();
+			
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				var errCode:String = event.fault.rootCause.errorCode;
+				
+				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
+			}
+			
+			
+			protected function consultButton_clickHandler(event:MouseEvent):void
+			{
+				if(!allFieldsAreValid()){
+					return;
+				}
+				
+				retrieveConsumptions();						
+			}
+			
+			protected function cleanButton_clickHandler(event:MouseEvent):void
+			{
+				cleanFilterForm();
+				refreshGrid();
+			}
+			
+			private function cleanFilterForm():void
+			{
+				dateFromChooser.selectedDate = null;
+				dateToChooser.selectedDate = null;
+				roomsCombo.selectedIndex = -1;
+			}
+			
+			private function allFieldsAreValid():Boolean{
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(dateFromValidator);
+				valArray.push(dateToValidator);
+				valArray.push(roomValidator);
+				
+				var validatorErrorArray:Array = Validator.validateAll(valArray);
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				
+				return isValidForm;
+			}
+			
+			
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				dateFromValidator.enabled = enabled;
+				dateToValidator.enabled = enabled;
+				roomValidator.enabled = enabled;
+			}
+			
+			
+			private function retrieveConsumptions():void
+			{
+				var dateFrom:Date = null;
+				var dateTo:Date = null;
+				var room:Room = null;
+				
+				if(dateFromChooser.selectedDate != null){
+					dateFrom = dateFromChooser.selectedDate; 
+				}
+				if(dateToChooser.selectedDate != null){
+					dateTo = dateToChooser.selectedDate;
+				}
+				if(roomsCombo.selectedIndex > -1){
+					room = roomsCombo.selectedItem as Room;
+				}
+				
+				if(dateFrom != null && dateTo != null && room != null){
+					
+					new ConsumptionService().retrieveConsumptions(dateFrom, dateTo, room, retrieveConsumptions_resultHandler, faultHandler);
+				}
+			}
+			
+			private function retrieveConsumptions_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedItem = null;
+				consumptions.removeAll();
+				consumptions.addAll(event.result as ArrayCollection);
+				
+				calculateTotal(event.result as ArrayCollection);
+			}
+
+			private function calculateTotal(consumptions:ArrayCollection):void
+			{
+				var totalPrice:Number = 0;
+				for each (var consumption:Consumption in consumptions){
+					totalPrice += consumption.price;
+				}
+				
+				var totalCons:Consumption = new Consumption();
+				totalCons.price = totalPrice;
+				
+				totalConsumption.removeAll();
+				totalConsumption.addItem(totalCons);
+			}
+			
+			
+			private function delete_resultHandler(event:ResultEvent,token:Object=null):void {
+				refreshGrid();
+			}
+
+			
+			protected function init(event:FlexEvent):void
+			{
+				retrieveRooms();
+				refreshGrid();
+			}
+			
+			private function retrieveRooms():void{
+				new RoomService().retrieveAll(retrieveRooms_resultHandler,faultHandler);
+			}
+			
+			private function retrieveRooms_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the rooms ComboBox
+				rooms.removeAll();
+				rooms.addAll(event.result as ArrayCollection);
+			}
+			
+			protected function refreshGrid():void
+			{
+				individual.enabled = false;
+				grid.selectedItem = null;
+				retrieveConsumptions();
+			}
+			
+			
+			
+			protected function deleteConsumption():void
+			{
+				// TODO add confirming popup
+				new ConsumptionService().deleteRecord(grid.selectedItem as Consumption, delete_resultHandler, faultHandler);
+			}
+			
+			protected function addConsumption():void
+			{
+				grid.selectedItem = null;
+				individual.currentConsumption = new Consumption();
+				individual.isUpdate = false;
+				individual.enabled = true;
+			}
+			
+			protected function modifyConsumption():void
+			{
+			}
+						
+			
+			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
+			{
+				if(grid.selectedItem !=null){
+					individual.currentConsumption = grid.selectedItem as Consumption;
+				}
+				//individual.enabled = false;
+			}
+			
+			private function dateFormat(item:Object,column:GridColumn):String
+			{
+				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateFormat);
+			}
+			
+			
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:DateValidator id="dateFromValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateFromChooser}"
+						  property="text"
+						  />
+		<mx:DateValidator id="dateToValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateToChooser}"
+						  property="text"
+						  />
+		<mx:NumberValidator id="roomValidator" 
+							enabled="false"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{roomsCombo}"
+							property="selectedIndex" 
+							/>
+	</fx:Declarations>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:HGroup width="100%" height="60%">
+			
+			<s:Group width="100%" height="100%">
+				<s:Rect width="100%" height="100%">
+					<s:stroke>
+						<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+					</s:stroke>
+					<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+				</s:Rect>
+				<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
+					<s:VGroup width="100%" verticalAlign="top" gap="0">
+						<s:HGroup width="100%" horizontalAlign="center" gap="-50">
+							
+							<s:FormItem label="{loc.consumption.dateFrom}:">
+								<mx:DateField id="dateFromChooser" width="120"
+											  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+											  formatString="{loc.dateFormat.toUpperCase()}"
+											  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+							</s:FormItem>
+							
+							<s:FormItem label="{loc.consumption.dateTo}:">
+								<mx:DateField id="dateToChooser" width="120"
+											  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+											  formatString="{loc.dateFormat.toUpperCase()}"
+											  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+							</s:FormItem>
+							<s:FormItem id="roomItem" label="{loc.consumption.roomNumber}:" required="true">
+								<s:HGroup>
+									<s:ComboBox id="roomsCombo" dataProvider="{rooms}"
+												labelField="number" requireSelection="true"/>
+									<s:Button width="24" height="24" click="retrieveRooms();"
+									icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+									<!--
+									<s:Button width="24" height="24" click="addDocumentType();" icon="{Icons.add}"
+									toolTip="{loc.button.add}"/>
+									-->
+								</s:HGroup>
+							</s:FormItem>
+						</s:HGroup>
+						<s:HGroup width="100%" horizontalAlign="center">
+							<s:Button id="consultButton" label="{loc.availability.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+							<s:Button id="cleanButton" label="{loc.availability.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
+						</s:HGroup>
+					</s:VGroup>
+					
+					<mx:VBox height="100%" width="100%" verticalGap="0">
+						<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{consumptions}" selectionChange="grid_selectionChangeHandler(event)" 
+									alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+							<s:columns>
+								<s:ArrayList>
+									<s:GridColumn dataField="room.number" headerText="{loc.consumption.roomNumber}"></s:GridColumn>
+									<s:GridColumn dataField="date" headerText="{loc.consumption.date}" labelFunction="dateFormat"></s:GridColumn>
+									<s:GridColumn dataField="description" headerText="{loc.consumption.description}" ></s:GridColumn>
+									<s:GridColumn dataField="priceWithDefaultCurreny" headerText="{loc.consumption.price}"></s:GridColumn>
+								</s:ArrayList>
+							</s:columns>
+						</s:DataGrid>
+						
+						<mx:DataGrid id="totalGrid" width="100%" height="5%" dataProvider="{totalConsumption}"  
+									rowCount="1" showHeaders="false" alternatingItemColors="{Colors.ALTERNATING_ROW_COLORS}" >
+							<mx:columns>
+								<mx:DataGridColumn></mx:DataGridColumn>
+								<mx:DataGridColumn></mx:DataGridColumn>
+								<mx:DataGridColumn labelFunction="getTotalLabel" fontWeight="bold">
+									<fx:Script>
+										<![CDATA[
+											import mx.controls.dataGridClasses.DataGridColumn;
+											private function getTotalLabel(item:Object, col:DataGridColumn):String {
+												return "Total";
+											}
+										]]>
+									</fx:Script>
+								</mx:DataGridColumn>
+								<mx:DataGridColumn dataField="priceWithDefaultCurreny" fontWeight="bold"></mx:DataGridColumn>
+							</mx:columns>
+						</mx:DataGrid>
+						
+					</mx:VBox>
+					
+				</mx:VDividedBox>
+				
+			</s:Group>
+			
+			<!-- BUTTONS -->
+			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addConsumption()"
+									modifyClicked="modifyConsumption()" removeClicked="deleteConsumption()"
+									loc="{loc}" modifyButtonEnabled="{false}"
+									removeButtonEnabled="{grid.selectedItem!=null}"/>
+		</s:HGroup>
+		<individual:ConsumptionIndividualCRUDForm id="individual" height="40%" width="100%" 
+										 loc="{loc}" enabled="false" 
+										 cancelClicked="individual.enabled=false;"
+										 saveSuccess="refreshGrid();"/>
+	</mx:VDividedBox>
+</s:VGroup>

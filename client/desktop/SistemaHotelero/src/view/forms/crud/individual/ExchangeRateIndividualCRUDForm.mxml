@@ -144,7 +144,7 @@
 							minValue="0"
 							domain="real"
 							allowNegative="false"
-							precision="3"
+							precision="2"
 							precisionError="{loc.validator.precisionError}"
 							separationError="{loc.validator.invalidFieldValueError}"
 							negativeError="{loc.validator.invalidFieldValueError}"

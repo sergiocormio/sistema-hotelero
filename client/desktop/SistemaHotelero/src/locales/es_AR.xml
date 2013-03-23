@@ -81,6 +81,12 @@
     </calendar>
     <consumption>
     	<singular>Consumo</singular>
+    	<roomNumber>Número de habitación</roomNumber>
+    	<date>Fecha</date>
+    	<description>Descripción</description>
+    	<price>Precio</price>
+    	<dateFrom>Fecha Desde</dateFrom>
+    	<dateTo>Fecha Hasta</dateTo>
     </consumption>
 	<country>
 	    <singular>País</singular>
@@ -308,7 +314,7 @@
     	<error>Error</error>
     	<requiredFieldError>Campo requerido</requiredFieldError>
     	<invalidFieldValueError>Valor inválido</invalidFieldValueError>
-    	<precisionError>No se permiten más de tres digitos decimales</precisionError>
+    	<precisionError>No se permiten más de dos digitos decimales</precisionError>
     	<invalidRange>Rango de fechas inválido</invalidRange>
     	<emptyEmailAndPhonesError>Al menos alguno de los siguientes campos debe ser completado: E-Mail, Teléfono, Celular</emptyEmailAndPhonesError>
     	<regExp>
