@@ -64,6 +64,7 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 				Cleaning cleaning = new Cleaning();
 				cleaning.setOccupation(occupation);
 				cleaning.setCleaningType(CleaningType.GENERAL);
+				cleanings.add(cleaning);
 			}
 			
 			// check basic cleaning type (every other day except from Sunday)
@@ -72,6 +73,7 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 				Cleaning cleaning = new Cleaning();
 				cleaning.setOccupation(occupation);
 				cleaning.setCleaningType(CleaningType.BASIC);
+				cleanings.add(cleaning);
 			}
 
 			// check bed clothe change cleaning type  
@@ -80,6 +82,7 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 				Cleaning cleaning = new Cleaning();
 				cleaning.setOccupation(occupation);
 				cleaning.setCleaningType(CleaningType.BED_CLOTHE_CHANGE);
+				cleanings.add(cleaning);
 			}
 		}
 		return cleanings;
