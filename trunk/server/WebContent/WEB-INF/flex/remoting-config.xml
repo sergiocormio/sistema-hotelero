@@ -11,6 +11,20 @@
     </default-channels>
 
    
+   <destination id="consumptionService">
+		<properties>
+			<source>com.cdz.sh.service.impl.ConsumptionServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+		
+   <destination id="reservationFormExpirationDaysService">
+		<properties>
+			<source>com.cdz.sh.service.impl.ReservationFormExpirationDaysServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
    <destination id="budgetService">
 		<properties>
 			<source>com.cdz.sh.service.impl.BudgetServiceImpl</source>
