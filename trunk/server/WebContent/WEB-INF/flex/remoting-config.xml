@@ -11,6 +11,13 @@
     </default-channels>
 
    
+   <destination id="emailService">
+		<properties>
+			<source>com.cdz.sh.service.impl.EMailServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
    <destination id="consumptionService">
 		<properties>
 			<source>com.cdz.sh.service.impl.ConsumptionServiceImpl</source>
