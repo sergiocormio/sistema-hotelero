@@ -1,5 +1,9 @@
 package com.cdz.sh.service;
 
+import java.util.List;
+
+import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.model.Country;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.CustomerPK;
 
@@ -12,8 +16,6 @@ import com.cdz.sh.model.CustomerPK;
 public interface CustomerService extends CrudService<Customer, CustomerPK>{
 	
 	
-	/**
-	 * TODO: declare specific behavior
-	 */
 
+	public List<Customer> retrieveCustomers(List<Country> countries) throws DaoException;
 }
