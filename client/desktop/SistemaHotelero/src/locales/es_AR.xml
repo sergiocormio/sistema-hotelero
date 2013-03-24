@@ -3,6 +3,11 @@
 	<advertising>
 		<singular>Publicidad</singular>
 	</advertising>
+	<advertisement>
+		<SendEmailsTo>Enviar a clientes de</SendEmailsTo>
+		<subject>Asunto</subject>
+		<body>Mensaje</body>
+	</advertisement>
 	<alternative>
 		<alternativeView>Vista de Alternativa</alternativeView>
 		<dateFrom>Fecha Desde</dateFrom>
@@ -66,6 +71,7 @@
     	<close>Cerrar</close>
     	<print>Imprimir</print>
     	<clean>Limpiar</clean>
+    	<send>Enviar</send>
     </button>
     <calendar>
     	<singular>Calendario</singular>
