@@ -72,9 +72,7 @@
 			</s:NavigatorContent>
 			
 			<s:NavigatorContent id="advertisement" label="{loc.advertising.singular}" icon="{Icons.mail_and_pictures}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
-					<s:Image source="{Images.under_construction}"/>
-				</s:VGroup>
+				<forms:AdvertisementForm width="100%" height="100%" loc="{loc}"/>
 			</s:NavigatorContent>
 			
 			<s:NavigatorContent id="configuration" label="{loc.configuration.singular}" icon="{Icons.config}" width="100%" height="100%">

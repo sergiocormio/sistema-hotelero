@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  width="100%" height="100%" creationComplete="init(event)" xmlns:ns="http://www.adobe.com/2006/fc" xmlns:crud="view.forms.crud.*" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*" >
+	<fx:Script>
+		<![CDATA[
+			
+			import services.crud.CountryService;
+			import locales.Locale;
+			
+			import model.Customer;
+			import model.EmailRequest;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.AsyncResponder;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.validators.Validator;
+			
+			import resources.Colors;
+			import resources.icons.Icons;
+			
+			import services.crud.ConsumptionService;
+			import services.crud.RoomService;
+			
+			import spark.events.GridSelectionEvent;
+			
+			import utils.DateTimeUtils;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			private var customers:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var countries:ArrayCollection = new ArrayCollection();
+			
+			// Handle a message fault.
+			private function faultHandler(event:FaultEvent,token:Object=null):void {
+				var errCode:String = event.fault.rootCause.errorCode;
+				
+				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
+			}
+			
+			
+			
+			protected function init(event:FlexEvent):void
+			{
+				retrieveCountries();
+			}
+			
+			private function retrieveCountries():void{
+				new CountryService().retrieveAll(retrieveCountries_resultHandler,faultHandler);
+			}
+			
+			private function retrieveCountries_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the rooms ComboBox
+				countries.removeAll();
+				countries.addAll(event.result as ArrayCollection);
+			}
+			
+
+			private function checkAction():void {}		
+			
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		
+	</fx:Declarations>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:Group width="100%" height="100%">
+			<s:Rect width="100%" height="100%">
+				<s:stroke>
+					<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+				</s:stroke>
+				<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+			</s:Rect>
+			<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10">
+				<s:VGroup width="100%" verticalAlign="top" gap="5">
+					<s:HGroup width="100%" horizontalAlign="center" gap="5">
+						
+						<s:FormItem id="subjectItem" label="{loc.advertisement.subject}:" required="true">
+							<s:TextInput id="subjectText" widthInChars="40"/>
+						</s:FormItem>
+						
+						<s:FormItem id="countriesItem" label="{loc.advertisement.SendEmailsTo}:" required="true">
+							<s:HGroup>
+								<s:ComboBox id="countriesCombo" dataProvider="{countries}"
+											labelField="name" requireSelection="true" />
+								<s:Button width="24" height="24" click="retrieveCountries();"
+								icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+							</s:HGroup>
+						</s:FormItem>
+					</s:HGroup>
+				</s:VGroup>
+				
+				<s:VGroup width="100%" horizontalAlign="center" gap="10">
+					<mx:RichTextEditor id="emailBodyEditor" width="80%" height="80%" 
+					   	title="{loc.advertisement.body}"/>
+				
+					<s:HGroup width="80%" horizontalAlign="right" paddingRight="10" paddingBottom="10">
+						<s:Button label="{loc.button.send}" click="checkAction()" />
+					</s:HGroup>
+					
+				</s:VGroup>
+				
+			</mx:VDividedBox>
+			
+		</s:Group>
+		
+	</mx:VDividedBox>
+</s:VGroup>
