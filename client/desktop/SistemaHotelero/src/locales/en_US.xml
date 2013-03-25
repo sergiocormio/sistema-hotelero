@@ -214,6 +214,10 @@
     	<november>November</november>
     	<december>December</december>
     </month>
+    <night>
+    	<singular>night</singular>
+   		<plural>nights</plural>
+    </night>
     <rate>
     	<singular>Rate</singular>
 	    <plural>Rates</plural>

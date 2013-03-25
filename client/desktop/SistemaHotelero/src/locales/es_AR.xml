@@ -226,6 +226,10 @@
     	<november>Noviembre</november>
     	<december>Deciembre</december>
     </month>
+    <night>
+    	<singular>noche</singular>
+   		<plural>noches</plural>
+    </night>
     <rate>
     	<singular>Tarifa</singular>
 	    <plural>Tarifas</plural>
