@@ -47,7 +47,7 @@ package utils.config
 		}
 		
 				
-		public function getReservationFormExpDays():String{
+		public function getReservationFormExpDays():Number{
 			if(_configXML!=null){
 				return _configXML.reservationForm.expirationDays;
 			}else{
@@ -55,7 +55,7 @@ package utils.config
 			}
 		}
 		
-		public function setReservationFormExpDays(value:String):void{
+		public function setReservationFormExpDays(value:Number):void{
 			if(_configXML!=null){
 				_configXML.reservationForm.expirationDays = value;
 			}else{
@@ -107,6 +107,22 @@ package utils.config
 		public function setEmailTest(value:String):void{
 			if(_configXML!=null){
 				_configXML.mail.emailTest = value;
+			}else{
+				throw new Error(FILENAME + " is not loaded");
+			}
+		}
+		
+		public function getDefaultQuantityOfDaysToShow():Number{
+			if(_configXML!=null){
+				return _configXML.calendar.defaultQuantityOfDaysToShow;
+			}else{
+				return 7; //by default shows a week
+			}
+		}
+		
+		public function setDefaultQuantityOfDaysToShow(value:Number):void{
+			if(_configXML!=null){
+				_configXML.calendar.defaultQuantityOfDaysToShow = value;
 			}else{
 				throw new Error(FILENAME + " is not loaded");
 			}

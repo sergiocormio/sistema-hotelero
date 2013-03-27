@@ -11,13 +11,17 @@
 			import resources.icons.Icons;
 			
 			import utils.DateTimeUtils;
-			import utils.config.Config;
+			import utils.config.UserSettings;
 			
 			[Bindable]
 			public var loc:Object;
-			public var daysToShow:int = Config.getInstance().getDefaultQuantityOfDaysToShow();
+
+			[Bindable]
+			public var daysToShow:int = UserSettings.getInstance().getDefaultQuantityOfDaysToShow();
+
 			[Bindable]
 			public var dateFrom:Date = DateTimeUtils.removeHoursToDate(new Date());
+			
 			[Bindable]
 			public var dateTo:Date =  DateTimeUtils.removeHoursToDate(DateTimeUtils.rollDaysToDate(new Date(),daysToShow));
 			

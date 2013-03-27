@@ -27,6 +27,7 @@
 			import utils.Utils;
 			import utils.config.Config;
 			import utils.log.DebugLog;
+			import utils.FaultHandler;
 			
 			import view.components.Mask;
 			
@@ -72,18 +73,14 @@
 			{
 				Mask.show(Locale.getInstance().getCurrentLocale().messages.pleaseWait);
 				
-				new MasterDataService().createMasterData(createMasterData_success, faultHandler);
+				new MasterDataService().createMasterData(createMasterData_success, FaultHandler.defaultFaultHandler);
 			}
 			
 			private function createMasterData_success(event:ResultEvent,token:Object=null):void {
 				Mask.close();
 			}
 			
-			private function faultHandler():void
-			{
-				Mask.close();
-				DebugLog.log("ERROR creating master data");
-			}
+			
 			
 		]]>
 	</fx:Script>
