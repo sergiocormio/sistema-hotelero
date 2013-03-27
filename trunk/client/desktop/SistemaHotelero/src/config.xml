@@ -6,5 +6,4 @@
 	<hotelWebSite>www.dellosky.com</hotelWebSite>
 	<tomcatHomePath>C:\Program Files\Apache Software Foundation\apache-tomcat-7.0.33</tomcatHomePath>
 	<serverURL>http://localhost:8400/SistemaHotelero/messagebroker/amf</serverURL>
-	<defaultQuantityOfDaysToShow>7</defaultQuantityOfDaysToShow>
 </config>

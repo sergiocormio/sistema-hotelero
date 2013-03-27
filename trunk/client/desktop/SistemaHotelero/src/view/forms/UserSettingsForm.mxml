@@ -32,15 +32,16 @@
 			
 			protected function init():void
 			{
-				var expDays:String = UserSettings.getInstance().getReservationFormExpDays();
-				daysToExpire.value = Number(expDays);
+				daysToExpire.value = UserSettings.getInstance().getReservationFormExpDays();
 				
 				emailSenderText.text = UserSettings.getInstance().getEmailSender();
 				
 				pswSenderText.text = UserSettings.getInstance().getPassword();
 				
 				testEmailText.text = UserSettings.getInstance().getEmailTest();
-				
+
+				daysToShow.value = UserSettings.getInstance().getDefaultQuantityOfDaysToShow();
+			
 			}
 			
 			
@@ -49,10 +50,11 @@
 			
 			private function save():void{
 				
-				UserSettings.getInstance().setReservationFormExpDays(daysToExpire.value.toString());
+				UserSettings.getInstance().setReservationFormExpDays(daysToExpire.value);
 				UserSettings.getInstance().setEmailSender(emailSenderText.text);
 				UserSettings.getInstance().setpassword(pswSenderText.text);
 				UserSettings.getInstance().setEmailTest(testEmailText.text);
+				UserSettings.getInstance().setDefaultQuantityOfDaysToShow(daysToShow.value);
 				
 				UserSettings.getInstance().update();
 				
@@ -135,6 +137,27 @@
 					</s:stroke>
 				</s:Line>
 				
+			</s:VGroup>
+			
+			<s:VGroup width="100%">
+				<s:Form width="100%">
+					<s:layout>
+						<s:FormLayout gap="0"/>
+					</s:layout> 
+					
+					<s:FormHeading label="- {loc.userSetting.calendar.single}:"
+								   fontWeight="bold" fontStyle="italic" fontSize="12" />
+					
+					<s:FormItem label="{loc.userSetting.calendar.daysToShow}:" >
+						<s:NumericStepper id="daysToShow" minimum="1" maximum="{Number.MAX_VALUE}" width="50"/>
+					</s:FormItem>
+				</s:Form>
+				
+				<s:Line width="90%">
+					<s:stroke>
+						<s:SolidColorStroke color="{Colors.RED_COLOR}" weight="2"/>
+					</s:stroke>
+				</s:Line>
 			</s:VGroup>
 				
 			<s:Spacer height="5"/>

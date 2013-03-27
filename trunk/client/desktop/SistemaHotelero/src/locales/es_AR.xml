@@ -318,7 +318,11 @@
     <transport>
     	<singular>Transporte</singular>
     </transport>
-    <userSetting>
+	<userSetting>
+    	<calendar>
+    		<single>Calendario</single>
+    		<daysToShow>Inicialmente los calendarios mostrarán (días) </daysToShow>
+    	</calendar>
     	<mail>
     		<config>Configuración de Correo</config>
     		<emailSender>Casilla de correo emisora</emailSender>
@@ -331,8 +335,8 @@
 	    	<plural>Vencimiento de Fichas de Reserva</plural>
 	    	<descriptionLabel>Las fichas de reserva en estado "Pre-reserva" pasarán automaticamente al estado "Vencida" luego de</descriptionLabel>
 	    	<days>días</days>
-    	<changesSaved>Los cambios han sido guardados.</changesSaved>
-    </reservationFormExpirationDate>
+    		<changesSaved>Los cambios han sido guardados.</changesSaved>
+    	</reservationFormExpirationDate>
     </userSetting>
     <validator>
     	<error>Error</error>

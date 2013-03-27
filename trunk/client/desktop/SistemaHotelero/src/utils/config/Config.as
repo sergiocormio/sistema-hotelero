@@ -86,13 +86,6 @@ package utils.config
 			}
 		}
 		
-		public function getDefaultQuantityOfDaysToShow():Number{
-			if(_configXML!=null){
-				return _configXML.defaultQuantityOfDaysToShow;
-			}else{
-				return 7; //by default shows a week
-			}
-		}
 		
 	}
 }
