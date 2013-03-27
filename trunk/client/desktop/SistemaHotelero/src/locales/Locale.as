@@ -22,7 +22,7 @@ package locales
 		public var monthNames:Array;
 		
 		public function Locale(){
-			setCurrentLocale(Config.getDefaultLocale());
+			setCurrentLocale(Config.getInstance().getDefaultLocale());
 		}
 		
 		static public function getInstance():Locale{

@@ -38,7 +38,7 @@
  				Utils.centerWindowOnScreen(this);
 				this.maximize(); 
 
-				if(Config.isEnabledLocalServer()){
+				if(Config.getInstance().isEnabledLocalServer()){
 					server = new EmbeddedServer();
 					if(server.initialize()){
 						Mask.show(Locale.getInstance().getCurrentLocale().messages.startingServer);

@@ -217,6 +217,11 @@ package resources.icons
 		[Embed(source='resources/icons/expired.png')]
 		public static var expired:Class;
 		
+		
+		[Bindable]
+		[Embed(source='resources/icons/user_icon.png')]
+		public static var user:Class;
+		
 		public function Icons()
 		{
 		}

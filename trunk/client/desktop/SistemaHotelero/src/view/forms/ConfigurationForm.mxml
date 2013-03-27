@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:crud="view.forms.crud.*" xmlns:migration="view.forms.migration.*">
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:crud="view.forms.crud.*" xmlns:migration="view.forms.migration.*" xmlns:forms="view.forms.*">
 	<fx:Script>
 		<![CDATA[
 			import resources.icons.Icons;
@@ -71,8 +71,8 @@
 			<crud:BankCRUDForm loc="{loc}" width="100%" height="100%"/>
 		</s:NavigatorContent>
 		
-		<s:NavigatorContent id="expirationDays" label="{loc.reservationFormExpirationDate.plural}" icon="{Icons.expired}" width="100%" height="100%">
-			<crud:ReservationFormExpirationCRUDForm loc="{loc}" width="100%" height="100%" />
+		<s:NavigatorContent id="expirationDays" label="{loc.userSetting.plural}" icon="{Icons.user}" width="100%" height="100%">
+			<forms:UserSettingsForm loc="{loc}" width="100%" height="100%" />
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="migration" label="{loc.saveLoadData}" icon="{Icons.saveLoadData}" width="100%" height="100%">

@@ -6,6 +6,7 @@
 	<fx:Script>
 		<![CDATA[
 			import locales.Locale;
+			import utils.FaultHandler;
 			
 			import model.Consumption;
 			import model.Room;
@@ -40,14 +41,6 @@
 			
 			[Bindable]
 			private var rooms:ArrayCollection = new ArrayCollection();
-			
-			
-			// Handle a message fault.
-			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				var errCode:String = event.fault.rootCause.errorCode;
-				
-				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
-			}
 			
 			
 			protected function consultButton_clickHandler(event:MouseEvent):void
@@ -117,7 +110,7 @@
 				
 				if(dateFrom != null && dateTo != null && room != null){
 					
-					new ConsumptionService().retrieveConsumptions(dateFrom, dateTo, room, retrieveConsumptions_resultHandler, faultHandler);
+					new ConsumptionService().retrieveConsumptions(dateFrom, dateTo, room, retrieveConsumptions_resultHandler, FaultHandler.defaultFaultHandler);
 				}
 			}
 			
@@ -156,7 +149,7 @@
 			}
 			
 			private function retrieveRooms():void{
-				new RoomService().retrieveAll(retrieveRooms_resultHandler,faultHandler);
+				new RoomService().retrieveAll(retrieveRooms_resultHandler, FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveRooms_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -177,7 +170,7 @@
 			protected function deleteConsumption():void
 			{
 				// TODO add confirming popup
-				new ConsumptionService().deleteRecord(grid.selectedItem as Consumption, delete_resultHandler, faultHandler);
+				new ConsumptionService().deleteRecord(grid.selectedItem as Consumption, delete_resultHandler, FaultHandler.defaultFaultHandler);
 			}
 			
 			protected function addConsumption():void
