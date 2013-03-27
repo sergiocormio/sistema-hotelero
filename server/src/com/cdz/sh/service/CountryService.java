@@ -1,5 +1,8 @@
 package com.cdz.sh.service;
 
+import java.util.List;
+
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Country;
 
 /**
@@ -11,8 +14,5 @@ import com.cdz.sh.model.Country;
 public interface CountryService extends CrudService<Country, Long>{
 	
 	
-	/**
-	 * TODO: declare specific behavior
-	 */
-
+	public List<Country> retrieveCountriesWithoutRegions() throws DaoException;
 }
