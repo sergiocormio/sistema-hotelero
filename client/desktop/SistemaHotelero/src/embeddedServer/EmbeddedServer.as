@@ -49,7 +49,10 @@ package embeddedServer
 				_initialized = false;
 				Alert.show("NativeProcess not supported");
 			}
-			tomcatHomePath = Config.getTomcatHomePath();
+			
+			var systemConfig:Config = Config.getInstance();
+			
+			tomcatHomePath = systemConfig.getTomcatHomePath();
 			tomcatHomeDir = new File(tomcatHomePath);
 //			tomcatHomeDir = File.applicationStorageDirectory.resolvePath("tomcat");
 			if (!tomcatHomeDir.exists)
@@ -64,7 +67,7 @@ package embeddedServer
 				Alert.show(Locale.getInstance().getCurrentLocale().errorMessage.serverNotFound + File.lineEnding + tomcatHomePath);
 			}
 			
-			javaHomePath = Config.getJavaHomePath();
+			javaHomePath = systemConfig.getJavaHomePath();
 			
 			var javaDir:File = new File(javaHomePath);
 			if(!javaDir.exists){

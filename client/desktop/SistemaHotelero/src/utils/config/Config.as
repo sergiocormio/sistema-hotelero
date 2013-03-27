@@ -9,41 +9,35 @@ package utils.config
 	import utils.Utils;
 	import utils.log.DebugLog;
 
-	public class Config
+	public class Config extends AbstractConfigLoader
 	{
-		private static var _configLoaded:Boolean = false;
-		private static var _configXML:XML = null;
+		private static var FILENAME:String = "config.xml";
 		
-		public function Config()
-		{
+		private static var _instance:Config;
+		
+		public static function getInstance():Config{
+			if(_instance == null){
+				_instance = new Config();
+			}
+			return _instance;
 		}
 		
-		private static function readConfig():void
+		// DO NOT use this from outside this class
+		// (Runtime check in lack of private constructor)
+		public function Config()
 		{
-			var file:File = File.applicationDirectory.resolvePath("config.xml");
-			if (file.exists)
+			if(_instance != null)
 			{
-				var fileStream:FileStream = new FileStream();
-				fileStream.open(file, FileMode.READ);
-				_configXML = XML(fileStream.readUTFBytes(fileStream.bytesAvailable));
-				fileStream.close();
-				_configLoaded = true;
+				throw new Error("You must use the 'getInstance' method because it's a singleton!");
 			}
 			else
 			{
-				//Alert.show("Could not open config.xml");
-				DebugLog.log("DANGER: Could not open config.xml file, using default config values.");
+				var file:File = File.applicationDirectory.resolvePath(FILENAME);
+				loadConfig(file);
 			}
 		}
 		
-		private static function loadConfig():void{
-			if(_configLoaded==false){
-				readConfig();
-			}
-		}
-		
-		public static function getJavaHomePath():String{
-			loadConfig();
+		public function getJavaHomePath():String{
 			if(_configXML!=null){
 				return _configXML.javaHomePath;
 			}else{
@@ -52,8 +46,7 @@ package utils.config
 			}
 		}
 		
-		public static function getTomcatHomePath():String{
-			loadConfig();
+		public function getTomcatHomePath():String{
 			if(_configXML!=null){
 				return _configXML.tomcatHomePath;
 			}else{
@@ -61,8 +54,7 @@ package utils.config
 			}
 		}
 		
-		public static function isEnabledLocalServer():Boolean{ 
-			loadConfig();
+		public function isEnabledLocalServer():Boolean{ 
 			if(_configXML!=null){
 				return Utils.stringToBoolean(_configXML.enableLocalServer);
 			}else{
@@ -70,8 +62,7 @@ package utils.config
 			}
 		}
 		
-		public static function getServerURL():String{ 
-			loadConfig();
+		public function getServerURL():String{ 
 			if(_configXML!=null){
 				return _configXML.serverURL;
 			}else{
@@ -79,8 +70,7 @@ package utils.config
 			}
 		}
 		
-		public static function getDefaultLocale():String{
-			loadConfig();
+		public function getDefaultLocale():String{
 			if(_configXML!=null){
 				return _configXML.defaultLocale;
 			}else{
@@ -88,8 +78,7 @@ package utils.config
 			}
 		}
 		
-		public static function getHotelWebSite():String{
-			loadConfig();
+		public function getHotelWebSite():String{
 			if(_configXML!=null){
 				return _configXML.hotelWebSite;
 			}else{
@@ -97,8 +86,7 @@ package utils.config
 			}
 		}
 		
-		public static function getDefaultQuantityOfDaysToShow():Number{
-			loadConfig();
+		public function getDefaultQuantityOfDaysToShow():Number{
 			if(_configXML!=null){
 				return _configXML.defaultQuantityOfDaysToShow;
 			}else{

@@ -10,6 +10,7 @@
 	<fx:Script>
 		<![CDATA[
 			import locales.Locale;
+			import utils.FaultHandler;
 			
 			import model.Consumption;
 			
@@ -86,7 +87,7 @@
 			}
 			
 			private function retrieveRooms():void{
-				new RoomService().retrieveAll(retrieveRooms_resultHandler,faultHandler);
+				new RoomService().retrieveAll(retrieveRooms_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveRooms_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -100,14 +101,6 @@
 			}
 			
 						
-			// Handle a message fault.
-			private function faultHandler(event:FaultEvent,token:Object=null):void {
-				
-				var errCode:String = event.fault.rootCause.errorCode;
-				
-				Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
-			}
-			
 			private function allFieldsAreValid():Boolean{
 				
 				setEnabledValidators(true);
@@ -150,7 +143,7 @@
 				currentConsumption.price = new Number(priceText.text);
 								
 				//calls service
-				new ConsumptionService().createRecord(currentConsumption,ConsumptionSaved_resultHandler,faultHandler);
+				new ConsumptionService().createRecord(currentConsumption,ConsumptionSaved_resultHandler, FaultHandler.defaultFaultHandler);
 			}
 			
 			protected function cancel():void

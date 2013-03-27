@@ -13,7 +13,7 @@ package services
 		public function RemoteObjectWrapperService(destination:String)
 		{
 			remoteObject = new RemoteObject(destination);
-			var myChannel:AMFChannel = new AMFChannel("my-amf",Config.getServerURL());
+			var myChannel:AMFChannel = new AMFChannel("my-amf", Config.getInstance().getServerURL());
 			
 			// set request timeout to 1 hour
 			myChannel.netConnection.httpIdleTimeout = new Number(1000 * 60 * 60);

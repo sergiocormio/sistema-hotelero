@@ -7,6 +7,8 @@
 		<SendEmailsTo>Enviar a clientes de</SendEmailsTo>
 		<subject>Asunto</subject>
 		<body>Mensaje</body>
+		<birthMonth>Mes de nacimiento</birthMonth>
+		<all>Todos</all>
 	</advertisement>
 	<alternative>
 		<alternativeView>Vista de Alternativa</alternativeView>
@@ -72,6 +74,8 @@
     	<print>Imprimir</print>
     	<clean>Limpiar</clean>
     	<send>Enviar</send>
+    	<insertImage>Insertar imagen</insertImage>
+		<preview>Vista Previa</preview>
     </button>
     <calendar>
     	<singular>Calendario</singular>
@@ -269,12 +273,6 @@
 			<print>Imprimir</print>
 		</buttons>
     </reservationForm>
-    <reservationFormExpirationDate>
-    	<plural>Vencimiento de Fichas de Reserva</plural>
-    	<descriptionLabel>Las fichas de reserva en estado "Pre-reserva" pasarán automaticamente al estado "Vencida" luego de</descriptionLabel>
-    	<days>Días</days>
-    	<changesSaved>Los cambios han sido guardados.</changesSaved>
-    </reservationFormExpirationDate>
     <room>
    		<singular>Habitación</singular>
 	    <plural>Habitaciones</plural>
@@ -320,6 +318,22 @@
     <transport>
     	<singular>Transporte</singular>
     </transport>
+    <userSetting>
+    	<mail>
+    		<config>Configuración de Correo</config>
+    		<emailSender>Casilla de correo emisora</emailSender>
+    		<pswSender>Contraseña</pswSender>
+    		<confirmPswSender>Confirmar Contraseña</confirmPswSender>
+    		<testEmail>Casilla de correo de prueba</testEmail>
+    	</mail>
+    	<plural>Preferencias de Usuario</plural>
+    	<reservationFormExpirationDate>
+	    	<plural>Vencimiento de Fichas de Reserva</plural>
+	    	<descriptionLabel>Las fichas de reserva en estado "Pre-reserva" pasarán automaticamente al estado "Vencida" luego de</descriptionLabel>
+	    	<days>días</days>
+    	<changesSaved>Los cambios han sido guardados.</changesSaved>
+    </reservationFormExpirationDate>
+    </userSetting>
     <validator>
     	<error>Error</error>
     	<requiredFieldError>Campo requerido</requiredFieldError>

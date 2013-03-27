@@ -15,7 +15,7 @@
 			
 			[Bindable]
 			public var loc:Object;
-			public var daysToShow:int = Config.getDefaultQuantityOfDaysToShow();
+			public var daysToShow:int = Config.getInstance().getDefaultQuantityOfDaysToShow();
 			[Bindable]
 			public var dateFrom:Date = DateTimeUtils.removeHoursToDate(new Date());
 			[Bindable]

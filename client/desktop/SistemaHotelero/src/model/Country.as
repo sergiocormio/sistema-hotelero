@@ -2,7 +2,7 @@ package model
 {
 
 [RemoteClass (alias="com.cdz.sh.model.Country")]
-public class Country
+public class Country implements IPlace
 {
 	private var _id : Object;
 	private var _name : String;
@@ -27,6 +27,11 @@ public class Country
 	{
 		_id = value;
 	}    
+	
+	public function get qualifiedName():String
+	{
+		return _name;
+	}
 }
 
 }

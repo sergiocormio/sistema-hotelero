@@ -1,0 +1,10 @@
+<user_settings>
+	<reservationForm>
+		<expirationDays>3</expirationDays>
+	</reservationForm>
+	<mail>
+		<emailSender></emailSender>
+		<password></password>
+		<emailTest></emailTest>
+	</mail>
+</user_settings>
