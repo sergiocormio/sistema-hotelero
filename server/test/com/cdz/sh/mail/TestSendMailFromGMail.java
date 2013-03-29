@@ -43,17 +43,23 @@ public class TestSendMailFromGMail {
 		toList.add(to);
 		
 		String subject = "Mail from GMail";
-		String body = "<!DOCTYPE html>" +
-						"<html>" +
-							"<body style='background-color:PowderBlue;'>" +
-								"<h1>Look! Styles and colors</h1>" +
-								"<p style='font-family:verdana;color:red;''>" +
-									"This text is in Verdana and red</p>" +
-								"<p style='font-family:times;color:green;'>" +
-									"This text is in Times and green</p>" +
-								"<p style='font-size:30px;'>This text is 30 pixels high</p>" +
-							"</body>" +
-						"</html>";
+//		String body = "<!DOCTYPE html>" +
+//						"<html>" +
+//							"<body style='background-color:PowderBlue;'>" +
+//								"<h1>Look! Styles and colors</h1>" +
+//								"<p style='font-family:verdana;color:red;''>" +
+//									"This text is in Verdana and red</p>" +
+//								"<p style='font-family:times;color:green;'>" +
+//									"This text is in Times and green</p>" +
+//								"<p style='font-size:30px;'>This text is 30 pixels high</p>" +
+//							"</body>" +
+//						"</html>";
+		
+		String body = "<P STYLE='FONT-FAMILY:VERDANA;COLOR:RED;''>" +
+							"THIS TEXT IS IN VERDANA AND RED</P>" +
+						"<P STYLE='FONT-FAMILY:TIMES;COLOR:GREEN;'>" +
+							"THIS TEXT IS IN TIMES AND GREEN</P>" +
+						"<P STYLE='FONT-SIZE:30PX;'>THIS TEXT IS 30 PIXELS HIGH</P>";
 		
 		MailSender mailSender = new MailSender();
 		mailSender.sendMail(fromGMail, passwordGMail, toList, subject, body, true);
@@ -94,7 +100,7 @@ public class TestSendMailFromGMail {
 			String body = "Body chabon! Cree cuenta de GMail de prueba :)";
 			
 			MailSender mailSender = new MailSender();
-			mailSender.sendMail("fruta", passwordGMail, toList, subject, body, false);
+			mailSender.sendMail("test.cds.f001@gmail.com", passwordGMail, toList, subject, body, false);
 		}
 		catch (EMailException e) {
 			assertTrue(e.getErrorCode().equals(ExceptionErrorCodes.INVALID_FROM_EMAIL));
