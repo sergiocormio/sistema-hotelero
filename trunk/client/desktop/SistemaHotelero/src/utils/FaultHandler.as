@@ -6,6 +6,7 @@ package utils
 	import mx.rpc.events.FaultEvent;
 	
 	import utils.log.DebugLog;
+	import view.components.Mask;
 
 	public class FaultHandler
 	{
@@ -15,6 +16,9 @@ package utils
 		
 		// Handle a message fault.
 		public static function defaultFaultHandler(event:FaultEvent=null,token:Object=null):void {
+			
+			Mask.close();
+			
 			if(event == null){
 				return;
 			}

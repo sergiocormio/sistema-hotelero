@@ -2,12 +2,14 @@
 <s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
-		  creationComplete="init()">
+		  creationComplete="init()" focusInEffect="init()">
 	<fx:Script>
 		<![CDATA[
 			import flash.sampler.getInvocationCount;
 			
 			import flashx.textLayout.operations.PasteOperation;
+			
+			import mx.validators.Validator;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -50,6 +52,10 @@
 			
 			private function save():void{
 				
+				if(!allFieldsAreValid()){
+					return;
+				}
+			
 				UserSettings.getInstance().setReservationFormExpDays(daysToExpire.value);
 				UserSettings.getInstance().setEmailSender(emailSenderText.text);
 				UserSettings.getInstance().setpassword(pswSenderText.text);
@@ -57,19 +63,74 @@
 				UserSettings.getInstance().setDefaultQuantityOfDaysToShow(daysToShow.value);
 				
 				UserSettings.getInstance().update();
+			}
+			
+			
+			
+			
+			private function allFieldsAreValid():Boolean{
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(emailSenderlValidator);
+				valArray.push(pswValidator);
+				valArray.push(emailTestlValidator);
+				
+				var validatorErrorArray:Array = Validator.validateAll(valArray);
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				
+				return isValidForm;
 				
 			}
 			
-			
-			
-			private function update_resultHandler(event:ResultEvent,token:Object=null):void {
-			
+						
+			private function setEnabledValidators(enabled:Boolean):void{
+				emailSenderlValidator.enabled = enabled;
+				pswValidator.enabled = enabled;
+				emailTestlValidator.enabled = enabled;
 			}
+			
 			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:EmailValidator id="emailSenderlValidator" 
+						   enabled="false"
+						   required="true"
+						   requiredFieldError="{loc.validator.requiredFieldError}"
+						   invalidCharError="{loc.validator.invalidFieldValueError}"
+						   invalidPeriodsInDomainError="{loc.validator.invalidFieldValueError}"
+						   missingAtSignError="{loc.validator.invalidFieldValueError}"
+						   missingPeriodInDomainError="{loc.validator.invalidFieldValueError}"
+						   missingUsernameError="{loc.validator.invalidFieldValueError}"
+						   tooManyAtSignsError="{loc.validator.invalidFieldValueError}"
+						   source="{emailSenderText}"
+						   property="text" 
+						   />
+		<mx:StringValidator id="pswValidator"
+							enabled="false"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							source="{pswSenderText}"
+							property="text"
+							/>
+		<mx:EmailValidator id="emailTestlValidator" 
+						   enabled="false"
+						   required="true"
+						   requiredFieldError="{loc.validator.requiredFieldError}"
+						   invalidCharError="{loc.validator.invalidFieldValueError}"
+						   invalidPeriodsInDomainError="{loc.validator.invalidFieldValueError}"
+						   missingAtSignError="{loc.validator.invalidFieldValueError}"
+						   missingPeriodInDomainError="{loc.validator.invalidFieldValueError}"
+						   missingUsernameError="{loc.validator.invalidFieldValueError}"
+						   tooManyAtSignsError="{loc.validator.invalidFieldValueError}"
+						   source="{testEmailText}"
+						   property="text" 
+						   />
 	</fx:Declarations>
 	
 	<s:Group width="100%" height="100%" horizontalCenter="0" verticalCenter="0">

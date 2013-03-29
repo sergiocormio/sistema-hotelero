@@ -9,6 +9,11 @@
 		<body>Mensaje</body>
 		<birthMonth>Mes de nacimiento</birthMonth>
 		<all>Todos</all>
+		<emailSent>El mensaje ha sido enviado a los destinatarios seleccionados.</emailSent>
+		<emailTestSent>Se ha enviado un mensaje de prueba a</emailTestSent>
+		<error>
+			<noCustomerSelected>No existen clientes asociados al criterio de búsqueda elegido.</noCustomerSelected>
+		</error>
 	</advertisement>
 	<alternative>
 		<alternativeView>Vista de Alternativa</alternativeView>
@@ -371,6 +376,7 @@
 			<emailNotSent>El email no fue enviado</emailNotSent>
 			<invalidFromEmail>El email emisor es inválido</invalidFromEmail>
 			<invalidFromPassword>La contraseña del email emisor es inválida</invalidFromPassword>
+			<invalidSender>Las credenciales (casilla de correo y/o contraseña) son inválidas </invalidSender>
 			<toListEmpty>Debe especificar al menos una casilla de correo destino</toListEmpty>
 			<invalidToEmail>La lista de casillas de correo destino es inválida</invalidToEmail>
 			<invalidBody></invalidBody>
