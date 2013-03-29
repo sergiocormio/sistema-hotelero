@@ -74,7 +74,7 @@ public class MailSender {
 				throw new EMailException(ExceptionErrorCodes.INVALID_FROM_EMAIL, e.getMessage());
 			}
 			if(e instanceof SMTPSendFailedException || e instanceof AuthenticationFailedException){
-				throw new EMailException(ExceptionErrorCodes.INVALID_FROM_PASSWORD, e.getMessage());
+				throw new EMailException(ExceptionErrorCodes.INVALID_SENDER, e.getMessage());
 			}
 			if(e.getNextException() instanceof SMTPAddressFailedException){
 				throw new EMailException(ExceptionErrorCodes.INVALID_TO_EMAIL, e.getMessage());

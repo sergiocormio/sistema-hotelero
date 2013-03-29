@@ -41,10 +41,10 @@ public class EmailRequest {
 	public void setBody(String body) {
 		this.body = body;
 	}
-	public boolean isHtml() {
+	public boolean isIsHtml() {
 		return isHtml;
 	}
-	public void setHtml(boolean isHtml) {
+	public void setIsHtml(boolean isHtml) {
 		this.isHtml = isHtml;
 	}
 	

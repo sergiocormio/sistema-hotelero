@@ -41,6 +41,8 @@ public class ExceptionErrorCodes {
 	public static final String INVALID_TO_EMAIL = "invalidToEmail";
 	public static final String INVALID_BODY = "invalidBody";
 
+	public static final String INVALID_SENDER = "invalidSender";
+
 
 
 
