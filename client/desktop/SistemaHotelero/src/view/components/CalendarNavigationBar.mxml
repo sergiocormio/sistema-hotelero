@@ -23,7 +23,7 @@
 			public var dateFrom:Date = DateTimeUtils.removeHoursToDate(new Date());
 			
 			[Bindable]
-			public var dateTo:Date =  DateTimeUtils.removeHoursToDate(DateTimeUtils.rollDaysToDate(new Date(),daysToShow));
+			public var dateTo:Date =  DateTimeUtils.removeHoursToDate(DateTimeUtils.rollDaysToDate(new Date(),daysToShow-1));
 			
 			protected function increaseDaysToShowButton_clickHandler(event:MouseEvent):void
 			{

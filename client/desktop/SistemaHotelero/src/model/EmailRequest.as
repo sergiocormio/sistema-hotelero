@@ -7,7 +7,7 @@ package model
 	{
 		private var _from:String;
 		private var _password:String;
-		private var _to:ArrayCollection;
+		private var _toList:ArrayCollection;
 		private var _subject:String;
 		private var _body:String;
 		private var _isHtml:Boolean;
@@ -37,14 +37,14 @@ package model
 			_password = value;
 		}
 
-		public function get to():ArrayCollection
+		public function get toList():ArrayCollection
 		{
-			return _to;
+			return _toList;
 		}
 
-		public function set to(value:ArrayCollection):void
+		public function set toList(value:ArrayCollection):void
 		{
-			_to = value;
+			_toList = value;
 		}
 
 		public function get subject():String
