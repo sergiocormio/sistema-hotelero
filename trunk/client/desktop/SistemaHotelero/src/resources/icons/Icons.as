@@ -27,6 +27,9 @@ package resources.icons
 		[Embed(source='resources/icons/cancel.png')]
 		public static var cancel:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/tick.png')]
+		public static var ok:Class;
 		//------- Flag Icons -----------
 		[Bindable]
 		[Embed(source='resources/icons/Argentina Flag 24x24.png')]

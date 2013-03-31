@@ -34,6 +34,9 @@
 			
 			public var alternative:Alternative;
 			
+			[Bindable]
+			public var readOnly:Boolean; //allows showing the alternative without modification
+			
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -85,7 +88,7 @@
 			
 			protected function cancelButton_clickHandler(event:MouseEvent):void
 			{
-				dispatchEvent(new Event("cancelClicked"));				
+				dispatchEvent(new Event("cancelClicked"));
 			}
 			
 			public function getManualAlternative():Alternative{
@@ -169,12 +172,15 @@
 		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 	</s:Rect>
 	<s:VGroup width="100%" height="100%" paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">
-		<components:CalendarGrid id="grid" width="100%" height="100%" dateFrom="{calendarNavigationBar.dateFrom}" dateTo="{calendarNavigationBar.dateTo}" loc="{loc}" editable="true"/>
+		<components:CalendarGrid id="grid" width="100%" height="100%" dateFrom="{calendarNavigationBar.dateFrom}" dateTo="{calendarNavigationBar.dateTo}" loc="{loc}" editable="{!readOnly}"/>
 		<components:CalendarNavigationBar id="calendarNavigationBar"  width="100%" loc="{loc}" 
 										  navigationChanged="{navigationChanged()}"
 										  refreshCalendarPressed="{refreshCalendar()}"/>
 		<s:HGroup width="100%" horizontalAlign="center">
-			<s:Button id="saveButton" label="{loc.button.save}" icon="{Icons.save}" click="saveButton_clickHandler(event)"/>
+			<s:Group>
+				<s:Button id="okButton" label="{loc.button.close}" icon="{Icons.ok}" click="cancelButton_clickHandler(event)" enabled="{readOnly}" visible="{readOnly}"/>
+				<s:Button id="saveButton" label="{loc.button.save}" icon="{Icons.save}" click="saveButton_clickHandler(event)" enabled="{!readOnly}" visible="{!readOnly}"/>
+			</s:Group>
 			<s:Button id="cancelButton" label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancelButton_clickHandler(event)"/>
 		</s:HGroup>
 	</s:VGroup>

@@ -291,6 +291,7 @@
 			{
 				manualAlternativeForm = new ManualAlternativeForm();
 				manualAlternativeForm.loc = loc;
+				manualAlternativeForm.readOnly = isUpdate;
 				manualAlternativeForm.alternative = alternative;
 				manualAlternativeForm.addEventListener("saveClicked",manualAlternative_saveSuccess);
 				manualAlternativeForm.addEventListener("cancelClicked",titleWindow_close);
@@ -345,9 +346,9 @@
 			{
 				var label:String = "(";
 				if(nights==0){
-					label+="- " + loc.day.plural;
+					label+="- " + loc.night.plural;
 				}else if(nights == 1){
-					label+="1 " + loc.day.singular;
+					label+="1 " + loc.night.singular;
 				}else{
 					label+= nights + " " + loc.night.plural;
 				}
@@ -543,8 +544,7 @@
 			<s:VGroup paddingLeft="-140">
 				<s:Spacer height="130"/>
 				<s:Button id="loadManualAlternativeButton" label="{loc.lodgement.singular}" 
-						  icon="{Icons.calendarEdit}" iconPlacement="top" click="loadManualAlternative()"
-						  enabled="{!isUpdate}"/>
+						  icon="{Icons.calendarEdit}" iconPlacement="top" click="loadManualAlternative()"/>
 			</s:VGroup>
 			
 			<s:Form>
@@ -597,10 +597,10 @@
 		</s:HGroup>
 		<!-- BUTTONS -->
 		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle" paddingTop="0" paddingBottom="0">
-			<s:Button label="{loc.alternative.buttons.budget}" visible="false" 
-					  id="displayBudgetButton" click="displayBudget()" icon="{Icons.moneyBag}"/>
 			<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
 			<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
+			<s:Button label="{loc.alternative.buttons.budget}" visible="false" 
+					  id="displayBudgetButton" click="displayBudget()" icon="{Icons.moneyBag}"/>
 		</s:HGroup>
 		<!--<s:Spacer height="5"/>-->
 	</s:VGroup>
