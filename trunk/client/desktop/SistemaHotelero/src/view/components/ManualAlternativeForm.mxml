@@ -28,6 +28,7 @@
 			import services.crud.RoomService;
 			
 			import utils.DateTimeUtils;
+			import utils.FaultHandler;
 			import utils.log.DebugLog;
 			[Bindable]
 			public var loc:Object = Locale.getInstance().getCurrentLocale();
@@ -74,6 +75,7 @@
 				Mask.close();
 				DebugLog.log("ERROR trying to load rooms and occupations.");
 				//Alert.show( loc.validator.server.child(errCode).text(), loc.validator.error );
+				FaultHandler.defaultFaultHandler(event,token);
 			}
 			
 			protected function saveButton_clickHandler(event:MouseEvent):void
