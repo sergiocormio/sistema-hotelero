@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<locale>
+	<alternative>
+		<dateTo>Date To</dateTo>
+		<dateFrom>Date From</dateFrom>
+		<involvedRooms>Involved Rooms</involvedRooms>
+		<view>View</view>
+		<buttons>
+			<book>Book</book>
+			<budget>Budget</budget>
+		</buttons>
+	</alternative>
+	<availability>
+	   	<singular>Availability</singular>
+    	<plural>Availabilities</plural>
+    	<days>Days</days>
+    	<dateFrom>Date From</dateFrom>
+    	<dateTo>Date To</dateTo>
+    	<adultsQuantity>Adults Quantity</adultsQuantity>
+    	<childrenQuantity>Children Quantity</childrenQuantity>
+    	<variation>Availability +/-</variation>
+    	<consult>Consult</consult>
+    	<clean>Clean</clean>
+    	<otherAlternatives>Other Alternatives</otherAlternatives>
+    	<bed>
+    		<singular>Bed</singular>
+    		<plural>Beds</plural>
+	    	<single>Single</single>
+	    	<marital>Marital</marital>
+    	</bed>
+	</availability>
+	<bank>
+		<singular>Bank</singular>
+		<plural>Banks</plural>
+		<name>Name</name>
+	</bank>
+	<boolean>
+		<falseValue>No</falseValue>
+		<trueValue>Yes</trueValue>
+	</boolean>
+	<budget>
+		<basePrice>Base Price</basePrice>
+		<basePricePlusAllServicesIncludedInBasePrice>Price with Basic Services</basePricePlusAllServicesIncludedInBasePrice>
+	</budget>
+    <button>
+    	<add>Add</add>
+    	<cancel>Cancel</cancel>
+    	<modify>Modify</modify>
+    	<newLabel>New</newLabel>
+    	<refresh>Refresh</refresh>
+    	<remove>Remove</remove>
+    	<save>Save</save>
+    	<close>Close</close>
+    </button>
+    <calendar>
+    	<singular>Calendar</singular>
+    	<plural>Calendars</plural>
+    </calendar>
+    <configuration>
+    	<singular>Configuration</singular>
+	    <plural>Configurations</plural>
+    </configuration>
+	<country>
+	    <singular>Country</singular>
+	    <plural>Countries</plural>
+	    <name>Name</name>
+	</country>
+    <customer>
+	    <singular>Customer</singular>
+	    <plural>Customers</plural>
+	    <dateOfBirth>Date of Birth</dateOfBirth>
+	    <region>Region</region>
+	    <firstName>First Name</firstName>
+	    <lastName>Last Name</lastName>
+	    <lastLodgementDate>Last Lodgement Date</lastLodgementDate>
+	    <email>E-Mail</email>
+	    <profession>Profession</profession>
+	    <phoneNumber>Phone Number</phoneNumber>
+	    <cellphoneNumber>Cellphone Number</cellphoneNumber>
+    </customer>
+    <customerPK>
+    	<idNumber>Id Number</idNumber>
+    </customerPK>
+    <day>
+    	<monday>
+    		<name>Monday</name>
+    		<abbr>Mon</abbr>
+    	</monday>
+    	<tuesday>
+    		<name>Tuesday</name>
+    		<abbr>Tue</abbr>
+   		</tuesday>
+    	<wednesday>
+    		<name>Wednesday</name>
+    		<abbr>Wed</abbr>
+   		</wednesday>
+    	<thursday>
+    		<name>Thursday</name>
+    		<abbr>Thu</abbr>
+   		</thursday>
+    	<friday>
+    		<name>Friday</name>
+    		<abbr>Fri</abbr>
+		</friday>
+    	<saturday>
+    		<name>Saturday</name>
+    		<abbr>Sat</abbr>
+   		</saturday>
+    	<sunday>
+    		<name>Sunday</name>
+    		<abbr>Sun</abbr>
+   		</sunday>
+    </day>
+    <dateFormat>MM/dd/yyyy</dateFormat>
+    <documentType>
+    	<singular>Document Type</singular>
+	    <plural>Document Types</plural>
+	    <name>Name</name>
+	    <regExp>Regular Expression</regExp>
+    </documentType>
+    <exchangeRate>
+    	<singular>Exchange Rate</singular>
+	    <plural>Exchange Rates</plural>
+	    <name>Name</name>
+	    <currencyCode>Currency Code</currencyCode>
+	    <currencySymbol>Currency Symbol</currencySymbol>
+	    <valueAgainstReal>Value against Real</valueAgainstReal>
+    </exchangeRate>
+    <language>
+   		<singular>Language</singular>
+	    <plural>Languages</plural>
+	    <name>Name</name>
+    	<english>English</english>
+    	<portuguese>Portuguese</portuguese>
+    	<spanish>Spanish</spanish>
+    </language>
+    <lodgement>
+    	<singular>Lodgement</singular>
+    	<plural>Lodgements</plural>
+    </lodgement>
+    <month>
+    	<january>January</january>
+    	<february>February</february>
+    	<march>March</march>
+    	<april>April</april>
+    	<may>May</may>
+    	<june>June</june>
+    	<july>July</july>
+    	<august>August</august>
+    	<september>September</september>
+    	<october>October</october>
+    	<november>November</november>
+    	<december>December</december>
+    </month>
+    <validator>
+    	<requiredFieldError>The field is required</requiredFieldError>
+    	<regExp>
+    		<noMatchError>The field is invalid</noMatchError>
+    	</regExp>
+    </validator>
+    <rate>
+    	<singular>Rate</singular>
+	    <plural>Rates</plural>
+	    <price>Price</price>
+    </rate>
+    <region>
+   		<singular>Region</singular>
+	    <plural>Regions</plural>
+	    <name>Name</name>
+    </region>
+    <reservationForm>
+    	<singular>Reservation Form</singular>
+	    <plural>Reservation Forms</plural>
+	    <id>Id</id>
+	    <state>
+	    	<singular>State</singular>
+	    	<plural>States</plural>
+	    	<PRE_BOOKING>Pre-Booking</PRE_BOOKING>
+	    	<CONFIRMED>Confirmed</CONFIRMED>
+	    	<CANCELLED>Cancelled</CANCELLED>
+	    	<EXPIRED>Expired</EXPIRED>
+	    </state>
+	    <creationDate>Creation Date</creationDate>
+	    <dateFrom>Date From</dateFrom>
+	    <dateTo>Date To</dateTo>
+	    <adultsQuantity>Adults</adultsQuantity>
+	    <childrenQuantity>Children</childrenQuantity>
+	    <pricePerDay>Price per Day</pricePerDay>
+	    <monetaryReserve>Monetary Reserve</monetaryReserve>
+	    <bankDocumentNumber>Bank Document Number</bankDocumentNumber>
+	    <buttons>
+			<confirm>Confirm</confirm>
+			<cancel>Cancel</cancel>
+		</buttons>
+    </reservationForm>
+    <room>
+   		<singular>Room</singular>
+	    <plural>Rooms</plural>
+	    <description>Description</description>
+	    <number>Number</number>
+	    <peopleQuantity>Quantity of People</peopleQuantity>
+	    <withMaritalBed>With Marital Bed</withMaritalBed>
+	    <withExtraBed>With Extra Bed</withExtraBed>
+    </room>
+    <roomType>
+   		<singular>Room Type</singular>
+	    <plural>Room Types</plural>
+	    <name>Name</name>
+	    <description>Description</description>
+    </roomType>
+    <season>
+    	<singular>Season</singular>
+	    <plural>Seasons</plural>
+	    <dateFrom>Date From</dateFrom>
+	    <dateTo>Date To</dateTo>
+    </season>
+    <serviceType>
+    	<singular>Service</singular>
+	    <plural>Service Types</plural>
+	    <name>Name</name>
+	    <description>Description</description>
+	    <modality>
+	    	<singular>Modality</singular>
+	    	<plural>Modalities</plural>
+	    	<PER_PERSON>Per Person</PER_PERSON>
+	    	<PER_TIME>Per Time</PER_TIME>
+	    	<PER_NIGHT>Per Night</PER_NIGHT>
+	    	<PER_UNIT>Per Unit</PER_UNIT>
+	    	<PER_ROOM>Per Room</PER_ROOM>
+	    </modality>
+	    <price>Price</price>
+	    <includedInBudget>Included In Budget</includedInBudget>
+	    <includedInBasePrice>Included In Base Price</includedInBasePrice>
+    </serviceType>
+</locale>

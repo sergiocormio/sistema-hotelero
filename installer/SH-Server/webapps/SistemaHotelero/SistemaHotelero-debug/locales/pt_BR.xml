@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<locale>
+    <button>
+    	<add>Add</add>
+    	<modify>Modify</modify>
+    	<refresh>Refresh</refresh>
+    	<remove>Remove</remove>
+    	<save>Save</save>
+    	<cancel>Cancel</cancel>
+    </button>
+	<country>
+	    <singular>Country</singular>
+	    <plural>Countries</plural>
+	    <name>Name</name>
+	</country>
+    <customer>
+	    <singular>Customer</singular>
+	    <plural>Customers</plural>
+	    <dateOfBirth>Date of Birth</dateOfBirth>
+	    <region>Region</region>
+	    <firstName>First Name</firstName>
+	    <lastName>Last Name</lastName>
+	    <lastLodgementDate>Last Lodgement Date</lastLodgementDate>
+	    <email>E-Mail</email>
+	    <profession>Profession</profession>
+    </customer>
+    <customerPK>
+    	<idNumber>Id Number</idNumber>
+    </customerPK>
+    <day>
+    	<monday>
+    		<name>Primera</name>
+    		<abbr>Pri</abbr>
+    	</monday>
+    	<tuesday>
+    		<name>Segunda</name>
+    		<abbr>Seg</abbr>
+   		</tuesday>
+    	<wednesday>
+    		<name>Tercera</name>
+    		<abbr>Ter</abbr>
+   		</wednesday>
+    	<thursday>
+    		<name>Cuarta</name>
+    		<abbr>Cua</abbr>
+   		</thursday>
+    	<friday>
+    		<name>Quinta</name>
+    		<abbr>Qui</abbr>
+		</friday>
+    	<saturday>
+    		<name>Sexta</name>
+    		<abbr>Sex</abbr>
+   		</saturday>
+    	<sunday>
+    		<name>Septima</name>
+    		<abbr>Sep</abbr>
+   		</sunday>
+    </day>
+    <dateFormat>MM/dd/yyyy</dateFormat>
+    <documentType>
+    	<singular>Document Type</singular>
+	    <plural>Document Types</plural>
+	    <name>Name</name>
+	    <regExp>Regular Expression</regExp>
+    </documentType>
+    <language>
+    	<english>English</english>
+    	<portuguese>Portuguese</portuguese>
+    	<spanish>Spanish</spanish>
+    </language>
+    <month>
+    	<january>January</january>
+    	<february>February</february>
+    	<march>March</march>
+    	<april>April</april>
+    	<may>May</may>
+    	<june>June</june>
+    	<july>July</july>
+    	<august>August</august>
+    	<september>September</september>
+    	<october>October</october>
+    	<november>November</november>
+    	<december>December</december>
+    </month>
+    <serviceType>
+    	<singular>Service</singular>
+	    <plural>Service Types</plural>
+	    <name>Name</name>
+	    <description>Description</description>
+	    <modality>
+	    	<singular>Modality</singular>
+	    	<plural>Modalities</plural>
+	    	<PER_PERSON>Per Person</PER_PERSON>
+	    	<PER_TIME>Per Time</PER_TIME>
+	    	<PER_NIGHT>Per Night</PER_NIGHT>
+	    	<PER_UNIT>Per Unit</PER_UNIT>
+	    	<PER_ROOM>Per Room</PER_ROOM>
+	    </modality>
+	    <price>Price</price>
+	    <includedInBudget>Included In Budget</includedInBudget>
+	    <includedInBasePrice>Included In Base Price</includedInBasePrice>
+    </serviceType>
+</locale>
