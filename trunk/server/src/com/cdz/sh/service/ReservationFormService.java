@@ -51,5 +51,5 @@ public interface ReservationFormService extends CrudService<ReservationForm, Lon
 	 * @param reservationForm
 	 * @return the absolute path to the report generated
 	 */
-	public byte[] exportData(ReservationForm reservationForm) throws DaoException;
+	public byte[] exportData(ReservationForm reservationForm, String selectedLocale) throws DaoException;
 }

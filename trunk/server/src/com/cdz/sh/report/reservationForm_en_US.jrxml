@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb22989f-db85-46ba-977d-8bb124583fbf">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="18"/>
 	<subDataset name="dataset1" uuid="55df5151-b119-4449-ae20-3a4746f9d377"/>
 	<field name="id" class="java.lang.Long"/>
 	<field name="state.displayname" class="java.lang.String"/>
@@ -32,12 +32,12 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="20" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Ficha de Reserva nro:]]></text>
+				<text><![CDATA[Reservation Form:]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="ca2d2530-48aa-4d0c-bc9e-10d50806c1b6" x="289" y="32" width="73" height="31"/>
 				<textElement verticalAlignment="Middle">
-					<font size="24"/>
+					<font size="20"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
@@ -51,19 +51,19 @@
 			<staticText>
 				<reportElement uuid="e672e229-1a55-48e1-92ef-9f062eb74b35" x="48" y="17" width="68" height="20"/>
 				<textElement/>
-				<text><![CDATA[Estado]]></text>
+				<text><![CDATA[State]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="8224e88b-7145-42e5-917e-8313d472e090" x="48" y="57" width="68" height="20"/>
 				<textElement/>
-				<text><![CDATA[Fecha hasta]]></text>
+				<text><![CDATA[Date to]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement uuid="78e22d18-357a-4ddb-b10a-c2409da152db" x="160" y="57" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{dateTo}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement uuid="e5c54192-0bff-49a2-b67e-d6f1318035dd" x="160" y="37" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{dateFrom}]]></textFieldExpression>
@@ -71,7 +71,7 @@
 			<staticText>
 				<reportElement uuid="8224e88b-7145-42e5-917e-8313d472e090" x="48" y="37" width="68" height="20"/>
 				<textElement/>
-				<text><![CDATA[Fecha desde]]></text>
+				<text><![CDATA[Date from]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="ab3854c3-8fbc-472c-a404-1f92b69fd943" x="160" y="17" width="117" height="20"/>
@@ -88,12 +88,12 @@
 			<staticText>
 				<reportElement uuid="8224e88b-7145-42e5-917e-8313d472e090" x="48" y="77" width="86" height="20"/>
 				<textElement/>
-				<text><![CDATA[Cantidad de dias]]></text>
+				<text><![CDATA[Days]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="e866f67a-b7d0-4852-a11f-831f5c08d321" x="289" y="77" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Cantidad de noches]]></text>
+				<text><![CDATA[Nights]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="caa0dbc5-e534-4b97-ba80-0ddf06c22910" x="400" y="77" width="100" height="20"/>
@@ -107,7 +107,7 @@
 			<staticText>
 				<reportElement uuid="7e02a428-560a-4b33-b6ff-e31fd6cb927d" x="48" y="20" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Nombre]]></text>
+				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="142246fe-2f60-41ed-839a-02ec000e7d97" x="48" y="80" width="100" height="20"/>
@@ -117,74 +117,69 @@
 			<staticText>
 				<reportElement uuid="142246fe-2f60-41ed-839a-02ec000e7d97" x="48" y="40" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Teléfono]]></text>
+				<text><![CDATA[Phone]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="49c8524f-d60b-46f9-bcd4-c357a8e55dc0" x="160" y="20" width="129" height="20"/>
+				<reportElement uuid="49c8524f-d60b-46f9-bcd4-c357a8e55dc0" x="160" y="20" width="240" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{customer.fullName}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement uuid="7e02a428-560a-4b33-b6ff-e31fd6cb927d" x="48" y="20" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[Nombre]]></text>
-			</staticText>
 			<staticText>
 				<reportElement uuid="4f8413e8-ba85-438d-b843-c29f35a99039" x="48" y="0" width="68" height="20"/>
 				<textElement>
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Cliente:]]></text>
+				<text><![CDATA[Customer]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="2ae7e384-3e47-498c-80b4-a5dde7906379" x="160" y="80" width="100" height="20"/>
+				<reportElement uuid="2ae7e384-3e47-498c-80b4-a5dde7906379" x="160" y="80" width="240" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{customer.email}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="142246fe-2f60-41ed-839a-02ec000e7d97" x="48" y="61" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Celular]]></text>
+				<text><![CDATA[Cell phone]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement uuid="d2a89112-df6d-41d0-83b5-e1fb85412a5f" x="160" y="40" width="143" height="20"/>
+				<reportElement uuid="d2a89112-df6d-41d0-83b5-e1fb85412a5f" x="160" y="40" width="240" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{customer.phoneNumber}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="7c6c0089-68a1-4098-b3fc-363ab28bf4c9" x="160" y="61" width="156" height="20"/>
+				<reportElement uuid="7c6c0089-68a1-4098-b3fc-363ab28bf4c9" x="160" y="61" width="240" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{customer.cellphoneNumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="2860e31a-ea40-4bff-8276-ec66ba95b60e" x="48" y="117" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Cantidad de adultos]]></text>
+				<text><![CDATA[Adults]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="48eddc1e-abcc-45e0-82d5-e288bb697ef0" x="289" y="117" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Cantidad de niños]]></text>
+				<text><![CDATA[Children]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="9e0a8b9b-c6ed-4198-8873-04d444c0076c" x="48" y="137" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Precio por dia]]></text>
+				<text><![CDATA[Price per day]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="d4e7f1c7-0b33-4b60-ab30-2eed642cea87" x="48" y="240" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Banco]]></text>
+				<text><![CDATA[Bank]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="dd814aa9-39d9-4390-b350-7a9adf2df6ce" x="160" y="240" width="100" height="20"/>
+				<reportElement uuid="dd814aa9-39d9-4390-b350-7a9adf2df6ce" x="160" y="240" width="129" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{bank.name}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="8ac4bd31-6b1c-40d0-a077-e1aaa10cbd01" x="289" y="240" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Número de cuenta]]></text>
+				<text><![CDATA[Account number]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="9ea1331e-6e87-4480-a9ac-6e8b31589839" x="400" y="240" width="131" height="20"/>
@@ -209,7 +204,7 @@
 			<staticText>
 				<reportElement uuid="592f9406-af1b-4d9e-b791-fb76016d40cc" x="48" y="157" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Precio Total]]></text>
+				<text><![CDATA[Total Price]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="1090e60d-fa43-479b-9cef-3e915e085595" x="160" y="157" width="134" height="20"/>
@@ -219,7 +214,7 @@
 			<staticText>
 				<reportElement uuid="364a9848-d258-47fd-80ad-f99a91200399" x="48" y="177" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Reserva]]></text>
+				<text><![CDATA[Monetary reserve]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="9c4ab12b-4476-4d19-b75a-5097516f5755" x="160" y="177" width="156" height="20"/>
@@ -229,7 +224,7 @@
 			<staticText>
 				<reportElement uuid="0973f24e-c95b-4208-a4df-201f0e5e58bc" x="48" y="197" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Falta pagar]]></text>
+				<text><![CDATA[Remaining payment]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="f03b1777-8597-4de4-b073-dab8e718b2d9" x="160" y="197" width="156" height="20"/>

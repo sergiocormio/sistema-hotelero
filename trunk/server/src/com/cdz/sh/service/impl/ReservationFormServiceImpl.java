@@ -38,7 +38,8 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 
 	private Trigger checkReservationFormsExpirationTrigger;
 	
-	private static final String RESERVATION_FORM_TEMPLATE = "reservationForm_ES.jrxml";
+	private static final String RESERVATION_FORM_TEMPLATE = "reservationForm";
+	private static final String TEMPLATE_FILE_TYPE = ".jrxml";
 	
 	private ReservationFormDao reservationFormDao ;
 	private OccupationDao occupationDao;
@@ -111,10 +112,13 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	}
 
 	@Override
-	public byte[] exportData(ReservationForm reservationForm) throws DaoException {
+	public byte[] exportData(ReservationForm reservationForm, String selectedLocale) throws DaoException {
 			
 		Map<String, Object> params = new HashMap<String, Object>();
-		PDFReportManager pdfReportManager = new PDFReportManager(RESERVATION_FORM_TEMPLATE, params);
+		
+		String filename = RESERVATION_FORM_TEMPLATE + "_" + selectedLocale + TEMPLATE_FILE_TYPE;
+		
+		PDFReportManager pdfReportManager = new PDFReportManager(filename, params);
 		
 		reservationForm.setCreationDate(DateUtil.getDateUTC(reservationForm.getCreationDate()));
 		reservationForm.setDateFrom(DateUtil.getDateUTC(reservationForm.getDateFrom()));
