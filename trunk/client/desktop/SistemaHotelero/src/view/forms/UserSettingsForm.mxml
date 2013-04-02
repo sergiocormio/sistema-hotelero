@@ -9,13 +9,14 @@
 			
 			import flashx.textLayout.operations.PasteOperation;
 			
-			import mx.validators.Validator;
+			import model.ReservationFormExpirationDays;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
+			import mx.validators.Validator;
 			
 			import resources.Colors;
 			import resources.icons.Icons;
@@ -24,6 +25,7 @@
 			import services.MigrationService;
 			import services.crud.ReservationFormExpirationDaysService;
 			
+			import utils.FaultHandler;
 			import utils.config.UserSettings;
 			
 			import view.components.Mask;
@@ -56,6 +58,8 @@
 					return;
 				}
 			
+				Mask.show();
+				
 				UserSettings.getInstance().setReservationFormExpDays(daysToExpire.value);
 				UserSettings.getInstance().setEmailSender(emailSenderText.text);
 				UserSettings.getInstance().setpassword(pswSenderText.text);
@@ -63,6 +67,12 @@
 				UserSettings.getInstance().setDefaultQuantityOfDaysToShow(daysToShow.value);
 				
 				UserSettings.getInstance().update();
+				
+				// reservationFormExpirationDays should also be persisted in server side, to be able to run the related trigger.
+				var reservationFormExpirationDays:ReservationFormExpirationDays = new ReservationFormExpirationDays();
+				reservationFormExpirationDays.id = 1;
+				reservationFormExpirationDays.daysToExpire = daysToExpire.value;
+				new ReservationFormExpirationDaysService().updateRecord(reservationFormExpirationDays, reservationFormExpDays_resultHandler, FaultHandler.defaultFaultHandler);
 			}
 			
 			
@@ -94,6 +104,11 @@
 				emailTestlValidator.enabled = enabled;
 			}
 			
+			
+			private function reservationFormExpDays_resultHandler(event:Event):void
+			{
+				Mask.close();
+			}
 			
 		]]>
 	</fx:Script>

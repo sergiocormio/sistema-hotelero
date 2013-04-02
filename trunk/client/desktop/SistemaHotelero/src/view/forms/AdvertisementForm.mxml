@@ -56,7 +56,7 @@
 			private var months:ArrayCollection;
 			
 			
-			protected function init(event:FlexEvent):void
+			public function init(event:FlexEvent):void
 			{
 				loadPlaces();
 				loadMonths();
@@ -136,15 +136,15 @@
 				
 				var selectedRegions:ArrayCollection = new ArrayCollection();
 				
-				for each (var selectedIndex:int in regionsCombo.selectedIndices){
-					selectedRegions.addItem(regions.getItemAt(selectedIndex));
+				for each (var selectedRegionIndex:int in regionsCombo.selectedIndices){
+					selectedRegions.addItem(regions.getItemAt(selectedRegionIndex));
 				}
 				
 				var selectedMonths:ArrayCollection = new ArrayCollection();
 				
 				// set months indices (e.g: January=0, February=1 and so on)
-				for each (var selectedIndex:int in monthsMultiList.selectedIndices){
-					selectedMonths.addItem(selectedIndex);
+				for each (var selectedMonthIndex:int in monthsMultiList.selectedIndices){
+					selectedMonths.addItem(selectedMonthIndex);
 				}
 							
 				new CustomerService().retrieveCustomers(selectedRegions, selectedMonths, retrieveCustomers_resultHandler, FaultHandler.defaultFaultHandler);

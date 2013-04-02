@@ -35,8 +35,6 @@
     	<adultsQuantity>Cantidad de Adultos</adultsQuantity>
     	<childrenQuantity>Cantidad de Menores</childrenQuantity>
     	<variation>Disponibilidad +/-</variation>
-    	<consult>Consultar</consult>
-    	<clean>Limpiar</clean>
     	<otherAlternatives>Otras Alternativas</otherAlternatives>
     	<consultAvailability>Consultar Disponibilidad</consultAvailability>
     	<bed>
@@ -81,6 +79,7 @@
     	<send>Enviar</send>
     	<insertImage>Insertar imagen</insertImage>
 		<preview>Vista Previa</preview>
+		<consult>Consultar</consult>
     </button>
     <calendar>
     	<singular>Calendario</singular>
@@ -94,6 +93,15 @@
     	<increaseOneWeek>Desplazar una semana después</increaseOneWeek>
     	<increaseOneMonth>Desplazar un mes después</increaseOneMonth>
     </calendar>
+    <cleaning>
+    	<date>Fecha</date>
+    	<roomNumber>Número de habitación</roomNumber>
+    </cleaning>
+    <cleaningType>
+    	<GENERAL>General</GENERAL>
+    	<BASIC>Básica</BASIC>
+    	<BED_CLOTHE_CHANGE>Cambio de Ropa de Cama</BED_CLOTHE_CHANGE>
+    </cleaningType>
     <consumption>
     	<singular>Consumo</singular>
     	<roomNumber>Número de habitación</roomNumber>

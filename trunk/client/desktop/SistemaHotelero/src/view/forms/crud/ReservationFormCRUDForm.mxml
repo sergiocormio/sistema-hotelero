@@ -383,8 +383,8 @@
 								</s:FormItem>
 						</s:HGroup>
 						<s:HGroup width="100%" horizontalAlign="center">
-							<s:Button id="consultButton" label="{loc.availability.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
-							<s:Button id="cleanButton" label="{loc.availability.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
+							<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+							<s:Button id="cleanButton" label="{loc.button.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
 						</s:HGroup>
 					</s:VGroup>
 				
