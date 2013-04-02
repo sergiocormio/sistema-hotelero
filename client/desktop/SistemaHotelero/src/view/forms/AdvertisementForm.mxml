@@ -6,7 +6,14 @@
 		  xmlns:ns="http://www.adobe.com/2006/fc" xmlns:crud="view.forms.crud.*" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*" >
 	<fx:Script>
 		<![CDATA[
+			import flashx.textLayout.conversion.ConversionType;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.elements.ParagraphElement;
+			import flashx.textLayout.elements.InlineGraphicElement;
 			import flash.sampler.NewObjectSample;
+			
+			import flashx.textLayout.*;
 			
 			import locales.Locale;
 			
@@ -60,8 +67,6 @@
 			{
 				loadPlaces();
 				loadMonths();
-				emailBodyEditor.htmlText = '<img src="/under_construction.jpg" />';
-				
 			}
 			
 			private function loadPlaces():void
@@ -110,7 +115,28 @@
 			}
 			
 
-			private function insertImage():void {}
+			private function insertImage():void {
+			
+				var filter:FileFilter = new FileFilter(loc.advertisement.images, "*.jpeg");
+				var file:File= new File();
+				file.addEventListener(Event.SELECT, onSelectToLoad);
+				file.browse([filter]);
+			}
+			
+			private function onSelectToLoad(e:Event):void
+			{
+				var sourceFile:String = e.target.nativePath;
+			
+				var img:InlineGraphicElement = new InlineGraphicElement();
+				img.source = sourceFile;
+				//img.source = "http://icons.iconarchive.com/icons/icons-land/sport/256/Soccer-Ball-icon.png";
+				
+				var p:ParagraphElement = new ParagraphElement();
+				p.addChild(img);
+				
+				emailBodyEditor._tf.addChild(p);
+				emailBodyEditor._tf.flowComposer.updateAllControllers();
+			}
 			
 			private function preview():void {
 			
@@ -188,7 +214,10 @@
 				emailReq.toList = to;
 				emailReq.isHtml = true;
 				emailReq.subject = subjectText.text;
-				emailReq.body = emailBodyEditor.htmlText;
+				
+				emailReq.body = TextConverter.export(emailBodyEditor.editor.textFlow, TextConverter.TEXT_FIELD_HTML_FORMAT, ConversionType.STRING_TYPE).toString();
+				
+				//emailReq.body = emailBodyEditor.textFlow.htmlText;
 				//emailReq.body = "<P ALIGN='LEFT'><FONT FACE='Courier New' SIZE='48' COLOR='#993333' LETTERSPACING='0' KERNING='0'>fdgh<B><I><U>dfghd</U></I></B>f</FONT></P>";
 			
 				return emailReq;
@@ -240,8 +269,8 @@
 				</s:Form>	
 				<s:HGroup width="80%" height="100%" gap="5" horizontalAlign="center">
 						
-					<mx:RichTextEditor id="emailBodyEditor" width="100%" height="100%" title="{loc.advertisement.body}"/>
-						
+					<components:RichTextEditor id="emailBodyEditor" width="100%" height="100%" title="{loc.advertisement.body}" />
+					
 					<s:Group width="100%" height="100%">
 						<s:Rect width="100%" height="100%" radiusX="5">
 							<s:stroke>
