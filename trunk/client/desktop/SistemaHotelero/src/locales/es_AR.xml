@@ -11,6 +11,7 @@
 		<all>Todos</all>
 		<emailSent>El mensaje ha sido enviado a los destinatarios seleccionados.</emailSent>
 		<emailTestSent>Se ha enviado un mensaje de prueba a</emailTestSent>
+		<images>Imágenes</images>
 		<error>
 			<noCustomerSelected>No existen clientes asociados al criterio de búsqueda elegido.</noCustomerSelected>
 		</error>
