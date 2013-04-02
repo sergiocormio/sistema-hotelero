@@ -40,6 +40,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				DebugLog.log("INFO: ------------------ Running Sistema Hotelero ------------------");
 				//centers main window on screen
  				Utils.centerWindowOnScreen(this);
 				this.maximize(); 
