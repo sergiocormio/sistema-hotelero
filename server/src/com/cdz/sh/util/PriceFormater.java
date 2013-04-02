@@ -9,7 +9,14 @@ public class PriceFormater {
 	
 	public static String formatPrice(Double price){
 		if(price != null){
-			return "R$ " + new DecimalFormat("#.00").format(price);
+			String formattedPrice = "R$ ";
+			if(price.equals(new Double(0))){
+				formattedPrice += "0.00";
+			}
+			else{
+				formattedPrice += new DecimalFormat("#.00").format(price); 
+			}
+			return formattedPrice;
 		}
 		else{
 			return "";
