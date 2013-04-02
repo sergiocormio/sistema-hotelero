@@ -234,7 +234,7 @@
 				Mask.show();
 				
 				var reservation:ReservationForm = grid.selectedItem as ReservationForm;
-				new ReservationFormService().exportData(reservation, displayPDF, FaultHandler.defaultFaultHandler);
+				new ReservationFormService().exportData(reservation, Locale.getInstance().getLocaleName(), displayPDF, FaultHandler.defaultFaultHandler);
 			}
 			
 			protected function consultButton_clickHandler(event:MouseEvent):void
