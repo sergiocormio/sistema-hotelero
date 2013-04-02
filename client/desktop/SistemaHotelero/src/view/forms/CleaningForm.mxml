@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  width="100%" height="100%" creationComplete="init(event)" xmlns:ns="http://www.adobe.com/2006/fc" xmlns:crud="view.forms.crud.*" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*" >
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import model.Cleaning;
+			import model.CleaningType;
+			import model.Room;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.AsyncResponder;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.validators.Validator;
+			
+			import resources.Colors;
+			import resources.icons.Icons;
+			
+			import services.CleaningService;
+			
+			import spark.events.GridSelectionEvent;
+			
+			import utils.DateTimeUtils;
+			import utils.FaultHandler;
+			import utils.PdfDisplayer;
+			
+			import view.components.Mask;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			private var cleanings:ArrayCollection = new ArrayCollection();
+			
+			
+			protected function consultButton_clickHandler(event:MouseEvent):void
+			{
+				if(!allFieldsAreValid()){
+					return;
+				}
+				
+				retrieveRoomsToClean();						
+			}
+			
+						
+			private function allFieldsAreValid():Boolean{
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(dateValidator);
+				
+				var validatorErrorArray:Array = Validator.validateAll(valArray);
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				
+				return isValidForm;
+			}
+			
+			
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				dateValidator.enabled = enabled;
+			}
+			
+			
+			private function retrieveRoomsToClean():void
+			{
+				var date:Date = dateChooser.selectedDate; 
+					
+				new CleaningService().retrieveRoomsToClean(date, retrieveRoomsToClean_resultHandler, FaultHandler.defaultFaultHandler);
+			}
+			
+			private function retrieveRoomsToClean_resultHandler(event:ResultEvent,token:Object=null):void {
+				cleanings.removeAll();
+				cleanings.addAll(event.result as ArrayCollection);
+			}
+			
+						
+			
+			protected function init(event:FlexEvent):void
+			{
+				retrieveRoomsToClean();
+			}
+			
+			
+			
+			private function dateFormat(item:Object,column:GridColumn):String
+			{
+				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateFormat);
+			}
+			
+			private function getCleaningTypeGeneral(item:Object,column:GridColumn):String
+			{
+				var cleaning:Cleaning = item as Cleaning;
+				if(cleaning.cleaningType == CleaningType.GENERAL){
+					return "X";
+				}
+				else
+				{
+					return "";
+				}
+			}
+			
+			private function getCleaningTypeBasic(item:Object,column:GridColumn):String
+			{
+				var cleaning:Cleaning = item as Cleaning;
+				if(cleaning.cleaningType == CleaningType.BASIC){
+					return "X";
+				}
+				else
+				{
+					return "";
+				}
+			}
+			
+			private function getCleaningTypeBedClotheChange(item:Object,column:GridColumn):String
+			{
+				var cleaning:Cleaning = item as Cleaning;
+				if(cleaning.cleaningType == CleaningType.BED_CLOTHE_CHANGE){
+					return "X";
+				}
+				else
+				{
+					return "";
+				}
+			}
+			
+			
+			protected function exportCleaningsButton_clickHandler(event:MouseEvent):void
+			{
+				Mask.show();
+				
+				new CleaningService().exportData(cleanings, Locale.getInstance().getLocaleName(), displayPDF, FaultHandler.defaultFaultHandler);
+					
+				
+			}
+			
+			protected function displayPDF(event:ResultEvent=null,token:Object=null):void
+			{
+				var pdfFile:ByteArray = event.result as ByteArray;
+				
+				PdfDisplayer.displayPdf(pdfFile);
+				
+				Mask.close();
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:DateValidator id="dateValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateChooser}"
+						  property="text"
+						  />
+	</fx:Declarations>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:Group width="100%" height="100%">
+			<s:Rect width="100%" height="100%">
+				<s:stroke>
+					<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+				</s:stroke>
+				<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+			</s:Rect>
+			<s:VGroup height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
+				<s:HGroup width="100%" horizontalAlign="center">
+					<s:Form>
+						<s:FormItem label="{loc.cleaning.date}:">
+							<mx:DateField id="dateChooser" width="120"
+										  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+										  formatString="{loc.dateFormat.toUpperCase()}"
+										  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+						</s:FormItem>
+					</s:Form>	
+					<s:HGroup height="100%" horizontalAlign="center" verticalAlign="middle">
+						<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+						<s:Button id="exportCleanings" click="exportCleaningsButton_clickHandler(event)" label="{loc.button.print}" 
+								  toolTip="{loc.button.print}" enabled="{cleanings.length > 0}"
+								  icon="{Icons.exportReservation}" iconPlacement="left"/>
+					</s:HGroup>	
+				</s:HGroup>
+				       
+				<s:Group id="dataGridPanel" width="100%" height="100%">
+					<s:layout>
+						<s:VerticalLayout  gap="10" verticalAlign="middle" horizontalAlign="center"/>							
+					</s:layout>	
+					
+					<s:DataGrid id="grid" width="80%" height="100%" dataProvider="{cleanings}"   
+								alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+						<s:columns>
+							<s:ArrayList>
+								<s:GridColumn dataField="occupation.id.room.number" headerText="{loc.cleaning.roomNumber}">
+									<s:itemRenderer>
+										<fx:Component>
+											<s:DefaultGridItemRenderer textAlign="center"  fontWeight="bold"/>
+										</fx:Component>
+									</s:itemRenderer>
+								</s:GridColumn>
+								<s:GridColumn dataField="cleaningType" labelFunction="getCleaningTypeGeneral" headerText="{loc.cleaningType.GENERAL}" >
+									<s:itemRenderer>
+										<fx:Component>
+											<s:DefaultGridItemRenderer textAlign="center"  fontWeight="bold"/>
+										</fx:Component>
+									</s:itemRenderer>
+								</s:GridColumn>
+								<s:GridColumn dataField="cleaningType" labelFunction="getCleaningTypeBasic" headerText="{loc.cleaningType.BASIC}" >
+									<s:itemRenderer>
+										<fx:Component>
+											<s:DefaultGridItemRenderer textAlign="center"  fontWeight="bold"/>
+										</fx:Component>
+									</s:itemRenderer>
+								</s:GridColumn>
+								<s:GridColumn dataField="cleaningType" labelFunction="getCleaningTypeBedClotheChange" headerText="{loc.cleaningType.BED_CLOTHE_CHANGE}" >
+									<s:itemRenderer>
+										<fx:Component>
+											<s:DefaultGridItemRenderer textAlign="center"  fontWeight="bold"/>
+										</fx:Component>
+									</s:itemRenderer>
+								</s:GridColumn>
+							</s:ArrayList>
+						</s:columns>
+					</s:DataGrid>
+				</s:Group>
+				
+			</s:VGroup>
+			
+		</s:Group>
+			
+	</mx:VDividedBox>
+</s:VGroup>
