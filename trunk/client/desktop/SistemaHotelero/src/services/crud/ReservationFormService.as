@@ -21,12 +21,12 @@ package services.crud
 			remoteObject.book(chosenAlternative,reservationForm);
 		}
 		
-		public function exportData(reservationForm:ReservationForm,resultHandler:Function,faultHandler:Function=null):void{
+		public function exportData(reservationForm:ReservationForm, selectedLocale:String, resultHandler:Function,faultHandler:Function=null):void{
 			remoteObject.exportData.addEventListener("result", resultHandler);
 			if(faultHandler!=null){
 				remoteObject.exportData.addEventListener("fault", faultHandler);
 			}
-			remoteObject.exportData(reservationForm);
+			remoteObject.exportData(reservationForm, selectedLocale);
 		}
 		
 		public function retrieveReservationForms(dateFrom:Date, dateTo:Date, customer:Customer, state:String ,resultHandler:Function,faultHandler:Function=null):void{
