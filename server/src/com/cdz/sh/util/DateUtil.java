@@ -3,6 +3,7 @@ package com.cdz.sh.util;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 public class DateUtil {
 
@@ -39,6 +40,16 @@ public class DateUtil {
 		return calendar.getTime();
 	}
 
+	public static Date getDateUTC(Date date){
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.MILLISECOND, c.getTimeZone().getRawOffset() * -1);
+		c.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return c.getTime();
+	}
+	
+	
 	public static Date getDateAboutToFinish(Date date) {
 
 		GregorianCalendar calendar = new GregorianCalendar();
@@ -61,7 +72,7 @@ public class DateUtil {
 				date = DateUtil.getNextDay(date);
 				daysQuantity++;
 			}
-			return daysQuantity--;
+			return --daysQuantity;
 		}
 	}
 	

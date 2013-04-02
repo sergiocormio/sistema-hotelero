@@ -26,6 +26,7 @@ import com.cdz.sh.service.ReservationFormService;
 import com.cdz.sh.service.exception.InvalidOperationException;
 import com.cdz.sh.trigger.CheckReservationFormsExpirationTrigger;
 import com.cdz.sh.trigger.Trigger;
+import com.cdz.sh.util.DateUtil;
 
 /**
  * Implementation of ReservationFormService facade
@@ -114,6 +115,10 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 			
 		Map<String, Object> params = new HashMap<String, Object>();
 		PDFReportManager pdfReportManager = new PDFReportManager(RESERVATION_FORM_TEMPLATE, params);
+		
+		reservationForm.setCreationDate(DateUtil.getDateUTC(reservationForm.getCreationDate()));
+		reservationForm.setDateFrom(DateUtil.getDateUTC(reservationForm.getDateFrom()));
+		reservationForm.setDateTo(DateUtil.getDateUTC(reservationForm.getDateTo()));
 		
 		Collection<ReservationForm> collection = new ArrayList<ReservationForm>();
 		collection.add(reservationForm);
