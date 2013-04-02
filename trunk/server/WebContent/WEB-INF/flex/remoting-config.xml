@@ -10,7 +10,14 @@
         <channel ref="my-amf"/>
     </default-channels>
 
-   
+      
+   <destination id="cleaningService">
+		<properties>
+			<source>com.cdz.sh.service.impl.CleaningServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
    <destination id="emailService">
 		<properties>
 			<source>com.cdz.sh.service.impl.EMailServiceImpl</source>

@@ -29,6 +29,6 @@ public interface CleaningService extends CrudService<Cleaning, Long>{
 	 * @param cleanings
 	 * @return the absolute path to the report generated
 	 */
-	public String exportData(List<Cleaning> cleanings);
+	public byte[] exportData(List<Cleaning> cleanings, String selectecLocale);
 
 }

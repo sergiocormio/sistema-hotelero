@@ -45,7 +45,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="20" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Presupuesto:]]></text>
+				<text><![CDATA[Presupuesto]]></text>
 			</staticText>
 			<line>
 				<reportElement uuid="81116860-fd16-48b7-91fc-94353e2888e5" x="0" y="63" width="555" height="1"/>
@@ -124,7 +124,7 @@
 				<textElement>
 					<font isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Servicios adicionales:]]></text>
+				<text><![CDATA[Servicios Adicionales:]]></text>
 			</staticText>
 			<componentElement>
 				<reportElement uuid="1c7b8e7d-b80e-4435-994d-51006b180a05" key="table" style="table" positionType="Float" isPrintRepeatedValues="false" x="48" y="202" width="440" height="140"/>
