@@ -117,7 +117,7 @@
 
 			private function insertImage():void {
 			
-				var filter:FileFilter = new FileFilter(loc.advertisement.images, "*.jpeg");
+				var filter:FileFilter = new FileFilter(loc.advertisement.images, "*.jpg;*.jpeg;*.png;*.gif");
 				var file:File= new File();
 				file.addEventListener(Event.SELECT, onSelectToLoad);
 				file.browse([filter]);
