@@ -16,6 +16,7 @@
 			
 			import locales.Locale;
 			
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.ResultEvent;
@@ -24,14 +25,18 @@
 			
 			import services.MasterDataService;
 			
+			import utils.FaultHandler;
 			import utils.Utils;
 			import utils.config.Config;
 			import utils.log.DebugLog;
-			import utils.FaultHandler;
 			
 			import view.components.Mask;
-			
+
+			private static var eventToFunctionsMap:Dictionary = new Dictionary();
+
 			private var server:EmbeddedServer;
+			
+			public static var SERVER_READY:String = "serverReady";
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -71,13 +76,51 @@
 			
 			protected function createMasterData():void
 			{
-				Mask.show(Locale.getInstance().getCurrentLocale().messages.pleaseWait);
+				Mask.show(Locale.getInstance().getCurrentLocale().messages.creatingMasterData);
 				
 				new MasterDataService().createMasterData(createMasterData_success, FaultHandler.defaultFaultHandler);
 			}
 			
 			private function createMasterData_success(event:ResultEvent,token:Object=null):void {
 				Mask.close();
+				//Dispatches "server ready" event
+				DebugLog.log("INFO: Server ready to process requests...");
+				SistemaHotelero.dispatchEvent(new Event(SERVER_READY));
+			}
+			
+			//Static event dispatcher implementation
+			static public function addEventListener(type:String, listener:Function):void{
+				if(eventToFunctionsMap[type]==null){
+					eventToFunctionsMap[type] = new ArrayCollection();
+				}
+				eventToFunctionsMap[type].addItem(listener);
+			}
+			
+			static public function removeEventListener(type:String, listener:Function):void{
+				if(eventToFunctionsMap[type]!=null){
+					var ac:ArrayCollection = eventToFunctionsMap[type];
+					var index:int = -1;
+					for (var i:int=0; i<ac.length ; i++){
+						var f:Function = ac.getItemAt(i) as Function;
+						if(f==listener){
+							index=i;
+							break;
+						}
+					}
+					if(index!=-1){
+						ac.removeItemAt(index);
+					}
+				}
+			}
+			
+			static public function dispatchEvent(event:Event):void{
+				if(eventToFunctionsMap[event.type]!=null){
+					var ac:ArrayCollection = eventToFunctionsMap[event.type];
+					for (var i:int=0; i<ac.length ; i++){
+						var f:Function = ac.getItemAt(i) as Function;
+						f(event);
+					}
+				}
 			}
 			
 			

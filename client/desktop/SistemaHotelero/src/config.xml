@@ -1,6 +1,6 @@
 <config>
 	<defaultLocale>es_AR</defaultLocale>
-	<enableLocalServer>false</enableLocalServer>
+	<enableLocalServer>true</enableLocalServer>
 	<javaHomePath>C:\SH-Server\jre</javaHomePath>
 	<tomcatHomePath>C:\SH-Server</tomcatHomePath>
 	<hotelWebSite>www.dellosky.com</hotelWebSite>

@@ -36,6 +36,7 @@
 			import utils.FaultHandler;
 			import utils.PdfDisplayer;
 			import utils.WindowsUtils;
+			import utils.log.DebugLog;
 			
 			import view.components.Mask;
 			import view.forms.crud.individual.CustomerIndividualCRUDForm;
@@ -68,6 +69,12 @@
 			
 			
 			protected function init(event:FlexEvent):void{
+				//waits until Server Ready to initialize form
+				SistemaHotelero.addEventListener(SistemaHotelero.SERVER_READY,initializeForm);
+			}
+			
+			private function initializeForm(event:Event = null):void{
+				DebugLog.log("Initializing Reservation Form...");
 				retrieveCustomers();
 				loadStates();
 				
