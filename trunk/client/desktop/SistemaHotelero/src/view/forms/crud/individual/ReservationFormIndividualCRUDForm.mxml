@@ -38,6 +38,7 @@
 			import utils.DateTimeUtils;
 			import utils.FaultHandler;
 			import utils.WindowsUtils;
+			import utils.log.DebugLog;
 			
 			import view.components.ManualAlternativeForm;
 			import view.forms.DisplayBudgetForm;
@@ -207,6 +208,12 @@
 			protected function init():void
 			{
 				currentReservationForm = new ReservationForm();
+				//waits until Server Ready to initialize form
+				SistemaHotelero.addEventListener(SistemaHotelero.SERVER_READY,initializeForm);
+			}
+			
+			private function initializeForm(event:Event = null):void{
+				DebugLog.log("Initializing Reservation Form (Individual Form)...");
 				retrieveCustomers();
 				loadStates();
 				retrieveBanks();

@@ -189,6 +189,7 @@
     	<singular>Mantenimiento</singular>
     </maintenance>
     <messages>
+    	<creatingMasterData>Creando datos maestros...</creatingMasterData>
 	    <pleaseWait>Por favor espere...</pleaseWait>
 	    <pleaseWaitLong>Esto puede llevar unos minutos. Por favor espere...</pleaseWaitLong>
 	    <startingServer>Iniciando el Servidor...</startingServer>
