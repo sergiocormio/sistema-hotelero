@@ -240,15 +240,17 @@
 				rf.totalPrice = alternativeSelected.alternative.budget.basePrice;
 				rf.monetaryReserve = rf.totalPrice * 0.3;
 				rf.remainingAmount = rf.totalPrice - rf.monetaryReserve;
-				
+				rf.state = StateReservationForm.PRE_BOOKING;
 				rf.dateFrom = alternativeSelected.dateFrom;
 				rf.dateTo = alternativeSelected.dateTo;
 				rf.creationDate = new Date();
-				reservationFormForm.currentReservationForm = rf;
-				reservationFormForm.alternative = alternativeSelected.alternative;
+				//The only possible State is PRE BOOKING
 				var possibleStates:ArrayCollection = new ArrayCollection();
 				possibleStates.addItem(new StateReservationForm(StateReservationForm.PRE_BOOKING, loc));
 				reservationFormForm.setPossibleStates(possibleStates);
+				
+				reservationFormForm.currentReservationForm = rf;
+				reservationFormForm.alternative = alternativeSelected.alternative;
 			}
 			
 			private function titleWindow_close(evt:Object):void {
@@ -364,8 +366,8 @@
 					</s:HGroup>
 				</s:HGroup>
 				<s:HGroup width="100%" horizontalAlign="center">
-					<s:Button id="consultButton" label="{loc.availability.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
-					<s:Button id="cleanButton" label="{loc.availability.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
+					<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+					<s:Button id="cleanButton" label="{loc.button.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
 				</s:HGroup>
 			</s:VGroup>
 			<s:VGroup width="100%">

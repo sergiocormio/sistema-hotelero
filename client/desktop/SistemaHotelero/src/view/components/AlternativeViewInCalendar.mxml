@@ -104,7 +104,7 @@
 										  refreshCalendarPressed="{refreshCalendar()}" dateFrom="{alternative.dateFrom}"
 										  daysToShow="{DateTimeUtils.getQuantityOfDays(alternative.dateFrom,alternative.dateTo)}" dateTo="{alternative.dateTo}"/>
 		<s:HGroup width="100%" horizontalAlign="center">
-			<s:Button id="closeButton" label="{loc.button.close}" icon="{Icons.cancel}" click="closeButton_clickHandler(event)"/>
+			<s:Button id="closeButton" label="{loc.button.close}" icon="{Icons.ok}" click="closeButton_clickHandler(event)"/>
 		</s:HGroup>
 	</s:VGroup>
 </s:Group>

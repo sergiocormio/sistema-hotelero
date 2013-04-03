@@ -393,7 +393,7 @@
 							<s:ArrayList>
 								<s:GridColumn dataField="id" headerText="{loc.reservationForm.id}"/>
 								<s:GridColumn dataField="customer.name" headerText="{loc.customer.singular}"/>
-								<s:GridColumn dataField="state" headerText="{loc.reservationForm.state.singular}"  labelFunction="stateFormat"/>
+								<s:GridColumn dataField="state" headerText="{loc.reservationForm.state.singular}"  labelFunction="stateFormat" itemRenderer="view.components.CalendarCustomCellRenderer"/>
 								<s:GridColumn dataField="creationDate" headerText="{loc.reservationForm.creationDate}" labelFunction="dateFormat"/>
 								<s:GridColumn dataField="dateFrom" headerText="{loc.reservationForm.dateFrom}" labelFunction="dateFormat"/>
 								<s:GridColumn dataField="dateTo" headerText="{loc.reservationForm.dateTo}" labelFunction="dateFormat"/>
