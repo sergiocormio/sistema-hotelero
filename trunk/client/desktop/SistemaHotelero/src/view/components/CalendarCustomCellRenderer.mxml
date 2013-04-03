@@ -36,50 +36,58 @@
 			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 			{
 				super.updateDisplayList(unscaledWidth, unscaledHeight);
+				if(column == null || data == null){
+					return;
+				}
 				var qtyAlternative:int = 0;
 				var qtyConfirmed:int = 0;
 				var qtyPreBooking:int = 0;
 				var qtyCancelled:int = 0;
 				var qtyExpired:int = 0;
 				
+				var list:ArrayCollection = new ArrayCollection();
 				if(data[column.dataField] is ArrayCollection){
-					var list:ArrayCollection = data[column.dataField] as ArrayCollection;
-					for each (var o:Object in list){
-						if (o is String){ //o == "Alternative"
-							qtyAlternative++;
-						}else if (o is ReservationForm){
-							var resForm:ReservationForm = o as ReservationForm;
-							switch(resForm.state){
-								case StateReservationForm.CONFIRMED:
-									qtyConfirmed++;
-									break;
-								case StateReservationForm.PRE_BOOKING:
-									qtyPreBooking++;
-									break;
-								case StateReservationForm.CANCELLED:
-									qtyCancelled++
-									break;
-								case StateReservationForm.EXPIRED:
-									qtyExpired++;
-									break;
-							}
+					list = data[column.dataField] as ArrayCollection;
+				}else if(data is ReservationForm){
+					list.addItem(data);
+				}
+				
+				for each (var o:Object in list){
+					if (o is String){ //o == "Alternative"
+						qtyAlternative++;
+					}else if (o is ReservationForm){
+						var resForm:ReservationForm = o as ReservationForm;
+						switch(resForm.state){
+							case StateReservationForm.CONFIRMED:
+								qtyConfirmed++;
+								break;
+							case StateReservationForm.PRE_BOOKING:
+								qtyPreBooking++;
+								break;
+							case StateReservationForm.CANCELLED:
+								qtyCancelled++
+								break;
+							case StateReservationForm.EXPIRED:
+								qtyExpired++;
+								break;
 						}
 					}
-					//Calculate result based on quantities
-					if(qtyConfirmed>0){
-						background.color = Colors.RED_COLOR;
-						lblData.setStyle("color",Colors.WHITE_COLOR);
-					}else if(qtyAlternative>0){
-						background.color = Colors.GREEN_COLOR;
-						lblData.setStyle("color",Colors.WHITE_COLOR);
-					}else if(qtyPreBooking>0){
-						background.color = Colors.YELLOW_COLOR;
-					}else if(qtyCancelled>0){
-						background.color = Colors.YELLOW_COLOR;
-					}else if(qtyExpired>0){
-						background.color = Colors.YELLOW_COLOR;
-					}
 				}
+				//Calculate result based on quantities
+				if(qtyConfirmed>0){
+					background.color = Colors.RED_COLOR;
+					lblData.setStyle("color",Colors.WHITE_COLOR);
+				}else if(qtyAlternative>0){
+					background.color = Colors.GREEN_COLOR;
+					lblData.setStyle("color",Colors.WHITE_COLOR);
+				}else if(qtyPreBooking>0){
+					background.color = Colors.YELLOW_COLOR;
+				}else if(qtyCancelled>0){
+					background.color = Colors.YELLOW_COLOR;
+				}else if(qtyExpired>0){
+					background.color = Colors.YELLOW_COLOR;
+				}
+				
 				
 				if(column.columnIndex == 0){
 					background.color = Colors.GRAY_COLOR;

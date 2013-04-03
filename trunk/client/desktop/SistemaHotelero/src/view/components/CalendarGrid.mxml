@@ -16,21 +16,28 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
+			import mx.containers.TitleWindow;
 			import mx.controls.Alert;
 			import mx.controls.dataGridClasses.DataGridColumn;
 			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
 			
 			import spark.components.gridClasses.GridColumn;
 			import spark.events.GridEvent;
 			import spark.skins.spark.DefaultGridItemRenderer;
 			
 			import utils.DateTimeUtils;
+			import utils.WindowsUtils;
+			
+			import view.forms.ReservationFormSummary;
 
 			
 			[Bindable]
 			private var calendarRows:ArrayCollection;
 			
 			private var roomIdToCalendarRowMap:Dictionary;
+			
+			private var titleWindow:TitleWindow;
 
 			private const IT_IS_AN_ALTERNATIVE:String = "Alternative";
 			
@@ -198,8 +205,7 @@
 			
 			protected function gridClickHandler(event:GridEvent):void
 			{
-				if(!editable){	return;	}
-				
+				/* if(!editable){	return;	} */
 				var row:Object = event.item;
 				//if there was a valid row o user clicked on room cell, do nothing.
 				if(row == null || event.columnIndex == 0) { 
@@ -209,26 +215,43 @@
 				//i.e: event.item has a room and a day_0 that it's an ArrayCollection
 				var day:String = event.column.dataField;
 				var reservationForms:ArrayCollection = row[day];
-				//if it's a empty cell... adds an ArrayCollection
-				if(reservationForms == null){
-					reservationForms = new ArrayCollection();
-					row[day] = reservationForms;
-				}	
 				
-				//if there isn't a confirmed reservation on that cell..
-				if(!hasConfirmedReservation(reservationForms)){
-					//calculates date from "day"
-					var dayNumber:String = day.substr(DAY_PREFIX_COLUMN.length);
-					var date:Date = DateTimeUtils.rollDaysToDate(dateFrom,int(dayNumber));
-					//if already has an Alternative, removes it
-					if(hasAlternativeReservation(reservationForms)){
-						removeAlternative(reservationForms,row[ROOM_COLUMN],date);
-					}else{
-						addAlternative(reservationForms,row[ROOM_COLUMN],date);
+				if(editable){
+					//if it's an empty cell... adds an ArrayCollection
+					if(reservationForms == null){
+						reservationForms = new ArrayCollection();
+						row[day] = reservationForms;
+					}	
+					
+					//if there isn't a confirmed reservation on that cell..
+					if(!hasConfirmedReservation(reservationForms)){
+						//calculates date from "day"
+						var dayNumber:String = day.substr(DAY_PREFIX_COLUMN.length);
+						var date:Date = DateTimeUtils.rollDaysToDate(dateFrom,int(dayNumber));
+						//if already has an Alternative, removes it
+						if(hasAlternativeReservation(reservationForms)){
+							removeAlternative(reservationForms,row[ROOM_COLUMN],date);
+						}else{
+							addAlternative(reservationForms,row[ROOM_COLUMN],date);
+						}
+						//repaints the cell
+						grid.invalidateCell(event.rowIndex,event.columnIndex);
 					}
-					//repaints the cell
-					grid.invalidateCell(event.rowIndex,event.columnIndex);
+				}else{ //if is not editable
+					//if it's not an empty cell... shows the reservation forms summary
+					if(reservationForms != null){
+						var form:ReservationFormSummary = new ReservationFormSummary();
+						form.loc = loc;
+						form.reservationForms = reservationForms;
+						form.addEventListener("okClicked",titleWindow_close);
+						titleWindow = WindowsUtils.openDialog(loc.reservationForm.plural + " - " + event.column.headerText,form);
+					}
+					
 				}
+			}
+
+			private function titleWindow_close(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
 			}
 			
 			private function hasConfirmedReservation(reservationForms:ArrayCollection):Boolean{
