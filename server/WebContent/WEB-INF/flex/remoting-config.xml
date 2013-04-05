@@ -156,4 +156,11 @@
 			<scope>application</scope>
 		</properties>
     </destination>
+    
+    <destination id="transferService">
+		<properties>
+			<source>com.cdz.sh.service.impl.TransferServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
 </service>
