@@ -58,7 +58,7 @@ package resources.icons
 		
 		[Bindable]
 		[Embed(source='resources/icons/TaxiAndPlane.png')]
-		public static var transports:Class;
+		public static var transfers:Class;
 		
 		[Bindable]
 		[Embed(source='resources/icons/cleaning.png')]
@@ -220,10 +220,13 @@ package resources.icons
 		[Embed(source='resources/icons/expired.png')]
 		public static var expired:Class;
 		
-		
 		[Bindable]
 		[Embed(source='resources/icons/user_icon.png')]
 		public static var user:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/needle32x32.png')]
+		public static var needle:Class;
 		
 		public function Icons()
 		{

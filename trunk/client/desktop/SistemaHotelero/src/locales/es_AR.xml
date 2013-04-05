@@ -330,9 +330,15 @@
 	    <includedInBudget>Incluido en el Presupuesto</includedInBudget>
 	    <includedInBasePrice>Incluido en el Precio Base</includedInBasePrice>
     </serviceType>
-    <transport>
-    	<singular>Transporte</singular>
-    </transport>
+    <transfer>
+		<companyName>Empresa</companyName>
+		<date>Fecha y Hora</date>
+		<flightOrBusNumber>Vuelo o Número de Bus</flightOrBusNumber>
+    	<plural>Transfers</plural>
+    	<schedule>Agenda</schedule>
+    	<singular>Transfer</singular>
+    	<source>Fuente</source>
+    </transfer>
 	<userSetting>
     	<calendar>
     		<single>Calendario</single>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
+		  creationComplete="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import model.Transfer;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import resources.Colors;
+			
+			import services.crud.TransferService;
+			
+			import spark.events.GridSelectionEvent;
+			
+			import utils.DateTimeUtils;
+			import utils.FaultHandler;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			private var transfers:ArrayCollection = new ArrayCollection();
+			
+			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedItem = null;
+				transfers.removeAll();
+				transfers.addAll(event.result as ArrayCollection);
+			}
+			
+			
+			private function delete_resultHandler(event:ResultEvent,token:Object=null):void {
+				refreshGrid();
+			}
+			
+			
+			protected function init(event:FlexEvent):void{
+				refreshGrid();
+			}
+			
+			protected function refreshGrid():void
+			{
+				individual.enabled = false;
+				grid.selectedItem = null;
+				new TransferService().retrieveAll(retrieveAll_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
+			{
+				if(grid.selectedItem !=null){
+					individual.currentTransfer = grid.selectedItem as Transfer;
+				}
+				individual.enabled = false;
+			}
+			
+			protected function modifyTransfer():void
+			{
+				individual.currentTransfer = grid.selectedItem as Transfer;
+				individual.isUpdate = true;
+				individual.enabled=true;
+				
+			}
+			
+			protected function deleteTransfer():void
+			{
+				new TransferService().deleteRecord(grid.selectedItem as Transfer,delete_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			protected function addTransfer():void
+			{
+				grid.selectedItem = null;
+				individual.currentTransfer = new Transfer();
+				individual.isUpdate = false;
+				individual.enabled = true;
+			}
+			
+			private function dateFormat(item:Object,column:GridColumn):String
+			{
+				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateFormat);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<mx:VDividedBox height="100%" width="100%">
+		<s:HGroup width="100%" height="60%">
+			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{transfers}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="id" headerText="{loc.transfer.id}"/>
+						<s:GridColumn dataField="date" headerText="{loc.transfer.date}" labelFunction="dateFormat"/>
+						<s:GridColumn dataField="customer" headerText="{loc.customer.singular}"/>
+						<s:GridColumn dataField="reservationForm" headerText="{loc.reservationForm.singular}"/>
+						<s:GridColumn dataField="serviceType" headerText="{loc.serviceType.singular}"/>
+						<s:GridColumn dataField="source" headerText="{loc.transfer.source}"/>
+						<s:GridColumn dataField="flightOrBusNumber" headerText="{loc.transfer.flightOrBusNumber}"/>
+						<s:GridColumn dataField="companyName" headerText="{loc.transfer.companyName}"/>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+			<!-- BUTTONS -->
+			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addTransfer()"
+									modifyClicked="modifyTransfer()" removeClicked="deleteTransfer()"
+									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
+									removeButtonEnabled="{grid.selectedItem!=null}"/>
+		</s:HGroup>
+		<individual:TransferIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="40%"/>
+	</mx:VDividedBox>
+</s:VGroup>

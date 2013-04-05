@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" creationComplete="init()">
+	<fx:Metadata> 
+		[Event(name="cancelClicked", type="flash.events.Event")]
+		[Event(name="saveSuccess", type="flash.events.Event")]
+	</fx:Metadata> 
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import model.Transfer;
+			
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import mx.validators.Validator;
+			
+			import resources.Colors;
+			import resources.icons.Icons;
+			
+			import services.crud.TransferService;
+			
+			import utils.DateRange;
+			import utils.FaultHandler;
+			
+			[Bindable]
+			public var loc:Object;
+			
+			[Bindable]
+			public var isUpdate:Boolean;
+			
+			private var _currentTransfer:Transfer;
+			
+			public function get currentTransfer():Transfer
+			{
+				return _currentTransfer;
+			}
+			
+			public function set currentTransfer(value:Transfer):void
+			{
+				_currentTransfer = value;
+//				transferId.text = _currentTransfer.id;
+				dateChooser.selectedDate = _currentTransfer.date;
+			}
+			
+			private function allFieldsAreValid():Boolean{
+				
+				setEnabledValidators(true);
+				
+				var valArray:Array = new Array();
+				
+				valArray.push(transferIdValidator);
+				valArray.push(transferDateValidator);
+				
+				var validatorErrorArray:Array = Validator.validateAll(valArray);;
+				var isValidForm:Boolean = validatorErrorArray.length == 0;
+				
+				setEnabledValidators(false);
+				
+				return isValidForm;
+				
+			}
+			
+			private function setEnabledValidators(enabled:Boolean):void{
+				transferIdValidator.enabled = enabled;
+				transferDateValidator.enabled = enabled;
+			}
+			
+			private function save():void{
+				// validate all data
+				if(!allFieldsAreValid()){
+					return;
+				}
+				
+				_currentTransfer.id = transferId.text;
+				_currentTransfer.date = dateChooser.selectedDate;
+				
+				//calls service
+				if(isUpdate){
+					new TransferService().updateRecord(_currentTransfer,transferSaved_resultHandler,FaultHandler.defaultFaultHandler);
+				}else{
+					new TransferService().createRecord(_currentTransfer,transferSaved_resultHandler,FaultHandler.defaultFaultHandler);
+				}
+			}
+			
+			private function transferSaved_resultHandler(event:ResultEvent,token:Object=null):void {
+				_currentTransfer = event.result as Transfer;
+				dispatchEvent(new Event("saveSuccess"));
+			}
+			
+			private function cancel():void{
+				dispatchEvent(new Event("cancelClicked"));
+			}
+			
+			protected function init():void
+			{
+				currentTransfer = new Transfer();
+				//transferId.setFocus();
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:StringValidator id="transferIdValidator" 
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}" 
+							source="{transferId}"
+							property="text"
+							/>
+		<mx:DateValidator id="transferDateValidator"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateChooser}"
+						  property="text"
+						  />
+	</fx:Declarations>
+	<s:Rect width="100%" height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+		</s:stroke>
+		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+	</s:Rect>
+	<s:VGroup width="100%" height="100%">
+		<s:HGroup width="100%" horizontalAlign="center">
+			<s:Form>
+				<s:layout>
+					<s:FormLayout gap="-14"/>
+				</s:layout>  
+				
+				<s:FormItem label="{loc.transfer.singular}:" required="true">
+					<s:TextInput id="transferId"/>
+				</s:FormItem>
+				
+				<s:FormItem label="{loc.transfer.date}:" required="true">
+					<mx:DateField id="dateChooser" width="120"
+								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+								  formatString="{loc.dateFormat.toUpperCase()}"
+								  monthNames="{Locale.getInstance().monthNames}"/>
+				</s:FormItem>
+			</s:Form>
+		</s:HGroup>
+		<!-- BUTTONS -->
+		<s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+			<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
+			<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
+		</s:HGroup>
+		<s:Spacer height="5"/>
+	</s:VGroup>
+</s:Group>

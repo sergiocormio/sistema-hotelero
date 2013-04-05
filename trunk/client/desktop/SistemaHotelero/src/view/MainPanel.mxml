@@ -55,10 +55,8 @@
 				<crud:CustomerCRUDForm loc="{loc}" width="100%" height="100%"/>
 			</s:NavigatorContent>
 			
-			<s:NavigatorContent id="transports" label="{loc.transport.singular}" icon="{Icons.transports}" width="100%" height="100%">
-				<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
-					<s:Image source="{Images.under_construction}"/>
-				</s:VGroup>
+			<s:NavigatorContent id="transfers" label="{loc.transfer.singular}" icon="{Icons.transfers}" width="100%" height="100%">
+				<forms:TransferForm loc="{loc}" width="100%" height="100%"/>
 			</s:NavigatorContent>
 			
 			<s:NavigatorContent id="maintain" label="{loc.maintenance.singular}" icon="{Icons.cleaning}" width="100%" height="100%">
