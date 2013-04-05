@@ -305,9 +305,15 @@
 	    <includedInBudget>Included In Budget</includedInBudget>
 	    <includedInBasePrice>Included In Base Price</includedInBasePrice>
     </serviceType>
-    <transport>
-    	<singular>Transport</singular>
-    </transport>
+    <transfer>
+    	<companyName>Company</companyName>
+		<date>Date</date>
+		<flightOrBusNumber>Flight or Bus Number</flightOrBusNumber>
+    	<plural>Transfers</plural>
+    	<schedule>Schedule</schedule>
+    	<singular>Transfer</singular>
+    	<source>Source</source>
+    </transfer>
     <validator>
     	<error>Error</error>
     	<requiredFieldError>Campo requerido</requiredFieldError>
