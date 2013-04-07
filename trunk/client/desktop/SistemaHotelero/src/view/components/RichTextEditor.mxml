@@ -21,6 +21,7 @@
 			import mx.events.ColorPickerEvent;
 			import mx.events.FlexEvent;
 			import spark.events.IndexChangeEvent;
+			import resources.icons.Icons;
 			
 			protected function editor_selectionChangeHandler(evt:FlexEvent):void {
 				var txtLayFmt:TextLayoutFormat = editor.getFormatOfRange(null,
@@ -202,14 +203,10 @@
 						 change="txtAlignBB_changeHandler(event);">
 				<s:dataProvider>
 					<s:ArrayList>
-						<!--<fx:Object icon="@Embed('assets/icon_align_left.png')" value="{TextAlign.LEFT}" />
-						<fx:Object icon="@Embed('assets/icon_align_center.png')" value="{TextAlign.CENTER}" />
-						<fx:Object icon="@Embed('assets/icon_align_right.png')" value="{TextAlign.RIGHT}" />
-						<fx:Object icon="@Embed('assets/icon_align_justify.png')" value="{TextAlign.JUSTIFY}" />-->
-						<fx:Object label="L" value="{TextAlign.LEFT}" />
-						<fx:Object label="C" value="{TextAlign.CENTER}" />
-						<fx:Object label="R" value="{TextAlign.RIGHT}" />
-						<fx:Object label="J" value="{TextAlign.JUSTIFY}" />
+						<fx:Object icon="{Icons.alignLeft}" value="{TextAlign.LEFT}" />
+						<fx:Object icon="{Icons.alignCenter}" value="{TextAlign.CENTER}" />
+						<fx:Object icon="{Icons.alignRight}" value="{TextAlign.RIGHT}" />
+						<fx:Object icon="{Icons.alignJustify}" value="{TextAlign.JUSTIFY}" />
 					</s:ArrayList>
 				</s:dataProvider>
 			</s:ButtonBar>
