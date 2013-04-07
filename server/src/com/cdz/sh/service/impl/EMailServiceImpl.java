@@ -12,8 +12,7 @@ public class EMailServiceImpl implements EMailService {
 		
 		MailSender sender = new MailSender();
 		
-		sender.sendMail(request.getFrom(), request.getPassword(), request.getToList(), 
-										   request.getSubject(), request.getBody(), request.isIsHtml());
+		sender.sendMail(request);
 
 	}
 

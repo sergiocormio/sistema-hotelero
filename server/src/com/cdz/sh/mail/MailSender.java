@@ -1,21 +1,49 @@
 package com.cdz.sh.mail;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.AuthenticationFailedException;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.mail.exception.EMailException;
+import com.cdz.sh.model.request.EmailRequest;
 import com.sun.mail.smtp.SMTPAddressFailedException;
 import com.sun.mail.smtp.SMTPSendFailedException;
+
+
 
 public class MailSender {
 
@@ -24,48 +52,50 @@ public class MailSender {
 	private static final String HOST_PORT = "587";
 	private static final String SMTP = "smtp";
 	
-	public void sendMail(String from, String password, List<String> toList, String subject, String body, boolean isHtml) throws EMailException {
+	public void sendMail(EmailRequest emailRequest) throws EMailException {
 		try {
 			
-			validateParameters(from, toList, body);
+			validateParameters(emailRequest);
 			String host = "";
 			// Get system properties
 			Properties props = System.getProperties();
 				
-			if(from.endsWith("@gmail.com")){
+			if(emailRequest.getFrom().endsWith("@gmail.com")){
 				host = HOST_GMAIL;
 			}
-			else if(from.contains("@yahoo.com")){
+			else if(emailRequest.getFrom().contains("@yahoo.com")){
 				host = HOST_YAHOO;
 			}
 			
 			props.setProperty("mail.smtp.host", host);
 			props.setProperty("mail.smtp.starttls.enable", "true");
 			props.setProperty("mail.smtp.port", HOST_PORT);
-			props.setProperty("mail.smtp.user", from);
+			props.setProperty("mail.smtp.user", emailRequest.getFrom());
 			
 			// Get session
 			Session session = Session.getDefaultInstance(props);
 			
 			// Define message
 			MimeMessage message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(from));
+			message.setFrom(new InternetAddress(emailRequest.getFrom()));
 
-			for (String to : toList) {
+			for (String to : emailRequest.getToList()) {
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			}
 						
-			message.setSubject(subject);
+			message.setSubject(emailRequest.getSubject());
 			
-			if(isHtml){
-				message.setText(body, "ISO-8859-1",	"html");
-			}
-			else{
-				message.setText(body);
-			}
+			message.setContent(createMessageContent(emailRequest.getBody()));
+			
+//			if(emailRequest.isIsHtml()){
+//				message.setText(emailRequest.getBody(), "ISO-8859-1",	"html");
+//			}
+//			else{
+//				message.setText(emailRequest.getBody());
+//			}
 			
 			Transport transport = session.getTransport(SMTP);
-			transport.connect(from, password);
+			transport.connect(emailRequest.getFrom(), emailRequest.getPassword());
 			transport.sendMessage(message,message.getAllRecipients());
 			transport.close();
 			
@@ -87,18 +117,137 @@ public class MailSender {
 		
 	}
 
-	private void validateParameters(String from, List<String> toList, String body) throws EMailException {
+	
+	private Multipart createMessageContent(String body) throws EMailException {
 		
-		if(from == null){
+		Multipart multipart = new MimeMultipart("related");
+		try 
+		{
+			
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(body));
+			Document doc = dBuilder.parse(is);
+			
+			List<BodyPart> imgBodyParts = new ArrayList<BodyPart>();
+			NodeList imgNodeList = doc.getElementsByTagName("IMG");
+			
+			for (int i = 0; i < imgNodeList.getLength(); i++) {
+				BodyPart imgBodyPart = createImageBodyPart(imgNodeList.item(i));
+				imgBodyParts.add(imgBodyPart);
+			}
+						
+			String docString = toString(doc);
+			
+			BodyPart htmlPart = new MimeBodyPart();
+			htmlPart.setContent(docString, "text/html");
+			
+			multipart.addBodyPart(htmlPart);
+			
+			for (BodyPart imgBodyPart : imgBodyParts) {
+				multipart.addBodyPart(imgBodyPart);
+			}
+
+		}
+		catch (MessagingException e) 
+		{
+			throw new EMailException("", e.getMessage());
+			
+		}
+		catch (ParserConfigurationException e) 
+		{
+			throw new EMailException("", e.getMessage());
+		}
+		catch (SAXException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return multipart;
+	}
+	
+
+	private BodyPart createImageBodyPart(Node imgNode) throws MessagingException {
+		
+		BodyPart imgBodyPart = new MimeBodyPart();
+		
+		//get the img id
+		Node imgIdAttr = imgNode.getAttributes().getNamedItem("id");
+		String imgId = imgIdAttr.getTextContent();
+		
+		// get the image path 
+		Node imgSrcAttr = imgNode.getAttributes().getNamedItem("SRC");
+		String imagePath = imgSrcAttr.getTextContent();
+
+		//replace the src for a cid value
+		imgSrcAttr.setTextContent("cid:" + imgId);
+		
+		// Loading the image
+		DataSource ds = new FileDataSource(imagePath);
+        imgBodyPart.setDataHandler(new DataHandler(ds));
+
+        //imgNode.getAttributes().removeNamedItem("id");
+        
+        //Setting the header
+        imgBodyPart.setHeader("Content-ID","<" + imgId + ">");
+        imgBodyPart.setDisposition(MimeBodyPart.INLINE);
+        return imgBodyPart;
+    }
+
+
+	private void validateParameters(EmailRequest emailRequest) throws EMailException {
+		
+		if(emailRequest.getFrom() == null){
 			throw new EMailException(ExceptionErrorCodes.INVALID_FROM_EMAIL, "'from' email is empty");
 		}
 						
-		if(toList == null || toList.isEmpty()){
+		if(emailRequest.getToList() == null || emailRequest.getToList().isEmpty()){
 			throw new EMailException(ExceptionErrorCodes.TO_LIST_EMPTY, "The 'To' list is empty.");
 		}
 		
-		if(body == null){
+		if(emailRequest.getBody() == null){
 			throw new EMailException(ExceptionErrorCodes.INVALID_BODY, "email body is empty");
 		}
+	}
+	
+	
+	private String toString(Document doc) {
+	    try {
+	        StringWriter sw = new StringWriter();
+	        TransformerFactory tf = TransformerFactory.newInstance();
+	        Transformer transformer = tf.newTransformer();
+	        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+	        transformer.setOutputProperty(OutputKeys.METHOD, "html");
+	        transformer.setOutputProperty(OutputKeys.INDENT, "no");
+	        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+
+	        transformer.transform(new DOMSource(doc), new StreamResult(sw));
+	        return sw.toString();
+	    }
+	    catch (Exception ex) {
+	        throw new RuntimeException("Error converting to String", ex);
+	    }
+	}
+	
+	
+	// adapter for testing purposes
+	public void sendMail(String from, String password, List<String> toList, String subject, String body, boolean isHtml) throws EMailException {
+		
+		EmailRequest emailRequest = new EmailRequest();
+		emailRequest.setFrom(from);
+		emailRequest.setPassword(password);
+		emailRequest.setToList(toList);
+		emailRequest.setSubject(subject);
+		emailRequest.setBody(body);
+		emailRequest.setIsHtml(isHtml);
+		
+		this.sendMail(emailRequest);
 	}
 }

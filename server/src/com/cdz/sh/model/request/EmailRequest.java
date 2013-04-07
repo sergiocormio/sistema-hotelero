@@ -10,7 +10,7 @@ public class EmailRequest {
 	private String subject;
 	private String body;
 	private boolean isHtml;
-	
+		
 	public String getFrom() {
 		return from;
 	}
