@@ -6,14 +6,14 @@
 		  xmlns:ns="http://www.adobe.com/2006/fc" xmlns:crud="view.forms.crud.*" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*" >
 	<fx:Script>
 		<![CDATA[
-			import flashx.textLayout.conversion.ConversionType;
-			import flashx.textLayout.conversion.TextConverter;
-			import flashx.textLayout.elements.TextFlow;
-			import flashx.textLayout.elements.ParagraphElement;
-			import flashx.textLayout.elements.InlineGraphicElement;
 			import flash.sampler.NewObjectSample;
 			
 			import flashx.textLayout.*;
+			import flashx.textLayout.conversion.ConversionType;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.InlineGraphicElement;
+			import flashx.textLayout.elements.ParagraphElement;
+			import flashx.textLayout.elements.TextFlow;
 			
 			import locales.Locale;
 			
@@ -61,6 +61,9 @@
 			
 			[Bindable]
 			private var months:ArrayCollection;
+			
+			[Bindable]
+			private var imageIds:ArrayCollection = new ArrayCollection();
 			
 			
 			public function init(event:FlexEvent):void
@@ -129,7 +132,8 @@
 			
 				var img:InlineGraphicElement = new InlineGraphicElement();
 				img.source = sourceFile;
-				//img.source = "http://icons.iconarchive.com/icons/icons-land/sport/256/Soccer-Ball-icon.png";
+				img.id = new String(imageIds.length + 1); //the image id will be the related image index in imageIds collection
+				imageIds.addItem(img.id);
 				
 				var p:ParagraphElement = new ParagraphElement();
 				p.addChild(img);
@@ -217,9 +221,6 @@
 				
 				emailReq.body = TextConverter.export(emailBodyEditor.editor.textFlow, TextConverter.TEXT_FIELD_HTML_FORMAT, ConversionType.STRING_TYPE).toString();
 				
-				//emailReq.body = emailBodyEditor.textFlow.htmlText;
-				//emailReq.body = "<P ALIGN='LEFT'><FONT FACE='Courier New' SIZE='48' COLOR='#993333' LETTERSPACING='0' KERNING='0'>fdgh<B><I><U>dfghd</U></I></B>f</FONT></P>";
-			
 				return emailReq;
 			}
 			
@@ -242,6 +243,8 @@
 				//adds countries without regions
 				regions.addAll(event.result as ArrayCollection);
 			}
+			
+			
 			
 		]]>
 	</fx:Script>

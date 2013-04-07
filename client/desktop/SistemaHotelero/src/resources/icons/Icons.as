@@ -227,6 +227,22 @@ package resources.icons
 		[Bindable]
 		[Embed(source='resources/icons/needle32x32.png')]
 		public static var needle:Class;
+
+		[Bindable]
+		[Embed(source='resources/icons/icon_align_left.png')]
+		public static var alignLeft:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/icon_align_center.png')]
+		public static var alignCenter:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/icon_align_right.png')]
+		public static var alignRight:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/icon_align_justify.png')]
+		public static var alignJustify:Class;
 		
 		public function Icons()
 		{
