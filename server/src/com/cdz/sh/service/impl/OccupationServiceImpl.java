@@ -8,10 +8,12 @@ import java.util.List;
 
 import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.OccupationDao;
+import com.cdz.sh.dao.PromotionDao;
 import com.cdz.sh.dao.RoomDao;
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
+import com.cdz.sh.dao.impl.PromotionDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
@@ -41,11 +43,14 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 	private Trigger checkReservationFormsExpirationTrigger;
 	private OccupationDao occupationDao; 
 	private RoomDao roomDao;
+	private PromotionDao promotionDao; 
 	
 
 	public OccupationServiceImpl(){
 		super();
 		this.roomDao = new RoomDaoImpl();
+		this.promotionDao = new PromotionDaoImpl();
+		
 		this.checkReservationFormsExpirationTrigger = new CheckReservationFormsExpirationTrigger();
 	}
 	
@@ -92,12 +97,23 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		
 		List<Alternative> alternatives = createAlternatives(possibleOccupations, request);
 		
-		
+		alternatives = addPromotions(alternatives);
 		
 		return alternatives;
 	}
 
 
+
+	private List<Alternative> addPromotions(List<Alternative> alternatives) {
+		
+		
+	
+		
+		
+		return alternatives;
+	}
+	
+	
 
 	private List<Alternative> filterInvalidLastRoomChanges(List<Alternative> alternatives) throws DaoException {
 		int i = 0;

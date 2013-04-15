@@ -31,7 +31,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -86,13 +88,7 @@ public class MailSender {
 			message.setSubject(emailRequest.getSubject());
 			
 			message.setContent(createMessageContent(emailRequest.getBody()));
-			
-//			if(emailRequest.isIsHtml()){
-//				message.setText(emailRequest.getBody(), "ISO-8859-1",	"html");
-//			}
-//			else{
-//				message.setText(emailRequest.getBody());
-//			}
+
 			
 			Transport transport = session.getTransport(SMTP);
 			transport.connect(emailRequest.getFrom(), emailRequest.getPassword());
@@ -137,8 +133,15 @@ public class MailSender {
 				BodyPart imgBodyPart = createImageBodyPart(imgNodeList.item(i));
 				imgBodyParts.add(imgBodyPart);
 			}
-						
+			
+			
+			doc = convertFontTagToSpanTag(doc);
+			
 			String docString = toString(doc);
+			
+			
+			
+			System.out.println(docString);
 			
 			BodyPart htmlPart = new MimeBodyPart();
 			htmlPart.setContent(docString, "text/html");
@@ -173,6 +176,58 @@ public class MailSender {
 		return multipart;
 	}
 	
+
+	private Document convertFontTagToSpanTag(Document doc) {
+		
+		NodeList fontNodeList = doc.getElementsByTagName("FONT");
+		List<Node> fontNodes = new ArrayList<Node>();
+		
+		for (int i = 0; i < fontNodeList.getLength(); i++) {
+			
+			Node fontNode = fontNodeList.item(i);
+			String styleValue = "";
+			
+			Node fontSizeAttr = fontNode.getAttributes().getNamedItem("SIZE");
+			styleValue += "font-size:" + fontSizeAttr.getTextContent() + "px; ";
+			fontNode.getAttributes().removeNamedItem("SIZE");			
+			
+			Node fontFamilyAttr = fontNode.getAttributes().getNamedItem("FACE");
+			if(fontFamilyAttr != null){
+				styleValue += "font-family:" + fontFamilyAttr.getTextContent() + "; ";
+				fontNode.getAttributes().removeNamedItem("FACE");
+			}
+			
+			Node fontColorAttr = fontNode.getAttributes().getNamedItem("COLOR");
+			if(fontColorAttr != null){
+				styleValue += "color:" + fontColorAttr.getTextContent() + ";";
+				fontNode.getAttributes().removeNamedItem("COLOR");
+			}
+			
+			Node namedItem = fontNode.getAttributes().getNamedItem("KERNING");
+			if(namedItem != null){
+				fontNode.getAttributes().removeNamedItem("KERNING");
+			}
+			namedItem = fontNode.getAttributes().getNamedItem("LETTERSPACING");
+			if(namedItem != null){
+				fontNode.getAttributes().removeNamedItem("LETTERSPACING");
+			}
+			
+			
+			Attr styleAttr = doc.createAttribute("style");
+			styleAttr.setNodeValue(styleValue);
+			
+			fontNode.getAttributes().setNamedItem(styleAttr);
+			
+			fontNodes.add(fontNode);
+		}
+		
+		for (Node fontNode : fontNodes) {
+			doc.renameNode(fontNode, null, "span");
+		}
+				
+		return doc;
+	}
+
 
 	private BodyPart createImageBodyPart(Node imgNode) throws MessagingException {
 		

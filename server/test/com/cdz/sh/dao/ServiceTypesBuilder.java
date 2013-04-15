@@ -65,6 +65,7 @@ public class ServiceTypesBuilder {
 		ServiceType serviceTypeAeroIda = this.serviceTypeDao.getRecordById(3L);
 		if (serviceTypeAeroIda == null){
 			serviceTypeAeroIda = new ServiceType();
+			serviceTypeAeroIda.setTransfer(true);
 			serviceTypeAeroIda.setName("Ida al Aeropuerto");
 			serviceTypeAeroIda.setModality(ServiceTypeModality.PER_TIME);
 			serviceTypeAeroIda.setPrice(90d);
@@ -75,6 +76,7 @@ public class ServiceTypesBuilder {
 		ServiceType serviceTypeAeroBoth = this.serviceTypeDao.getRecordById(4L);
 		if (serviceTypeAeroBoth == null){
 			serviceTypeAeroBoth = new ServiceType();
+			serviceTypeAeroBoth.setTransfer(true);
 			serviceTypeAeroBoth.setName("Aeropuerto ida y vuelta");
 			serviceTypeAeroBoth.setModality(ServiceTypeModality.PER_TIME);
 			serviceTypeAeroBoth.setPrice(170d);
@@ -85,6 +87,7 @@ public class ServiceTypesBuilder {
 		ServiceType serviceTypeBusIda = this.serviceTypeDao.getRecordById(5L);
 		if (serviceTypeBusIda == null){
 			serviceTypeBusIda = new ServiceType();
+			serviceTypeBusIda.setTransfer(true);
 			serviceTypeBusIda.setName("Bus Ida");
 			serviceTypeBusIda.setModality(ServiceTypeModality.PER_TIME);
 			serviceTypeBusIda.setPrice(80d);
@@ -95,6 +98,7 @@ public class ServiceTypesBuilder {
 		ServiceType serviceTypeBusBoth = this.serviceTypeDao.getRecordById(6L);
 		if (serviceTypeBusBoth == null){
 			serviceTypeBusBoth = new ServiceType();
+			serviceTypeBusBoth.setTransfer(true);
 			serviceTypeBusBoth.setName("Bus ida y vuelta");
 			serviceTypeBusBoth.setModality(ServiceTypeModality.PER_TIME);
 			serviceTypeBusBoth.setPrice(150d);
