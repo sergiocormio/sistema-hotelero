@@ -143,6 +143,7 @@
    		<plural>días</plural>
     </day>
     <dateFormat>dd/MM/yyyy</dateFormat>
+    <dateTimeFormat>dd/MM/yyyy HH:mm</dateTimeFormat>
     <documentType>
     	<singular>Tipo de Documento</singular>
 	    <plural>Tipos de Documento</plural>
@@ -308,12 +309,14 @@
     </serviceType>
     <transfer>
     	<companyName>Empresa</companyName>
-		<date>Fecha y Hora</date>
+		<date>Fecha</date>
 		<flightOrBusNumber>Vuelo o Número de Bus</flightOrBusNumber>
+		<hour>Hora</hour>
+		<id>Id Transfer</id>
     	<plural>Transfers</plural>
     	<schedule>Agenda</schedule>
     	<singular>Transfer</singular>
-    	<source>Fuente</source>
+    	<source>Procedencia</source>
     </transfer>
     <validator>
     	<error>Error</error>
