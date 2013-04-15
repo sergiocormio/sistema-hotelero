@@ -249,6 +249,14 @@
     	<singular>noche</singular>
    		<plural>noches</plural>
     </night>
+    <promotion>
+    	<plural>Promociones</plural>
+    	<name>Nombre</name>
+    	<description>Descripción</description>
+    	<dateFrom>Fecha Desde</dateFrom>
+    	<dateTo>Fecha Hasta</dateTo>
+    	<totalPrice>Precio total</totalPrice>
+    </promotion>
     <rate>
     	<singular>Tarifa</singular>
 	    <plural>Tarifas</plural>
