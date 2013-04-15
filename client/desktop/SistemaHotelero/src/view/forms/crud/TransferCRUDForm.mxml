@@ -82,7 +82,7 @@
 			
 			private function dateFormat(item:Object,column:GridColumn):String
 			{
-				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateFormat);
+				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateTimeFormat);
 			}
 			
 		]]>
@@ -97,9 +97,9 @@
 					<s:ArrayList>
 						<s:GridColumn dataField="id" headerText="{loc.transfer.id}"/>
 						<s:GridColumn dataField="date" headerText="{loc.transfer.date}" labelFunction="dateFormat"/>
-						<s:GridColumn dataField="customer" headerText="{loc.customer.singular}"/>
-						<s:GridColumn dataField="reservationForm" headerText="{loc.reservationForm.singular}"/>
-						<s:GridColumn dataField="serviceType" headerText="{loc.serviceType.singular}"/>
+						<s:GridColumn dataField="customer.name" headerText="{loc.customer.singular}"/>
+						<s:GridColumn dataField="reservationForm.id" headerText="{loc.reservationForm.singular}"/>
+						<s:GridColumn dataField="serviceType.name" headerText="{loc.serviceType.singular}"/>
 						<s:GridColumn dataField="source" headerText="{loc.transfer.source}"/>
 						<s:GridColumn dataField="flightOrBusNumber" headerText="{loc.transfer.flightOrBusNumber}"/>
 						<s:GridColumn dataField="companyName" headerText="{loc.transfer.companyName}"/>

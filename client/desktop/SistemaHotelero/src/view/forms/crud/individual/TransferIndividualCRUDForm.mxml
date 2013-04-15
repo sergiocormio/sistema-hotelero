@@ -12,6 +12,7 @@
 			
 			import model.Transfer;
 			
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;
 			import mx.validators.Validator;
@@ -19,10 +20,15 @@
 			import resources.Colors;
 			import resources.icons.Icons;
 			
+			import services.crud.ServiceTypeService;
 			import services.crud.TransferService;
 			
 			import utils.DateRange;
 			import utils.FaultHandler;
+			import utils.WindowsUtils;
+			
+			[Bindable]
+			private var serviceTypes:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
 			public var loc:Object;
@@ -40,8 +46,23 @@
 			public function set currentTransfer(value:Transfer):void
 			{
 				_currentTransfer = value;
-//				transferId.text = _currentTransfer.id;
+				if(_currentTransfer.id != null){
+					transferId.text = _currentTransfer.id.toString();
+				}else{
+					transferId.text = "";
+				}
 				dateChooser.selectedDate = _currentTransfer.date;
+				if(_currentTransfer.date!=null){
+					hours.value = _currentTransfer.date.hours;
+					minutes.value = _currentTransfer.date.minutes;
+				}
+				if(_currentTransfer.serviceType!=null){
+					WindowsUtils.autoSelectComboBox(serviceTypesCombo,_currentTransfer.serviceType);
+				}
+				sourceText.text = _currentTransfer.source;
+				flightOrBusNumberText.text = _currentTransfer.flightOrBusNumber;
+				companyText.text = _currentTransfer.companyName;
+				
 			}
 			
 			private function allFieldsAreValid():Boolean{
@@ -50,7 +71,7 @@
 				
 				var valArray:Array = new Array();
 				
-				valArray.push(transferIdValidator);
+				/* valArray.push(transferIdValidator); */
 				valArray.push(transferDateValidator);
 				
 				var validatorErrorArray:Array = Validator.validateAll(valArray);;
@@ -63,7 +84,7 @@
 			}
 			
 			private function setEnabledValidators(enabled:Boolean):void{
-				transferIdValidator.enabled = enabled;
+				/* transferIdValidator.enabled = enabled; */
 				transferDateValidator.enabled = enabled;
 			}
 			
@@ -75,6 +96,12 @@
 				
 				_currentTransfer.id = transferId.text;
 				_currentTransfer.date = dateChooser.selectedDate;
+				_currentTransfer.date.hours = hours.value;
+				_currentTransfer.date.minutes = minutes.value;
+				_currentTransfer.serviceType = serviceTypesCombo.selectedItem;
+				_currentTransfer.source = sourceText.text;
+				_currentTransfer.companyName = companyText.text;
+				_currentTransfer.flightOrBusNumber = flightOrBusNumberText.text;
 				
 				//calls service
 				if(isUpdate){
@@ -96,19 +123,32 @@
 			protected function init():void
 			{
 				currentTransfer = new Transfer();
+				retrieveServiceTypes();
 				//transferId.setFocus();
+			}
+			
+			//LANGUAGES
+			private function retrieveServiceTypes():void{
+				var serv: ServiceTypeService= new ServiceTypeService();
+				serv.getTransferServiceTypes(retrieveServiceTypes_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			private function retrieveServiceTypes_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				serviceTypes.removeAll();
+				serviceTypes.addAll(event.result as ArrayCollection);
 			}
 			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
-		<mx:StringValidator id="transferIdValidator" 
+		<!--<mx:StringValidator id="transferIdValidator" 
 							required="true"
 							requiredFieldError="{loc.validator.requiredFieldError}" 
 							source="{transferId}"
 							property="text"
-							/>
+							/>-->
 		<mx:DateValidator id="transferDateValidator"
 						  required="true"
 						  requiredFieldError="{loc.validator.requiredFieldError}"
@@ -136,8 +176,8 @@
 					<s:FormLayout gap="-14"/>
 				</s:layout>  
 				
-				<s:FormItem label="{loc.transfer.singular}:" required="true">
-					<s:TextInput id="transferId"/>
+				<s:FormItem label="{loc.transfer.id}:" required="false">
+					<s:TextInput id="transferId" enabled="false"/>
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.transfer.date}:" required="true">
@@ -145,6 +185,37 @@
 								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
 								  formatString="{loc.dateFormat.toUpperCase()}"
 								  monthNames="{Locale.getInstance().monthNames}"/>
+				</s:FormItem>
+				
+				<s:FormItem label="{loc.transfer.hour}:" required="true">
+					<s:HGroup verticalAlign="middle">
+						<s:NumericStepper id="hours" minimum="0" maximum="23"/>
+						<s:Label text=":"/>
+						<s:NumericStepper id="minutes" minimum="0" maximum="59" stepSize="15" />
+					</s:HGroup>
+				</s:FormItem>
+				<s:FormItem id="serviceTypeItem" label="{loc.serviceType.singular}:" required="true">
+					<s:HGroup>
+						<s:ComboBox id="serviceTypesCombo" dataProvider="{serviceTypes}" labelField="name" requireSelection="true"/>
+						<s:Button width="24" height="24" click="retrieveServiceTypes();"
+								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+						<!--<s:Button width="24" height="24" click="addServiceType();" icon="{Icons.add}"
+								  toolTip="{loc.button.add}"/>-->
+					</s:HGroup>
+				</s:FormItem>
+			</s:Form>
+			<s:Form>
+				<s:layout>
+					<s:FormLayout gap="-14"/>
+				</s:layout>  
+				<s:FormItem label="{loc.transfer.source}:">
+					<s:TextInput id="sourceText" />
+				</s:FormItem>
+				<s:FormItem label="{loc.transfer.flightOrBusNumber}:">
+					<s:TextInput id="flightOrBusNumberText" />
+				</s:FormItem>
+				<s:FormItem label="{loc.transfer.companyName}:">
+					<s:TextInput id="companyText" />
 				</s:FormItem>
 			</s:Form>
 		</s:HGroup>

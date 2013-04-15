@@ -15,6 +15,8 @@ package model
 		private var _modality:String; //On Server side it is a Enum
 		
 		private var _price:Number;
+		
+		private var _isTransfer:Boolean;
 
 		//to be used only in UI
 		private var _exchangeRate:ExchangeRate;
@@ -104,6 +106,16 @@ package model
 		public function get priceWithCurrency():String
 		{
 			return _exchangeRate.currencySymbol + " " + _price.toFixed(2);
+		}
+		
+		public function get isTransfer():Boolean
+		{
+			return _isTransfer;
+		}
+		
+		public function set isTransfer(value:Boolean):void
+		{
+			_isTransfer = value;
 		}
 		
 		

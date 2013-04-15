@@ -27,6 +27,9 @@
 			[Bindable]
 			private var serviceTypes:ArrayCollection = new ArrayCollection();
 			
+			[Bindable]
+			private var _removeButtonEnabled:Boolean;
+			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
 				grid.selectedItem = null;
 				serviceTypes.removeAll();
@@ -50,8 +53,10 @@
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
+				_removeButtonEnabled = false;
 				if(grid.selectedItem !=null){
 					individual.currentServiceType = grid.selectedItem as ServiceType;
+					_removeButtonEnabled = !(grid.selectedItem as ServiceType).isTransfer;
 				}
 				individual.enabled = false;
 			}
@@ -118,7 +123,7 @@
 			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addServiceType()"
 									modifyClicked="modifyServiceType()" removeClicked="deleteServiceType()"
 									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-									removeButtonEnabled="{grid.selectedItem!=null}"/>
+									removeButtonEnabled="{_removeButtonEnabled}"/>
 		</s:HGroup>
 		<individual:ServiceTypeIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="40%"/>
 	</mx:VDividedBox>

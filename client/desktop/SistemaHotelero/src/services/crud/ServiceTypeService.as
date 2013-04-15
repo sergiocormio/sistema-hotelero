@@ -8,5 +8,13 @@ package services.crud
 		{
 			super("serviceTypeService");
 		}
+		
+		public function getTransferServiceTypes(resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.getTransferServiceTypes.addEventListener("result", resultHandler);
+			if(faultHandler!=null){
+				remoteObject.getTransferServiceTypes.addEventListener("fault", faultHandler);
+			}
+			remoteObject.getTransferServiceTypes();
+		}
 	}
 }
