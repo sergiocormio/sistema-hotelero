@@ -16,8 +16,8 @@ public class Promotion {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name="ROOM_ID")
-	private Room room;
+	@JoinColumn(name="ROOM_TYPE_ID")
+	private RoomType roomType;
 	
 	private String name;
 	
@@ -37,12 +37,12 @@ public class Promotion {
 		this.id = id;
 	}
 
-	public Room getRoom() {
-		return room;
+	public RoomType getRoomType() {
+		return roomType;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
 	}
 
 	public String getName() {

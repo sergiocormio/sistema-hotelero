@@ -67,6 +67,32 @@ public class TestSendMailFromGMail {
 	}
 
 	
+	@Test
+	public void testFont() throws EMailException {
+		
+		String to = "test.cds.001@gmail.com";
+		List<String> toList = new ArrayList<String>();
+		toList.add(to);
+		
+		String subject = "Mail from GMail";
+//				
+		String body = "<HTML><BODY>" + 
+						"<P ALIGN='left'>" +
+							"<FONT COLOR='#000000' FACE='Arial' SIZE='12'>bcxbcvbcv" +
+								"<FONT SIZE='48'>cbcbcvbc</FONT>" +
+							"</FONT>" +
+						"</P>" +
+						"<P>" +	
+							"<span style='font-size:48px; color:#ff0000;'><B><I><U>sdfsfdsdfsdfsdf</U></I></B></span>" +
+						"</P>" +
+					   "</BODY></HTML>";
+		
+		MailSender mailSender = new MailSender();
+		mailSender.sendMail(fromGMail, passwordGMail, toList, subject, body, true);
+		
+	}
+	
+	
 	@Test(expected=EMailException.class)
 	public void testFromGmailFromNull() throws EMailException {
 		try{

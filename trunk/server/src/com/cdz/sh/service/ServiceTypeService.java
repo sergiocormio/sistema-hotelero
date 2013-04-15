@@ -1,5 +1,8 @@
 package com.cdz.sh.service;
 
+import java.util.List;
+
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.ServiceType;
 
 /**
@@ -11,8 +14,6 @@ import com.cdz.sh.model.ServiceType;
 public interface ServiceTypeService extends CrudService<ServiceType, Long>{
 	
 	
-	/**
-	 * TODO: declare specific behavior
-	 */
+	public List<ServiceType> getTransferServiceTypes() throws DaoException;
 
 }

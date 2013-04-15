@@ -38,4 +38,5 @@ public interface ServiceTypeDao extends CrudDao<ServiceType, Long> {
 	public List<ServiceType> retrieveServicesIncludedInBasePrice() throws DaoException;
 
 	
+	public List<ServiceType> getTransferServiceTypes() throws DaoException;
 }

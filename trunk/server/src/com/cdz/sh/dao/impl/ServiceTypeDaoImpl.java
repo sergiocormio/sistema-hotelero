@@ -66,6 +66,33 @@ public class ServiceTypeDaoImpl extends AbstractCrudDao<ServiceType, Long> imple
 		}
 	}
 
+	
+	public List<ServiceType> getTransferServiceTypes() throws DaoException {
+		
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			entityManager.getTransaction().begin();
+			
+			String strQuery = "SELECT st FROM ServiceType st WHERE st.isTransfer = :isTransfer";
+			
+			TypedQuery<ServiceType> query = entityManager.createQuery( strQuery, ServiceType.class);
+			
+			query = query.setParameter("isTransfer", Boolean.TRUE);
+			
+			List<ServiceType> serviceTypes = query.getResultList();
+			entityManager.getTransaction().commit();
+			return serviceTypes;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
+		}
+	}
+	
+	
 //	@Override
 //	public synchronized void deleteRecord(ServiceType serviceType) throws DaoException {
 //		if(serviceType.getId() <= 9){
