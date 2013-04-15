@@ -1,5 +1,7 @@
 package com.cdz.sh.service.impl;
 
+import java.util.List;
+
 import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.ServiceTypeDao;
 import com.cdz.sh.dao.crud.CrudDao;
@@ -8,7 +10,7 @@ import com.cdz.sh.dao.impl.ServiceTypeDaoImpl;
 import com.cdz.sh.exception.SHException;
 import com.cdz.sh.model.ServiceType;
 import com.cdz.sh.service.AbstractCrudService;
-import com.cdz.sh.service.List;
+
 import com.cdz.sh.service.ServiceTypeService;
 
 /**
