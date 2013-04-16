@@ -20,6 +20,7 @@
 			import resources.Colors;
 			import resources.icons.Icons;
 			
+			import services.crud.ReservationFormService;
 			import services.crud.ServiceTypeService;
 			import services.crud.TransferService;
 			
@@ -35,6 +36,9 @@
 			
 			[Bindable]
 			public var isUpdate:Boolean;
+			
+			[Bindable]
+			private var reservationForms:ArrayCollection = new ArrayCollection();
 			
 			private var _currentTransfer:Transfer;
 			
@@ -124,6 +128,7 @@
 			{
 				currentTransfer = new Transfer();
 				retrieveServiceTypes();
+				retrieveReservationForms();
 				//transferId.setFocus();
 			}
 			
@@ -138,6 +143,35 @@
 				serviceTypes.removeAll();
 				serviceTypes.addAll(event.result as ArrayCollection);
 			}
+			
+			//RESERVATION FORMS
+			private function retrieveReservationForms():void{
+				var serv:ReservationFormService = new ReservationFormService();
+				serv.retrieveAll(retrieveReservationForms_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			private function retrieveReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				reservationForms.removeAll();
+				reservationForms.addAll(event.result as ArrayCollection);
+			}
+			
+			private function searchReservationForm():void{
+				//TODO this method!
+				/* Nro de habitación:       Fecha: (hoy precargada)
+				
+				Cliente:
+				
+				[Consultar] [Limpiar]
+				
+				
+				
+				Ficha de reserva: [Id - Cliente - Estado - fecha desde - hasta]
+				
+				
+				[Aceptar] [Cancelar] */
+			}
+			
 			
 		]]>
 	</fx:Script>
@@ -207,7 +241,18 @@
 			<s:Form>
 				<s:layout>
 					<s:FormLayout gap="-14"/>
-				</s:layout>  
+				</s:layout>
+				<s:FormItem label="{loc.reservationForm.singular}:">
+					<s:HGroup>
+						<s:ComboBox id="reservationFormsCombo" dataProvider="{reservationForms}" 
+									labelField="name" requireSelection="true"
+									width="260"/>
+						<s:Button width="24" height="24" click="retrieveReservationForms();"
+								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+						<s:Button width="24" height="24" click="searchReservationForm();" icon="{Icons.search}"
+								  toolTip="{loc.button.search}"/>
+					</s:HGroup>
+				</s:FormItem>
 				<s:FormItem label="{loc.transfer.source}:">
 					<s:TextInput id="sourceText" />
 				</s:FormItem>

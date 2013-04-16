@@ -77,6 +77,7 @@
     	<close>Cerrar</close>
     	<print>Imprimir</print>
     	<clean>Limpiar</clean>
+    	<search>Buscar</search>
     	<send>Enviar</send>
     	<insertImage>Insertar imagen</insertImage>
 		<preview>Vista Previa</preview>

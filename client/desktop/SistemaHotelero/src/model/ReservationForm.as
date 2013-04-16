@@ -1,5 +1,7 @@
 package model
 {
+	import locales.Locale;
+
 	[RemoteClass (alias="com.cdz.sh.model.ReservationForm")]
 	public class ReservationForm
 	{
@@ -22,6 +24,11 @@ package model
 		
 		public function ReservationForm()
 		{
+		}
+		
+		public function get name():String
+		{
+			return _id + " - " + _customer.name + " - " + StateReservationForm.convertToLabel(_state,Locale.getInstance().getCurrentLocale());
 		}
 
 		public function get bankDocumentNumber():String

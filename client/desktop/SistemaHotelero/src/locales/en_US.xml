@@ -64,8 +64,13 @@
     	<remove>Remove</remove>
     	<save>Save</save>
     	<close>Close</close>
-    	<print>Imprimir</print>
-    	<clean>Limpiar</clean>
+    	<print>Print</print>
+    	<clean>Clean</clean>
+	   	<search>Search</search>
+    	<send>Send</send>
+    	<insertImage>Insert Image</insertImage>
+		<preview>Preview</preview>
+		<consult>Consult</consult>
     </button>
     <calendar>
     	<singular>Calendar</singular>
