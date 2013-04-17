@@ -16,10 +16,12 @@ import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
+import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.Room;
 import com.cdz.sh.model.StateReservationForm;
 
 public class TestReservationFormDao {
@@ -28,7 +30,7 @@ public class TestReservationFormDao {
 	
 	private CustomerDao customerDao;
 	private DocumentTypeDao documentTypeDao;
-	
+	private RoomDao roomDao;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -42,7 +44,7 @@ public class TestReservationFormDao {
 		this.reservationFormDao = new ReservationFormDaoImpl();
 		this.documentTypeDao = new DocumentTypeDaoImpl();
 		this.customerDao = new CustomerDaoImpl();
-		
+		this.roomDao = new RoomDaoImpl();
 	}
 
 	@After
@@ -56,6 +58,18 @@ public class TestReservationFormDao {
 		this.reservationFormDao.retrieveReservationForms(null, null, null, null);
 		
 	}
+	
+	@Test
+	public void testRetrieveReservationFormByDateAndRoom() throws DaoException, InvalidParameterException {
+		
+		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
+		Room room = this.roomDao.getRecordById(1L);
+					
+		this.reservationFormDao.retrieveReservationForms(calendar.getTime(), room);
+		
+	}
+	
+	
 	
 	@Test
 	public void testRetrieveReservationFormsByDateFrom() throws DaoException, InvalidParameterException {

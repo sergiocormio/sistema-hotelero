@@ -19,6 +19,7 @@ import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.Room;
 import com.cdz.sh.model.StateReservationForm;
 import com.cdz.sh.report.PDFReportManager;
 import com.cdz.sh.service.AbstractCrudService;
@@ -65,6 +66,15 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 		this.checkReservationFormsExpirationTrigger.executeAction();
 		
 		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(dateFrom, dateTo, customer, state);
+		return reservationForms;
+	}
+	
+	@Override
+	public List<ReservationForm> retrieveReservationForms(Date date, Room room) throws DaoException {
+		
+		this.checkReservationFormsExpirationTrigger.executeAction();
+		
+		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(date, room);
 		return reservationForms;
 	}
 

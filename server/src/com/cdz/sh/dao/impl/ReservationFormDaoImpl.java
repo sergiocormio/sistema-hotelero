@@ -16,6 +16,7 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.Room;
 import com.cdz.sh.model.StateReservationForm;
 
 /**
@@ -111,6 +112,36 @@ public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Lon
 		}
 		
 		return query;
+	}
+
+
+	@Override
+	public List<ReservationForm> retrieveReservationForms(Date date, Room room)
+			throws DaoException {
+		
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
+		String strQuery = "SELECT DISTINCT oc.id.reservationForm FROM Occupation oc WHERE oc.id.date = :date and oc.id.room = :room";
+		
+		try{
+			entityManager.getTransaction().begin();
+			TypedQuery<ReservationForm> query = entityManager.createQuery(strQuery, ReservationForm.class);
+			
+			query = query.setParameter("date", date);
+			query = query.setParameter("room", room);
+			
+			List<ReservationForm> reservationForms = query.getResultList();
+			entityManager.getTransaction().commit();
+			
+			return reservationForms;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
+		}
 	}
 	
 }

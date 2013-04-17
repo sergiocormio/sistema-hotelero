@@ -8,6 +8,7 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.Room;
 import com.cdz.sh.model.StateReservationForm;
 
 /**
@@ -29,7 +30,10 @@ public interface ReservationFormDao extends CrudDao<ReservationForm, Long> {
 	 * @param state
 	 * @return
 	 */
-	List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, Customer customer, StateReservationForm state) throws InvalidParameterException, DaoException;
+	public List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, Customer customer, StateReservationForm state) throws InvalidParameterException, DaoException;
+	
+	
+	public List<ReservationForm> retrieveReservationForms(Date date, Room room) throws DaoException;
 
 
 }

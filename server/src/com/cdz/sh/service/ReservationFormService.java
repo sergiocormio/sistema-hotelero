@@ -8,6 +8,7 @@ import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.Room;
 import com.cdz.sh.model.StateReservationForm;
 
 /**
@@ -52,4 +53,8 @@ public interface ReservationFormService extends CrudService<ReservationForm, Lon
 	 * @return the absolute path to the report generated
 	 */
 	public byte[] exportData(ReservationForm reservationForm, String selectedLocale) throws DaoException;
+	
+	
+	public List<ReservationForm> retrieveReservationForms(Date date, Room room) throws DaoException;
+	
 }
