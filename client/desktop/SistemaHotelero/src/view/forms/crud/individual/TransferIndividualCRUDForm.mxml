@@ -13,7 +13,9 @@
 			import model.Transfer;
 			
 			import mx.collections.ArrayCollection;
+			import mx.containers.TitleWindow;
 			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
 			import mx.rpc.events.ResultEvent;
 			import mx.validators.Validator;
 			
@@ -28,6 +30,10 @@
 			import utils.FaultHandler;
 			import utils.WindowsUtils;
 			
+			import view.forms.ReservationFormSearcher;
+			
+			private var titleWindow:TitleWindow;
+			
 			[Bindable]
 			private var serviceTypes:ArrayCollection = new ArrayCollection();
 			
@@ -41,6 +47,8 @@
 			private var reservationForms:ArrayCollection = new ArrayCollection();
 			
 			private var _currentTransfer:Transfer;
+			
+			private var reservationFormSearcher:ReservationFormSearcher;
 			
 			public function get currentTransfer():Transfer
 			{
@@ -157,6 +165,13 @@
 			}
 			
 			private function searchReservationForm():void{
+				if(reservationFormSearcher==null){
+					reservationFormSearcher = new ReservationFormSearcher();
+					reservationFormSearcher.loc = loc;
+					reservationFormSearcher.addEventListener("onSelect",reservationFormSelected);
+					reservationFormSearcher.addEventListener("onCancel",titleWindow_close);
+				}
+				titleWindow = WindowsUtils.openDialog(loc.reservationForm.plural,reservationFormSearcher);
 				//TODO this method!
 				/* Nro de habitación:       Fecha: (hoy precargada)
 				
@@ -172,6 +187,14 @@
 				[Aceptar] [Cancelar] */
 			}
 			
+			private function reservationFormSelected(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+				WindowsUtils.autoSelectComboBox(reservationFormsCombo,reservationFormSearcher.reservationFormSelected);
+			}
+			
+			private function titleWindow_close(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+			}
 			
 		]]>
 	</fx:Script>
