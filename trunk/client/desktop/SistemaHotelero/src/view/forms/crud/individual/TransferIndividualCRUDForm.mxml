@@ -114,6 +114,7 @@
 				_currentTransfer.source = sourceText.text;
 				_currentTransfer.companyName = companyText.text;
 				_currentTransfer.flightOrBusNumber = flightOrBusNumberText.text;
+				_currentTransfer.reservationForm = reservationFormsCombo.selectedItem;
 				
 				//calls service
 				if(isUpdate){
@@ -165,26 +166,11 @@
 			}
 			
 			private function searchReservationForm():void{
-				if(reservationFormSearcher==null){
-					reservationFormSearcher = new ReservationFormSearcher();
-					reservationFormSearcher.loc = loc;
-					reservationFormSearcher.addEventListener("onSelect",reservationFormSelected);
-					reservationFormSearcher.addEventListener("onCancel",titleWindow_close);
-				}
+				reservationFormSearcher = new ReservationFormSearcher();
+				reservationFormSearcher.loc = loc;
+				reservationFormSearcher.addEventListener("onSelect",reservationFormSelected);
+				reservationFormSearcher.addEventListener("onCancel",titleWindow_close);
 				titleWindow = WindowsUtils.openDialog(loc.reservationForm.plural,reservationFormSearcher);
-				//TODO this method!
-				/* Nro de habitación:       Fecha: (hoy precargada)
-				
-				Cliente:
-				
-				[Consultar] [Limpiar]
-				
-				
-				
-				Ficha de reserva: [Id - Cliente - Estado - fecha desde - hasta]
-				
-				
-				[Aceptar] [Cancelar] */
 			}
 			
 			private function reservationFormSelected(evt:Object):void {

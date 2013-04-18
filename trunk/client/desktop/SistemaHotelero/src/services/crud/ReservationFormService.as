@@ -3,6 +3,7 @@ package services.crud
 	import model.Alternative;
 	import model.Customer;
 	import model.ReservationForm;
+	import model.Room;
 	
 	import view.forms.crud.individual.ReservationFormIndividualCRUDForm;
 
@@ -37,5 +38,12 @@ package services.crud
 			remoteObject.retrieveReservationForms(dateFrom, dateTo, customer, state);
 		}
 		
+		public function retrieveReservationFormsByDateAndRoom(date:Date, room:Room,resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.retrieveReservationFormsByDateAndRoom.addEventListener("result", resultHandler);
+			if(faultHandler!=null){
+				remoteObject.retrieveReservationFormsByDateAndRoom.addEventListener("fault", faultHandler);
+			}
+			remoteObject.retrieveReservationFormsByDateAndRoom(date, room);
+		}
 	}
 }

@@ -1,38 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="980" height="250">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="980" height="450"
+		 creationComplete="init()">
 	<fx:Metadata> 
 		[Event(name="onCancel", type="flash.events.Event")]
 		[Event(name="onSelect", type="flash.events.Event")]
 	</fx:Metadata> 
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RadioButtonGroup id="filterSelected" itemClick="filterSelected_itemClickHandler(event)"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
 			import locales.Locale;
 			
+			import model.Customer;
 			import model.ReservationForm;
+			import model.Room;
 			
 			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.events.ItemClickEvent;
+			import mx.rpc.events.ResultEvent;
 			
 			import resources.Colors;
 			import resources.icons.Icons;
+			
+			import services.crud.CustomerService;
+			import services.crud.ReservationFormService;
+			import services.crud.RoomService;
 			
 			import spark.events.GridSelectionEvent;
 			import spark.skins.spark.DefaultGridItemRenderer;
 			
 			import utils.DateTimeUtils;
+			import utils.FaultHandler;
 			
 			[Bindable]
 			public var loc:Object = Locale.getInstance().getCurrentLocale();
 			
 			[Bindable]
-			private var _reservationForms:ArrayCollection = new ArrayCollection();
+			private var reservationForms:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
 			private var _reservationFormSelected:ReservationForm;
+			
+			[Bindable]
+			private var customers:ArrayCollection  = new ArrayCollection();
+			
+			[Bindable]
+			private var rooms:ArrayCollection  = new ArrayCollection();
+			
+			private function retrieveReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
+				_reservationFormSelected = null;
+				reservationForms.removeAll();
+				reservationForms.addAll(event.result as ArrayCollection);
+			}
 			
 			public function get reservationFormSelected():ReservationForm
 			{
@@ -60,6 +83,91 @@
 				_reservationFormSelected = grid.selectedItem as ReservationForm;
 			}
 			
+			private function retrieveCustomers():void{
+				var customerServ:CustomerService = new CustomerService();
+				customerServ.retrieveAll(retrieveCustomers_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			private function retrieveCustomers_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				customers.removeAll();
+				customers.addAll(event.result as ArrayCollection);
+			}
+			
+			private function retrieveRooms():void{
+				var serv:RoomService = new RoomService();
+				serv.retrieveAll(retrieveRooms_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			private function retrieveRooms_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				rooms.removeAll();
+				rooms.addAll(event.result as ArrayCollection);
+			}
+			
+			protected function init():void
+			{
+				filterByRoom.selected = true;
+				filterSelected_itemClickHandler(null);
+				retrieveCustomers();
+				retrieveRooms();
+				dateChooser.selectedDate = new Date();
+			}
+			
+			protected function consultButton_clickHandler(event:MouseEvent):void
+			{
+				_reservationFormSelected = null;
+				filterReservationForms();						
+			}
+			
+			protected function cleanButton_clickHandler(event:MouseEvent):void
+			{
+				cleanFilterForm();
+				//refreshGrid();
+			}
+			
+			private function cleanFilterForm():void
+			{
+				dateChooser.selectedDate = new Date();
+				customersCombo.selectedIndex = -1;
+				roomsCombo.selectedIndex = -1;
+			}
+			
+			private function filterReservationForms():void
+			{
+				if(filterByRoom.selected){
+					if(dateChooser.selectedDate != null && roomsCombo.selectedIndex>-1){
+						var roomSelected:Room = roomsCombo.selectedItem as Room;
+						new ReservationFormService().retrieveReservationFormsByDateAndRoom(dateChooser.selectedDate,roomSelected,retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
+					}
+				}else{
+					var dateFrom:Date = null;
+					var dateTo:Date = null;
+					var customer:Customer = null;
+					var state:String = null;
+					
+					if(customersCombo.selectedIndex > -1){
+						customer = customersCombo.selectedItem as Customer;
+						new ReservationFormService().retrieveReservationForms(dateFrom, dateTo, customer, state, retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
+					}
+				}
+				
+			}
+			
+			protected function filterSelected_itemClickHandler(event:ItemClickEvent):void
+			{
+				if(filterByRoom.selected){
+					roomsItem.enabled = true;
+					dateItem.enabled = true;
+					customerItem.enabled = false;
+				}else{
+					roomsItem.enabled = false;
+					dateItem.enabled = false;
+					customerItem.enabled = true;
+				}
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<s:Rect width="100%" height="100%">
@@ -69,7 +177,53 @@
 		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 	</s:Rect>
 	<s:VGroup width="100%" height="100%" paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">
-		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{_reservationForms}" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin"
+		<s:HGroup width="100%" horizontalAlign="center">
+			<s:VGroup horizontalAlign="right">
+				<s:Spacer height="15"/>
+				<s:RadioButton group="{filterSelected}" id="filterByRoom"/>
+				<s:Spacer height="4"/>
+				<s:RadioButton group="{filterSelected}" id="filterByCustomer"/>
+			</s:VGroup>
+			<s:Form>
+				<s:layout>
+					<s:FormLayout gap="-14"/>
+				</s:layout>  
+				
+				<s:FormItem label="{loc.room.singular}:" id="roomsItem" required="false">
+					<s:HGroup>
+						<s:ComboBox id="roomsCombo" dataProvider="{rooms}" labelField="name"/>
+						<s:Button width="24" height="24" click="retrieveRooms();"
+								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+					</s:HGroup>
+				</s:FormItem>
+				
+				<s:FormItem id="customerItem" label="{loc.customer.singular}:"  required="true">
+					<s:HGroup>
+						<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="200"/>
+						<s:Button width="24" height="24" click="retrieveCustomers();"
+								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+					</s:HGroup>
+				</s:FormItem>
+			</s:Form>
+			<s:Form>
+				<s:layout>
+					<s:FormLayout gap="-14"/>
+				</s:layout>
+				
+				<s:FormItem label="{loc.transfer.date}:" id="dateItem" required="true">
+					<mx:DateField id="dateChooser" width="120"
+								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+								  formatString="{loc.dateFormat.toUpperCase()}"
+								  monthNames="{Locale.getInstance().monthNames}"/>
+				</s:FormItem>
+				
+			</s:Form>
+		</s:HGroup>
+		<s:HGroup width="100%" horizontalAlign="center">
+			<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+			<s:Button id="cleanButton" label="{loc.button.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
+		</s:HGroup>
+		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{reservationForms}" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin"
 					selectionChange="grid_selectionChangeHandler(event)">
 			<s:columns>
 				<s:ArrayList>
