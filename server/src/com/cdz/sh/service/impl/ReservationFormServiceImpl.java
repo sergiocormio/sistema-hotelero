@@ -70,7 +70,7 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	}
 	
 	@Override
-	public List<ReservationForm> retrieveReservationForms(Date date, Room room) throws DaoException {
+	public List<ReservationForm> retrieveReservationFormsByDateAndRoom(Date date, Room room) throws DaoException {
 		
 		this.checkReservationFormsExpirationTrigger.executeAction();
 		
