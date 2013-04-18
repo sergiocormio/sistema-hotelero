@@ -15,8 +15,12 @@ package model
 		public function Room()
 		{
 		}
-		
 
+		public function get name():String
+		{
+			return _number + " - " + _roomType.name;
+		}
+		
 		public function get withExtraBed():Boolean
 		{
 			return _withExtraBed;
