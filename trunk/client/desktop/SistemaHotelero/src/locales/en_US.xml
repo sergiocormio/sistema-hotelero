@@ -57,6 +57,7 @@
 	</budget>
     <button>
     	<add>Add</add>
+    	<accept>Accept</accept>
     	<cancel>Cancel</cancel>
     	<modify>Modify</modify>
     	<newLabel>New</newLabel>

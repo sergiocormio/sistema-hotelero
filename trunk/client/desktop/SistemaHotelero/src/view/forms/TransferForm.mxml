@@ -20,7 +20,7 @@
 	
 	<mx:ViewStack id="transferViewStack" borderStyle="none" width="100%" height="100%" creationPolicy="all">
 		<s:NavigatorContent id="schedule" label="{loc.transfer.schedule}" icon="{Icons.calendar}" width="100%" height="100%" >
-			<forms:CalendarForm id="calendarForm" width="100%" height="100%" loc="{loc}"/>
+			<forms:TransferCalendar id="transferCalendar" width="100%" height="100%" loc="{loc}"/>
 		</s:NavigatorContent>
 		<s:NavigatorContent id="transferCRUD" label="{loc.transfer.plural}" icon="{Icons.needle}" width="100%" height="100%" >
 			<crud:TransferCRUDForm width="100%" height="100%" loc="{loc}"/>
