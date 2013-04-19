@@ -4,7 +4,6 @@ package model
 	public class Transfer
 	{
 		private var _id:Object;
-		private var _customer:Customer;
 		private var _reservationForm:ReservationForm;
 		private var _serviceType:ServiceType;
 		private var _source:String;
@@ -24,16 +23,6 @@ package model
 		public function set id(value:Object):void
 		{
 			_id = value;
-		}
-
-		public function get customer():Customer
-		{
-			return _customer;
-		}
-
-		public function set customer(value:Customer):void
-		{
-			_customer = value;
 		}
 
 		public function get reservationForm():ReservationForm
