@@ -62,6 +62,7 @@ public class TestReservationFormDao {
 	@Test
 	public void testRetrieveReservationFormByDateAndRoom() throws DaoException, InvalidParameterException {
 		
+		
 		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
 		Room room = this.roomDao.getRecordById(1L);
 					

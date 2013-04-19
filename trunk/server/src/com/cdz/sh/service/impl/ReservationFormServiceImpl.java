@@ -2,10 +2,13 @@ package com.cdz.sh.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.OccupationDao;
@@ -69,12 +72,16 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 		return reservationForms;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReservationForm> retrieveReservationFormsByDateAndRoom(Date date, Room room) throws DaoException {
 		
 		this.checkReservationFormsExpirationTrigger.executeAction();
 		
 		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(date, room);
+		
+		Collections.sort(reservationForms);
+		
 		return reservationForms;
 	}
 
