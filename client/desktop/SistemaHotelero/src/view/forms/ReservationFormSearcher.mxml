@@ -181,7 +181,7 @@
 			<s:VGroup horizontalAlign="right">
 				<s:Spacer height="15"/>
 				<s:RadioButton group="{filterSelected}" id="filterByRoom"/>
-				<s:Spacer height="4"/>
+				<s:Spacer height="2"/>
 				<s:RadioButton group="{filterSelected}" id="filterByCustomer"/>
 			</s:VGroup>
 			<s:Form>
@@ -243,7 +243,7 @@
 			</s:columns>
 		</s:DataGrid>
 		<s:HGroup width="100%" horizontalAlign="center">
-			<s:Button id="okButton" label="OK" icon="{Icons.ok}" click="onSelect_clickHandler(event)" enabled="{_reservationFormSelected!=null}"/>
+			<s:Button id="okButton" label="{loc.button.accept}" icon="{Icons.ok}" click="onSelect_clickHandler(event)" enabled="{_reservationFormSelected!=null}"/>
 			<s:Button id="cancelButton" label="{loc.button.cancel}" icon="{Icons.cancel}" click="dispatchEvent(new Event('onCancel'));"/>
 		</s:HGroup>
 	</s:VGroup>
