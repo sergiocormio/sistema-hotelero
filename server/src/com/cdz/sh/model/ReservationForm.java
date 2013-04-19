@@ -14,7 +14,7 @@ import com.cdz.sh.util.DateUtil;
 import com.cdz.sh.util.PriceFormater;
 
 @Entity
-public class ReservationForm {
+public class ReservationForm implements Comparable {
 	
 	@Id
 	@GeneratedValue
@@ -221,6 +221,19 @@ public class ReservationForm {
 	
 	public void setRemainingAmount(Double remainingAmount) {
 		this.remainingAmount = remainingAmount;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		ReservationForm otherResForm = (ReservationForm)o;
+		
+		if(this.getId() < otherResForm.getId()){
+			return -1;
+		}
+		if(this.getId() == otherResForm.getId()){
+			return 0;
+		}
+		return 1;
 	}
 
     

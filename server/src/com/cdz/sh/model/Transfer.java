@@ -15,11 +15,7 @@ public class Transfer {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	@ManyToOne
-	@JoinColumns(value = {@JoinColumn(name = "CUSTOMER_DOC_TYPE"), @JoinColumn(name = "CUSTOMER_ID_NUMBER")} )
-	private Customer customer;
-	
+		
 	@ManyToOne
 	@JoinColumn(name="RESERVATION_FORM_ID")
 	private ReservationForm reservationForm;
@@ -46,14 +42,7 @@ public class Transfer {
 		this.id = id;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
+	
 	public ReservationForm getReservationForm() {
 		return reservationForm;
 	}
