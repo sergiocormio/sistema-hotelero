@@ -223,6 +223,7 @@
     </maintenance>
     <messages>
     	<creatingMasterData>Creando datos maestros...</creatingMasterData>
+    	<doubleClickToView>Doble click para más información</doubleClickToView>
 	    <pleaseWait>Por favor espere...</pleaseWait>
 	    <pleaseWaitLong>Esto puede llevar unos minutos. Por favor espere...</pleaseWaitLong>
 	    <startingServer>Iniciando el Servidor...</startingServer>
