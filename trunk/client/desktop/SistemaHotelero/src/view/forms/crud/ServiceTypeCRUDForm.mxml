@@ -5,6 +5,7 @@
 		  creationComplete="init(event)">
 	<fx:Script>
 		<![CDATA[
+			import model.TransferType;
 			import model.ServiceType;
 			
 			import mx.collections.ArrayCollection;
@@ -56,7 +57,10 @@
 				_removeButtonEnabled = false;
 				if(grid.selectedItem !=null){
 					individual.currentServiceType = grid.selectedItem as ServiceType;
-					_removeButtonEnabled = !(grid.selectedItem as ServiceType).isTransfer;
+					var transferType:String = (grid.selectedItem as ServiceType).transferType;
+					if(transferType == null || transferType == ""){
+						_removeButtonEnabled = true;
+					}
 				}
 				individual.enabled = false;
 			}

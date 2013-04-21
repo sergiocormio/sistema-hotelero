@@ -4,5 +4,6 @@
 	<javaHomePath>C:\SH-Server\jre</javaHomePath>
 	<tomcatHomePath>C:\SH-Server</tomcatHomePath>
 	<hotelWebSite>www.dellosky.com</hotelWebSite>
-	<serverURL>http://localhost:8400/SistemaHotelero/messagebroker/amf</serverURL>
+	<serverURL>http://localhost:8400/SistemaHotelero/messagebroker/amf</serverURL>	
+	<activationServerURL>http://fededz.dyndns.org:8400/ActivationServer/messagebroker/amf</activationServerURL>
 </config>
