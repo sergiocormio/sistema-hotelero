@@ -74,11 +74,9 @@ public class ServiceTypeDaoImpl extends AbstractCrudDao<ServiceType, Long> imple
 		try {
 			entityManager.getTransaction().begin();
 			
-			String strQuery = "SELECT st FROM ServiceType st WHERE st.isTransfer = :isTransfer";
+			String strQuery = "SELECT st FROM ServiceType st WHERE st.transferType is not null";
 			
 			TypedQuery<ServiceType> query = entityManager.createQuery( strQuery, ServiceType.class);
-			
-			query = query.setParameter("isTransfer", Boolean.TRUE);
 			
 			List<ServiceType> serviceTypes = query.getResultList();
 			entityManager.getTransaction().commit();

@@ -1,5 +1,9 @@
 package com.cdz.sh.service;
 
+import java.util.Date;
+import java.util.List;
+
+import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Transfer;
 
 /**
@@ -10,7 +14,7 @@ import com.cdz.sh.model.Transfer;
  */
 public interface TransferService extends CrudService<Transfer, Long>{
 	
-	
+	public List<Transfer> retrieveTransfers(Date dateFrom, Date dateTo) throws DaoException;
 	
 
 }
