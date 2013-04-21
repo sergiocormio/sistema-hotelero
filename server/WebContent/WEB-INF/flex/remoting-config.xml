@@ -10,7 +10,14 @@
         <channel ref="my-amf"/>
     </default-channels>
 
-      
+   
+   <destination id="promotionService">
+		<properties>
+			<source>com.cdz.sh.service.impl.PromotionServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+       
    <destination id="cleaningService">
 		<properties>
 			<source>com.cdz.sh.service.impl.CleaningServiceImpl</source>
@@ -160,6 +167,13 @@
     <destination id="transferService">
 		<properties>
 			<source>com.cdz.sh.service.impl.TransferServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+    <destination id="activationService">
+		<properties>
+			<source>com.cdz.sh.service.impl.ActivationServiceImpl</source>
 			<scope>application</scope>
 		</properties>
     </destination>
