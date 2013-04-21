@@ -30,6 +30,7 @@ import com.cdz.sh.model.Room;
 import com.cdz.sh.model.RoomType;
 import com.cdz.sh.model.Season;
 import com.cdz.sh.model.StateReservationForm;
+import com.cdz.sh.service.impl.ServiceTypesBuilder;
 
 /**
  * 

@@ -1,5 +1,6 @@
-package com.cdz.sh.dao;
+package com.cdz.sh.service.impl;
 
+import com.cdz.sh.dao.ServiceTypeDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.ServiceTypeDaoImpl;
 import com.cdz.sh.model.ServiceType;
