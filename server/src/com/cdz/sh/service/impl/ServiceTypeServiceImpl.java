@@ -31,7 +31,7 @@ public class ServiceTypeServiceImpl extends AbstractCrudService<ServiceType, Lon
 
 	@Override
 	public void deleteRecord(ServiceType e) throws DaoException {
-		if(e.isTransfer())
+		if(e.getTransferType() != null)
 		{
 			throw new DaoException(ExceptionErrorCodes.INVALID_OPERATION, "This record is a trasfer and can not be deleted");
 		}

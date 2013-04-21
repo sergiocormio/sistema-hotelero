@@ -15,7 +15,7 @@ public class ServiceType {
 	
 	private String description;
 	
-	private boolean isTransfer;
+	private TransferType transferType;
 	
 	/**
 	 * if it will be seen in the budget
@@ -87,13 +87,16 @@ public class ServiceType {
 		this.modality = modality;
 	}
 
-	public boolean isTransfer() {
-		return isTransfer;
+	public TransferType getTransferType() {
+		return transferType;
 	}
 
-	public void setTransfer(boolean isTransfer) {
-		this.isTransfer = isTransfer;
+	public void setTransferType(TransferType transferType) {
+		this.transferType = transferType;
 	}
+
+
+	
 
 	
 
