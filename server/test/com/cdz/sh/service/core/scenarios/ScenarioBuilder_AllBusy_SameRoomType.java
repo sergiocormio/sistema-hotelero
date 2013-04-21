@@ -14,7 +14,6 @@ import com.cdz.sh.dao.ReservationFormDao;
 import com.cdz.sh.dao.RoomDao;
 import com.cdz.sh.dao.RoomTypeDao;
 import com.cdz.sh.dao.SeasonDao;
-import com.cdz.sh.dao.ServiceTypesBuilder;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
@@ -40,6 +39,7 @@ import com.cdz.sh.model.Room;
 import com.cdz.sh.model.Season;
 import com.cdz.sh.model.StateReservationForm;
 import com.cdz.sh.service.core.roombuilder.SameRoomTypeBuilder;
+import com.cdz.sh.service.impl.ServiceTypesBuilder;
 import com.cdz.sh.util.DateUtil;
 
 
