@@ -31,7 +31,7 @@ public class TransferDaoImpl extends AbstractCrudDao<Transfer, Long> implements 
 		try {
 			entityManager.getTransaction().begin();
 			
-			String strQuery = "SELECT t FROM Transfer t WHERE t.date >= :dateFrom and t.date c= :dateTo ORDER BY t.date";
+			String strQuery = "SELECT t FROM Transfer t WHERE t.date >= :dateFrom and t.date <= :dateTo ORDER BY t.date";
 			
 			TypedQuery<Transfer> query = entityManager.createQuery( strQuery, Transfer.class);
 			
