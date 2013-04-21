@@ -12,6 +12,8 @@
 					   showStatusBar="false">
 	<fx:Script>
 		<![CDATA[
+			import mx.rpc.events.FaultEvent;
+			import model.Server;
 			import embeddedServer.EmbeddedServer;
 			
 			import locales.Locale;
@@ -24,6 +26,7 @@
 			import resources.images.Images;
 			
 			import services.MasterDataService;
+			import services.crud.ActivationService;
 			
 			import utils.FaultHandler;
 			import utils.Utils;
@@ -59,9 +62,55 @@
 			}
 			
 			private function serverStartedHandler(event:Event):void{
+				
+				//activateApplication();
+				
 				Mask.close();
 				createMasterData();
 			}
+			
+			
+			
+			public function activateApplication():void
+			{
+				new ActivationService().retrieveAll(retrieveAll_resultHandler, FaultHandler.defaultFaultHandler);
+			}
+			
+			
+			
+			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
+				var serverCollection:ArrayCollection = event.result as ArrayCollection;
+				if(serverCollection.length == 0){
+					new ActivationService().activateApplication(activateApp_resultHandler, closeApp_faultHandler);
+				}
+				else{
+					Mask.close();
+					createMasterData();
+				}
+			}
+			
+			private function activateApp_resultHandler(event:ResultEvent,token:Object=null):void {
+				var activateApp:Boolean = event.result as Boolean;
+				if(activateApp){
+					var server:Server = new Server();
+					server.active = true;
+					new ActivationService().createRecord(server, create_resultHandler, FaultHandler.defaultFaultHandler);
+					
+				}
+			}
+			
+			
+			public function closeApp_faultHandler(event:FaultEvent=null,token:Object=null):void {
+				Mask.close();
+				Mask.show(Locale.getInstance().getCurrentLocale().activation.appNotActive);
+			}
+			
+			
+			private function create_resultHandler(event:ResultEvent,token:Object=null):void {
+				Mask.close();
+				createMasterData();
+			}
+			
 			
 			
 			//Stops server before closing

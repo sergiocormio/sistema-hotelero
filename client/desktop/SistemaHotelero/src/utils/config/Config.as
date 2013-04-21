@@ -70,6 +70,14 @@ package utils.config
 			}
 		}
 		
+		public function getActivationServerURL():String{ 
+			if(_configXML!=null){
+				return _configXML.activationServerURL;
+			}else{
+				return "http://fededz.dyndns.org:8400/ActivationServer/messagebroker/amf";
+			}
+		}
+		
 		public function getDefaultLocale():String{
 			if(_configXML!=null){
 				return _configXML.defaultLocale;

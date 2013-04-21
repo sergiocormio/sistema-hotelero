@@ -16,7 +16,7 @@ package model
 		
 		private var _price:Number;
 		
-		private var _isTransfer:Boolean;
+		private var _transferType:String; //On Server side it is a Enum
 
 		//to be used only in UI
 		private var _exchangeRate:ExchangeRate;
@@ -107,17 +107,19 @@ package model
 		{
 			return _exchangeRate.currencySymbol + " " + _price.toFixed(2);
 		}
+
 		
-		public function get isTransfer():Boolean
+		public function get transferType():String
 		{
-			return _isTransfer;
+			return _transferType;
+		}
+
+		public function set transferType(value:String):void
+		{
+			_transferType = value;
 		}
 		
-		public function set isTransfer(value:Boolean):void
-		{
-			_isTransfer = value;
-		}
-		
+				
 		
 		public function ServiceType()
 		{

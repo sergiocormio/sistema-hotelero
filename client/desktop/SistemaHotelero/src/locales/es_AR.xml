@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <locale>
+	<activation>
+		<appNotActive>La aplicación no ha sido activada. Por favor comuníquese con sus administradores.</appNotActive>
+	</activation>
 	<advertising>
 		<singular>Publicidad</singular>
 	</advertising>
@@ -353,6 +356,12 @@
     	<singular>Transfer</singular>
     	<source>Procedencia</source>
     </transfer>
+    <transferType>
+    	<ONE_WAY_BUS>Bus ida</ONE_WAY_BUS>
+		<ROUND_TRIP_BUS>Bus ida y vuelta</ROUND_TRIP_BUS>
+		<ONE_WAY_FLIGHT>Aeropuerto ida</ONE_WAY_FLIGHT>
+		<ROUND_TRIP_FLIGHT>Aeropuerto ida y vuelta</ROUND_TRIP_FLIGHT>
+    </transferType>
 	<userSetting>
     	<calendar>
     		<single>Calendario</single>
