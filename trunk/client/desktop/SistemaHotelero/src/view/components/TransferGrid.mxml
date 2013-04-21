@@ -108,14 +108,19 @@
 					for each (var o:Object in value){
 						if (o is Transfer){
 							var transfer:Transfer = o as Transfer;
-							switch(transfer.serviceType){
-								default:
+							switch(transfer.serviceType.transferType){
+								case "ONE_WAY_BUS":
+								case "ROUND_TRIP_BUS":
 									qtyBus++;
+									break;
+								case "ONE_WAY_FLIGHT":
+								case "ROUND_TRIP_FLIGHT":
+									qtyAirplane++;
 									break;
 							}
 						}
 					}
-					//Calculate result based on quantities
+					//Calculates result based on quantities
 					if(qtyBus>0){
 						result += "Bus";
 					}
