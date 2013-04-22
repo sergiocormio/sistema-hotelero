@@ -13,6 +13,7 @@
 			import model.Customer;
 			import model.ReservationForm;
 			import model.StateReservationForm;
+			import model.Transfer;
 			
 			import mx.collections.ArrayCollection;
 			import mx.containers.TitleWindow;
@@ -40,9 +41,11 @@
 			
 			import view.components.Mask;
 			import view.forms.crud.individual.CustomerIndividualCRUDForm;
+			import view.forms.crud.individual.TransferIndividualCRUDForm;
 			
 			private var titleWindow:TitleWindow;
 			private var customerForm:CustomerIndividualCRUDForm;
+			private var transferForm:TransferIndividualCRUDForm;
 			
 			[Bindable]
 			public var loc:Object;
@@ -144,6 +147,7 @@
 				confirmReservationButton.enabled = false;
 				cancelReservationButton.enabled = false;
 				exportReservationButton.enabled = false;
+				addTransferButton.enabled = false;
 				if(grid.selectedItem !=null){
 					var reservation:ReservationForm = grid.selectedItem as ReservationForm;
 					individual.currentReservationForm = reservation;
@@ -156,6 +160,7 @@
 					}
 					// always
 					exportReservationButton.enabled = true;
+					addTransferButton.enabled = true;
 				}
 				
 				individual.enabled = false;
@@ -311,6 +316,24 @@
 				dispatchEvent(new Event("reservationFormHasChanged"));
 			}
 			
+			protected function addTransferButton_clickHandler(event:MouseEvent):void
+			{
+				transferForm = new TransferIndividualCRUDForm();
+				transferForm.loc = loc;
+				transferForm.isUpdate = false;
+				transferForm.addEventListener("saveSuccess",transfer_saveSuccess);
+				transferForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.transfer.singular,transferForm);
+				//pre loads known information on transfer
+				var transfer:Transfer = new Transfer();
+				transfer.reservationForm = grid.selectedItem as ReservationForm;
+				transfer.date = transfer.reservationForm.dateFrom; 
+				transferForm.currentTransfer = transfer;
+			}
+			
+			private function transfer_saveSuccess(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -427,6 +450,9 @@
 						<s:Button id="cancelReservationButton" click="cancelReservationButton_clickHandler(event)" label="{loc.reservationForm.buttons.cancel}" 
 								  toolTip="{loc.reservationForm.buttons.cancel} {loc.reservationForm.singular}" enabled="false"
 								  icon="{Icons.cancelReservation}" iconPlacement="top"/>
+						<s:Button id="addTransferButton" click="addTransferButton_clickHandler(event)" label="{loc.reservationForm.buttons.addTransfer}" 
+								  toolTip="{loc.reservationForm.buttons.addTransfer}" enabled="false"
+								  icon="{Icons.taxi}" iconPlacement="top"/>
 						<s:Button id="exportReservationButton" click="exportReservationButton_clickHandler(event)" label="{loc.reservationForm.buttons.print}" 
 								  toolTip="{loc.reservationForm.buttons.print} {loc.reservationForm.singular}" enabled="false"
 								  icon="{Icons.exportReservation}" iconPlacement="top"/>

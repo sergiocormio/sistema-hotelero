@@ -135,7 +135,7 @@
 			
 			protected function init():void
 			{
-				currentTransfer = new Transfer();
+				_currentTransfer = new Transfer();
 				retrieveServiceTypes();
 				retrieveReservationForms();
 				//transferId.setFocus();

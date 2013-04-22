@@ -248,6 +248,11 @@ package resources.icons
 		[Embed(source='resources/icons/icon_align_justify.png')]
 		public static var alignJustify:Class;
 		
+		// ------------ Transfers --------
+		[Bindable]
+		[Embed(source='resources/icons/Taxi.png')]
+		public static var taxi:Class;
+		
 		public function Icons()
 		{
 		}

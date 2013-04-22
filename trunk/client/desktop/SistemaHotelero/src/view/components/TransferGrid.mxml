@@ -61,7 +61,7 @@
 			
 			//cell Renderers
 			private var defaultGridItemRenderer:IFactory = new ClassFactory(DefaultGridItemRenderer);
-			private var calendarCustomCellRenderer:IFactory = new ClassFactory(view.components.CalendarCustomCellRenderer);
+			private var calendarCustomCellRenderer:IFactory = new ClassFactory(view.components.TransferCalendarCustomCellRenderer);
 			
 			private function addHourColumn():void{
 				var hourColumn:GridColumn = new GridColumn();

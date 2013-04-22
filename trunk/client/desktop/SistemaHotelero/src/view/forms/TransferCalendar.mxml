@@ -42,7 +42,7 @@
 			}
 			
 			private function loadTransfersToShow():void{
-				//TODO search by dates range
+				//searches transfers by date range
 				new TransferService().retrieveTransfers(calendarNavigationBar.dateFrom, DateTimeUtils.rollDaysToDate(calendarNavigationBar.dateTo,1), retrieveAllTransfers_resultHandler,faultHandler);
 			}
 			
