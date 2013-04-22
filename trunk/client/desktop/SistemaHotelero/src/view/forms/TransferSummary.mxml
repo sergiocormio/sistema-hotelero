@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="980" height="250">
+	<fx:Metadata> 
+		[Event(name="okClicked", type="flash.events.Event")]
+	</fx:Metadata> 
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import locales.Locale;
+			
+			import mx.collections.ArrayCollection;
+			
+			import resources.Colors;
+			import resources.icons.Icons;
+			
+			import spark.components.gridClasses.GridColumn;
+			import spark.skins.spark.DefaultGridItemRenderer;
+			
+			import utils.DateTimeUtils;
+			
+			[Bindable]
+			public var loc:Object = Locale.getInstance().getCurrentLocale();
+			
+			[Bindable]
+			private var _transfers:ArrayCollection = new ArrayCollection();
+			
+			public function get transfers():ArrayCollection
+			{
+				return _transfers;
+			}
+			
+			public function set transfers(value:ArrayCollection):void
+			{
+				_transfers = value;
+			}
+			
+			protected function okButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent(new Event("okClicked"));
+			}
+			
+			private function dateFormat(item:Object,column:GridColumn):String
+			{
+				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateTimeFormat);
+			}
+		]]>
+	</fx:Script>
+	<s:Rect width="100%" height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+		</s:stroke>
+		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+	</s:Rect>
+	<s:VGroup width="100%" height="100%" paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">
+		<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{_transfers}" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn dataField="id" headerText="{loc.transfer.id}"/>
+					<s:GridColumn dataField="date" headerText="{loc.transfer.date}" labelFunction="dateFormat"/>
+					<s:GridColumn dataField="reservationForm.customer.name" headerText="{loc.customer.singular}"/>
+					<s:GridColumn dataField="reservationForm.id" headerText="{loc.reservationForm.singular}"/>
+					<s:GridColumn dataField="serviceType.name" headerText="{loc.serviceType.singular}"/>
+					<s:GridColumn dataField="source" headerText="{loc.transfer.source}"/>
+					<s:GridColumn dataField="flightOrBusNumber" headerText="{loc.transfer.flightOrBusNumber}"/>
+					<s:GridColumn dataField="companyName" headerText="{loc.transfer.companyName}"/>
+				</s:ArrayList>
+			</s:columns>
+		</s:DataGrid>
+		<s:HGroup width="100%" horizontalAlign="center">
+			<s:Button id="okButton" label="{loc.button.close}" icon="{Icons.ok}" click="okButton_clickHandler(event)"/>
+		</s:HGroup>
+	</s:VGroup>
+</s:Group>

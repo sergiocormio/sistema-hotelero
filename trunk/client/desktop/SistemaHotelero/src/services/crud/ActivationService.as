@@ -17,7 +17,7 @@ package services.crud
 		}
 		
 		
-		private function initRemoteActivationObject(destination:String)
+		private function initRemoteActivationObject(destination:String):void
 		{
 			remoteActivationObject = new RemoteObject(destination);
 			var myChannel:AMFChannel = new AMFChannel("my-amf-activation", Config.getInstance().getActivationServerURL());

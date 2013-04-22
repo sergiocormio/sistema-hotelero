@@ -370,8 +370,6 @@
 										<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="200"/>
 										<s:Button width="24" height="24" click="retrieveCustomers();"
 												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-										<s:Button width="24" height="24" click="addCustomer();" icon="{Icons.add}"
-												  toolTip="{loc.button.add}"/>
 									</s:HGroup>
 								</s:FormItem>
 								<s:FormItem label="{loc.reservationForm.state.singular}:">
