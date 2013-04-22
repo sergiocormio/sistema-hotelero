@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:GridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+					xmlns:s="library://ns.adobe.com/flex/spark"
+					xmlns:mx="library://ns.adobe.com/flex/mx" clipAndEnableScrolling="true">
+	<fx:Script>
+		<![CDATA[
+			import model.ReservationForm;
+			import model.StateReservationForm;
+			import model.Transfer;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.dataGridClasses.DataGridListData;
+			
+			import resources.Colors;
+			
+			import spark.components.DataGrid;
+			
+			override public function prepare(hasBeenRecycled:Boolean):void {
+				//				lblData.text = data[column.dataField]
+			}
+			
+			// Write String to labelDisplay component. 
+			override public function set label(value:String):void 
+			{ 
+				super.label = value; 
+				lblData.text = label; 
+				
+				// Determine the RGB color value from the data item.
+				// 				if (label == "red")
+				//					backgroundColor = 0xFF0000;
+				//				if (label == "green")
+				//					backgroundColor = 0x00FF00;
+				//				if (label == "blue")
+				//					backgroundColor = 0x0000FF;
+			}
+			
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+				if(column == null || data == null){
+					return;
+				}
+				
+				//all cells must be centered
+				lblData.horizontalCenter = 0;
+				background.color = Colors.WHITE_COLOR;
+				if(column.columnIndex == 0){
+					background.color = Colors.GRAY_COLOR;
+					return;
+				}
+				var qtyTransfers:int = 0;
+				
+				var list:ArrayCollection = new ArrayCollection();
+				if(data[column.dataField] is ArrayCollection){
+					list = data[column.dataField] as ArrayCollection;
+				}else if(data is Transfer){
+					list.addItem(data);
+				}
+				
+				qtyTransfers = list.length;
+			
+				//Calculate result based on quantities
+				if(qtyTransfers==1){
+					background.color = Colors.YELLOW_COLOR;
+				}else if(qtyTransfers>1){
+					background.color = Colors.RED_COLOR;
+					lblData.setStyle("color",Colors.WHITE_COLOR);
+				}
+			}
+		]]>
+	</fx:Script>
+	<s:Rect top="0" bottom="0" right="0" left="0">
+		<s:fill>
+			<s:SolidColor id="background" color="{Colors.WHITE_COLOR}"/>
+		</s:fill>
+	</s:Rect>
+	<s:Label id="lblData" top="9" left="7" fontWeight="bold"/>
+</s:GridItemRenderer>

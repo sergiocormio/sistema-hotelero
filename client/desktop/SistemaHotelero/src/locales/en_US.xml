@@ -263,6 +263,7 @@
 			<confirm>Confirm</confirm>
 			<cancel>Cancel</cancel>
 			<print>Print</print>
+			<addTransfer>Transfer</addTransfer>
 		</buttons>
     </reservationForm>
     <reservationFormExpirationDate>
