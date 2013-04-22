@@ -332,5 +332,5 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{calendarRows}" skinClass="view.skins.CustomDataGridSkin"
-			gridClick="gridClickHandler(event)" toolTip="{loc.messages.doubleClickToView}"/>
+			gridClick="gridClickHandler(event)" toolTip="{loc.messages.clickForMoreInfo}"/>
 </s:Group>

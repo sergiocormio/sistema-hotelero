@@ -197,7 +197,7 @@
     </maintenance>
     <messages>
     	<creatingMasterData>Creando datos maestros...</creatingMasterData>
-    	<doubleClickToView>Doble click para más información</doubleClickToView>
+    	<clickForMoreInfo>Click para más información</clickForMoreInfo>
 	    <pleaseWait>Por favor espere...</pleaseWait>
 	    <pleaseWaitLong>Esto puede llevar unos minutos. Por favor espere...</pleaseWaitLong>
 	    <startingServer>Iniciando el Servidor...</startingServer>
@@ -315,6 +315,8 @@
 	    <includedInBasePrice>Incluido en el Precio Base</includedInBasePrice>
     </serviceType>
     <transfer>
+    	<airport>Aeropuerto</airport>
+    	<bus>Bus</bus>
     	<companyName>Empresa</companyName>
 		<date>Fecha</date>
 		<flightOrBusNumber>Vuelo o Número de Bus</flightOrBusNumber>

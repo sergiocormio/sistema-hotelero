@@ -3,6 +3,9 @@
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
 		  creationComplete="init(event)">
+	<fx:Metadata> 
+		[Event(name="transferHasChanged", type="flash.events.Event")]
+	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
 			import model.Transfer;
@@ -85,6 +88,12 @@
 				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateTimeFormat);
 			}
 			
+			protected function individual_saveSuccessHandler(event:Event):void
+			{
+				refreshGrid();
+				dispatchEvent(new Event("transferHasChanged"));
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -112,6 +121,6 @@
 									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
 									removeButtonEnabled="{grid.selectedItem!=null}"/>
 		</s:HGroup>
-		<individual:TransferIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="40%"/>
+		<individual:TransferIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="individual_saveSuccessHandler(event)" cancelClicked="individual.enabled=false;" height="40%"/>
 	</mx:VDividedBox>
 </s:VGroup>
