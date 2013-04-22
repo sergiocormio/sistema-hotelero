@@ -111,7 +111,8 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 
 	@Override
 	public void updateRecord(ReservationForm reservationForm) throws DaoException {
-		if(reservationForm.getState().equals(StateReservationForm.CONFIRMED)){			
+		if(reservationForm.getState().equals(StateReservationForm.CONFIRMED) ||
+			reservationForm.getState().equals(StateReservationForm.PRE_BOOKING)){			
 			
 			List<Occupation> occupations = this.occupationDao.retrieveOccupations(reservationForm);
 			for (Occupation occupation : occupations) {
