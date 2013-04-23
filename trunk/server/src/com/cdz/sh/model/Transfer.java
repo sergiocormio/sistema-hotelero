@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -32,7 +31,7 @@ public class Transfer {
     
     private Date date; //YYY-MM-DD-HH:mm
 
-    
+    private TransferModality transferModality;
     
 	public Long getId() {
 		return id;
@@ -90,6 +89,15 @@ public class Transfer {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	public TransferModality getTransferModality() {
+		return transferModality;
+	}
+
+	public void setTransferModality(TransferModality transferModality) {
+		this.transferModality = transferModality;
+	}
     
-    
+
+	
 }
