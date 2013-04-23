@@ -10,6 +10,7 @@ package model
 		private var _flightOrBusNumber:String;
 		private var _companyName:String;
 		private var _date:Date;
+		private var _transferModality:String; // enum on server side
 		
 		public function Transfer()
 		{
@@ -83,6 +84,16 @@ package model
 		public function set date(value:Date):void
 		{
 			_date = value;
+		}
+
+		public function get transferModality():String
+		{
+			return _transferModality;
+		}
+
+		public function set transferModality(value:String):void
+		{
+			_transferModality = value;
 		}
 
 
