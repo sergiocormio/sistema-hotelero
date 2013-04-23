@@ -250,7 +250,7 @@ package resources.icons
 		
 		// ------------ Transfers --------
 		[Bindable]
-		[Embed(source='resources/icons/Taxi.png')]
+		[Embed(source='resources/icons/Taxi 16x16.png')]
 		public static var taxi:Class;
 		
 		public function Icons()
