@@ -253,6 +253,14 @@ package resources.icons
 		[Embed(source='resources/icons/Taxi 16x16.png')]
 		public static var taxi:Class;
 		
+		[Bindable]
+		[Embed(source='resources/icons/Bus 16x16.png')]
+		public static var bus:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/Plane 16x16.png')]
+		public static var plane:Class;
+		
 		public function Icons()
 		{
 		}
