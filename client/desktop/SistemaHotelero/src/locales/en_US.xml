@@ -327,6 +327,11 @@
     	<singular>Transfer</singular>
     	<source>Source</source>
     </transfer>
+    <transferModality>
+    	<singular>Modality</singular>
+    	<carryBack>Carry Back</carryBack>
+    	<take>Take</take>
+    </transferModality>
     <validator>
     	<error>Error</error>
     	<requiredFieldError>Campo requerido</requiredFieldError>

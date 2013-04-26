@@ -10,7 +10,10 @@
 		<![CDATA[
 			import locales.Locale;
 			
+			import model.ServiceType;
 			import model.Transfer;
+			import model.TransferModality;
+			import model.TransferType;
 			
 			import mx.collections.ArrayCollection;
 			import mx.containers.TitleWindow;
@@ -25,6 +28,8 @@
 			import services.crud.ReservationFormService;
 			import services.crud.ServiceTypeService;
 			import services.crud.TransferService;
+			
+			import spark.events.IndexChangeEvent;
 			
 			import utils.DateRange;
 			import utils.FaultHandler;
@@ -63,10 +68,10 @@
 				}else{
 					transferId.text = "";
 				}
-				dateChooser.selectedDate = _currentTransfer.date;
+				dateChooserTake.selectedDate = _currentTransfer.date;
 				if(_currentTransfer.date!=null){
-					hours.value = _currentTransfer.date.hours;
-					minutes.value = _currentTransfer.date.minutes;
+					hoursTake.value = _currentTransfer.date.hours;
+					minutesTake.value = _currentTransfer.date.minutes;
 				}
 				if(_currentTransfer.serviceType!=null){
 					WindowsUtils.autoSelectComboBox(serviceTypesCombo,_currentTransfer.serviceType);
@@ -74,6 +79,12 @@
 				sourceText.text = _currentTransfer.source;
 				flightOrBusNumberText.text = _currentTransfer.flightOrBusNumber;
 				companyText.text = _currentTransfer.companyName;
+				if(_currentTransfer.transferModality == null || _currentTransfer.transferModality == TransferModality.TAKE){
+					take.selected = true;
+				}else{
+					carryBack.selected = true;
+				}
+				modalityChange(null);
 				
 			}
 			
@@ -84,7 +95,8 @@
 				var valArray:Array = new Array();
 				
 				/* valArray.push(transferIdValidator); */
-				valArray.push(transferDateValidator);
+				valArray.push(transferDateValidatorCarryBack);
+				valArray.push(transferDateValidatorTake);
 				
 				var validatorErrorArray:Array = Validator.validateAll(valArray);;
 				var isValidForm:Boolean = validatorErrorArray.length == 0;
@@ -92,12 +104,16 @@
 				setEnabledValidators(false);
 				
 				return isValidForm;
-				
 			}
 			
 			private function setEnabledValidators(enabled:Boolean):void{
-				/* transferIdValidator.enabled = enabled; */
-				transferDateValidator.enabled = enabled;
+				if(dateChooserItemCarryBack){
+					transferDateValidatorCarryBack.enabled = enabled;
+				}
+				
+				if(dateChooserItemTake){
+					transferDateValidatorTake.enabled = enabled;
+				}
 			}
 			
 			private function save():void{
@@ -107,14 +123,31 @@
 				}
 				
 				_currentTransfer.id = transferId.text;
-				_currentTransfer.date = dateChooser.selectedDate;
-				_currentTransfer.date.hours = hours.value;
-				_currentTransfer.date.minutes = minutes.value;
 				_currentTransfer.serviceType = serviceTypesCombo.selectedItem;
 				_currentTransfer.source = sourceText.text;
 				_currentTransfer.companyName = companyText.text;
 				_currentTransfer.flightOrBusNumber = flightOrBusNumberText.text;
 				_currentTransfer.reservationForm = reservationFormsCombo.selectedItem;
+				if(_currentTransfer.serviceType.transferType == TransferType.ROUND_TRIP_BUS ||
+					_currentTransfer.serviceType.transferType == TransferType.ROUND_TRIP_FLIGHT){
+					
+				}else{
+					if(take.selected){
+						_currentTransfer.transferModality = TransferModality.TAKE; 
+						_currentTransfer.date = dateChooserTake.selectedDate;
+						if(_currentTransfer.date!=null){
+							_currentTransfer.date.hours = hoursTake.value;
+							_currentTransfer.date.minutes = minutesTake.value;
+						}
+					}else{ //carryBack
+						_currentTransfer.transferModality = TransferModality.CARRY_BACK;
+						_currentTransfer.date = dateChooserCarryBack.selectedDate;
+						if(_currentTransfer.date!=null){
+							_currentTransfer.date.hours = hoursCarryBack.value;
+							_currentTransfer.date.minutes = minutesCarryBack.value;
+						}
+					}
+				}
 				
 				//calls service
 				if(isUpdate){
@@ -141,7 +174,7 @@
 				//transferId.setFocus();
 			}
 			
-			//LANGUAGES
+			//ServiceTypes
 			private function retrieveServiceTypes():void{
 				var serv: ServiceTypeService= new ServiceTypeService();
 				serv.getTransferServiceTypes(retrieveServiceTypes_resultHandler,FaultHandler.defaultFaultHandler);
@@ -163,6 +196,7 @@
 				//fills the ComboBox
 				reservationForms.removeAll();
 				reservationForms.addAll(event.result as ArrayCollection);
+				serviceTypesCombo_changeHandler(null);
 			}
 			
 			private function searchReservationForm():void{
@@ -182,6 +216,56 @@
 				PopUpManager.removePopUp(titleWindow);
 			}
 			
+			protected function serviceTypesCombo_changeHandler(event:IndexChangeEvent):void
+			{
+				var serviceType:ServiceType = serviceTypesCombo.selectedItem;
+				if(serviceType==null){
+					enableTwoDates(false);
+					return;
+				}
+				switch(serviceType.transferType){
+					case TransferType.ONE_WAY_BUS:
+					case TransferType.ONE_WAY_FLIGHT:
+						enableTwoDates(false);
+						break;
+					case TransferType.ROUND_TRIP_BUS:
+					case TransferType.ROUND_TRIP_FLIGHT:
+						enableTwoDates(true);
+						break;
+				}
+				
+			}
+			
+			private function enableTwoDates(enabled:Boolean):void
+			{
+				dateChooserItemTake.enabled = enabled;
+				hourItemTake.enabled = enabled;
+				dateChooserItemCarryBack.enabled = enabled;
+				hourItemCarryBack.enabled = enabled;
+				carryBack.enabled= !enabled;
+				take.enabled = !enabled;
+				
+				if(enabled == false){
+					modalityChange(null);
+				}
+			}
+			
+			protected function modalityChange(event:Event):void
+			{
+				dateChooserItemTake.enabled=false;
+				hourItemTake.enabled=false;
+				dateChooserItemCarryBack.enabled=false;
+				hourItemCarryBack.enabled=false;
+				if(carryBack.selected){
+					dateChooserItemCarryBack.enabled=true;
+					hourItemCarryBack.enabled=true;
+				}else{
+					dateChooserItemTake.enabled=true;
+					hourItemTake.enabled=true;
+				}
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -192,7 +276,7 @@
 							source="{transferId}"
 							property="text"
 							/>-->
-		<mx:DateValidator id="transferDateValidator"
+		<mx:DateValidator id="transferDateValidatorCarryBack"
 						  required="true"
 						  requiredFieldError="{loc.validator.requiredFieldError}"
 						  inputFormat="{loc.date.format}"
@@ -202,7 +286,20 @@
 						  wrongLengthError="{loc.validator.invalidFieldValueError}"
 						  wrongMonthError="{loc.validator.invalidFieldValueError}"
 						  wrongYearError="{loc.validator.invalidFieldValueError}"
-						  source="{dateChooser}"
+						  source="{dateChooserCarryBack}"
+						  property="text"
+						  />
+		<mx:DateValidator id="transferDateValidatorTake"
+						  required="true"
+						  requiredFieldError="{loc.validator.requiredFieldError}"
+						  inputFormat="{loc.date.format}"
+						  formatError="{loc.validator.invalidFieldValueError}"
+						  invalidCharError="{loc.validator.invalidFieldValueError}"
+						  wrongDayError="{loc.validator.invalidFieldValueError}"
+						  wrongLengthError="{loc.validator.invalidFieldValueError}"
+						  wrongMonthError="{loc.validator.invalidFieldValueError}"
+						  wrongYearError="{loc.validator.invalidFieldValueError}"
+						  source="{dateChooserTake}"
 						  property="text"
 						  />
 	</fx:Declarations>
@@ -218,34 +315,44 @@
 				<s:layout>
 					<s:FormLayout gap="-14"/>
 				</s:layout>  
-				
 				<s:FormItem label="{loc.transfer.id}:" required="false">
 					<s:TextInput id="transferId" enabled="false"/>
 				</s:FormItem>
+				<s:FormItem id="serviceTypeItem" label="{loc.serviceType.singular}:" required="true">
+					<s:HGroup>
+						<s:ComboBox id="serviceTypesCombo" dataProvider="{serviceTypes}" labelField="name" requireSelection="true" change="serviceTypesCombo_changeHandler(event)"/>
+						<s:Button width="24" height="24" click="retrieveServiceTypes();"
+								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+						<!--<s:Button width="24" height="24" click="addServiceType();" icon="{Icons.add}"
+						toolTip="{loc.button.add}"/>-->
+					</s:HGroup>
+				</s:FormItem>
 				
-				<s:FormItem label="{loc.transfer.date}:" required="true">
-					<mx:DateField id="dateChooser" width="120"
+				<s:FormItem label="{loc.transfer.companyName}:">
+					<s:TextInput id="companyText" />
+				</s:FormItem>
+				
+				<s:FormItem label="{loc.transferModality.singular}:" required="false">
+					<s:RadioButton id="take" groupName="modality" label="{loc.transferModality.take}" selected="true"
+								   click="modalityChange(null)"/>
+				</s:FormItem>
+				
+				<s:FormItem id="dateChooserItemTake" label="{loc.transfer.date}:" required="true">
+					<mx:DateField id="dateChooserTake" width="120"
 								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
 								  formatString="{loc.dateFormat.toUpperCase()}"
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
 				
-				<s:FormItem label="{loc.transfer.hour}:" required="true">
+				<s:FormItem id="hourItemTake" label="{loc.transfer.hour}:" required="true">
 					<s:HGroup verticalAlign="middle">
-						<s:NumericStepper id="hours" minimum="0" maximum="23"/>
+						<s:NumericStepper id="hoursTake" minimum="0" maximum="23"/>
 						<s:Label text=":"/>
-						<s:NumericStepper id="minutes" minimum="0" maximum="59" stepSize="15" />
+						<s:NumericStepper id="minutesTake" minimum="0" maximum="59" stepSize="15" />
 					</s:HGroup>
 				</s:FormItem>
-				<s:FormItem id="serviceTypeItem" label="{loc.serviceType.singular}:" required="true">
-					<s:HGroup>
-						<s:ComboBox id="serviceTypesCombo" dataProvider="{serviceTypes}" labelField="name" requireSelection="true"/>
-						<s:Button width="24" height="24" click="retrieveServiceTypes();"
-								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-						<!--<s:Button width="24" height="24" click="addServiceType();" icon="{Icons.add}"
-								  toolTip="{loc.button.add}"/>-->
-					</s:HGroup>
-				</s:FormItem>
+				
+				
 			</s:Form>
 			<s:Form>
 				<s:layout>
@@ -268,8 +375,24 @@
 				<s:FormItem label="{loc.transfer.flightOrBusNumber}:">
 					<s:TextInput id="flightOrBusNumberText" />
 				</s:FormItem>
-				<s:FormItem label="{loc.transfer.companyName}:">
-					<s:TextInput id="companyText" />
+				<s:FormItem required="false">
+					<s:RadioButton id="carryBack" groupName="modality" label="{loc.transferModality.carryBack}"
+								   click="modalityChange(null)"/>
+				</s:FormItem>
+				
+				<s:FormItem id="dateChooserItemCarryBack" label="{loc.transfer.date}:" required="false">
+					<mx:DateField id="dateChooserCarryBack" width="120"
+								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+								  formatString="{loc.dateFormat.toUpperCase()}"
+								  monthNames="{Locale.getInstance().monthNames}"/>
+				</s:FormItem>
+				
+				<s:FormItem id="hourItemCarryBack" label="{loc.transfer.hour}:" required="false">
+					<s:HGroup verticalAlign="middle">
+						<s:NumericStepper id="hoursCarryBack" minimum="0" maximum="23"/>
+						<s:Label text=":"/>
+						<s:NumericStepper id="minutesCarryBack" minimum="0" maximum="59" stepSize="15" />
+					</s:HGroup>
 				</s:FormItem>
 			</s:Form>
 		</s:HGroup>

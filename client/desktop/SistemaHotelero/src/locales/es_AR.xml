@@ -359,6 +359,11 @@
     	<singular>Transfer</singular>
     	<source>Procedencia</source>
     </transfer>
+    <transferModality>
+    	<singular>Modalidad</singular>
+    	<carryBack>Llevar</carryBack>
+    	<take>Traer</take>
+    </transferModality>
     <transferType>
     	<ONE_WAY_BUS>Bus ida</ONE_WAY_BUS>
 		<ROUND_TRIP_BUS>Bus ida y vuelta</ROUND_TRIP_BUS>

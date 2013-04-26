@@ -11,9 +11,20 @@ package model
 		private var _companyName:String;
 		private var _date:Date;
 		private var _transferModality:String; // enum on server side
+		private var _relatedTransfer:Transfer;
 		
 		public function Transfer()
 		{
+		}
+
+		public function get relatedTransfer():Transfer
+		{
+			return _relatedTransfer;
+		}
+
+		public function set relatedTransfer(value:Transfer):void
+		{
+			_relatedTransfer = value;
 		}
 
 		public function get id():Object
