@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Transfer {
@@ -22,6 +23,10 @@ public class Transfer {
 	@ManyToOne
 	@JoinColumn(name="SERVICE_TYPE_ID")
 	private ServiceType serviceType;
+	
+	@OneToOne
+	@JoinColumn(name="TRANSFER_ID")
+	private Transfer relatedTransfer;
 	
 	private String source;
 
@@ -97,7 +102,15 @@ public class Transfer {
 	public void setTransferModality(TransferModality transferModality) {
 		this.transferModality = transferModality;
 	}
-    
 
+	public Transfer getRelatedTransfer() {
+		return relatedTransfer;
+	}
+
+	public void setRelatedTransfer(Transfer relatedTransfer) {
+		this.relatedTransfer = relatedTransfer;
+	}
+
+	
 	
 }
