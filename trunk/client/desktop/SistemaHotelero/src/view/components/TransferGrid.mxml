@@ -14,6 +14,7 @@
 			import model.Room;
 			import model.StateReservationForm;
 			import model.Transfer;
+			import model.TransferType;
 			
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
@@ -110,12 +111,12 @@
 						if (o is Transfer){
 							var transfer:Transfer = o as Transfer;
 							switch(transfer.serviceType.transferType){
-								case "ONE_WAY_BUS":
-								case "ROUND_TRIP_BUS":
+								case TransferType.ONE_WAY_BUS:
+								case TransferType.ROUND_TRIP_BUS:
 									qtyBus++;
 									break;
-								case "ONE_WAY_FLIGHT":
-								case "ROUND_TRIP_FLIGHT":
+								case TransferType.ONE_WAY_FLIGHT:
+								case TransferType.ROUND_TRIP_FLIGHT:
 									qtyAirport++;
 									break;
 							}

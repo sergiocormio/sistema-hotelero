@@ -328,6 +328,11 @@
     	<singular>Transfer</singular>
     	<source>Procedencia</source>
     </transfer>
+    <transferModality>
+    	<singular>Modalidad</singular>
+    	<carryBack>Llevar</carryBack>
+    	<take>Traer</take>
+    </transferModality>
     <validator>
     	<error>Error</error>
     	<requiredFieldError>Campo requerido</requiredFieldError>
