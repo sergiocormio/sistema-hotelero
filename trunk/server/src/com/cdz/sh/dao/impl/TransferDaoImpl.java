@@ -12,6 +12,7 @@ import com.cdz.sh.dao.TransferDao;
 import com.cdz.sh.dao.crud.AbstractCrudDao;
 import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Transfer;
 
 /**
@@ -50,5 +51,31 @@ public class TransferDaoImpl extends AbstractCrudDao<Transfer, Long> implements 
 			entityManager.close();
 		}
 	}
+
 	
+	@Override
+	public List<Transfer> retrieveTransfers(ReservationForm reservationForm) throws DaoException {
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			entityManager.getTransaction().begin();
+			
+			String strQuery = "SELECT t FROM Transfer t WHERE t.reservationForm =:reservationForm";
+			
+			TypedQuery<Transfer> query = entityManager.createQuery( strQuery, Transfer.class);
+			
+			query = query.setParameter("reservationForm", reservationForm);
+			
+			List<Transfer> transfers = query.getResultList();
+			entityManager.getTransaction().commit();
+			
+			return transfers;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
+		}
+	}
 }

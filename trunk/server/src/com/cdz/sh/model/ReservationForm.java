@@ -1,6 +1,7 @@
 package com.cdz.sh.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,6 +45,8 @@ public class ReservationForm implements Comparable {
     
     private Double remainingAmount;
     
+    @Transient
+    private List<Transfer> transfers;
     
     @ManyToOne
 	@JoinColumn(name="Bank_ID")
@@ -236,6 +239,15 @@ public class ReservationForm implements Comparable {
 		return 1;
 	}
 
+	public List<Transfer> getTransfers() {
+		return transfers;
+	}
+
+	public void setTransfers(List<Transfer> transfers) {
+		this.transfers = transfers;
+	}
+
     
-    
+
+	
 }

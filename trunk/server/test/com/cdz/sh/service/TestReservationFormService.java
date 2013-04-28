@@ -3,7 +3,12 @@ package com.cdz.sh.service;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,20 +24,28 @@ import com.cdz.sh.dao.DummyScenarioBuilder;
 import com.cdz.sh.dao.MasterDataFactory;
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.RoomDao;
+import com.cdz.sh.dao.ServiceTypeDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
+import com.cdz.sh.dao.impl.ServiceTypeDaoImpl;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.ReservationForm;
+import com.cdz.sh.model.ServiceType;
 import com.cdz.sh.model.StateReservationForm;
+import com.cdz.sh.model.Transfer;
+import com.cdz.sh.model.TransferModality;
+import com.cdz.sh.service.exception.InvalidOperationException;
 import com.cdz.sh.service.impl.ReservationFormServiceImpl;
+import com.cdz.sh.service.impl.ServiceTypesBuilder;
+import com.cdz.sh.service.impl.TransferServiceImpl;
 import com.cdz.sh.util.DateUtil;
 
 public class TestReservationFormService {
@@ -42,6 +55,7 @@ public class TestReservationFormService {
 	private CustomerDao customerDao;
 	private DocumentTypeDao documentTypeDao;
 	private OccupationDao occupationDao;
+	private ServiceTypeDao serviceTypeDao;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -52,11 +66,14 @@ public class TestReservationFormService {
 		DummyScenarioBuilder dummyScenarioBuilder = new DummyScenarioBuilder();
 		dummyScenarioBuilder.createDummyScenario();
 				
+		new ServiceTypesBuilder().buildServiceTypes();
+		
 		this.roomDao = new RoomDaoImpl();
 		this.documentTypeDao = new DocumentTypeDaoImpl();
 		this.customerDao = new CustomerDaoImpl();
 		this.occupationDao = new OccupationDaoImpl();
 		this.reservationFormService = new ReservationFormServiceImpl();
+		this.serviceTypeDao = new ServiceTypeDaoImpl();
 	}
 
 	@After
@@ -264,12 +281,77 @@ public class TestReservationFormService {
 	}
 	
 	@Test
-	public void testExportData() throws DaoException {
+	public void testExportData() throws DaoException, InvalidOperationException {
 		
 		ReservationForm reservationForm = this.reservationFormService.getRecordById(1L);
 		
-		this.reservationFormService.exportData(reservationForm, "es_AR");
+		Transfer t1 = createTransfer(reservationForm);		
+		Transfer t2 = createAeroTransfer(reservationForm);
+		Transfer t3 = createTransfer(reservationForm);
+		Transfer t4 = createAeroTransfer(reservationForm);
+		Transfer t5 = createTransfer(reservationForm);
+		Transfer t6 = createAeroTransfer(reservationForm);
+
+//		new TransferServiceImpl().createRecord(t1);
+//		new TransferServiceImpl().createRecord(t2);
+//		new TransferServiceImpl().createRecord(t3);
+//		new TransferServiceImpl().createRecord(t4);
+//		new TransferServiceImpl().createRecord(t5);
+//		new TransferServiceImpl().createRecord(t6);
+		
+		byte[] output = this.reservationFormService.exportData(reservationForm, "pt_BR");
 	
+		OutputStream out;
+		try {
+			out = new FileOutputStream("C:\\pdf\\out_pt_BR_sin reserva.pdf");
+			out.write(output);
+			out.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private Transfer createTransfer(ReservationForm reservationForm) throws DaoException {
+		
+		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
+		calendar.set(Calendar.HOUR_OF_DAY, 14);
+		calendar.set(Calendar.MINUTE, 45);
+		
+		List<ServiceType> transferServiceTypes = this.serviceTypeDao.getTransferServiceTypes();
+		
+		Transfer t1 = new Transfer();
+		t1.setReservationForm(reservationForm);
+		t1.setDate(calendar.getTime());
+		t1.setCompanyName("Austral");
+		t1.setFlightOrBusNumber("A123");
+		t1.setSource("Argentina");
+		t1.setServiceType(transferServiceTypes.get(0));
+		t1.setTransferModality(TransferModality.CARRY_BACK);
+		return t1;
+	}
+	
+	private Transfer createAeroTransfer(ReservationForm reservationForm) throws DaoException {
+		
+		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
+		calendar.set(Calendar.HOUR_OF_DAY, 14);
+		calendar.set(Calendar.MINUTE, 45);
+		
+		List<ServiceType> transferServiceTypes = this.serviceTypeDao.getTransferServiceTypes();
+		
+		Transfer t1 = new Transfer();
+		t1.setReservationForm(reservationForm);
+		t1.setDate(calendar.getTime());
+		t1.setCompanyName("Austral");
+		t1.setFlightOrBusNumber("A123");
+		t1.setSource("Argentina");
+		t1.setServiceType(transferServiceTypes.get(3));
+		t1.setTransferModality(TransferModality.CARRY_BACK);
+		return t1;
 	}
 	
 	
