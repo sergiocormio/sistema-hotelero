@@ -314,6 +314,7 @@ public class DummyScenarioBuilder {
 			reservationForm1 = new ReservationForm();
 			
 			GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
+			reservationForm1.setCreationDate(new Date());
 			reservationForm1.setDateFrom(calendar.getTime());
 			
 			calendar.add(GregorianCalendar.DATE, 2);

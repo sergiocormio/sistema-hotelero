@@ -8,6 +8,7 @@ import com.cdz.sh.dao.TransferDao;
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.TransferDaoImpl;
+import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Transfer;
 import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.TransferService;
@@ -82,6 +83,12 @@ public class TransferServiceImpl extends AbstractCrudService<Transfer, Long> imp
 			this.crudDao.deleteRecord(relatedTransfer);
 			this.crudDao.deleteRecord(e);
 		}
+	}
+
+	@Override
+	public List<Transfer> retrieveTransfers(ReservationForm reservationForm) throws DaoException{
+		
+		return this.transferDao.retrieveTransfers(reservationForm);
 	}
 	
 	

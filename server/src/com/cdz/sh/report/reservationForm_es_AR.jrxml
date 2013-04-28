@@ -2,8 +2,36 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb22989f-db85-46ba-977d-8bb124583fbf">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
-	<subDataset name="dataset1" uuid="55df5151-b119-4449-ae20-3a4746f9d377"/>
+	<property name="ireport.y" value="215"/>
+	<style name="table" fill="Solid">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#C0C0C0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="transfers" whenResourceMissingType="Empty" uuid="55df5151-b119-4449-ae20-3a4746f9d377">
+		<field name="date" class="java.util.Date"/>
+		<field name="companyName" class="java.lang.String"/>
+		<field name="flightOrBusNumber" class="java.lang.String"/>
+		<field name="source" class="java.lang.String"/>
+		<field name="transferModality.name" class="java.lang.String"/>
+		<field name="serviceType.transferType.name" class="java.lang.String"/>
+	</subDataset>
+	<field name="transfers" class="java.util.Collection"/>
 	<field name="id" class="java.lang.Long"/>
 	<field name="state.displayname" class="java.lang.String"/>
 	<field name="customer.fullName" class="java.lang.String"/>
@@ -26,7 +54,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="64" splitType="Stretch">
+		<band height="65" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="c2fd3b19-aed5-4f3f-871c-c6347c017bcb" x="20" y="32" width="228" height="31"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -103,7 +131,7 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="285" splitType="Stretch">
+		<band height="389" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="7e02a428-560a-4b33-b6ff-e31fd6cb927d" x="48" y="20" width="100" height="20"/>
 				<textElement/>
@@ -236,15 +264,123 @@
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{remainingAmountFormatted}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement uuid="5e2132c4-14dd-428d-926e-3607ae0390f2" key="table" style="table" x="48" y="307" width="483" height="82"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="transfers" uuid="08a31507-dbc2-446d-9025-2c9a6f59a5f5">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{transfers})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column uuid="09b9fbdd-6f51-4a12-ba1c-2b85892689d1" width="96">
+						<jr:columnHeader style="table_TH" height="33" rowSpan="1">
+							<staticText>
+								<reportElement uuid="219d16f5-6257-4ed8-a7ec-ccef1830b2ef" x="0" y="0" width="90" height="33"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Ir a]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="079ee5a7-eb96-4032-8da2-dd2561e95d99" x="12" y="0" width="78" height="30"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{serviceType.transferType.name} == "ONE_WAY_BUS" || $F{serviceType.transferType.name} == "ROUND_TRIP_BUS" ? "Terminal de Bus" : "Aeropuerto"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="34342184-e9af-45de-b613-24a5aa7eec39" width="100">
+						<jr:columnHeader style="table_TH" height="33" rowSpan="1">
+							<staticText>
+								<reportElement uuid="219d16f5-6257-4ed8-a7ec-ccef1830b2ef" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Fecha y Hora]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField pattern="dd/MM/yyyy HH:mm">
+								<reportElement uuid="153e53f6-863f-42ab-92be-f2c014e76877" x="12" y="0" width="88" height="30"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="99541ecd-f9b8-4653-b786-7d56c3c193cd" width="90">
+						<jr:columnHeader style="table_TH" height="33" rowSpan="1">
+							<staticText>
+								<reportElement uuid="4f2af73f-5f7a-4cbd-a9d4-5d1029005455" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Empresa]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="32acbda5-a73c-4010-babb-ccdd115dde05" x="12" y="0" width="78" height="30"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{companyName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="c6f72f12-aba4-437c-924f-b727f8c667ea" width="101">
+						<jr:columnHeader style="table_TH" height="33" rowSpan="1">
+							<staticText>
+								<reportElement uuid="39a68b17-12a9-460e-8846-ac48b98191e2" x="0" y="0" width="99" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nro de vuelo o Bus]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="7ef7863f-f629-49a6-ae15-d1b10f8918b7" x="14" y="0" width="85" height="30"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{flightOrBusNumber}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="272fb544-6dc6-4893-921f-12fe01d570f7" width="93">
+						<jr:columnHeader style="table_TH" height="33" rowSpan="1">
+							<staticText>
+								<reportElement uuid="95de51f3-3cbc-4c4e-ac1a-f0d71f9256a9" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Modalidad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="8042fa9b-6eb4-4366-ac4d-40c3b9d91b7a" x="11" y="0" width="79" height="30"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{transferModality.name} == "TAKE" ? "Llevar cliente" : "Traer cliente"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement uuid="31a1ac5e-a63b-40c3-9fd2-2730094e1c92" x="48" y="287" width="483" height="20"/>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transfers} != null ? "Transfers:" : "Esta ficha de reserva no posee transfers asociados."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="b712c235-09a8-428a-8d48-077aaa01fe3d" x="0" y="273" width="555" height="1"/>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="75" splitType="Stretch"/>
+		<band height="17" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="8" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="6" splitType="Stretch"/>
 	</summary>
 </jasperReport>

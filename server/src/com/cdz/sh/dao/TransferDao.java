@@ -3,14 +3,9 @@ package com.cdz.sh.dao;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
-
 import com.cdz.sh.dao.crud.CrudDao;
-import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Transfer;
 
 /**
@@ -23,5 +18,7 @@ public interface TransferDao extends CrudDao<Transfer, Long> {
 
 	
 	public List<Transfer> retrieveTransfers(Date dateFrom, Date dateTo) throws DaoException;
+
+	public List<Transfer> retrieveTransfers(ReservationForm reservationForm) throws DaoException;
 
 }

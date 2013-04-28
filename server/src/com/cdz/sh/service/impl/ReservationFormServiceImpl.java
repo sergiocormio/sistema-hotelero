@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
-
 import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.ReservationFormDao;
@@ -24,6 +22,7 @@ import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.model.StateReservationForm;
+import com.cdz.sh.model.Transfer;
 import com.cdz.sh.report.PDFReportManager;
 import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.ReservationFormService;
@@ -141,6 +140,12 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 		reservationForm.setCreationDate(DateUtil.getDateUTC(reservationForm.getCreationDate()));
 		reservationForm.setDateFrom(DateUtil.getDateUTC(reservationForm.getDateFrom()));
 		reservationForm.setDateTo(DateUtil.getDateUTC(reservationForm.getDateTo()));
+		
+		
+		List<Transfer> transfers = new TransferServiceImpl().retrieveTransfers(reservationForm);
+		if(!transfers.isEmpty()){
+			reservationForm.setTransfers(transfers);
+		}
 		
 		Collection<ReservationForm> collection = new ArrayList<ReservationForm>();
 		collection.add(reservationForm);
