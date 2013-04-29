@@ -68,24 +68,42 @@
 				}else{
 					transferId.text = "";
 				}
-				dateChooserTake.selectedDate = _currentTransfer.date;
-				if(_currentTransfer.date!=null){
-					hoursTake.value = _currentTransfer.date.hours;
-					minutesTake.value = _currentTransfer.date.minutes;
-				}
-				if(_currentTransfer.serviceType!=null){
-					WindowsUtils.autoSelectComboBox(serviceTypesCombo,_currentTransfer.serviceType);
-				}
+				
 				sourceText.text = _currentTransfer.source;
 				flightOrBusNumberText.text = _currentTransfer.flightOrBusNumber;
 				companyText.text = _currentTransfer.companyName;
-				if(_currentTransfer.transferModality == null || _currentTransfer.transferModality == TransferModality.TAKE){
+				loadDate(_currentTransfer);
+				
+				if(_currentTransfer.serviceType!=null){
+					WindowsUtils.autoSelectComboBox(serviceTypesCombo,_currentTransfer.serviceType);
+					//if it is a "double Transfer", loads its relatedTransfer
+					if((_currentTransfer.serviceType.transferType == TransferType.ROUND_TRIP_BUS ||
+						_currentTransfer.serviceType.transferType == TransferType.ROUND_TRIP_FLIGHT) && 
+						_currentTransfer.relatedTransfer!=null){
+						var relatedTransfer:Transfer = _currentTransfer.relatedTransfer;
+						loadDate(relatedTransfer);
+					}
+				}
+				
+				setDatesVisibility();
+			}
+			
+			private function loadDate(transfer:Transfer):void{
+				if(transfer.transferModality == null || transfer.transferModality == TransferModality.TAKE){
 					take.selected = true;
+					dateChooserTake.selectedDate = transfer.date;
+					if(transfer.date!=null){
+						hoursTake.value = transfer.date.hours;
+						minutesTake.value = transfer.date.minutes;
+					}
 				}else{
 					carryBack.selected = true;
+					dateChooserCarryBack.selectedDate = transfer.date;
+					if(transfer.date!=null){
+						hoursCarryBack.value = transfer.date.hours;
+						minutesCarryBack.value = transfer.date.minutes;
+					}
 				}
-				modalityChange(null);
-				
 			}
 			
 			private function allFieldsAreValid():Boolean{
@@ -122,16 +140,49 @@
 					return;
 				}
 				
-				_currentTransfer.id = transferId.text;
 				_currentTransfer.serviceType = serviceTypesCombo.selectedItem;
 				_currentTransfer.source = sourceText.text;
 				_currentTransfer.companyName = companyText.text;
 				_currentTransfer.flightOrBusNumber = flightOrBusNumberText.text;
 				_currentTransfer.reservationForm = reservationFormsCombo.selectedItem;
+				
+				//It is a "double Transfer"...
 				if(_currentTransfer.serviceType.transferType == TransferType.ROUND_TRIP_BUS ||
 					_currentTransfer.serviceType.transferType == TransferType.ROUND_TRIP_FLIGHT){
 					
-				}else{
+					
+					if(isUpdate){
+						//attemps keep the previous modality
+						if(_currentTransfer.transferModality == null || _currentTransfer.transferModality == TransferModality.TAKE){ 
+							_currentTransfer.date = dateChooserTake.selectedDate;
+							if(_currentTransfer.date!=null){
+								_currentTransfer.date.hours = hoursTake.value;
+								_currentTransfer.date.minutes = minutesTake.value;
+							}
+						}else{
+							_currentTransfer.date = dateChooserCarryBack.selectedDate;
+							if(_currentTransfer.date!=null){
+								_currentTransfer.date.hours = hoursCarryBack.value;
+								_currentTransfer.date.minutes = minutesCarryBack.value;
+							}
+						}
+						var auxTransfer:Transfer = setRelatedTransfer(_currentTransfer);
+						new TransferService().updateRecord(_currentTransfer,transferSaved_resultHandler,FaultHandler.defaultFaultHandler);
+					}else{
+						//if it's a new object always current has take as modality...
+						_currentTransfer.transferModality = TransferModality.TAKE; 
+						_currentTransfer.date = dateChooserTake.selectedDate;
+						if(_currentTransfer.date!=null){
+							_currentTransfer.date.hours = hoursTake.value;
+							_currentTransfer.date.minutes = minutesTake.value;
+						}
+						var auxCarryBackTransfer:Transfer = setRelatedTransfer(_currentTransfer);
+						//precondition of createRecords: all relatedTransfers must be null.
+						auxCarryBackTransfer.relatedTransfer = null;
+						_currentTransfer.relatedTransfer = null;
+						new TransferService().createRecords(_currentTransfer,auxCarryBackTransfer, transferSaved_resultHandler,FaultHandler.defaultFaultHandler);
+					}
+				}else{ //It's a "simple" transfer record
 					if(take.selected){
 						_currentTransfer.transferModality = TransferModality.TAKE; 
 						_currentTransfer.date = dateChooserTake.selectedDate;
@@ -147,14 +198,47 @@
 							_currentTransfer.date.minutes = minutesCarryBack.value;
 						}
 					}
+					//calls service
+					if(isUpdate){
+						new TransferService().updateRecord(_currentTransfer,transferSaved_resultHandler,FaultHandler.defaultFaultHandler);
+					}else{
+						new TransferService().createRecord(_currentTransfer,transferSaved_resultHandler,FaultHandler.defaultFaultHandler);
+					}
 				}
 				
-				//calls service
-				if(isUpdate){
-					new TransferService().updateRecord(_currentTransfer,transferSaved_resultHandler,FaultHandler.defaultFaultHandler);
-				}else{
-					new TransferService().createRecord(_currentTransfer,transferSaved_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			private function setRelatedTransfer(fatherTransfer:Transfer):Transfer{
+				var auxTransfer:Transfer = fatherTransfer.relatedTransfer;
+				if(auxTransfer==null){
+					auxTransfer = new Transfer();
 				}
+				auxTransfer.serviceType = fatherTransfer.serviceType;
+				auxTransfer.source = fatherTransfer.source;
+				auxTransfer.companyName = fatherTransfer.companyName;
+				auxTransfer.flightOrBusNumber = fatherTransfer.flightOrBusNumber;
+				auxTransfer.reservationForm = fatherTransfer.reservationForm;
+				
+				//sets opposite transferModality
+				if(fatherTransfer.transferModality == TransferModality.TAKE){
+					auxTransfer.transferModality = TransferModality.CARRY_BACK;
+					auxTransfer.date = dateChooserCarryBack.selectedDate;
+					if(auxTransfer.date!=null){
+						auxTransfer.date.hours = hoursCarryBack.value;
+						auxTransfer.date.minutes = minutesCarryBack.value;
+					}
+				}else{
+					auxTransfer.transferModality = TransferModality.TAKE;
+					auxTransfer.date = dateChooserTake.selectedDate;
+					if(auxTransfer.date!=null){
+						auxTransfer.date.hours = hoursTake.value;
+						auxTransfer.date.minutes = minutesTake.value;
+					}
+				}
+				//crossed Relationship...
+				auxTransfer.relatedTransfer = fatherTransfer;
+				fatherTransfer.relatedTransfer = auxTransfer;
+				return auxTransfer;
 			}
 			
 			private function transferSaved_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -218,22 +302,27 @@
 			
 			protected function serviceTypesCombo_changeHandler(event:IndexChangeEvent):void
 			{
+				setDatesVisibility();
+			}
+			
+			private function setDatesVisibility():void{
 				var serviceType:ServiceType = serviceTypesCombo.selectedItem;
 				if(serviceType==null){
 					enableTwoDates(false);
+					modalityChange(null);
 					return;
 				}
 				switch(serviceType.transferType){
 					case TransferType.ONE_WAY_BUS:
 					case TransferType.ONE_WAY_FLIGHT:
 						enableTwoDates(false);
+						modalityChange(null);
 						break;
 					case TransferType.ROUND_TRIP_BUS:
 					case TransferType.ROUND_TRIP_FLIGHT:
 						enableTwoDates(true);
 						break;
 				}
-				
 			}
 			
 			private function enableTwoDates(enabled:Boolean):void
