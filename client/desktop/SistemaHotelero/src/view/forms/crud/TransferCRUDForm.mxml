@@ -9,6 +9,7 @@
 	<fx:Script>
 		<![CDATA[
 			import model.Transfer;
+			import model.TransferModality;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -94,6 +95,17 @@
 				dispatchEvent(new Event("transferHasChanged"));
 			}
 			
+			private function modalityFormat(item:Object,column:GridColumn):String{
+				var modality:String = item [column.dataField] as String;
+				var result:String;
+				if(modality != null && modality == TransferModality.TAKE){
+					result = loc.transferModality.take;
+				}else{
+					result = loc.transferModality.carryBack;
+				}
+				return result;
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -109,6 +121,7 @@
 						<s:GridColumn dataField="reservationForm.customer.name" headerText="{loc.customer.singular}"/>
 						<s:GridColumn dataField="reservationForm.id" headerText="{loc.reservationForm.singular}"/>
 						<s:GridColumn dataField="serviceType.name" headerText="{loc.serviceType.singular}"/>
+						<s:GridColumn dataField="transferModality" headerText="{loc.transferModality.singular}" labelFunction="modalityFormat"/>
 						<s:GridColumn dataField="source" headerText="{loc.transfer.source}"/>
 						<s:GridColumn dataField="flightOrBusNumber" headerText="{loc.transfer.flightOrBusNumber}"/>
 						<s:GridColumn dataField="companyName" headerText="{loc.transfer.companyName}"/>
