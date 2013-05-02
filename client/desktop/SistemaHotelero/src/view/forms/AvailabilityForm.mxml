@@ -272,7 +272,9 @@
 				titleWindow = WindowsUtils.openDialog(loc.budget.title + ":", budgetForm);
 			}
 			
-			
+			public function refreshForm():void{
+				//TODO
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>

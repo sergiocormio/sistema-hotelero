@@ -52,6 +52,10 @@
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
+				retrieveAllTransfers();
+			}
+			
+			private function retrieveAllTransfers():void{
 				new TransferService().retrieveAll(retrieveAll_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
@@ -104,6 +108,12 @@
 					result = loc.transferModality.carryBack;
 				}
 				return result;
+			}
+			
+			public function refreshForm():void{
+				//TODO Complete this method
+				retrieveAllTransfers();
+				individual.refreshForm();
 			}
 			
 		]]>

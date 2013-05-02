@@ -444,6 +444,12 @@
 				new BudgetService().populateBudget(alternative, preLoadBudget_resultHandler, FaultHandler.defaultFaultHandler);
 			}
 			
+			public function refreshForm():void{
+				//TODO Complete this method
+				retrieveCustomers();
+				loadStates();
+				retrieveBanks();
+			}
 			
 		]]>
 		

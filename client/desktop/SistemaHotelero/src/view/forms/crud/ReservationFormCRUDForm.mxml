@@ -126,10 +126,19 @@
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
-				confirmReservationButton.enabled = false;
-				cancelReservationButton.enabled = false;
-				exportReservationButton.enabled = false;
+				enabledActionButtons(false);
+				retrieveAllReservationForms();
+			}
+			
+			private function retrieveAllReservationForms():void{
 				new ReservationFormService().retrieveAll(retrieveAll_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			private function enabledActionButtons(enabled:Boolean):void{
+				confirmReservationButton.enabled = enabled;
+				cancelReservationButton.enabled = enabled;
+				exportReservationButton.enabled = enabled;
+				addTransferButton.enabled = enabled;
 			}
 			
 			protected function displayPDF(event:ResultEvent=null,token:Object=null):void
@@ -144,10 +153,7 @@
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
-				confirmReservationButton.enabled = false;
-				cancelReservationButton.enabled = false;
-				exportReservationButton.enabled = false;
-				addTransferButton.enabled = false;
+				enabledActionButtons(false);
 				if(grid.selectedItem !=null){
 					var reservation:ReservationForm = grid.selectedItem as ReservationForm;
 					individual.currentReservationForm = reservation;
@@ -333,6 +339,12 @@
 			
 			private function transfer_saveSuccess(evt:Object):void {
 				PopUpManager.removePopUp(titleWindow);
+			}
+			
+			public function refreshForm():void{
+				//TODO Complete this method
+				retrieveAllReservationForms();
+				individual.refreshForm();
 			}
 		]]>
 	</fx:Script>

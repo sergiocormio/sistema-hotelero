@@ -79,6 +79,9 @@
 				individual.enabled = true;
 			}
 			
+			public function refreshForm():void{
+				//TODO Complete this method
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>

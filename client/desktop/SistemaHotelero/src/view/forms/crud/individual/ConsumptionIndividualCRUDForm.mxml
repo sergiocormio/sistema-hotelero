@@ -159,6 +159,10 @@
 				}
 			}
 			
+			public function refreshForm():void{
+				//TODO Complete this method
+				retrieveRooms();
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
