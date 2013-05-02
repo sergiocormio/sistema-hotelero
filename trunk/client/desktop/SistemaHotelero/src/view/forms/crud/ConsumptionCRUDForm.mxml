@@ -199,7 +199,12 @@
 				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateFormat);
 			}
 			
-			
+			public function refreshForm():void{
+				//TODO Complete this method
+				retrieveRooms();
+				retrieveConsumptions();
+				individual.refreshForm();
+			}
 			
 		]]>
 	</fx:Script>

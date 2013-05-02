@@ -76,7 +76,9 @@
 				new MigrationService().restoreDatabase(sourceZipFile, resultHandler, faultHandler);
 			}
 			
-			
+			public function refreshForm():void{
+				//TODO Complete this method
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>

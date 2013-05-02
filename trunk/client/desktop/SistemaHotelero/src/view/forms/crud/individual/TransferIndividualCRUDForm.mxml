@@ -355,6 +355,11 @@
 				
 			}
 			
+			public function refreshForm():void{
+				//TODO Complete this method
+				retrieveServiceTypes();
+				retrieveReservationForms();
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>

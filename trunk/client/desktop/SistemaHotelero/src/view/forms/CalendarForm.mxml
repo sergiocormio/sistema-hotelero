@@ -71,13 +71,16 @@
 				FaultHandler.defaultFaultHandler(event,token);
 			}
 			
-			
 			public function refreshCalendar():void{
 				fillCalendar();
 			}
 			
 			private function navigationChanged():void{
 				fillCalendar();
+			}
+			
+			public function refreshForm():void{
+				refreshCalendar();
 			}
 		]]>
 	</fx:Script>	

@@ -55,6 +55,10 @@
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
+				retrieveAllCustomers();
+			}
+			
+			private function retrieveAllCustomers():void{
 				new CustomerService().retrieveAll(retrieveAll_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
@@ -92,6 +96,10 @@
 				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateFormat);
 			}
 			
+			public function refreshForm():void{
+				//TODO Complete this method
+				retrieveAllCustomers();
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>

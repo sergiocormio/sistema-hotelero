@@ -69,6 +69,10 @@
 			private function navigationChanged():void{
 				fillCalendar();
 			}
+			
+			public function refreshForm():void{
+				refreshCalendar();
+			}
 		]]>
 	</fx:Script>	
 	
