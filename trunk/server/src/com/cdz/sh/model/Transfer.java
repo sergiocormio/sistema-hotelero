@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Transfer {
@@ -111,6 +112,26 @@ public class Transfer {
 		this.relatedTransfer = relatedTransfer;
 	}
 
+	@Transient
+	public boolean isOneWay(){
+		if(this.getServiceType().getTransferType().equals(TransferType.ONE_WAY_BUS) ||
+		   this.getServiceType().getTransferType().equals(TransferType.ONE_WAY_FLIGHT)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	
+	@Transient
+	public boolean isRoundTrip(){
+		if(this.getServiceType().getTransferType().equals(TransferType.ROUND_TRIP_BUS) ||
+		   this.getServiceType().getTransferType().equals(TransferType.ROUND_TRIP_FLIGHT)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	
 }
