@@ -57,12 +57,56 @@ public class TransferServiceImpl extends AbstractCrudService<Transfer, Long> imp
 	}
 
 	@Override
-	public void updateRecord(Transfer e) throws DaoException {
+	public void updateRecord(Transfer newTransfer) throws DaoException {
+				
+		Transfer originalTransfer = this.crudDao.getRecordById(newTransfer.getId());
 		
-		this.crudDao.updateRecord(e);
-		if(e.getRelatedTransfer() != null){
-			this.crudDao.updateRecord(e.getRelatedTransfer());
+		try {
+			// if it was round trip and now is one way
+			if(originalTransfer.isRoundTrip() && newTransfer.isOneWay()){
+				
+				//unlink and remove both original round trip transfers
+				this.deleteRecord(originalTransfer);
+				
+				// create the new one way one
+				
+				// as it is one way, just in case...
+				newTransfer.setId(null);
+				newTransfer.setRelatedTransfer(null);
+				
+				this.createRecord(newTransfer);
+			}
+			// if it was one way and now is round trip
+			if(originalTransfer.isOneWay() && newTransfer.isRoundTrip()){
+				// remove the original single transfer
+				this.deleteRecord(originalTransfer);
+				
+				// create the both new transfers
+				Transfer relatedTransfer = newTransfer.getRelatedTransfer();
+
+				//this is to avoid dup PK
+				newTransfer.setId(null);
+				relatedTransfer.setId(null);
+				
+				//this is to avoid PersistenceTransientException
+				newTransfer.setRelatedTransfer(null);
+				relatedTransfer.setRelatedTransfer(null);
+				
+				this.createRecords(newTransfer, relatedTransfer);
+			}
+			// it remains being one way
+			// or
+			// it remains being round trip
+			else{
+				this.crudDao.updateRecord(newTransfer);
+				if(newTransfer.getRelatedTransfer() != null){
+					this.crudDao.updateRecord(newTransfer.getRelatedTransfer());
+				}
+			}
 		}
+		catch (InvalidOperationException e1) {
+			throw new DaoException(e1.getMessage());
+		}	
 	}
 
 	@Override
