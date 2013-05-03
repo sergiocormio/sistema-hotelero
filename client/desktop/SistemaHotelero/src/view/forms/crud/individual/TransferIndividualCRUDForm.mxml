@@ -107,20 +107,37 @@
 			}
 			
 			private function allFieldsAreValid():Boolean{
+					
+				var isValidForm:Boolean;
+				var selectedServiceType:ServiceType = serviceTypesCombo.selectedItem;
 				
-				setEnabledValidators(true);
-				
-				var valArray:Array = new Array();
-				
-				/* valArray.push(transferIdValidator); */
-				valArray.push(transferDateValidatorCarryBack);
-				valArray.push(transferDateValidatorTake);
-				
-				var validatorErrorArray:Array = Validator.validateAll(valArray);;
-				var isValidForm:Boolean = validatorErrorArray.length == 0;
-				
-				setEnabledValidators(false);
-				
+				// selected one way transfer: need to validate only one date
+				if (isOneWayTransfer(selectedServiceType.transferType)){
+					if(take.selected){
+						transferDateValidatorTake.enabled = true;
+						isValidForm = transferDateValidatorTake.validate().type == "valid";
+						transferDateValidatorTake.enabled = false;	
+					}
+					// carry back selected
+					else{
+						transferDateValidatorCarryBack.enabled = true;
+						isValidForm = transferDateValidatorCarryBack.validate().type == "valid";
+						transferDateValidatorCarryBack.enabled = false;
+					}
+				}
+				// selected round trip transfer: need to validate both dates	
+				else{
+					setEnabledValidators(true);
+					
+					var valArray:Array = new Array();
+					valArray.push(transferDateValidatorCarryBack);
+					valArray.push(transferDateValidatorTake);
+					
+					var validatorErrorArray:Array = Validator.validateAll(valArray);;
+					isValidForm = validatorErrorArray.length == 0;
+					
+					setEnabledValidators(false);
+				}
 				return isValidForm;
 			}
 			
@@ -360,6 +377,18 @@
 				retrieveServiceTypes();
 				retrieveReservationForms();
 			}
+			
+			private function isOneWayTransfer(transferType:String):Boolean
+			{
+				if(transferType == TransferType.ONE_WAY_BUS ||
+				   transferType == TransferType.ONE_WAY_FLIGHT){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -371,6 +400,7 @@
 							property="text"
 							/>-->
 		<mx:DateValidator id="transferDateValidatorCarryBack"
+						  enabled="false"
 						  required="true"
 						  requiredFieldError="{loc.validator.requiredFieldError}"
 						  inputFormat="{loc.date.format}"
@@ -384,6 +414,7 @@
 						  property="text"
 						  />
 		<mx:DateValidator id="transferDateValidatorTake"
+						  enabled="false"
 						  required="true"
 						  requiredFieldError="{loc.validator.requiredFieldError}"
 						  inputFormat="{loc.date.format}"

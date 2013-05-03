@@ -119,8 +119,8 @@ package model
 			_transferType = value;
 		}
 		
+			
 				
-		
 		public function ServiceType()
 		{
 		}

@@ -107,6 +107,18 @@ package model
 			_transferModality = value;
 		}
 
+		
+		[Transient]
+		public function isOneWay():Boolean
+		{
+			if(_serviceType.transferType == TransferType.ONE_WAY_BUS ||
+			   _serviceType.transferType == TransferType.ONE_WAY_FLIGHT){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
 
 	}
 }
