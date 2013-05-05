@@ -39,7 +39,7 @@
     	<adultsQuantity>Cantidad de Adultos</adultsQuantity>
     	<childrenQuantity>Cantidad de Menores</childrenQuantity>
     	<variation>Disponibilidad +/-</variation>
-    	<otherAlternatives>Otras Alternativas</otherAlternatives>
+   	<otherAlternatives>Otras Alternativas</otherAlternatives>
     	<consultAvailability>Consultar Disponibilidad</consultAvailability>
     	<bed>
     		<singular>Cama</singular>
@@ -222,7 +222,7 @@
     	<loadLodgementManually>Cargar Hospedaje Manualmente</loadLodgementManually>
     </lodgement>
     <maintenance>
-    	<singular>Mantenimiento</singular>
+    	<singular>Servicio de Camarera</singular>
     </maintenance>
     <messages>
     	<creatingMasterData>Creando datos maestros...</creatingMasterData>
