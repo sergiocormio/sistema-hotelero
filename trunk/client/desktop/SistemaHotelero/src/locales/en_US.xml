@@ -1,8 +1,24 @@
 <?xml version="1.0"?>
 <locale>
+	<activation>
+		<appNotActive>The application has not been activated.Please contact the administrators.</appNotActive>
+	</activation>
 	<advertising>
 		<singular>Advertising</singular>
 	</advertising>
+	<advertisement>
+		<SendEmailsTo>Send to customers from</SendEmailsTo>
+		<subject>Subject</subject>
+		<body>Message</body>
+		<birthMonth>Birth month</birthMonth>
+		<all>All</all>
+		<emailSent>The message has been sent.</emailSent>
+		<emailTestSent>The testing message has been sent to</emailTestSent>
+		<images>Images</images>
+		<error>
+			<noCustomerSelected>There are no customers that match with the selected options.</noCustomerSelected>
+		</error>
+	</advertisement>
 	<alternative>
 		<alternativeView>Alternative View</alternativeView>
 		<dateFrom>Date From</dateFrom>
@@ -23,8 +39,6 @@
     	<adultsQuantity>Adults Quantity</adultsQuantity>
     	<childrenQuantity>Children Quantity</childrenQuantity>
     	<variation>Availability +/-</variation>
-    	<consult>Consult</consult>
-    	<clean>Clean</clean>
     	<otherAlternatives>Other Alternatives</otherAlternatives>
     	<consultAvailability>Consult Availability</consultAvailability>
     	<bed>
@@ -46,14 +60,14 @@
 	<budget>
 		<basePrice>Base Price</basePrice>
 		<basePricePlusAllServicesIncludedInBasePrice>Price with Basic Services</basePricePlusAllServicesIncludedInBasePrice>
-		<title>Presupuesto</title>
-		<additionalServices>Servicios adicionales</additionalServices>
-		<detail>Detalle</detail>
-		<modality>Modalidad</modality>
-		<price>Precio</price>
-		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
-		<convertPricesTo>Convertir precios a</convertPricesTo>
-		<valuesIn>Valores expresados en</valuesIn>
+		<title>Budget</title>
+		<additionalServices>Additional Services</additionalServices>
+		<detail>Detail</detail>
+		<modality>Modality</modality>
+		<price>Price</price>
+		<basePricePlusAddServices>Base Price with services</basePricePlusAddServices>
+		<convertPricesTo>Convert prices to</convertPricesTo>
+		<valuesIn>Values in</valuesIn>
 	</budget>
     <button>
     	<add>Add</add>
@@ -85,8 +99,23 @@
     	<increaseOneWeek>Displace one week after</increaseOneWeek>
     	<increaseOneMonth>Displace one month after</increaseOneMonth>
     </calendar>
+    <cleaning>
+    	<date>Date</date>
+    	<roomNumber>Room Number</roomNumber>
+    </cleaning>
+    <cleaningType>
+    	<GENERAL>General</GENERAL>
+    	<BASIC>Basic</BASIC>
+    	<BED_CLOTHE_CHANGE>Bed clothe change</BED_CLOTHE_CHANGE>
+    </cleaningType>
     <consumption>
     	<singular>Consumption</singular>
+		<roomNumber>Room Number</roomNumber>
+    	<date>Date</date>
+    	<description>Description</description>
+    	<price>Price</price>
+    	<dateFrom>Date From</dateFrom>
+    	<dateTo>Date To</dateTo>
     </consumption>
 	<country>
 	    <singular>Country</singular>
@@ -94,8 +123,8 @@
 	    <name>Name</name>
 	</country>
 	<configuration>
-    	<singular>Configuración</singular>
-	    <plural>Configuraciones</plural>
+    	<singular>Configuration</singular>
+	    <plural>Configurations</plural>
     </configuration>
     <customer>
 	    <singular>Customer</singular>
@@ -151,14 +180,14 @@
     <dateFormat>MM/dd/yyyy</dateFormat>
     <dateTimeFormat>MM/dd/yyyy HH:mm</dateTimeFormat>
     <documentType>
-    	<singular>Tipo de Documento</singular>
-	    <plural>Tipos de Documento</plural>
-	    <format>Formato</format>
+    	<singular>Document type</singular>
+	    <plural>Document types</plural>
+	    <format>Format</format>
 	    <formats>
-	    	<numeric>Solo números</numeric>
-	    	<alphanumeric>Números y letras</alphanumeric>
+	    	<numeric>Only numbers</numeric>
+	    	<alphanumeric>Numbers and letters</alphanumeric>
     	</formats>
-    	<digitsquantity>Cantidad de dígitos</digitsquantity>
+    	<digitsquantity>Digits Quantity</digitsquantity>
     </documentType>
     <errorMessage>
     	<serverNotFound>Server not found</serverNotFound>
@@ -193,21 +222,21 @@
     	<loadLodgementManually>Load Lodgement Manually</loadLodgementManually>
     </lodgement>
     <maintenance>
-    	<singular>Maintenance</singular>
+    	<singular>Cleaning Service</singular>
     </maintenance>
     <messages>
     	<creatingMasterData>Creating master data...</creatingMasterData>
     	<clickForMoreInfo>Click for more information</clickForMoreInfo>
-	    <pleaseWait>Por favor espere...</pleaseWait>
-	    <pleaseWaitLong>Esto puede llevar unos minutos. Por favor espere...</pleaseWaitLong>
-	    <startingServer>Iniciando el Servidor...</startingServer>
-	    <stoppingServer>Deteniendo el Servidor...</stoppingServer>
+	    <pleaseWait>Please wait...</pleaseWait>
+	    <pleaseWaitLong>This may take some minutes. Please wait...</pleaseWaitLong>
+	    <startingServer>Starting server...</startingServer>
+	    <stoppingServer>Stopping server...</stoppingServer>
     </messages>
     <migration>
-    	<destFile>Archivo destino</destFile>
-	    <saveData>Guardar datos</saveData>
-    	<loadData>Cargar datos</loadData>
-    	<zipfiles>Archivos Zip</zipfiles>
+    	<destFile>Destination file</destFile>
+	    <saveData>Save data</saveData>
+    	<loadData>Load data</loadData>
+    	<zipfiles>Zip Files</zipfiles>
     </migration>
     <month>
     	<january>January</january>
@@ -227,6 +256,14 @@
     	<singular>night</singular>
    		<plural>nights</plural>
     </night>
+    <promotion>
+    	<plural>Promotions</plural>
+    	<name>Name</name>
+    	<description>Description</description>
+    	<dateFrom>Date From</dateFrom>
+    	<dateTo>Date To</dateTo>
+    	<totalPrice>Total Price</totalPrice>
+    </promotion>
     <rate>
     	<singular>Rate</singular>
 	    <plural>Rates</plural>
@@ -266,12 +303,7 @@
 			<addTransfer>Transfer</addTransfer>
 		</buttons>
     </reservationForm>
-    <reservationFormExpirationDate>
-    	<plural>Reservation Forms Expiration</plural>
-    	<descriptionLabel>Reservation Forms with "Pre-book" state will be automatically updated to "Expired" after</descriptionLabel>
-    	<days>Days</days>
-    	<changesSaved>Changes have been saved.</changesSaved>
-    </reservationFormExpirationDate>
+    
     <room>
    		<singular>Room</singular>
 	    <plural>Rooms</plural>
@@ -309,8 +341,8 @@
 	    	<PER_ROOM>Per Room</PER_ROOM>
 	    </modality>
 	    <price>Price</price>
-	    <includedInBudgetQuery>¿Desea incluirlo para el cálculo de presupuestos?</includedInBudgetQuery>
-	    <includedInBasePriceQuery>¿Desea incluirlo como item sumado al precio base?</includedInBasePriceQuery>
+	    <includedInBudgetQuery>Do you want to include it in the budget calculation?</includedInBudgetQuery>
+	    <includedInBasePriceQuery>Do you want to include it as an item added to the base price?</includedInBasePriceQuery>
 	    <includedInBudget>Included In Budget</includedInBudget>
 	    <includedInBasePrice>Included In Base Price</includedInBasePrice>
     </serviceType>
@@ -332,15 +364,41 @@
     	<carryBack>Carry Back</carryBack>
     	<take>Take</take>
     </transferModality>
+    <transferType>
+    	<ONE_WAY_BUS>One way bus</ONE_WAY_BUS>
+		<ROUND_TRIP_BUS>Round trip bus</ROUND_TRIP_BUS>
+		<ONE_WAY_FLIGHT>One way airport</ONE_WAY_FLIGHT>
+		<ROUND_TRIP_FLIGHT>Round trip airport</ROUND_TRIP_FLIGHT>
+    </transferType>
+	<userSetting>
+    	<calendar>
+    		<single>Calendar</single>
+    		<daysToShow>Initially all calendars will show (days) </daysToShow>
+    	</calendar>
+    	<mail>
+    		<config>Mail Settings</config>
+    		<emailSender>Sender Mailbox</emailSender>
+    		<pswSender>Password</pswSender>
+    		<confirmPswSender>Confirm password</confirmPswSender>
+    		<testEmail>Testing mailbox</testEmail>
+    	</mail>
+    	<plural>User Settings</plural>
+    	<reservationFormExpirationDate>
+	    	<plural>Reservation Forms expiration date</plural>
+	    	<descriptionLabel>Reservation Forms with State: "Pre-Book" will be automatically converted to "Expired" after</descriptionLabel>
+	    	<days>days</days>
+    		<changesSaved>Your changes have been saved.</changesSaved>
+    	</reservationFormExpirationDate>
+    </userSetting>
     <validator>
     	<error>Error</error>
-    	<requiredFieldError>Campo requerido</requiredFieldError>
-    	<invalidFieldValueError>Valor inválido</invalidFieldValueError>
-    	<precisionError>No se permiten más de tres digitos decimales</precisionError>
-    	<invalidRange>Rango de fechas inválido</invalidRange>
-    	<emptyEmailAndPhonesError>Al menos alguno de los siguientes campos debe ser completado: E-Mail, Teléfono, Celular</emptyEmailAndPhonesError>
+    	<requiredFieldError>Required ield</requiredFieldError>
+    	<invalidFieldValueError>Invalid alue</invalidFieldValueError>
+    	<precisionError>More than three decimal digits are not allowed</precisionError>
+    	<invalidRange>Invalid date range</invalidRange>
+    	<emptyEmailAndPhonesError>At least one of the following fields must be filled: E-Mail, Phone Number, Cellphone Number</emptyEmailAndPhonesError>
     	<regExp>
-    		<noMatchError>El campo no es valido</noMatchError>
+    		<noMatchError>Invalid field</noMatchError>
     	</regExp>
     	<reservationFormCreation>
 	    	<manual>
@@ -351,22 +409,23 @@
     		<noAvalaibleRoomsForThatPeopleQty>The selected rooms can not accommodate the specified people quantity.</noAvalaibleRoomsForThatPeopleQty>
     	</reservationFormCreation>
     	<server>
-    		<PkViolationWhenCreate>Ya existe un registro con el mismo identificador</PkViolationWhenCreate>
-    		<PkViolationWhenUpdate>Ya existe un registro con el mismo identificador</PkViolationWhenUpdate>
-			<entityToUpdateNotFound>El registro que desea actualizar no existe</entityToUpdateNotFound>
-			<entityToDeleteNotFound>El registro que desea borrar no existe</entityToDeleteNotFound>
-			<FkViolationWhenDelete>No se ha podido eliminar el registro seleccionado, ya que esta siendo usado por otros registros (Ejemplo: Cada Habitación hace referencia a un "Tipo de Habitación"). Para poder eliminar este registro, el mismo no debe estar siendo usado por otros.</FkViolationWhenDelete>
-			<noParamsSpeficied>Debe especificar algún filtro</noParamsSpeficied>
+    		<PkViolationWhenCreate>There is already a record with the same Id</PkViolationWhenCreate>
+    		<PkViolationWhenUpdate>There is already a record with the same Id</PkViolationWhenUpdate>
+			<entityToUpdateNotFound>The record you are trying to modify, does not exist</entityToUpdateNotFound>
+			<entityToDeleteNotFound>The record you are trying to remove, does not exist</entityToDeleteNotFound>
+			<FkViolationWhenDelete>The record cannot be removed.It is being used by other records (e.g: each Room has a Room Type). To be able to remove this record, it must not being used by other records.</FkViolationWhenDelete>
+			<noParamsSpeficied>You must choose at least one filter</noParamsSpeficied>
 			<InvalidReservationForm>La ficha de reserva es inválida</InvalidReservationForm>
-			<overlapingDateRange>El rango de fechas se solapa con otro(s) existente(s)</overlapingDateRange>
-			<noAvailableOccupations>No existen ocupaciones disponibles</noAvailableOccupations>
-			<noAvailableAlternatives>No existen alternativas disponibles</noAvailableAlternatives>
-			<noRate>No existe una tarifa para calcular el presupuesto deseado</noRate>
-			<emailNotSent>El email no fue enviado</emailNotSent>
-			<invalidFromEmail>El email emisor es inválido</invalidFromEmail>
-			<invalidFromPassword>La contraseña del email emisor es inválida</invalidFromPassword>
-			<toListEmpty>Debe especificar al menos una casilla de correo destino</toListEmpty>
-			<invalidToEmail>La lista de casillas de correo destino es inválida</invalidToEmail>
+			<overlapingDateRange>The specified dates range overlaps with other existing ones</overlapingDateRange>
+			<noAvailableOccupations>There are no available occupations</noAvailableOccupations>
+			<noAvailableAlternatives>There are no available alternatives</noAvailableAlternatives>
+			<noRate>There is no rate associated to the dates range in order to be able to calculate the budget</noRate>
+			<emailNotSent>The e-mail has not been sent</emailNotSent>
+			<invalidFromEmail>Invalid sender mailbox</invalidFromEmail>
+			<invalidFromPassword>Invalid sender password</invalidFromPassword>
+			<invalidSender>Invalid credentials</invalidSender>
+			<toListEmpty>You must choose at least one destination mailbox</toListEmpty>
+			<invalidToEmail>Invalid destination mailboxes</invalidToEmail>
 			<invalidBody></invalidBody>
 			<invalidOperation>Invalid Operation</invalidOperation>
     	</server>
