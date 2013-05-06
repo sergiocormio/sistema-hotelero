@@ -72,6 +72,7 @@
 				sourceText.text = _currentTransfer.source;
 				flightOrBusNumberText.text = _currentTransfer.flightOrBusNumber;
 				companyText.text = _currentTransfer.companyName;
+				cleanDates();
 				loadDate(_currentTransfer);
 				
 				if(_currentTransfer.serviceType!=null){
@@ -88,9 +89,19 @@
 				setDatesVisibility();
 			}
 			
+			private function cleanDates():void{
+				dateChooserTake.selectedDate = null;
+				hoursTake.value = 0;
+				minutesTake.value = 0;
+				dateChooserCarryBack.selectedDate = null;
+				hoursCarryBack.value = 0;
+				minutesCarryBack.value = 0;
+			}
+			
 			private function loadDate(transfer:Transfer):void{
 				if(transfer.transferModality == null || transfer.transferModality == TransferModality.TAKE){
 					take.selected = true;
+					carryBack.selected = false;
 					dateChooserTake.selectedDate = transfer.date;
 					if(transfer.date!=null){
 						hoursTake.value = transfer.date.hours;
@@ -98,6 +109,7 @@
 					}
 				}else{
 					carryBack.selected = true;
+					take.selected = false;
 					dateChooserCarryBack.selectedDate = transfer.date;
 					if(transfer.date!=null){
 						hoursCarryBack.value = transfer.date.hours;
