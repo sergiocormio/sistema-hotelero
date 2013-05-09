@@ -11,6 +11,48 @@
     </default-channels>
 
    
+   <destination id="promotionService">
+		<properties>
+			<source>com.cdz.sh.service.impl.PromotionServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+       
+   <destination id="cleaningService">
+		<properties>
+			<source>com.cdz.sh.service.impl.CleaningServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+   <destination id="emailService">
+		<properties>
+			<source>com.cdz.sh.service.impl.EMailServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+   <destination id="consumptionService">
+		<properties>
+			<source>com.cdz.sh.service.impl.ConsumptionServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+		
+   <destination id="reservationFormExpirationDaysService">
+		<properties>
+			<source>com.cdz.sh.service.impl.ReservationFormExpirationDaysServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+   <destination id="budgetService">
+		<properties>
+			<source>com.cdz.sh.service.impl.BudgetServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
 	<destination id="customerService">
 		<properties>
 			<source>com.cdz.sh.service.impl.CustomerServiceImpl</source>
@@ -80,6 +122,13 @@
 		</properties>
     </destination>
     
+	<destination id="migrationService">
+		<properties>
+			<source>com.cdz.sh.service.impl.MigrationServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+	
     <destination id="masterDataService">
 		<properties>
 			<source>com.cdz.sh.service.impl.MasterDataServiceImpl</source>
@@ -111,6 +160,20 @@
     <destination id="bankService">
 		<properties>
 			<source>com.cdz.sh.service.impl.BankServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+    <destination id="transferService">
+		<properties>
+			<source>com.cdz.sh.service.impl.TransferServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
+    <destination id="activationService">
+		<properties>
+			<source>com.cdz.sh.service.impl.ActivationServiceImpl</source>
 			<scope>application</scope>
 		</properties>
     </destination>
