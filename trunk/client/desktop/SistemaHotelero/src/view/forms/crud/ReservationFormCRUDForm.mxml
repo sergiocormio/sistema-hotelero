@@ -83,6 +83,7 @@
 				
 				cleanFilterForm();
 				refreshGrid();
+				createContextMenu();
 			}
 			
 			private function retrieveCustomers():void{
@@ -122,7 +123,7 @@
 				}
 			}
 			
-			protected function refreshGrid(event:ResultEvent=null,token:Object=null):void
+			protected function refreshGrid(event:Event=null,token:Object=null):void
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
@@ -342,9 +343,20 @@
 			}
 			
 			public function refreshForm():void{
-				//TODO Complete this method
 				retrieveAllReservationForms();
 				individual.refreshForm();
+			}
+			
+			// Creates a ContextMenu
+			private function createContextMenu():void
+			{
+				var myContextMenu:ContextMenu = new ContextMenu();
+				this.contextMenu = myContextMenu;       //add menu items
+				var refreshItem:ContextMenuItem = new ContextMenuItem(loc.button.refresh);
+				myContextMenu.customItems = [refreshItem];
+				
+				//adds event listener to menu item
+				refreshItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, refreshGrid);
 			}
 		]]>
 	</fx:Script>

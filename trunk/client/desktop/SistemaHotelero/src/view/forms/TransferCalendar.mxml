@@ -25,6 +25,10 @@
 			import utils.log.DebugLog;
 			
 			import view.components.Mask;
+			
+			//this flag avoids refreshingForm and initialization at the same time
+			private var initializedForm:Boolean = false;
+			
 			[Bindable]
 			public var loc:Object;
 			
@@ -52,11 +56,17 @@
 				grid.dateTo = calendarNavigationBar.dateTo;
 				grid.init();
 				Mask.close();
+				if(!initializedForm){
+					initializedForm = true;
+				}
 			}
 			
 			// Handle a message fault.
 			private function faultHandler(event:FaultEvent,token:Object=null):void {
 				Mask.close();
+				if(!initializedForm){
+					initializedForm = true;
+				}
 				DebugLog.log("ERROR Loading Transfers in TransferCalendar");
 				FaultHandler.defaultFaultHandler(event,token);
 			}
@@ -71,6 +81,9 @@
 			}
 			
 			public function refreshForm():void{
+				if(!initializedForm){
+					return;
+				}
 				refreshCalendar();
 			}
 		]]>

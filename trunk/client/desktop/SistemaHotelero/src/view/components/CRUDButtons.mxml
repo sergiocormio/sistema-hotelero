@@ -33,7 +33,7 @@
 			</s:stroke>
 			</s:Rect>
 		<s:VGroup width="100%" height="100%" verticalAlign="top" horizontalAlign="center" paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5">
-			<s:Button id="refresh" label="{loc.button.refresh}" icon="{Icons.refresh}" iconPlacement="top" click="dispatchEvent(new Event('refreshClicked'))"/>
+			<!--<s:Button id="refresh" label="{loc.button.refresh}" icon="{Icons.refresh}" iconPlacement="top" click="dispatchEvent(new Event('refreshClicked'))"/>-->
 			<s:Button id="add" label="{loc.button.add}" icon="{Icons.add}" iconPlacement="top" click="dispatchEvent(new Event('addClicked'))"/>
 			<s:Button id="modify" label="{loc.button.modify}" enabled="{modifyButtonEnabled}" icon="{Icons.modify}" iconPlacement="top" click="dispatchEvent(new Event('modifyClicked'))"/>
 			<s:Button id="remove" label="{loc.button.remove}" enabled="{removeButtonEnabled}" icon="{Icons.remove}" iconPlacement="top" click="dispatchEvent(new Event('removeClicked'))"/>

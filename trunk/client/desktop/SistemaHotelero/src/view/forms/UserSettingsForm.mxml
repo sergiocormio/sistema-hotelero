@@ -111,7 +111,7 @@
 			}
 			
 			public function refreshForm():void{
-				//TODO Complete this method
+				init();
 			}
 		]]>
 	</fx:Script>

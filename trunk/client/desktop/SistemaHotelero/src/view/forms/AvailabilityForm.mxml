@@ -273,7 +273,7 @@
 			}
 			
 			public function refreshForm():void{
-				//TODO
+				//Nothing to do here
 			}
 		]]>
 	</fx:Script>
