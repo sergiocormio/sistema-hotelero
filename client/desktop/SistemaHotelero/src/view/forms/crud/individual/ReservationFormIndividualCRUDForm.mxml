@@ -445,7 +445,6 @@
 			}
 			
 			public function refreshForm():void{
-				//TODO Complete this method
 				retrieveCustomers();
 				loadStates();
 				retrieveBanks();

@@ -39,6 +39,8 @@
 			[Bindable]
 			private var cleanings:ArrayCollection = new ArrayCollection();
 			
+			//this flag avoids refreshingForm and initialization at the same time
+			private var initializedForm:Boolean = false;
 			
 			protected function consultButton_clickHandler(event:MouseEvent):void
 			{
@@ -76,13 +78,17 @@
 			private function retrieveRoomsToClean():void
 			{
 				var date:Date = dateChooser.selectedDate; 
-					
+				Mask.show();
 				new CleaningService().retrieveRoomsToClean(date, retrieveRoomsToClean_resultHandler, FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveRoomsToClean_resultHandler(event:ResultEvent,token:Object=null):void {
 				cleanings.removeAll();
 				cleanings.addAll(event.result as ArrayCollection);
+				Mask.close();
+				if(!initializedForm){
+					initializedForm = true;
+				}
 			}
 			
 						
@@ -155,7 +161,10 @@
 			}
 			
 			public function refreshForm():void{
-				//TODO Complete this method
+				if(!initializedForm){
+					return;
+				}
+				retrieveRoomsToClean();
 			}
 			
 		]]>

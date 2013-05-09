@@ -110,11 +110,15 @@
 			{
 				_currentCustomer = new Customer();
 				//autoloads all combos
+				autoloadCombos();
+				setInitialFocus();
+			}
+			
+			private function autoloadCombos():void{
 				retrieveDocumentTypes();
 				retrieveCountries();
 				retrieveRegions();
 				retrieveLanguages();
-				setInitialFocus();
 			}
 			
 			private function retrieveDocumentTypes():void{
@@ -237,7 +241,9 @@
 			}
 			
 			private function allFieldsAreValid():Boolean{
-				
+				if(documentTypesCombo.selectedItem != null){
+					regExpValidator.expression = documentTypesCombo.selectedItem.regExp;
+				}
 				setEnabledValidators(true);
 				
 				var valArray:Array = new Array();
@@ -303,6 +309,7 @@
 			
 			protected function save():void
 			{
+				
 				// validate all data
 				if(!allFieldsAreValid()){
 					return;
@@ -361,6 +368,10 @@
 						idNumberText.setFocus();
 					}
 				}
+			}
+			
+			public function refreshForm():void{
+				autoloadCombos();
 			}
 			
 		]]>

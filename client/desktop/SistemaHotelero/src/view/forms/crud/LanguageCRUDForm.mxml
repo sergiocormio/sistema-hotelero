@@ -41,12 +41,17 @@
 			
 			protected function init(event:FlexEvent):void{
 				refreshGrid();
+				createContextMenu();
 			}
 			
-			protected function refreshGrid():void
+			protected function refreshGrid(event:Event=null):void
 			{
 				individual.enabled = false;
 				grid.selectedItem = null;
+				retrieveLanguages();
+			}
+			
+			private function retrieveLanguages():void{
 				new LanguageService().retrieveAll(retrieveAll_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
@@ -80,9 +85,20 @@
 			}
 			
 			public function refreshForm():void{
-				//TODO Complete this method
+				retrieveLanguages();
 			}
 			
+			// Creates a ContextMenu
+			private function createContextMenu():void
+			{
+				var myContextMenu:ContextMenu = new ContextMenu();
+				this.contextMenu = myContextMenu;       //add menu items
+				var refreshItem:ContextMenuItem = new ContextMenuItem(loc.button.refresh);
+				myContextMenu.customItems = [refreshItem];
+				
+				//adds event listener to menu item
+				refreshItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, refreshGrid);
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
