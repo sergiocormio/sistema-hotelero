@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb22989f-db85-46ba-977d-8bb124583fbf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="71"/>
+	<style name="table" fill="Solid">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#C0C0C0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="additionalServices" uuid="b1ed383d-ba62-4957-9f0f-f8f3c8163659">
+		<field name="name" class="java.lang.String"/>
+		<field name="price" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="servicePricesAddedInBasePrice" uuid="d18ffda7-ff76-4fb7-8f02-e84aa7d4c3ae">
+		<field name="serviceType.name" class="java.lang.String"/>
+		<field name="price" class="java.lang.String"/>
+	</subDataset>
+	<field name="basePrice" class="java.lang.String"/>
+	<field name="basePricePlusAllServicesIncludedInBasePrice" class="java.lang.String"/>
+	<field name="additionalServices" class="java.util.Collection"/>
+	<field name="servicePricesAddedInBasePrice" class="java.util.Collection"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c2fd3b19-aed5-4f3f-871c-c6347c017bcb" x="20" y="32" width="468" height="31"/>
+				<textElement verticalAlignment="Middle">
+					<font size="20" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Orçamento]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="81116860-fd16-48b7-91fc-94353e2888e5" x="0" y="63" width="555" height="1"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ada6e749-c8eb-4103-83a3-e6d6979788e9" x="48" y="17" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Preço Base:]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement uuid="d4270066-88c4-4bfc-bb44-71653caf8baa" x="248" y="17" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{basePrice}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="365" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="1c7b8e7d-b80e-4435-994d-51006b180a05" key="table" style="table" positionType="Float" isPrintRepeatedValues="false" x="48" y="42" width="440" height="66"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="servicePricesAddedInBasePrice" uuid="e1add205-9a54-4644-a4dd-9d265dffbe30">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{servicePricesAddedInBasePrice})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column uuid="5d03d633-d929-429c-ba31-b471d44f45fd" width="130">
+						<jr:columnHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="7c59785f-f21f-43dc-b4f9-0126e203ae85" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="90" height="30" backcolor="#C0C0C0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Com]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="0ff38930-60b7-40aa-84dd-3765a1a57250" stretchType="RelativeToBandHeight" x="10" y="0" width="120" height="20"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{serviceType.name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="2870ba63-79fe-4a5c-9632-ca9910f83eae" width="90">
+						<jr:columnHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="dcc10f7c-faa6-4a3b-9018-788089ed5492" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Subtotal]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="e374a81e-2af2-4e73-be26-823cddcf9b33" x="2" y="0" width="65" height="20"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="e672e229-1a55-48e1-92ef-9f062eb74b35" positionType="Float" mode="Transparent" x="48" y="12" width="130" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Subtotais com serviços:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e672e229-1a55-48e1-92ef-9f062eb74b35" positionType="Float" mode="Transparent" x="48" y="170" width="130" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Serviços Adicionais:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="1c7b8e7d-b80e-4435-994d-51006b180a05" key="table" style="table" positionType="Float" isPrintRepeatedValues="false" x="48" y="202" width="440" height="140"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="additionalServices" uuid="e1add205-9a54-4644-a4dd-9d265dffbe30">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{additionalServices})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column uuid="5d03d633-d929-429c-ba31-b471d44f45fd" width="128">
+						<jr:columnHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="7c59785f-f21f-43dc-b4f9-0126e203ae85" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="30" backcolor="#C0C0C0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Detalhe]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="0ff38930-60b7-40aa-84dd-3765a1a57250" positionType="Float" stretchType="RelativeToTallestObject" x="10" y="0" width="106" height="20"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="2870ba63-79fe-4a5c-9632-ca9910f83eae" width="90">
+						<jr:columnHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="dcc10f7c-faa6-4a3b-9018-788089ed5492" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Preço]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="e374a81e-2af2-4e73-be26-823cddcf9b33" x="3" y="0" width="64" height="20"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="c9d43277-a20f-4b6b-a7ed-547d9f0cc8c2" positionType="Float" x="48" y="122" width="180" height="20"/>
+				<textElement/>
+				<text><![CDATA[Preço com todos os serviços:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b9e9b2e3-ce0d-4614-b90a-631a4dedcfce" positionType="Float" x="248" y="122" width="240" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{basePricePlusAllServicesIncludedInBasePrice}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="10" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="12" splitType="Stretch"/>
+	</summary>
+</jasperReport>
