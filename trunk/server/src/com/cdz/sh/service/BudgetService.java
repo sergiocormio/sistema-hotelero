@@ -12,6 +12,7 @@ public interface BudgetService {
 	
 	/**
 	 * Creates the budget of the given alternative
+	 * taking into account if it has a promotion or not
 	 * 
 	 * @param alternative
 	 * @return the given alternative with the related budget set
@@ -24,7 +25,7 @@ public interface BudgetService {
 	 * @param alternatives
 	 * @return the given alternatives with the related budgets set
 	 */
-	public List<Alternative> populatesBudgets(List<Alternative> alternatives) throws DaoException, NoRateException;
+	public List<Alternative> populateBudgets(List<Alternative> alternatives) throws DaoException, NoRateException;
 
 	
 	/**

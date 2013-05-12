@@ -3,7 +3,10 @@ package com.cdz.sh.util;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
+
+import com.cdz.sh.model.Alternative;
 
 public class DateUtil {
 
@@ -78,7 +81,40 @@ public class DateUtil {
 	
 	public static int getDaysQuantity(Date dateFrom, Date dateTo) {
 
-		return getDaysDifference(dateFrom, dateTo) + 1; //add las day inclusive
+		return getDaysDifference(dateFrom, dateTo) + 1; //add last day inclusive
+	}
+
+	
+	public static Date getMaxDateTo(List<Alternative> alternatives) {
+	
+		Date maxDateTo = null;
+		for (Alternative alternative : alternatives) {
+			if(maxDateTo == null){
+				maxDateTo = alternative.getDateTo();
+			}
+			else{
+				if(alternative.getDateTo().after(maxDateTo)){
+					maxDateTo = alternative.getDateTo();
+				}
+			}
+		}
+		return maxDateTo;
+	}
+	
+	public static Date getMinDateFrom(List<Alternative> alternatives) {
+		
+		Date minDateFrom = null;
+		for (Alternative alternative : alternatives) {
+			if(minDateFrom == null){
+				minDateFrom = alternative.getDateFrom();
+			}
+			else{
+				if(alternative.getDateFrom().before(minDateFrom)){
+					minDateFrom = alternative.getDateFrom();
+				}
+			}
+		}
+		return minDateFrom;
 	}
 	
 }
