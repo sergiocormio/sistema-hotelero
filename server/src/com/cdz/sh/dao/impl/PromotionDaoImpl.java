@@ -26,15 +26,17 @@ import com.cdz.sh.model.Season;
 public class PromotionDaoImpl extends AbstractCrudDao<Promotion, Long> implements PromotionDao {
 
 
-	private List<Promotion> retrievePromotions(Date dateFrom, Date dateTo) throws DaoException {
+	public List<Promotion> retrieveContainedPromotions(Date dateFrom, Date dateTo) throws DaoException {
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			
-			String strQuery = "SELECT p FROM Promotion p WHERE ((p.dateFrom <= :dateFrom and p.dateTo >= :dateFrom) OR" +
-								" (p.dateFrom <= :dateTo and p.dateTo >= :dateTo) OR" +
-								" (p.dateFrom >= :dateFrom and p.dateTo <= :dateTo))";
+//			String strQuery = "SELECT p FROM Promotion p WHERE ((p.dateFrom <= :dateFrom and p.dateTo >= :dateFrom) OR" +
+//					" (p.dateFrom <= :dateTo and p.dateTo >= :dateTo) OR" +
+//					" (p.dateFrom >= :dateFrom and p.dateTo <= :dateTo))";
+
+			String strQuery = "SELECT p FROM Promotion p WHERE p.dateFrom >= :dateFrom and p.dateTo <= :dateTo";
 			
 			TypedQuery<Promotion> query = entityManager.createQuery( strQuery, Promotion.class);
 			

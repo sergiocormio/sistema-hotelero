@@ -1,5 +1,7 @@
 package com.cdz.sh.service;
 
+import com.cdz.sh.exception.SHException;
+import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Promotion;
 
 /**
@@ -11,8 +13,6 @@ import com.cdz.sh.model.Promotion;
 public interface PromotionService extends CrudService<Promotion, Long>{
 	
 	
-	/**
-	 * TODO: declare specific behavior
-	 */
+	public Alternative checkPromotions(Alternative alternative) throws SHException;
 
 }

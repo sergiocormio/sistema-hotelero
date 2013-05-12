@@ -18,6 +18,7 @@ import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
+import com.cdz.sh.model.Promotion;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.model.request.CheckAvailabilityRequest;
@@ -97,18 +98,33 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		
 		List<Alternative> alternatives = createAlternatives(possibleOccupations, request);
 		
+		// post operations after validations 
+		// if we are here, this means there is at least one alternative that matches the specified filters.
 		alternatives = addPromotions(alternatives);
+		alternatives = addBudgets(alternatives);
+		alternatives = sortAlternatives(alternatives);
 		
 		return alternatives;
 	}
 
 
 
-	private List<Alternative> addPromotions(List<Alternative> alternatives) {
+	private List<Alternative> addPromotions(List<Alternative> alternatives) throws DaoException, NoRateException {
 		
+		Date maxDateTo = DateUtil.getMaxDateTo(alternatives);
+		Date minDateFrom = DateUtil.getMinDateFrom(alternatives);
 		
-	
+		List<Promotion> promotions = this.promotionDao.retrieveContainedPromotions(minDateFrom, maxDateTo);
 		
+		if(promotions.isEmpty()){
+			return alternatives;
+		}
+		
+		PromotionServiceImpl promotionServiceImpl = new PromotionServiceImpl();
+		for (Alternative alternative : alternatives) {
+			
+			alternative = promotionServiceImpl.checkPromotions(alternative, promotions);
+		}
 		
 		return alternatives;
 	}
@@ -255,11 +271,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		if(alternatives.isEmpty()){
 			throw new NoAvailableAlternativesException(ExceptionErrorCodes.NO_AVAILABLE_ALTERNATIVES, "No available alternatives. All last room changes are not valid");
 		}
-		
-		// post operations after validations 
-		alternatives = addBudgets(alternatives);
-		alternatives = sortAlternatives(alternatives);
-		
+	
 		return alternatives;
 	}
 
@@ -269,7 +281,7 @@ public class OccupationServiceImpl extends AbstractCrudService<Occupation, Occup
 		
 		BudgetService budgetService = new BudgetServiceImpl();
 		
-		return budgetService.populatesBudgets(alternatives);
+		return budgetService.populateBudgets(alternatives);
 	}
 
 	

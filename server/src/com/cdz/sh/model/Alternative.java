@@ -18,6 +18,8 @@ public class Alternative implements Comparable<Alternative>{
 	
 	private List<Room> distinctRooms;
 	
+	private Promotion promotion;
+	
 	public Alternative(){
 		this(0);
 	}
@@ -254,6 +256,18 @@ public class Alternative implements Comparable<Alternative>{
 	//This setter is just for BlazeDS
 	public void setDistinctRooms(List<Room> distinctRooms) {
 		this.distinctRooms = distinctRooms;
+	}
+
+	public Promotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
+
+	public boolean hasPromotion(){
+		return this.promotion != null;
 	}
 
 }

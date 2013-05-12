@@ -1,6 +1,5 @@
 package com.cdz.sh.service.impl;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,6 +27,7 @@ import com.cdz.sh.model.export.ExportServiceType;
 import com.cdz.sh.report.PDFReportManager;
 import com.cdz.sh.service.BudgetService;
 import com.cdz.sh.service.exception.NoRateException;
+import com.cdz.sh.util.DateUtil;
 import com.cdz.sh.util.PriceFormater;
 
 public class BudgetServiceImpl implements BudgetService {
@@ -54,23 +54,32 @@ public class BudgetServiceImpl implements BudgetService {
 		RoomType roomType = null;
 		Rate rate = null;
 		
-		for (Occupation occupation : alternative.getOccupations()) {
-			RoomType nextRoomType = occupation.getId().getRoom().getRoomType();
-			
-			if(!nextRoomType.equals(roomType)){
-				roomType = nextRoomType;
-				rate = this.rateDao.retrieveRate(nextRoomType, occupation.getId().getDate());
-				if(rate == null){
-					throw new NoRateException(ExceptionErrorCodes.NO_RATE, "There is no rate that matches with the given room type and/or the date range.");
-				}
-			}
-			
-			if(firstOccupation){
-				basePricePerDay = rate.getPrice();
-				firstOccupation = false;
-			}
-			basePrice += rate.getPrice();
+		if(alternative.hasPromotion()){
+			basePrice = alternative.getPromotion().getPrice();
+		
+			int daysQuantity = DateUtil.getDaysQuantity(alternative.getDateFrom(), alternative.getDateTo());
+			basePricePerDay = basePrice / daysQuantity;
 		}
+		else{
+			for (Occupation occupation : alternative.getOccupations()) {
+				RoomType nextRoomType = occupation.getId().getRoom().getRoomType();
+				
+				if(!nextRoomType.equals(roomType)){
+					roomType = nextRoomType;
+					rate = this.rateDao.retrieveRate(nextRoomType, occupation.getId().getDate());
+					if(rate == null){
+						throw new NoRateException(ExceptionErrorCodes.NO_RATE, "There is no rate that matches with the given room type and/or the date range.");
+					}
+				}
+				
+				if(firstOccupation){
+					basePricePerDay = rate.getPrice();
+					firstOccupation = false;
+				}
+				basePrice += rate.getPrice();
+			}
+		}
+		
 		budget.setPricePerDay(basePricePerDay);
 		budget.setBasePrice(basePrice);
 		
@@ -91,7 +100,7 @@ public class BudgetServiceImpl implements BudgetService {
 
 
 	@Override
-	public List<Alternative> populatesBudgets(List<Alternative> alternatives) throws DaoException, NoRateException {
+	public List<Alternative> populateBudgets(List<Alternative> alternatives) throws DaoException, NoRateException {
 		
 		for (Alternative alternative : alternatives) {
 			this.populateBudget(alternative);
