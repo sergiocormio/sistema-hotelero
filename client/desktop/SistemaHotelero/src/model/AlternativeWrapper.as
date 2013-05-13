@@ -8,6 +8,7 @@ package model
 	 */ 
 	public class AlternativeWrapper
 	{
+		[Bindable]
 		private var _alternative:Alternative;
 		private var _involvedRooms:String;
 		private var _dateFrom:Date;

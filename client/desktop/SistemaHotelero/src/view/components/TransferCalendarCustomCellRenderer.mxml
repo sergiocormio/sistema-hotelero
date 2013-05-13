@@ -18,9 +18,6 @@
 			import spark.components.DataGrid;
 			import spark.components.Image;
 			
-			private var busImg:Image = new Image();
-			private var planeImg:Image = new Image();
-			
 			override public function prepare(hasBeenRecycled:Boolean):void {
 				//				lblData.text = data[column.dataField]
 			}
@@ -43,18 +40,18 @@
 			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 			{
 				super.updateDisplayList(unscaledWidth, unscaledHeight);
-				if(column == null || data == null){
-					return;
-				}
-				
 				//all cells must be centered
 				lblData.horizontalCenter = 0;
 				background.color = Colors.WHITE_COLOR;
 				img1.source = null;
 				img2.source = null;
+				if(column == null || data == null || data[column.dataField] == null){
+					return;
+				}
+				
 				if(column.columnIndex == 0){
 					background.color = Colors.GRAY_COLOR;
-					data[column.dataField] = data[column.dataField];// + ":00";
+					//data[column.dataField] = data[column.dataField];// + ":00";
 					return;
 				}
 				

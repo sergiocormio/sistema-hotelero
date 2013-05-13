@@ -257,6 +257,7 @@
    		<plural>nights</plural>
     </night>
     <promotion>
+    	<singular>Promotion</singular>
     	<plural>Promotions</plural>
     	<name>Name</name>
     	<description>Description</description>
