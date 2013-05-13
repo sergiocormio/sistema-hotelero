@@ -92,7 +92,7 @@
 			 */ 
 			private function selectRenderer(item:Object, column: GridColumn):IFactory
 			{
-				  if(item!=null){
+				if(item!=null){
 					return calendarCustomCellRenderer;
 				}else{   
 					return defaultGridItemRenderer;

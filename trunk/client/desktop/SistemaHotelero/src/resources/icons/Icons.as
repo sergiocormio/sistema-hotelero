@@ -124,6 +124,10 @@ package resources.icons
 		[Bindable]
 		[Embed(source='resources/icons/advertisment.png')]
 		public static var promotions:Class;
+		
+		[Bindable]
+		[Embed(source='advertisment16x16.png')]
+		public static var promotion:Class;
 
 		[Bindable]
 		[Embed(source='resources/icons/Bank-icon 24.png')]

@@ -353,7 +353,7 @@
 							</s:layout>  
 							
 							<s:FormItem label="{loc.availability.adultsQuantity}:" required="true">
-								<s:NumericStepper id="adultsQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+								<s:NumericStepper id="adultsQtyStepper" maximum="{Number.MAX_VALUE}" width="50" value="1"/>
 							</s:FormItem>
 							
 							<s:FormItem label="{loc.availability.childrenQuantity}:" required="true">

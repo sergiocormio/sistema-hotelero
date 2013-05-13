@@ -12,12 +12,25 @@ package model
 		private var _roomChanges:int;
 		private var _newRoomAvailableDays:int;
 		private var _distinctRooms:ArrayCollection;
+		[Bindable]
+		private var _promotion:Promotion;
 		
 		public function Alternative()
 		{
 		}
 		
 		//GETTERS AND SETTERS
+		[Bindable] 
+		public function get promotion():Promotion
+		{
+			return _promotion;
+		}
+
+		public function set promotion(value:Promotion):void
+		{
+			_promotion = value;
+		}
+
 		public function get distinctRooms():ArrayCollection
 		{
 			return _distinctRooms;
