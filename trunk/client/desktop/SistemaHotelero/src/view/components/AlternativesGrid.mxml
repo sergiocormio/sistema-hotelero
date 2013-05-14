@@ -7,23 +7,27 @@
 	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
-			import model.Alternative;
+			import locales.Locale;
+			
 			import model.AlternativeWrapper;
-			import model.Occupation;
-			import model.Room;
+			import model.Promotion;
 			
 			import mx.collections.ArrayCollection;
+			import mx.containers.TitleWindow;
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
 			
 			import resources.Colors;
 			
+			import spark.events.GridEvent;
 			import spark.events.GridSelectionEvent;
-			import spark.skins.spark.DefaultGridItemRenderer;
 			
 			import utils.DateTimeUtils;
+			import utils.WindowsUtils;
 			
-			//cell Renderers
-			private var defaultGridItemRenderer:IFactory = new ClassFactory(DefaultGridItemRenderer);
-			private var promotionItemRenderer:IFactory = new ClassFactory(view.components.PromotionItemRenderer);
+			import view.forms.crud.individual.PromotionIndividualCRUDForm;
+						
+			private var titleWindow:TitleWindow;
 			
 			[Bindable]
 			public var loc:Object;
@@ -50,16 +54,34 @@
 				return DateTimeUtils.formatDateWithPattern(item [column.dataField] as Date,loc.dateFormat);
 			}
 			
-			/**
-			 * Chooses a renderer dependendig on "column"
-			 */ 
-			private function selectRenderer(item:Object, column: GridColumn):IFactory
+			protected function grid_gridClickHandler(event:GridEvent):void
 			{
-				if(item!=null){
-					return promotionItemRenderer;
-				}else{   
-					return defaultGridItemRenderer;
+				var row:Object = event.item;
+				//if there was a valid row o user clicked on room cell, do nothing.
+				if(row == null || (event.columnIndex != 5 && event.columnIndex != 6)) { 
+					return;
 				}
+				
+				if(event.columnIndex == 5){ //User clicks on Promotion
+					var promotion:Promotion = row.alternative.promotion;
+					if(promotion!=null){
+						//TODO: make a promotion view
+						var promotionIndividual:PromotionIndividualCRUDForm = new PromotionIndividualCRUDForm();
+						promotionIndividual.loc = loc;
+						promotionIndividual.addEventListener("cancelClicked",titleWindow_close);
+						titleWindow = WindowsUtils.openDialog(loc.promotion.singular,promotionIndividual);
+						promotionIndividual.currentPromotion = promotion;
+					}
+				}else if(event.columnIndex == 6){ //user clicks on View
+					var alternativeInCalendar:AlternativeViewInCalendar = new AlternativeViewInCalendar();
+					alternativeInCalendar.alternative = row as AlternativeWrapper;
+					alternativeInCalendar.addEventListener("closeClicked",titleWindow_close);
+					titleWindow = WindowsUtils.openDialog(loc.alternative.alternativeView,alternativeInCalendar);
+				}
+			}
+			
+			private function titleWindow_close(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
 			}
 			
 		]]>
@@ -68,7 +90,8 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{alternatives}" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}"
-				selectionChange="grid_selectionChangeHandler(event)" skinClass="view.skins.CustomDataGridSkin">
+				selectionChange="grid_selectionChangeHandler(event)" skinClass="view.skins.CustomDataGridSkin"
+				gridClick="grid_gridClickHandler(event)">
 		<s:columns>
 			<s:ArrayList>
 				<s:GridColumn dataField="involvedRooms" headerText="{loc.alternative.involvedRooms}"></s:GridColumn>
@@ -76,8 +99,7 @@
 				<s:GridColumn dataField="alternative.budget.basePricePlusAllServicesIncludedInBasePriceWithDefaultCurrency" headerText="{loc.budget.basePricePlusAllServicesIncludedInBasePrice}"></s:GridColumn>
 				<s:GridColumn dataField="dateFrom" headerText="{loc.alternative.dateFrom}" labelFunction="dateFormat"></s:GridColumn>
 				<s:GridColumn dataField="dateTo" headerText="{loc.alternative.dateTo}" labelFunction="dateFormat"></s:GridColumn>
-				<s:GridColumn width="80" dataField="alternative" headerText="{loc.promotion.singular}" resizable="false" itemRenderer="view.components.PromotionItemRenderer"  />
-				<s:GridColumn width="80" headerText="{loc.alternative.view}" resizable="false">
+				<s:GridColumn width="80" dataField="alternative.promotionIcon" headerText="{loc.promotion.singular}" resizable="false" >
 					<s:itemRenderer>
 						<fx:Component>
 							<s:GridItemRenderer clipAndEnableScrolling="true">
@@ -87,7 +109,24 @@
 									]]>
 								</fx:Script>
 								<s:HGroup verticalAlign="middle" horizontalAlign="center" width="100%" height="100%">
-									<components:ViewAlternativeButton alternative="{data}" icon="{Icons.view}"/>
+									<s:Image source="{data.promotionIcon}"/>
+								</s:HGroup>
+							</s:GridItemRenderer>
+						</fx:Component>
+					</s:itemRenderer>    
+				</s:GridColumn>
+				<s:GridColumn width="50" headerText="{loc.alternative.view}" resizable="false">
+					<s:itemRenderer>
+						<fx:Component>
+							<s:GridItemRenderer clipAndEnableScrolling="true">
+								<fx:Script>
+									<![CDATA[
+										import resources.icons.Icons;
+									]]>
+								</fx:Script>
+								<s:HGroup verticalAlign="middle" horizontalAlign="center" width="100%" height="100%">
+									<!--<components:ViewAlternativeButton alternative="{data}" icon="{Icons.view}"/>-->
+									<s:Image source="{Icons.view}"/>
 								</s:HGroup>
 							</s:GridItemRenderer>
 						</fx:Component>

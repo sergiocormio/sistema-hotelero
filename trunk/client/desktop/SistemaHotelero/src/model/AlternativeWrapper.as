@@ -1,6 +1,8 @@
 package model
 {
 	import mx.collections.ArrayCollection;
+	
+	import resources.icons.Icons;
 
 	/**
 	 * This class is a Wrapper of the model Object Alternative.
@@ -13,6 +15,7 @@ package model
 		private var _involvedRooms:String;
 		private var _dateFrom:Date;
 		private var _dateTo:Date;
+		private var _promotionIcon:Class;
 		
 		//returns an arrayCollection of AlternativeWrapper objects
 		public static function wrapAlternatives(alternatives:ArrayCollection):ArrayCollection{
@@ -31,6 +34,9 @@ package model
 			calculateInvolvedRooms();
 			calculateDateFrom();
 			calculateDateTo();
+			if(alternative.promotion!=null){
+				_promotionIcon = Icons.promotion;
+			}
 		}
 		
 	
@@ -75,6 +81,16 @@ package model
 				}
 			}
 			_dateTo = dateToAux;
+		}
+		
+		public function get promotionIcon():Class
+		{
+			return _promotionIcon;
+		}
+		
+		public function set promotionIcon(value:Class):void
+		{
+			_promotionIcon = value;
 		}
 		
 		public function get dateTo():Date
