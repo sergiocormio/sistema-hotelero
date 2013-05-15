@@ -67,11 +67,11 @@
 				if(event.columnIndex == 5){ //User clicks on Promotion
 					var promotion:Promotion = row.alternative.promotion;
 					if(promotion!=null){
-						//TODO: make a promotion view
 						var promotionIndividual:PromotionIndividualCRUDForm = new PromotionIndividualCRUDForm();
 						promotionIndividual.loc = loc;
-						promotionIndividual.addEventListener("cancelClicked",titleWindow_close);
-						titleWindow = WindowsUtils.openDialog(loc.promotion.singular,promotionIndividual);
+						promotionIndividual.addEventListener("closeClicked",titleWindow_close);
+						titleWindow = WindowsUtils.openDialog(loc.promotion.singular + " - " + promotion.name,promotionIndividual);
+						promotionIndividual.convertToPromotionView();
 						promotionIndividual.currentPromotion = promotion;
 					}
 				}else if(event.columnIndex == 6){ //user clicks on View
