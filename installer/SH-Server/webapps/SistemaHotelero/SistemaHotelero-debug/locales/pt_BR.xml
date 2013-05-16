@@ -258,6 +258,7 @@
    		<plural>noites</plural>
     </night>
     <promotion>
+    	<singular>Promoção</singular>
     	<plural>Promoções</plural>
     	<name>Nome</name>
     	<description>Descrição</description>
