@@ -168,6 +168,10 @@
 				retrieveRoomTypes();
 			}
 			
+			public function refreshForm():void{
+				retrieveRoomTypes();
+			}
+			
 			
 			private function titleWindow_close(evt:Object):void {
 				PopUpManager.removePopUp(titleWindow);

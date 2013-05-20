@@ -52,7 +52,11 @@
 			{
 				//autoloads all combos
 				retrieveCountries();
-				countriesCombo.setFocus();
+				//countriesCombo.setFocus();
+			}
+			
+			public function refreshForm():void{
+				retrieveCountries();
 			}
 			
 			public function get currentRegion():Region
