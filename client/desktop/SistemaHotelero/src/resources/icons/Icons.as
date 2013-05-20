@@ -265,6 +265,19 @@ package resources.icons
 		[Embed(source='resources/icons/Plane 16x16.png')]
 		public static var plane:Class;
 		
+		//--------------Advertisement Icons -------------
+		[Bindable]
+		[Embed(source='resources/icons/preview32x32.png')]
+		public static var preview:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/send_email32x32.png')]
+		public static var sendEmail:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/insert_image32x32.png')]
+		public static var insertImage:Class;
+		
 		public function Icons()
 		{
 		}
