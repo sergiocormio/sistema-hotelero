@@ -52,7 +52,7 @@ package utils
 			
 			
 			DebugLog.log(errMsg + " " + faultString);
-			Alert.show(errMsg + " " + faultString , loc.validator.error );
+			Alert.show(errMsg, loc.validator.error);
 		}
 	}
 }
