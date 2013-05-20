@@ -393,8 +393,8 @@
     </userSetting>
     <validator>
     	<error>Error</error>
-    	<requiredFieldError>Required ield</requiredFieldError>
-    	<invalidFieldValueError>Invalid alue</invalidFieldValueError>
+    	<requiredFieldError>Required field</requiredFieldError>
+    	<invalidFieldValueError>Invalid value</invalidFieldValueError>
     	<precisionError>More than three decimal digits are not allowed</precisionError>
     	<invalidRange>Invalid date range</invalidRange>
     	<emptyEmailAndPhonesError>At least one of the following fields must be filled: E-Mail, Phone Number, Cellphone Number</emptyEmailAndPhonesError>
