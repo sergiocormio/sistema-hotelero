@@ -149,6 +149,10 @@
 				retrieveRoomTypes();			
 			}
 			
+			public function refreshForm():void{
+				retrieveRoomTypes();
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>

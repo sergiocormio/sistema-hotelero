@@ -119,6 +119,7 @@
 			
 			public function refreshForm():void{
 				retrieveAllRooms();
+				individual.refreshForm();
 			}
 			
 			// Creates a ContextMenu

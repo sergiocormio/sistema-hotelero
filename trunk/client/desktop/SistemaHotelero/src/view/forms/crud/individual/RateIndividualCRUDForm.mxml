@@ -143,6 +143,11 @@
 				retrieveSeasons();
 			}
 			
+			public function refreshForm():void{
+				retrieveRoomTypes();
+				retrieveSeasons();
+			}
+			
 			private function retrieveSeasons():void{
 				var seasonServ:SeasonService = new SeasonService();
 				seasonServ.retrieveAll(retrieveSeasons_resultHandler,FaultHandler.defaultFaultHandler);
