@@ -212,7 +212,7 @@
 				SistemaHotelero.addEventListener(SistemaHotelero.SERVER_READY,initializeForm);
 			}
 			
-			private function initializeForm(event:Event = null):void{
+			public function initializeForm(event:Event = null):void{
 				DebugLog.log("Initializing Reservation Form (Individual Form)...");
 				retrieveCustomers();
 				loadStates();
