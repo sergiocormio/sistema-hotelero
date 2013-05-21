@@ -251,6 +251,8 @@
 				
 				reservationFormForm.currentReservationForm = rf;
 				reservationFormForm.alternative = alternativeSelected.alternative;
+				//pre-load comboboxes
+				reservationFormForm.initializeForm();
 			}
 			
 			private function titleWindow_close(evt:Object):void {
