@@ -138,17 +138,14 @@
 				if(filterByRoom.selected){
 					if(dateChooser.selectedDate != null && roomsCombo.selectedIndex>-1){
 						var roomSelected:Room = roomsCombo.selectedItem as Room;
-						new ReservationFormService().retrieveReservationFormsByDateAndRoom(dateChooser.selectedDate,roomSelected,retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
+						new ReservationFormService().retrieveActiveReservationFormsByDateAndRoom(dateChooser.selectedDate,roomSelected,retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
 					}
 				}else{
-					var dateFrom:Date = null;
-					var dateTo:Date = null;
 					var customer:Customer = null;
-					var state:String = null;
 					
 					if(customersCombo.selectedIndex > -1){
 						customer = customersCombo.selectedItem as Customer;
-						new ReservationFormService().retrieveReservationForms(dateFrom, dateTo, customer, state, retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
+						new ReservationFormService().retrieveActiveReservationFormsByCustomer(customer, retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
 					}
 				}
 				

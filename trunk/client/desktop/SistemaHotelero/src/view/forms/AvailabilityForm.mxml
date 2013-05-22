@@ -90,6 +90,11 @@
 				
 			protected function consultButton_clickHandler(event:MouseEvent):void
 			{
+				// remove the previous result just in case !allFieldsAreValid...
+				// the idea is not to confuse the user with the displayed results
+				alternatives.removeAll();
+				outOfPeriodAlternatives.removeAll();
+				
 				// Validate all form
 				if(!allFieldsAreValid()){
 					return;

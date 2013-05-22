@@ -510,7 +510,7 @@
 				
 				<s:FormItem id="customerItem" label="{loc.customer.singular}:" required="true">
 					<s:HGroup>
-						<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="200"/>
+						<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="200" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveCustomers();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addCustomer();" icon="{Icons.add}"

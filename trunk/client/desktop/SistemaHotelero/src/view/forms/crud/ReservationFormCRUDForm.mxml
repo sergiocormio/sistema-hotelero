@@ -445,6 +445,7 @@
 								<s:GridColumn dataField="adultsQuantity" headerText="{loc.reservationForm.adultsQuantity}"/>
 								<s:GridColumn dataField="childrenQuantity" headerText="{loc.reservationForm.childrenQuantity}"/>
 								<s:GridColumn dataField="pricePerDayWithDefaultCurrency" headerText="{loc.reservationForm.pricePerDay}"/>
+								<s:GridColumn dataField="totalPriceWithDefaultCurrency" headerText="{loc.reservationForm.totalPrice}"/>
 								<s:GridColumn dataField="monetaryReserveWithDefaultCurrency" headerText="{loc.reservationForm.monetaryReserve}"/>
 								<s:GridColumn dataField="bank.name" headerText="{loc.bank.singular}"/>
 								<s:GridColumn dataField="bankDocumentNumber" headerText="{loc.reservationForm.bankDocumentNumber}"/>
@@ -460,7 +461,7 @@
 				<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addReservationForm()"
 									modifyClicked="modifyReservationForm()" removeClicked="deleteReservationForm()"
 									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-									removeButtonEnabled="{grid.selectedItem!=null}"/>
+									removeButtonEnabled="false"/>
 				<s:Group width="100%" height="100%">
 					<s:Rect width="100%" height="100%" radiusX="5">
 						<s:stroke>

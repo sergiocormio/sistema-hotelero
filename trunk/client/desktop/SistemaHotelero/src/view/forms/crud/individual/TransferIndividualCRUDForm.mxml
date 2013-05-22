@@ -118,9 +118,19 @@
 				}
 			}
 			
-			private function allFieldsAreValid():Boolean{
-					
+			private function allFieldsAreValid():Boolean {
+				
 				var isValidForm:Boolean;
+				
+				// validate reservationForm for all cases
+				reservationFormsValidator.enabled = true;
+				isValidForm = reservationFormsValidator.validate().type == "valid";
+				reservationFormsValidator.enabled = false;
+				
+				if(!isValidForm) {
+					return isValidForm;
+				}
+				
 				var selectedServiceType:ServiceType = serviceTypesCombo.selectedItem;
 				
 				// selected one way transfer: need to validate only one date
@@ -302,7 +312,7 @@
 			//RESERVATION FORMS
 			private function retrieveReservationForms():void{
 				var serv:ReservationFormService = new ReservationFormService();
-				serv.retrieveAll(retrieveReservationForms_resultHandler,FaultHandler.defaultFaultHandler);
+				serv.retrieveActiveReservationForms(retrieveReservationForms_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -410,6 +420,15 @@
 							source="{transferId}"
 							property="text"
 							/>-->
+		<mx:NumberValidator id="reservationFormsValidator"
+							enabled="false"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{reservationFormsCombo}"
+							property="selectedIndex" 
+							/>
 		<mx:DateValidator id="transferDateValidatorCarryBack"
 						  enabled="false"
 						  required="true"
@@ -494,7 +513,7 @@
 				<s:layout>
 					<s:FormLayout gap="-14"/>
 				</s:layout>
-				<s:FormItem label="{loc.reservationForm.singular}:">
+				<s:FormItem label="{loc.reservationForm.singular}:" required="true">
 					<s:HGroup>
 						<s:ComboBox id="reservationFormsCombo" dataProvider="{reservationForms}" 
 									labelField="name" requireSelection="true"
