@@ -66,7 +66,7 @@ public class TestReservationFormDao {
 		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
 		Room room = this.roomDao.getRecordById(1L);
 					
-		this.reservationFormDao.retrieveReservationForms(calendar.getTime(), room);
+		this.reservationFormDao.retrieveActiveReservationForms(calendar.getTime(), room);
 		
 	}
 	

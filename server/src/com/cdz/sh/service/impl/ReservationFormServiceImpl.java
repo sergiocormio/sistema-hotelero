@@ -73,11 +73,11 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ReservationForm> retrieveReservationFormsByDateAndRoom(Date date, Room room) throws DaoException {
+	public List<ReservationForm> retrieveActiveReservationFormsByDateAndRoom(Date date, Room room) throws DaoException {
 		
 		this.checkReservationFormsExpirationTrigger.executeAction();
 		
-		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(date, room);
+		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveActiveReservationForms(date, room);
 		
 		Collections.sort(reservationForms);
 		
@@ -158,13 +158,27 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 	@Override
 	public Collection<ReservationForm> retrieveAll() throws DaoException {
 		
-		this.checkReservationFormsExpirationTrigger = new CheckReservationFormsExpirationTrigger();
+		this.checkReservationFormsExpirationTrigger.executeAction();
 		
 		return super.retrieveAll();
 	}
 
 	
+	@Override
+	public List<ReservationForm> retrieveActiveReservationForms() throws DaoException {
+		
+		this.checkReservationFormsExpirationTrigger.executeAction();
+		
+		return this.reservationFormDao.retrieveActiveReservationForms();
+	}
 
+	@Override
+	public List<ReservationForm> retrieveActiveReservationFormsByCustomer(Customer customer) throws DaoException {
+		
+		this.checkReservationFormsExpirationTrigger.executeAction();
+		
+		return this.reservationFormDao.retrieveActiveReservationForms(customer);
+	}
 	
 	
 	
