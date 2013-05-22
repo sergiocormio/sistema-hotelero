@@ -55,6 +55,12 @@ public interface ReservationFormService extends CrudService<ReservationForm, Lon
 	public byte[] exportData(ReservationForm reservationForm, String selectedLocale) throws DaoException;
 	
 	
-	public List<ReservationForm> retrieveReservationFormsByDateAndRoom(Date date, Room room) throws DaoException;
+	public List<ReservationForm> retrieveActiveReservationFormsByDateAndRoom(Date date, Room room) throws DaoException;
+	
+	
+	public List<ReservationForm> retrieveActiveReservationFormsByCustomer(Customer customer) throws DaoException;
+	
+	
+	public List<ReservationForm> retrieveActiveReservationForms() throws DaoException;
 	
 }

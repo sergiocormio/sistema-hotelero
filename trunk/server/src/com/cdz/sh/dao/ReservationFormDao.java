@@ -33,7 +33,14 @@ public interface ReservationFormDao extends CrudDao<ReservationForm, Long> {
 	public List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, Customer customer, StateReservationForm state) throws InvalidParameterException, DaoException;
 	
 	
-	public List<ReservationForm> retrieveReservationForms(Date date, Room room) throws DaoException;
+	public List<ReservationForm> retrieveActiveReservationForms(Date date, Room room) throws DaoException;
 
+	
+	public List<ReservationForm> retrieveActiveReservationForms(Customer customer) throws DaoException;
+	
+	
+	public List<ReservationForm> retrieveActiveReservationForms() throws DaoException;
+	
+	
 
 }
