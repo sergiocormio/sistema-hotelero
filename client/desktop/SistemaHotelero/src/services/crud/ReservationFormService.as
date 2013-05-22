@@ -38,12 +38,28 @@ package services.crud
 			remoteObject.retrieveReservationForms(dateFrom, dateTo, customer, state);
 		}
 		
-		public function retrieveReservationFormsByDateAndRoom(date:Date, room:Room,resultHandler:Function,faultHandler:Function=null):void{
-			remoteObject.retrieveReservationFormsByDateAndRoom.addEventListener("result", resultHandler);
+		public function retrieveActiveReservationFormsByDateAndRoom(date:Date, room:Room,resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.retrieveActiveReservationFormsByDateAndRoom.addEventListener("result", resultHandler);
 			if(faultHandler!=null){
-				remoteObject.retrieveReservationFormsByDateAndRoom.addEventListener("fault", faultHandler);
+				remoteObject.retrieveActiveReservationFormsByDateAndRoom.addEventListener("fault", faultHandler);
 			}
-			remoteObject.retrieveReservationFormsByDateAndRoom(date, room);
+			remoteObject.retrieveActiveReservationFormsByDateAndRoom(date, room);
+		}
+		
+		public function retrieveActiveReservationFormsByCustomer(customer:Customer, resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.retrieveActiveReservationFormsByCustomer.addEventListener("result", resultHandler);
+			if(faultHandler!=null){
+				remoteObject.retrieveActiveReservationFormsByCustomer.addEventListener("fault", faultHandler);
+			}
+			remoteObject.retrieveActiveReservationFormsByCustomer(customer);
+		}
+		
+		public function retrieveActiveReservationForms(resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.retrieveActiveReservationForms.addEventListener("result", resultHandler);
+			if(faultHandler!=null){
+				remoteObject.retrieveActiveReservationForms.addEventListener("fault", faultHandler);
+			}
+			remoteObject.retrieveActiveReservationForms();
 		}
 	}
 }
