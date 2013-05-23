@@ -387,6 +387,14 @@ public class MasterDataFactory {
 			
 			this.documentTypeDao.createRecord(docTypeSSN);
 		}
+		DocumentType docTypePassport = this.documentTypeDao.getRecordById(4L);
+		if(docTypePassport == null){
+			docTypePassport = new DocumentType();
+			docTypePassport.setName("Pasaporte");
+			docTypePassport.setRegExp("^[0-9][a-z][A-Z]{9}");
+			
+			this.documentTypeDao.createRecord(docTypePassport);
+		}
 		
 		
 	}
