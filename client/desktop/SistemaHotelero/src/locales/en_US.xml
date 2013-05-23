@@ -16,6 +16,8 @@
 		<emailTestSent>The testing message has been sent to</emailTestSent>
 		<images>Images</images>
 		<error>
+			<noRegionSelected>At least one region must be selected</noRegionSelected>
+			<noMonthSelected>At least one birth month must be selected</noMonthSelected>
 			<noCustomerSelected>There are no customers that match with the selected options.</noCustomerSelected>
 		</error>
 	</advertisement>
