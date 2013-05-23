@@ -77,6 +77,27 @@
 				retrieveRegions();
 			}
 			
+			
+			private function updateRegionSelection():void
+			{
+				if(allRegions.selected)
+				{
+					var arrayLength:int = (regionsMultiList.dataProvider as ArrayCollection).length;
+					var vector:Vector.<int> = new Vector.<int>(arrayLength);
+					
+					for (var i:Number = 0; i < arrayLength; i++) {
+						vector[i] = i;
+					}
+					
+					regionsMultiList.selectedIndices = vector;
+				}
+				else
+				{
+					regionsMultiList.selectedIndices = null;
+				}
+			}
+			
+			
 			private function updateMonthSelection():void
 			{
 				if(allMonths.selected)
@@ -159,14 +180,19 @@
 			
 			private function checkFilter():void {
 			
-				if(regionsCombo.selectedIndices == null || regionsCombo.selectedIndices.length == 0 ||
-				   monthsMultiList.selectedIndices == null || monthsMultiList.selectedIndices.length == 0){
+				if(regionsMultiList.selectedIndices == null || regionsMultiList.selectedIndices.length == 0){
+					Alert.show(loc.advertisement.error.noRegionSelected);
+					return;
+				}
+				
+				if(monthsMultiList.selectedIndices == null || monthsMultiList.selectedIndices.length == 0){
+					Alert.show(loc.advertisement.error.noMonthSelected);
 					return;
 				}
 				
 				var selectedRegions:ArrayCollection = new ArrayCollection();
 				
-				for each (var selectedRegionIndex:int in regionsCombo.selectedIndices){
+				for each (var selectedRegionIndex:int in regionsMultiList.selectedIndices){
 					selectedRegions.addItem(regions.getItemAt(selectedRegionIndex));
 				}
 				
@@ -295,11 +321,12 @@
 								
 								<s:FormItem id="countriesItem" label="{loc.advertisement.SendEmailsTo}:" required="true">
 									<s:HGroup>
-										<components:MultiSelectList id="regionsCombo" dataProvider="{regions}" labelField="qualifiedName" 
+										<components:MultiSelectList id="regionsMultiList" dataProvider="{regions}" labelField="qualifiedName" 
 												allowMultipleSelection="true" maxHeight="240"/>
 																	
 										<s:Button width="24" height="24" click="loadPlaces();"
 												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+										<s:CheckBox id="allRegions" label="{loc.advertisement.all}" click="updateRegionSelection()" />
 									</s:HGroup>
 								</s:FormItem>
 																

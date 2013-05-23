@@ -16,6 +16,8 @@
 		<emailTestSent>Se ha enviado un mensaje de prueba a</emailTestSent>
 		<images>Imágenes</images>
 		<error>
+			<noRegionSelected>Debe elegir al menos una region</noRegionSelected>
+			<noMonthSelected>Debe elegir al menos un mes de nacimiento</noMonthSelected>
 			<noCustomerSelected>No existen clientes asociados al criterio de búsqueda elegido.</noCustomerSelected>
 		</error>
 	</advertisement>
