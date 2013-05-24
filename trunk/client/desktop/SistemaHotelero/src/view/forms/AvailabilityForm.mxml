@@ -266,6 +266,7 @@
 			
 			private function reservationForm_saveSuccess(evt:Object):void {
 				PopUpManager.removePopUp(titleWindow);
+				cleanComponents();
 				dispatchEvent(new Event("reservationFormHasChanged"));
 			}
 			
