@@ -280,7 +280,7 @@
 			}
 			
 			public function refreshForm():void{
-				//Nothing to do here
+				cleanComponents();
 			}
 		]]>
 	</fx:Script>
