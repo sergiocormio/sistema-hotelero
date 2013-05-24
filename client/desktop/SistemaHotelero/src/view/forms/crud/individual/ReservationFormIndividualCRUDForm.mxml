@@ -296,13 +296,21 @@
 			
 			protected function loadManualAlternative():void
 			{
+				
+				
 				manualAlternativeForm = new ManualAlternativeForm();
 				manualAlternativeForm.loc = loc;
 				manualAlternativeForm.readOnly = isUpdate;
 				manualAlternativeForm.alternative = alternative;
 				manualAlternativeForm.addEventListener("saveClicked",manualAlternative_saveSuccess);
 				manualAlternativeForm.addEventListener("cancelClicked",titleWindow_close);
-				titleWindow = WindowsUtils.openDialog(loc.lodgement.loadLodgementManually,manualAlternativeForm);
+				var title:String = loc.lodgement.loadLodgementManually;
+				//if manualAlternativeForm.readOnly
+				if(isUpdate){
+					title = loc.lodgement.viewLodgement;
+					manualAlternativeForm.setDatesToShow(currentReservationForm.dateFrom,currentReservationForm.dateTo);
+				}
+				titleWindow = WindowsUtils.openDialog(title,manualAlternativeForm);
 			}
 			
 			private function manualAlternative_saveSuccess(evt:Object):void {

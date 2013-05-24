@@ -222,6 +222,7 @@
     	<singular>Hospedaje</singular>
     	<plural>Hospedajes</plural>
     	<loadLodgementManually>Cargar Hospedaje Manualmente</loadLodgementManually>
+    	<viewLodgement>Ver Hospedaje</viewLodgement>
     </lodgement>
     <maintenance>
     	<singular>Servicio de Camarera</singular>
