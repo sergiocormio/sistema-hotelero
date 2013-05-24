@@ -244,16 +244,44 @@
 				}else{ //if is not editable
 					//if it's not an empty cell... shows the reservation forms summary
 					if(reservationForms != null){
-						var form:ReservationFormSummary = new ReservationFormSummary();
-						form.loc = loc;
-						form.reservationForms = reservationForms;
-						form.addEventListener("okClicked",titleWindow_close);
-						titleWindow = WindowsUtils.openDialog(loc.reservationForm.plural + " - " + event.column.headerText,form);
+						//excludes "Alternatives" from reservationForms List
+						reservationForms = excludeAlternatives(reservationForms);
+						if(reservationForms.length >0){
+							var form:ReservationFormSummary = new ReservationFormSummary();
+							form.loc = loc;
+							form.reservationForms = reservationForms;
+							form.addEventListener("okClicked",titleWindow_close);
+							titleWindow = WindowsUtils.openDialog(loc.reservationForm.plural + " - " + event.column.headerText,form);
+						}
 					}
 					
 				}
 			}
 
+			//removes alternatives from a list passed by parameter
+			private function excludeAlternatives(reservationFormList:ArrayCollection):ArrayCollection{
+				//verifies first if there are any alternative
+				var found:Boolean = false;
+				for each (var elem:Object in reservationFormList){
+					if(elem == IT_IS_AN_ALTERNATIVE){
+						found = true;
+						break;
+					}
+				}
+				
+				if(found){
+					var auxList:ArrayCollection = new ArrayCollection();
+					for each (var elem2:Object in reservationFormList){
+						if(elem2 != IT_IS_AN_ALTERNATIVE){
+							auxList.addItem(elem2);
+						}
+					}
+					return auxList;
+				}else{ // there are no alternatives, returns the same collection
+					return reservationFormList;
+				}
+			}
+			
 			private function titleWindow_close(evt:Object):void {
 				PopUpManager.removePopUp(titleWindow);
 			}
