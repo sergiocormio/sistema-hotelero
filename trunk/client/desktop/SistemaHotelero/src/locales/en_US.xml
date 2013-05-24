@@ -222,6 +222,7 @@
     	<singular>Lodgement</singular>
     	<plural>Lodgements</plural>
     	<loadLodgementManually>Load Lodgement Manually</loadLodgementManually>
+    	<viewLodgement>View Lodgement</viewLodgement>
     </lodgement>
     <maintenance>
     	<singular>Cleaning Service</singular>

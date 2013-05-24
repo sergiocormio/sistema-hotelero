@@ -223,6 +223,7 @@
     	<singular>Hospedagem</singular>
     	<plural>Hospedagem</plural>
     	<loadLodgementManually>Coloque manualmente hospedagem</loadLodgementManually>
+    	<viewLodgement>Ver hospedagem</viewLodgement>
     </lodgement>
     <maintenance>
     	<singular>Serviço de Camarera</singular>

@@ -12,6 +12,7 @@
 			import locales.Locale;
 			
 			import model.Alternative;
+			import model.AlternativeWrapper;
 			import model.Occupation;
 			import model.Room;
 			
@@ -42,6 +43,13 @@
 			protected function init(event:FlexEvent):void
 			{
 				Mask.show();
+				if(alternative!=null){
+					var wrapper:AlternativeWrapper = new AlternativeWrapper(alternative);
+					if(wrapper.dateFrom!=null && wrapper.dateTo!=null){
+						calendarNavigationBar.dateFrom = wrapper.dateFrom;
+						calendarNavigationBar.dateTo = wrapper.dateTo;
+					}
+				}
 				loadRoomsToShow();
 			}
 			
@@ -160,7 +168,11 @@
 				}
 			}
 			
-			
+			public function setDatesToShow(dateFrom:Date, dateTo:Date):void{
+				calendarNavigationBar.dateFrom = dateFrom;
+				calendarNavigationBar.dateTo = dateTo;
+				calendarNavigationBar.daysToShow=DateTimeUtils.getQuantityOfDays(dateFrom,dateTo);
+			}
 			
 		]]>
 	</fx:Script>
@@ -177,7 +189,8 @@
 		<components:CalendarGrid id="grid" width="100%" height="100%" dateFrom="{calendarNavigationBar.dateFrom}" dateTo="{calendarNavigationBar.dateTo}" loc="{loc}" editable="{!readOnly}"/>
 		<components:CalendarNavigationBar id="calendarNavigationBar"  width="100%" loc="{loc}" 
 										  navigationChanged="{navigationChanged()}"
-										  refreshCalendarPressed="{refreshCalendar()}"/>
+										  refreshCalendarPressed="{refreshCalendar()}"
+										  />
 		<s:HGroup width="100%" horizontalAlign="center">
 			<s:Group>
 				<s:Button id="okButton" label="{loc.button.close}" icon="{Icons.ok}" click="cancelButton_clickHandler(event)" enabled="{readOnly}" visible="{readOnly}"/>
