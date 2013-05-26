@@ -38,7 +38,7 @@ package utils
 			var found:Boolean = false;
 			var i:int = 0;	
 			for each (var objAux:Object in combo.dataProvider){
-				if(objAux[idFieldName] == obj[idFieldName]){
+				if(objAux[idFieldName].toString() == obj[idFieldName].toString()){
 					combo.selectedItem = objAux;
 					combo.selectedIndex = i;
 					found = true;

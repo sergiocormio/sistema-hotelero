@@ -162,12 +162,13 @@
 					if(reservation.state == StateReservationForm.PRE_BOOKING){
 						confirmReservationButton.enabled = true;
 						cancelReservationButton.enabled = true;
+						addTransferButton.enabled = true;
 					}else if(reservation.state == StateReservationForm.CONFIRMED){
 						cancelReservationButton.enabled = true;
+						addTransferButton.enabled = true;
 					}
 					// always
 					exportReservationButton.enabled = true;
-					addTransferButton.enabled = true;
 				}
 				
 				individual.enabled = false;

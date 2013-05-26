@@ -1,6 +1,7 @@
 package services
 {
 	import model.CheckAvailabilityRequest;
+	import model.ReservationForm;
 
 	public class OccupationService extends RemoteObjectWrapperService
 	{
@@ -17,12 +18,21 @@ package services
 			remoteObject.checkAvailability(request);
 		}
 		
-		public function retrieveOccupations(dateFrom:Date , dateTo:Date,resultHandler:Function,faultHandler:Function=null):void{
+		public function retrieveOccupations(dateFrom:Date, dateTo:Date,resultHandler:Function,faultHandler:Function=null):void{
 			remoteObject.retrieveOccupations.addEventListener("result", resultHandler);
 			if(faultHandler!=null){
 				remoteObject.retrieveOccupations.addEventListener("fault", faultHandler);
 			}
 			remoteObject.retrieveOccupations(dateFrom,dateTo);
+		}
+		
+		
+		public function retrieveOccupationsByForm(reservationForm:ReservationForm,resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.retrieveOccupations.addEventListener("result", resultHandler);
+			if(faultHandler!=null){
+				remoteObject.retrieveOccupations.addEventListener("fault", faultHandler);
+			}
+			remoteObject.retrieveOccupations(reservationForm);
 		}
 	}
 }
