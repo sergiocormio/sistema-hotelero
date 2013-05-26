@@ -31,6 +31,7 @@
 			import resources.icons.Icons;
 			
 			import services.BudgetService;
+			import services.OccupationService;
 			import services.crud.BankService;
 			import services.crud.CustomerService;
 			import services.crud.ReservationFormService;
@@ -120,10 +121,27 @@
 				
 				WindowsUtils.autoSelectComboBox(banksCombo,_currentReservationForm.bank);
 				bankDocumentNumberText.text = _currentReservationForm.bankDocumentNumber;
-				//resets alternative
-				alternative = new Alternative();
+				
 				updateNightsLabel(calculateAmountOfNights());
+				
+				// retrieve occupations related to the current reservationForm
+				if(_currentReservationForm.id != null){
+					new OccupationService().retrieveOccupationsByForm(_currentReservationForm, occupationsByForm_resultHandler,FaultHandler.defaultFaultHandler);
+				}
 			}
+			
+			
+			private function occupationsByForm_resultHandler(event:ResultEvent,token:Object=null):void {
+				
+				var occupationsByForm:ArrayCollection = event.result as ArrayCollection;
+				
+				alternative = new Alternative();
+				alternative.occupations = occupationsByForm;
+				
+				loadManualAlternativeButton.enabled = false;
+			} 
+				
+
 			
 			private function allFieldsAreValid():Boolean{
 				

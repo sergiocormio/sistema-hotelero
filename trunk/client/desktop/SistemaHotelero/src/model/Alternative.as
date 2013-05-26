@@ -17,6 +17,8 @@ package model
 		
 		public function Alternative()
 		{
+			_occupations = new ArrayCollection();
+			_distinctRooms = new ArrayCollection();
 		}
 		
 		//GETTERS AND SETTERS
