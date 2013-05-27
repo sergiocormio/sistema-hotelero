@@ -32,6 +32,9 @@
 			
 			import services.OccupationService;
 			
+			import spark.collections.Sort;
+			import spark.collections.SortField;
+			
 			import utils.DateRange;
 			import utils.DateTimeUtils;
 			import utils.WindowsUtils;
@@ -94,12 +97,12 @@
 				// the idea is not to confuse the user with the displayed results
 				alternatives.removeAll();
 				outOfPeriodAlternatives.removeAll();
+				outOfPeriodAlternatives.refresh();
 				
 				// Validate all form
 				if(!allFieldsAreValid()){
 					return;
 				}
-				outOfPeriodAlternatives.removeAll();
 				outOfPeriodRanges = getOutOfPeriodRanges(variationStepper.value);
 				nextRangeIndex = -1;
 				//Call To the Service
@@ -122,9 +125,37 @@
 			private function consultOutOfPeriod_resultHandler(event:ResultEvent,token:Object=null):void {
 				if(event!=null){
 					outOfPeriodAlternatives.addAll(AlternativeWrapper.wrapAlternatives(event.result as ArrayCollection));
+					sortWrapperAlternatives(outOfPeriodAlternatives);	
 				}
 				getNextAlternatives();
 				
+			}
+			
+			/**
+			 * Sorts alternativeWrappers by basePrice ASC.
+			 */
+			private function sortWrapperAlternatives(wrappers:ArrayCollection):void{
+				var numericDataSort:Sort = new Sort();
+				numericDataSort.compareFunction = compareFunction;
+				wrappers.sort = numericDataSort;
+				wrappers.refresh();
+			}
+			
+			/**
+			* Compares two altenativeWrappers by baseprice, 
+			 * returns 0 if a.baseprice = baseprice
+			 * returns -1 if a.baseprice > baseprice (it must return -1 not other negative number)
+			 * returns 1 if a.baseprice < baseprice (it must return 1 not other positive number)
+			*/
+			private function compareFunction(a:Object, b:Object, array:Array = null):int
+			{
+				if(b.alternative.budget.basePrice == a.alternative.budget.basePrice){
+					return 0;
+				}else if(b.alternative.budget.basePrice > a.alternative.budget.basePrice){
+					return -1;
+				}else{
+					return 1;
+				}
 			}
 			
 			private function getNextAlternatives():void{
@@ -185,6 +216,7 @@
 				alternativeSelected = null;
 				alternatives.removeAll();
 				outOfPeriodAlternatives.removeAll();
+				outOfPeriodAlternatives.refresh();
 			}
 			
 			
