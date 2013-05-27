@@ -86,15 +86,13 @@
 			{
 				var row:Object = event.item;
 				//if there was a valid row o user clicked on room cell, do nothing.
-				if(row == null || (event.columnIndex != 5 && event.columnIndex != 6)) { 
+				if(row == null || (event.columnIndex != 5 && event.columnIndex != 6)) {
+					Mouse.cursor = MouseCursor.AUTO;
 					return;
 				}
 				
 				if(event.columnIndex == 5 || event.columnIndex == 6){ //user mouse rolls over a promotion or an alternative detail
 					Mouse.cursor = MouseCursor.BUTTON;
-				}
-				else{
-					Mouse.cursor = MouseCursor.AUTO;
 				}
 			}
 			
