@@ -273,9 +273,9 @@
 				rf.adultsQuantity = adultsQtyStepper.value;
 				rf.childrenQuantity = childrenQtyStepper.value;
 								
-				rf.pricePerDay = alternativeSelected.alternative.budget.pricePerDay;
-				rf.totalPrice = alternativeSelected.alternative.budget.basePrice;
-				rf.monetaryReserve = rf.totalPrice * 0.3;
+				rf.totalPrice = alternativeSelected.alternative.budget.basePricePlusAllServicesIncludedInBasePrice;
+				rf.pricePerDay = rf.totalPrice / calculateAmountOfNights(alternativeSelected.dateFrom,alternativeSelected.dateTo); 
+				rf.monetaryReserve = rf.totalPrice * ReservationForm.MONETARY_RESERVE_PERCENTAGE;
 				rf.remainingAmount = rf.totalPrice - rf.monetaryReserve;
 				rf.state = StateReservationForm.PRE_BOOKING;
 				rf.dateFrom = alternativeSelected.dateFrom;
@@ -290,6 +290,18 @@
 				reservationFormForm.alternative = alternativeSelected.alternative;
 				//pre-load comboboxes
 				reservationFormForm.initializeForm();
+			}
+			
+			//calculates amount of nights
+			private function calculateAmountOfNights(dateFrom:Date, dateTo:Date):Number
+			{
+				var nights:Number;
+				if(dateFrom != null && dateTo!=null){
+					nights = DateTimeUtils.getQuantityOfDays(dateFrom, dateTo) + 1;
+				}else{
+					nights = 0;
+				}
+				return nights;
 			}
 			
 			private function titleWindow_close(evt:Object):void {
