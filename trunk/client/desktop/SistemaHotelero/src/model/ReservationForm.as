@@ -22,6 +22,8 @@ package model
 		private var _bank:Bank;
 		private var _bankDocumentNumber:String;
 		
+		static public const MONETARY_RESERVE_PERCENTAGE:Number = 0.3; 
+		
 		public function ReservationForm()
 		{
 		}

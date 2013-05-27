@@ -350,9 +350,11 @@
 				alternative = event.result as Alternative;
 				var totalPrice:Number = alternative.budget.basePricePlusAllServicesIncludedInBasePrice;
 				var pricePerDay:Number = totalPrice / calculateAmountOfNights();
+				var monetaryReserve:Number = totalPrice * ReservationForm.MONETARY_RESERVE_PERCENTAGE;
 //				pricePerDayText.text = alternative.budget.pricePerDay.toString();
 				pricePerDayText.text = pricePerDay.toString();
 				totalPriceText.text = totalPrice.toString();
+				monetaryReserveText.text = monetaryReserve.toString(); 
 				calculateRemainingAmount();
 			}
 			
