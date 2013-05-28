@@ -149,6 +149,9 @@
 			*/
 			private function compareFunction(a:Object, b:Object, array:Array = null):int
 			{
+				if(a == null || b == null){
+					return 0;
+				} 
 				if(b.alternative.budget.basePrice == a.alternative.budget.basePrice){
 					return 0;
 				}else if(b.alternative.budget.basePrice > a.alternative.budget.basePrice){
