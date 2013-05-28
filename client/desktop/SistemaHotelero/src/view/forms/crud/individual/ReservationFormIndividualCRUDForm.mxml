@@ -138,7 +138,7 @@
 				alternative = new Alternative();
 				alternative.occupations = occupationsByForm;
 				
-				loadManualAlternativeButton.enabled = false;
+				//loadManualAlternativeButton.enabled = false;
 			} 
 				
 
@@ -583,7 +583,7 @@
 			
 			<s:VGroup paddingLeft="-140">
 				<s:Spacer height="130"/>
-				<s:Button id="loadManualAlternativeButton" label="{loc.lodgement.singular}" 
+				<s:Button id="loadManualAlternativeButton" label="{loc.lodgement.singular}"  
 						  icon="{Icons.calendarEdit}" iconPlacement="top" click="loadManualAlternative()"/>
 			</s:VGroup>
 			
