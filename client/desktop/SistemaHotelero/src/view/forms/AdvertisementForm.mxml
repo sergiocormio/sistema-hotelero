@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		  xmlns:s="library://ns.adobe.com/flex/spark"
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  width="100%" height="100%" creationComplete="init(event)" 
@@ -280,72 +280,70 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		
 	</fx:Declarations>
-	<mx:VDividedBox height="100%" width="100%">
-		<s:Group width="100%" height="100%">
-			<s:Rect width="100%" height="100%">
+	<s:Rect width="100%" height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+		</s:stroke>
+		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+	</s:Rect>
+	<s:VGroup height="100%" width="100%" horizontalAlign="center" paddingBottom="30" paddingLeft="30"
+			  paddingRight="30" paddingTop="30">
+		
+		<s:HGroup width="100%" verticalAlign="middle">
+			<s:Label text="{loc.advertisement.subject}:" fontWeight="bold"/>
+			<s:TextInput id="subjectText" width="100%"/>
+			<s:Label text="*" fontWeight="bold"/>
+		</s:HGroup>
+		
+		<components:RichTextEditor id="emailBodyEditor" width="100%" height="100%" title="{loc.advertisement.body}" />
+		
+		<s:Group width="100%">
+			<s:Rect width="100%" height="100%" radiusX="5">
 				<s:stroke>
-					<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+					<s:SolidColorStroke color="{Colors.RED_COLOR}" weight="2"/>
 				</s:stroke>
-				<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 			</s:Rect>
-			<s:VGroup height="100%" width="100%" horizontalAlign="center" paddingBottom="30">
-				<s:HGroup gap="5" width="100%" height="100%" verticalAlign="bottom" paddingBottom="15" paddingLeft="15">
-					<s:Button label="{loc.button.insertImage}" click="insertImage()" icon="{Icons.insertImage}" iconPlacement="top"/>
-					<s:Button label="{loc.button.preview}" click="preview()" icon="{Icons.preview}" iconPlacement="top" />
-					<s:Button label="{loc.button.send}" click="checkFilter()" icon="{Icons.sendEmail}" iconPlacement="top" />
-				</s:HGroup>
+		
+			<s:HGroup gap="5" width="100%">
 				<s:Form>
 					<s:layout>
 						<s:FormLayout gap="-14"/>
 					</s:layout>  
 					
-					<s:FormItem id="subjectItem" label="{loc.advertisement.subject}:" required="true">
-						<s:TextInput id="subjectText" widthInChars="40"/>
-					</s:FormItem>
-				</s:Form>	
-				<s:HGroup width="80%" height="100%" gap="5" horizontalAlign="center">
-						
-					<components:RichTextEditor id="emailBodyEditor" width="100%" height="100%" title="{loc.advertisement.body}" />
-					
-					<s:Group width="100%" height="100%">
-						<s:Rect width="100%" height="100%" radiusX="5">
-							<s:stroke>
-								<s:SolidColorStroke color="{Colors.RED_COLOR}" weight="2"/>
-							</s:stroke>
-						</s:Rect>
-						<s:VGroup gap="5" width="100%" height="100%">
-							<s:Form height="100%">
-								<s:layout>
-									<s:FormLayout gap="-14"/>
-								</s:layout>  
-								
-								<s:FormItem id="countriesItem" label="{loc.advertisement.SendEmailsTo}:" required="true">
-									<s:HGroup>
-										<components:MultiSelectList id="regionsMultiList" dataProvider="{regions}" labelField="qualifiedName" 
-												allowMultipleSelection="true" maxHeight="240"/>
-																	
-										<s:Button width="24" height="24" click="loadPlaces();"
-												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-										<s:CheckBox id="allRegions" label="{loc.advertisement.all}" click="updateRegionSelection()" />
-									</s:HGroup>
-								</s:FormItem>
-																
-								<s:FormItem id="monthsItem" label="{loc.advertisement.birthMonth}:" required="false">
-									<s:HGroup>
-										<components:MultiSelectList id="monthsMultiList" dataProvider="{months}" labelField="label" 
-												allowMultipleSelection="true"/>
-										<s:Button width="24" height="24" click="loadMonths();"
-												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-										<s:CheckBox id="allMonths" label="{loc.advertisement.all}" click="updateMonthSelection()" />
-									</s:HGroup>
-								</s:FormItem>
-							</s:Form>
+					<s:FormItem id="countriesItem" label="{loc.advertisement.SendEmailsTo}:" required="true">
+						<s:HGroup>
+							<components:MultiSelectList id="regionsMultiList" dataProvider="{regions}" labelField="qualifiedName" 
+														allowMultipleSelection="true" height="180" width="280"/>
 							
-						</s:VGroup>
-					</s:Group>
-				</s:HGroup>
-			</s:VGroup>	
+							<s:Button width="24" height="24" click="loadPlaces();"
+									  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+							<s:CheckBox id="allRegions" label="{loc.advertisement.all}" click="updateRegionSelection()" />
+						</s:HGroup>
+					</s:FormItem>
+				</s:Form>
+				<s:Form>
+					<s:layout>
+						<s:FormLayout gap="-14"/>
+					</s:layout>
+					<s:FormItem id="monthsItem" label="{loc.advertisement.birthMonth}:" required="false">
+						<s:HGroup>
+							<components:MultiSelectList id="monthsMultiList" dataProvider="{months}" labelField="label" 
+														allowMultipleSelection="true" height="180"/>
+							<s:Button width="24" height="24" click="loadMonths();"
+									  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+							<s:CheckBox id="allMonths" label="{loc.advertisement.all}" click="updateMonthSelection()" />
+						</s:HGroup>
+					</s:FormItem>
+				</s:Form>
+			</s:HGroup>
 		</s:Group>
 		
-	</mx:VDividedBox>
-</s:VGroup>
+		
+		<s:HGroup gap="5" width="100%" verticalAlign="middle" horizontalAlign="right">
+			<s:Button label="{loc.button.insertImage}" click="insertImage()" icon="{Icons.insertImage}" iconPlacement="top"/>
+			<s:Button label="{loc.button.preview}" click="preview()" icon="{Icons.preview}" iconPlacement="top" />
+			<s:Button label="{loc.button.send}" click="checkFilter()" icon="{Icons.sendEmail}" iconPlacement="top" />
+		</s:HGroup>
+	</s:VGroup>	
+		
+</s:Group>
