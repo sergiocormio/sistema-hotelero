@@ -192,6 +192,7 @@
 			{
 				grid.selectedItem = null;
 				individual.currentReservationForm = new ReservationForm();
+				individual.alternative = null; //resets its alternative
 				individual.isUpdate = false;
 				individual.stateList.selectedIndex = 0;
 				individual.customersCombo.selectedIndex = 0;

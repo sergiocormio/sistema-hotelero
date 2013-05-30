@@ -42,18 +42,17 @@
 			
 			protected function init(event:FlexEvent):void
 			{
-				Mask.show();
-				if(alternative!=null){
+				/* if(alternative!=null){
 					var wrapper:AlternativeWrapper = new AlternativeWrapper(alternative);
 					if(wrapper.dateFrom!=null && wrapper.dateTo!=null){
-						calendarNavigationBar.dateFrom = wrapper.dateFrom;
-						calendarNavigationBar.dateTo = wrapper.dateTo;
+						setDatesToShow(wrapper.dateFrom,wrapper.dateTo);
 					}
-				}
+				} */
 				loadRoomsToShow();
 			}
 			
 			private function loadRoomsToShow():void{
+				Mask.show();
 				new RoomService().retrieveAll(retrieveAllRooms_resultHandler,faultHandler);
 			}
 			
@@ -70,6 +69,7 @@
 				grid.occupations = new ArrayCollection();
 				grid.occupations.addAll(event.result as ArrayCollection);
 				if(alternative!=null && alternative.occupations!=null){
+					//TODO this line remove manualOccupations added recently
 					grid.manualOccupations = new ArrayCollection();
 					grid.manualOccupations.addAll(alternative.occupations);
 				}
@@ -105,13 +105,12 @@
 				return grid.getUserAlternative();
 			}
 			
-			
 			public function refreshCalendar():void{
-				init(null);
+				loadRoomsToShow();
 			}
 			
 			private function navigationChanged():void{
-				init(null);
+				loadRoomsToShow();
 			}
 			
 			private function selectedOccupationsAreValid():Boolean
@@ -155,8 +154,6 @@
 				return occupations;
 				
 			}
-			
-			
 			
 			private function areContiguous(occupationCurrentDay:Occupation, occupationNextDay:Occupation):Boolean
 			{
