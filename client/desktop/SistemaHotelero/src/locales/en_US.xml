@@ -424,6 +424,7 @@
 			<noAvailableOccupations>There are no available occupations</noAvailableOccupations>
 			<noAvailableAlternatives>There are no available alternatives</noAvailableAlternatives>
 			<noRate>There is no rate associated to the dates range in order to be able to calculate the budget</noRate>
+			<noRateManual>There is no rate associated to each selected occupation</noRateManual>
 			<emailNotSent>The e-mail has not been sent</emailNotSent>
 			<invalidFromEmail>Invalid sender mailbox</invalidFromEmail>
 			<invalidFromPassword>Invalid sender password</invalidFromPassword>

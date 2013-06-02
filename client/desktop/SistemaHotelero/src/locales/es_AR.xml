@@ -424,6 +424,7 @@
 			<noAvailableOccupations>No existen ocupaciones disponibles</noAvailableOccupations>
 			<noAvailableAlternatives>No existen alternativas disponibles</noAvailableAlternatives>
 			<noRate>No existe una tarifa para calcular el presupuesto deseado</noRate>
+			<noRateManual>No existe una tarifa para cada una de las ocupaciones elegidas</noRateManual>
 			<emailNotSent>El email no fue enviado</emailNotSent>
 			<invalidFromEmail>El email emisor es inválido</invalidFromEmail>
 			<invalidFromPassword>La contraseña del email emisor es inválida</invalidFromPassword>
