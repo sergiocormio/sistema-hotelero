@@ -343,7 +343,6 @@
 				//pre-load fields: price per day and total price
 				updateNightsLabel(calculateAmountOfNights());
 				preLoadPrices();
-				titleWindow_close(null);
 			}
 			
 			private function preLoadBudget_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -356,6 +355,8 @@
 				totalPriceText.text = totalPrice.toString();
 				monetaryReserveText.text = monetaryReserve.toString(); 
 				calculateRemainingAmount();
+				
+				titleWindow_close(null);
 			}
 			
 			private function calculateRemainingAmount():void{
@@ -469,7 +470,12 @@
 			
 			private function preLoadPrices():void{
 				alternative.peopleQuantity = adultsQtyStepper.value + childrenQtyStepper.value;
-				new BudgetService().populateBudget(alternative, preLoadBudget_resultHandler, FaultHandler.defaultFaultHandler);
+				new BudgetService().populateBudget(alternative, preLoadBudget_resultHandler, popBudget_faultHandler);
+			}
+			
+			/* workaround, we are not getting the rootCause of the eception thrown by the server */
+			private function popBudget_faultHandler(event:FaultEvent,token:Object=null):void {
+				Alert.show(loc.validator.server.noRateManual, loc.validator.error); 
 			}
 			
 			public function refreshForm():void{

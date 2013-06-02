@@ -426,6 +426,7 @@
 			<noAvailableOccupations>Não existem quartos disponíveis</noAvailableOccupations>
 			<noAvailableAlternatives>Não existem alternativas disponíveis</noAvailableAlternatives>
 			<noRate>Não existe taxa para calcular o orçamento desejado</noRate>
+			<noRateManual>Não existe taxa para cada dia eleito</noRateManual>
 			<emailNotSent>O e-mail não foi enviado</emailNotSent>
 			<invalidFromEmail>O remetente do e-mail é inválido</invalidFromEmail>
 			<invalidFromPassword>A palavra-passe do remetente do e-mail é inválido</invalidFromPassword>
