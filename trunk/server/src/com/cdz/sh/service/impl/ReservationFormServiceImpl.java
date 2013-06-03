@@ -125,6 +125,11 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 				}
 			}
 		}
+		//Assumption: when we confirm a reservationForm, we have to update the monetary reserve
+		//that is the 30% of the total price
+		if(reservationForm.getState().equals(StateReservationForm.CONFIRMED)){
+			reservationForm.setMonetaryReserve(reservationForm.getTotalPrice() * 0.3);
+		}
 		super.updateRecord(reservationForm);
 	}
 
