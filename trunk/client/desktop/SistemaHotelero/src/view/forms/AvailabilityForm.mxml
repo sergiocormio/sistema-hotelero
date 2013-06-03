@@ -278,7 +278,7 @@
 								
 				rf.totalPrice = alternativeSelected.alternative.budget.basePricePlusAllServicesIncludedInBasePrice;
 				rf.pricePerDay = rf.totalPrice / calculateAmountOfNights(alternativeSelected.dateFrom,alternativeSelected.dateTo); 
-				rf.monetaryReserve = rf.totalPrice * ReservationForm.MONETARY_RESERVE_PERCENTAGE;
+				rf.monetaryReserve = 0;
 				rf.remainingAmount = rf.totalPrice - rf.monetaryReserve;
 				rf.state = StateReservationForm.PRE_BOOKING;
 				rf.dateFrom = alternativeSelected.dateFrom;
