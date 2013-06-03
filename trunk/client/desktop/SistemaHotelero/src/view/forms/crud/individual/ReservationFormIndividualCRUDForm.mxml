@@ -132,13 +132,9 @@
 			
 			
 			private function occupationsByForm_resultHandler(event:ResultEvent,token:Object=null):void {
-				
 				var occupationsByForm:ArrayCollection = event.result as ArrayCollection;
-				
 				alternative = new Alternative();
 				alternative.occupations = occupationsByForm;
-				
-				//loadManualAlternativeButton.enabled = false;
 			} 
 				
 
@@ -314,8 +310,6 @@
 			
 			protected function loadManualAlternative():void
 			{
-				
-				
 				manualAlternativeForm = new ManualAlternativeForm();
 				manualAlternativeForm.loc = loc;
 				manualAlternativeForm.readOnly = isUpdate;
@@ -489,6 +483,14 @@
 				retrieveBanks();
 			}
 			
+			protected function quantityOfPeopleChanged(event:Event):void
+			{
+				if(alternative!=null && alternative.occupations != null &&
+					alternative.occupations.length > 0){
+					preLoadPrices();
+				}
+			}
+			
 		]]>
 		
 	</fx:Script>
@@ -604,11 +606,11 @@
 				</s:layout>  
 				
 				<s:FormItem label="{loc.reservationForm.adultsQuantity}:" required="true">
-					<s:NumericStepper id="adultsQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+					<s:NumericStepper id="adultsQtyStepper" maximum="{Number.MAX_VALUE}" width="50" change="quantityOfPeopleChanged(event)"/>
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.reservationForm.childrenQuantity}:" required="true">
-					<s:NumericStepper id="childrenQtyStepper" maximum="{Number.MAX_VALUE}" width="50"/>
+					<s:NumericStepper id="childrenQtyStepper" maximum="{Number.MAX_VALUE}" width="50" change="quantityOfPeopleChanged(event)"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.reservationForm.pricePerDay}:" required="true">
 					<s:TextInput id="pricePerDayText"/>
