@@ -319,7 +319,6 @@
 				manualAlternativeForm = new ManualAlternativeForm();
 				manualAlternativeForm.loc = loc;
 				manualAlternativeForm.readOnly = isUpdate;
-				manualAlternativeForm.alternative = alternative;
 				manualAlternativeForm.addEventListener("saveClicked",manualAlternative_saveSuccess);
 				manualAlternativeForm.addEventListener("cancelClicked",titleWindow_close);
 				var title:String = loc.lodgement.loadLodgementManually;
@@ -327,6 +326,12 @@
 				if(isUpdate){
 					title = loc.lodgement.viewLodgement;
 					manualAlternativeForm.setDatesToShow(currentReservationForm.dateFrom,currentReservationForm.dateTo);
+				}else{
+					//doesn't need to show "the alternative" when is readOnly
+					//because occupations related to that alternative are already
+					//retrieved from the database... (avoids showing the same occupation twice).
+					//Only load the alternative on "new reservation form" cases.
+					manualAlternativeForm.alternative = alternative;
 				}
 				titleWindow = WindowsUtils.openDialog(title,manualAlternativeForm);
 			}

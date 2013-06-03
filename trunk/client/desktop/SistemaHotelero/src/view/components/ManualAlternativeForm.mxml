@@ -34,11 +34,10 @@
 			[Bindable]
 			public var loc:Object = Locale.getInstance().getCurrentLocale();
 			
-			public var alternative:Alternative;
+			private var _alternative:Alternative;
 			
 			[Bindable]
 			public var readOnly:Boolean; //allows showing the alternative without modification
-			
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -68,11 +67,6 @@
 			private function retrieveOccupations_resultHandler(event:ResultEvent,token:Object=null):void {
 				grid.occupations = new ArrayCollection();
 				grid.occupations.addAll(event.result as ArrayCollection);
-				if(alternative!=null && alternative.occupations!=null){
-					//TODO this line remove manualOccupations added recently
-					grid.manualOccupations = new ArrayCollection();
-					grid.manualOccupations.addAll(alternative.occupations);
-				}
 				Mask.close();
 				grid.init();
 			}
@@ -171,6 +165,18 @@
 				calendarNavigationBar.daysToShow=DateTimeUtils.getQuantityOfDays(dateFrom,dateTo);
 			}
 			
+			public function get alternative():Alternative
+			{
+				return _alternative;
+			}
+			
+			public function set alternative(value:Alternative):void
+			{
+				_alternative = value;
+				if(_alternative!=null && _alternative.occupations!=null){
+					grid.manualOccupations.addAll(_alternative.occupations);
+				}
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
