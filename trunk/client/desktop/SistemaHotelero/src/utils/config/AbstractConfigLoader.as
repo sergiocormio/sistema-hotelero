@@ -1,8 +1,9 @@
 package utils.config
 {
 	import flash.filesystem.File;
-	import flash.filesystem.FileStream;
 	import flash.filesystem.FileMode;
+	import flash.filesystem.FileStream;
+	
 	import utils.log.DebugLog;
 
 	// ABSTRACT CLASS: not supported by action script
@@ -35,11 +36,18 @@ package utils.config
 		
 		protected function writeConfig(file:File):void
 		{
-			var fileStream:FileStream = new FileStream();
-			fileStream.open(file, FileMode.WRITE);
-			fileStream.writeUTFBytes(_configXML.toString());
-			fileStream.close();
-			
+			try
+			{
+				var fileStream:FileStream = new FileStream();
+				fileStream.open(file, FileMode.WRITE);
+				fileStream.writeUTFBytes(_configXML.toString());
+				fileStream.close();
+			} 
+			catch(error:Error) 
+			{
+				DebugLog.log("Could not write to configuration file. " + error.toString() + "\n" + error.getStackTrace());				
+			}
 		}
+		
 	}
 }

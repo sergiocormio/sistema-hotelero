@@ -40,7 +40,7 @@ package utils.config
 					loadConfig(file);
 				}
 				else{
-					//load default user settings
+					//load stored user settings
 					loadConfig(file);
 				}
 			}
@@ -129,6 +129,7 @@ package utils.config
 		}
 		
 		public function update():void {
+			//Always tries to write in applicationStorageDirectory because user always has permission on it.
 			var file:File = File.applicationStorageDirectory.resolvePath(FILENAME);
 			this.writeConfig(file);
 		}
