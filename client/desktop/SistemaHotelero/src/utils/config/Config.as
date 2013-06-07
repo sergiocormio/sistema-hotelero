@@ -32,8 +32,17 @@ package utils.config
 			}
 			else
 			{
-				var file:File = File.applicationDirectory.resolvePath(FILENAME);
-				loadConfig(file);
+				// it is not allowed to write a file in applicationDirectory
+				var file:File = File.applicationStorageDirectory.resolvePath(FILENAME);
+				if(!file.exists){
+					//load default user config
+					file = File.applicationDirectory.resolvePath(FILENAME);
+					loadConfig(file);
+				}
+				else{
+					//load stored user config
+					loadConfig(file);
+				}
 			}
 		}
 		
@@ -41,8 +50,15 @@ package utils.config
 			if(_configXML!=null){
 				return _configXML.javaHomePath;
 			}else{
-			//"C:\\Program Files (x86)\\Java\\jdk1.6.0_21";
-				return "C:\\Program Files\\Java\\jre7";
+				return "C:\\SH-Server\\jre";
+			}
+		}
+		
+		public function setJavaHomePath(value:String):void{
+			if(_configXML!=null){
+				_configXML.javaHomePath = value;
+			}else{
+				throw new Error(FILENAME + " is not loaded");
 			}
 		}
 		
@@ -50,7 +66,15 @@ package utils.config
 			if(_configXML!=null){
 				return _configXML.tomcatHomePath;
 			}else{
-				return "C:\\apache-tomcat-7.0.32";
+				return "C:\\SH-Server";
+			}
+		}
+		
+		public function setTomcatHomePath(value:String):void{
+			if(_configXML!=null){
+				_configXML.tomcatHomePath = value;
+			}else{
+				throw new Error(FILENAME + " is not loaded");
 			}
 		}
 		
@@ -94,6 +118,10 @@ package utils.config
 			}
 		}
 		
-		
+		public function update():void {
+			//Always tries to write in applicationStorageDirectory because user always has permission on it.
+			var file:File = File.applicationStorageDirectory.resolvePath(FILENAME);
+			this.writeConfig(file);
+		}
 	}
 }

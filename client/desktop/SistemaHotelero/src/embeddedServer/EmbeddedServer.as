@@ -50,11 +50,10 @@ package embeddedServer
 				Alert.show("NativeProcess not supported");
 			}
 			
-			var systemConfig:Config = Config.getInstance();
 			
-			tomcatHomePath = systemConfig.getTomcatHomePath();
+			
+			tomcatHomePath = getTomcatHomePath();
 			tomcatHomeDir = new File(tomcatHomePath);
-//			tomcatHomeDir = File.applicationStorageDirectory.resolvePath("tomcat");
 			if (!tomcatHomeDir.exists)
 			{
 				/*	var tomcatOriginalDir:File = File.applicationDirectory.resolvePath("embeddedServer\\tomcat");
@@ -67,7 +66,7 @@ package embeddedServer
 				Alert.show(Locale.getInstance().getCurrentLocale().errorMessage.serverNotFound + File.lineEnding + tomcatHomePath);
 			}
 			
-			javaHomePath = systemConfig.getJavaHomePath();
+			javaHomePath = getJavaHomePath();
 			
 			var javaDir:File = new File(javaHomePath);
 			if(!javaDir.exists){
@@ -76,6 +75,56 @@ package embeddedServer
 				Alert.show(Locale.getInstance().getCurrentLocale().errorMessage.javaHomeNotFound + File.lineEnding + javaHomePath);
 			}
 			return _initialized;
+		}
+		
+		/**
+		 * Tries to return a valid tomcat path
+		 * Searching in all users drive letters
+		 */ 
+		private function getTomcatHomePath():String{ 
+			var systemConfig:Config = Config.getInstance();
+			var tomcatHomePathAux:String = systemConfig.getTomcatHomePath();
+			var originalTomcatHomePathAux:String = tomcatHomePathAux; 
+			var tomcatDirAux:File = new File(tomcatHomePathAux);
+			if (!tomcatDirAux.exists){
+				//extracts the drive letter
+				var currentDrives:Array = File.getRootDirectories() ;
+				for each(var drive:File in currentDrives){
+					tomcatHomePathAux = drive.name + tomcatHomePathAux.substring(2);
+					tomcatDirAux = new File(tomcatHomePathAux);
+					if (tomcatDirAux.exists){
+						systemConfig.setTomcatHomePath(tomcatHomePathAux);
+						systemConfig.update();
+						return tomcatHomePathAux;
+					}
+				}
+			}
+			return originalTomcatHomePathAux;
+		}
+		
+		/**
+		 * Tries to return a valid java path
+		 * Searching in all users drive letters
+		 */ 
+		private function getJavaHomePath():String{ 
+			var systemConfig:Config = Config.getInstance();
+			var javaHomePathAux:String = systemConfig.getJavaHomePath();
+			var originalJavaHomePathAux:String = javaHomePathAux; 
+			var javaDirAux:File = new File(javaHomePathAux);
+			if (!javaDirAux.exists){
+				//extracts the drive letter
+				var currentDrives:Array = File.getRootDirectories() ;
+				for each(var drive:File in currentDrives){
+					javaHomePathAux = drive.name + javaHomePathAux.substring(2);
+					javaDirAux = new File(javaHomePathAux);
+					if (javaDirAux.exists){
+						systemConfig.setJavaHomePath(javaHomePathAux);
+						systemConfig.update();
+						return javaHomePathAux;
+					}
+				}
+			}
+			return originalJavaHomePathAux;
 		}
 		
 	/*	private function fileMoveCompleteHandler(event:Object):void{ 
