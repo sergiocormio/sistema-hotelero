@@ -140,6 +140,14 @@
 	    <profession>Profesión</profession>
 	    <phoneNumber>Teléfono</phoneNumber>
 	    <cellphoneNumber>Celular</cellphoneNumber>
+	    <address>
+	    	<single>Dirección</single>
+	    	<street>Calle</street>
+	    	<city>Ciudad</city>
+	    	<state>Estado</state>
+	    	<country>País</country>
+	    	<zipCode>Código Postal</zipCode>
+	    </address>
     </customer>
     <customerPK>
     	<idNumber>Número de Documento</idNumber>
@@ -385,6 +393,7 @@
     		<pswSender>Contraseña</pswSender>
     		<confirmPswSender>Confirmar Contraseña</confirmPswSender>
     		<testEmail>Casilla de correo de prueba</testEmail>
+    		<pswDoNotMatch>La contraseña de ambos campos no coincide. Debe ingresar la misma contraseña en ambos campos.</pswDoNotMatch>
     	</mail>
     	<plural>Preferencias de Usuario</plural>
     	<reservationFormExpirationDate>

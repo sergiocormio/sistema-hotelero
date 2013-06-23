@@ -4,13 +4,15 @@ package model
 [RemoteClass (alias="com.cdz.sh.model.Customer")]
 public class Customer
 {
-	private var _id:CustomerPK;
+	private var _id:Object;
 	
 	private var _firstName:String;
 	
 	private var _lastName:String;
 	
 	private var _dateOfBirth:Date;
+	
+	private var _address:Address;
 	
 	private var _region:Region;
 	
@@ -26,9 +28,37 @@ public class Customer
 	
 	private var _phoneNumber:String;
 	
+	private var _docType:DocumentType;    
+	private var _idNumber:String;
+	
+	
+	public function get docType():DocumentType
+	{
+		return _docType;
+	}
+	
+	public function set docType(value:DocumentType):void
+	{
+		_docType = value;
+	}
+	
+	public function get idNumber():String
+	{
+		return _idNumber;
+	}
+	
+	public function set idNumber(value:String):void
+	{
+		_idNumber = value;
+	}
+	
 	public function get name():String
 	{
-		return _lastName + ", " + firstName + " [" + id.docType.name + ": " + id.idNumber + "]";
+		var name:String = _lastName + ", " + firstName;
+		if(email != null && email != ""){
+			name += " [" + email + "]";
+		}
+		return name;
 	}
 
 
@@ -112,12 +142,12 @@ public class Customer
 		_firstName = value;
 	}
 
-	public function get id():CustomerPK
+	public function get id():Object
 	{
 		return _id;
 	}
 
-	public function set id(value:CustomerPK):void
+	public function set id(value:Object):void
 	{
 		_id = value;
 	}
@@ -142,7 +172,28 @@ public class Customer
 		_phoneNumber = value;
 	}
 
+	public function get address():Address
+	{
+		return _address;
+	}
 
+	public function set address(value:Address):void
+	{
+		_address = value;
+	}
+
+
+	public function get addressAsText():String
+	{
+		if(_address != null){
+			return _address.street + ", " + _address.city + ",\n" +
+				   _address.zipCode + ", " + _address.state + ",\n" + 
+				   _address.country;
+		}
+		else{
+			return "";
+		}
+	}
 }
 
 }

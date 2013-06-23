@@ -2,6 +2,7 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		  xmlns:s="library://ns.adobe.com/flex/spark"
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  xmlns:components="view.components.*"
 		  width="100%" height="100%" creationComplete="init(event)">
 	<fx:Metadata> 
 		[Event(name="cancelClicked", type="flash.events.Event")]
@@ -63,6 +64,7 @@
 			private var languages:ArrayCollection = new ArrayCollection();
 			
 			private var titleWindow:TitleWindow;
+			private var addressForm:AddressIndividualCRUDForm;
 			private var docTypeForm:DocumentTypeIndividualCRUDForm;
 			private var countryForm:CountryIndividualCRUDForm;
 			private var regionForm:RegionIndividualCRUDForm;
@@ -77,13 +79,14 @@
 			{
 				_currentCustomer = value;
 				//load whole form
-				if(_currentCustomer.id!=null){
-					idNumberText.text = _currentCustomer.id.idNumber;
-					WindowsUtils.autoSelectComboBox(documentTypesCombo,_currentCustomer.id.docType);
+				if(_currentCustomer.docType != null){
+					WindowsUtils.autoSelectComboBox(documentTypesCombo,_currentCustomer.docType);
 				}else{
-					idNumberText.text = null;
 					documentTypesCombo.selectedIndex = 0;
 				}
+				
+				idNumberText.text = _currentCustomer.idNumber;
+				
 				firstNameText.text = _currentCustomer.firstName;
 				lastNameText.text = _currentCustomer.lastName;
 				emailText.text = _currentCustomer.email;
@@ -104,6 +107,9 @@
 				}
 				phoneNumberText.text = _currentCustomer.phoneNumber;
 				cellphoneNumberText.text = _currentCustomer.cellphoneNumber;
+				
+				addressText.text = _currentCustomer.addressAsText; 
+			
 			}
 
 			protected function init(event:FlexEvent):void
@@ -318,8 +324,8 @@
 				if(currentCustomer.id == null){
 					currentCustomer.id = new CustomerPK();
 				}
-				currentCustomer.id.idNumber = idNumberText.text;
-				currentCustomer.id.docType = documentTypesCombo.selectedItem;
+				currentCustomer.idNumber = idNumberText.text;
+				currentCustomer.docType = documentTypesCombo.selectedItem;
 				currentCustomer.firstName = firstNameText.text;
 				currentCustomer.lastName = lastNameText.text;
 				currentCustomer.email = emailText.text;
@@ -372,6 +378,22 @@
 			
 			public function refreshForm():void{
 				autoloadCombos();
+			}
+			
+			private function editAddress():void{
+				addressForm = new AddressIndividualCRUDForm();
+				addressForm.loc = loc;
+				addressForm.currentAddress = _currentCustomer.address;
+				addressForm.addEventListener("saveSuccess",address_saveSuccess);
+				addressForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.modify + ": " + loc.customer.address.single, addressForm, this);
+			}
+			
+			
+			private function address_saveSuccess(evt:Object):void {
+				_currentCustomer.address = addressForm.currentAddress;
+				addressText.text = _currentCustomer.addressAsText; 
+				PopUpManager.removePopUp(titleWindow);
 			}
 			
 		]]>
@@ -489,7 +511,16 @@
 					<s:FormLayout gap="-14"/>
 				</s:layout>  
 		
-				<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:" enabled="{!isUpdate}" required="true">
+				<s:FormItem label="{loc.customer.firstName}:" required="true">
+					<s:TextInput id="firstNameText"/>
+				</s:FormItem>
+				<s:FormItem label="{loc.customer.lastName}:" required="true">
+					<s:TextInput id="lastNameText"/>
+				</s:FormItem>
+				<s:FormItem label="{loc.customer.email}:">
+					<s:TextInput id="emailText" widthInChars="15"/>
+				</s:FormItem>
+				<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:" required="true">
 					<s:HGroup>
 						<s:ComboBox id="documentTypesCombo" dataProvider="{documentTypes}"
 									labelField="name" requireSelection="true"/>
@@ -499,17 +530,8 @@
 								  toolTip="{loc.button.add}"/>
 					</s:HGroup>
 				</s:FormItem>
-				<s:FormItem label="{loc.customerPK.idNumber}:" required="true" enabled="{!isUpdate}">
+				<s:FormItem label="{loc.customerPK.idNumber}:" required="true">
 					<s:TextInput id="idNumberText"/>
-				</s:FormItem>
-				<s:FormItem label="{loc.customer.firstName}:" required="true">
-					<s:TextInput id="firstNameText"/>
-				</s:FormItem>
-				<s:FormItem label="{loc.customer.lastName}:" required="true">
-					<s:TextInput id="lastNameText"/>
-				</s:FormItem>
-				<s:FormItem label="{loc.customer.email}:">
-					<s:TextInput id="emailText" widthInChars="15"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.customer.profession}:">
 					<s:TextInput id="professionText"/>
@@ -567,6 +589,14 @@
 				<s:FormItem label="{loc.customer.cellphoneNumber}:">
 					<s:TextInput id="cellphoneNumberText"/>
 				</s:FormItem>
+				<s:FormItem id="addressItem" label="{loc.customer.address.single}:" required="true">
+					<s:HGroup>
+						<s:TextArea id="addressText" height="50" editable="false"/>
+						<s:Button width="24" height="24" click="editAddress();"
+								  icon="{Icons.modify}" toolTip="{loc.button.modify}"/>
+						
+					</s:HGroup>
+				</s:FormItem>
 			</s:Form>
 		</s:HGroup>
 		<!-- BUTTONS -->
@@ -574,6 +604,6 @@
 			<s:Button label="{loc.button.save}" click="save()" icon="{Icons.save}"/>
 			<s:Button label="{loc.button.cancel}" click="cancel()" icon="{Icons.cancel}"/>
 		</s:HGroup>
-		<s:Spacer height="5"/>
+		<s:Spacer height="0"/>
 	</s:VGroup>
 </s:Group>

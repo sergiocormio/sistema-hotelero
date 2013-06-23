@@ -6,14 +6,17 @@
 	<fx:Script>
 		<![CDATA[
 			import locales.Locale;
-			import utils.FaultHandler;
 			
 			import model.Consumption;
+			import model.ReservationForm;
 			import model.Room;
 			
 			import mx.collections.ArrayCollection;
+			import mx.containers.TitleWindow;
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
+			import mx.events.ItemClickEvent;
+			import mx.managers.PopUpManager;
 			import mx.rpc.AsyncResponder;
 			import mx.rpc.AsyncToken;
 			import mx.rpc.events.FaultEvent;
@@ -24,11 +27,16 @@
 			import resources.icons.Icons;
 			
 			import services.crud.ConsumptionService;
+			import services.crud.ReservationFormService;
 			import services.crud.RoomService;
 			
 			import spark.events.GridSelectionEvent;
 			
 			import utils.DateTimeUtils;
+			import utils.FaultHandler;
+			import utils.WindowsUtils;
+			
+			import view.forms.ReservationFormSearcher;
 			
 			[Bindable]
 			public var loc:Object;
@@ -42,6 +50,12 @@
 			[Bindable]
 			private var rooms:ArrayCollection = new ArrayCollection();
 			
+			[Bindable]
+			private var reservationForms:ArrayCollection = new ArrayCollection();
+			
+			private var reservationFormSearcher:ReservationFormSearcher;
+			
+			private var titleWindow:TitleWindow;
 			
 			protected function consultButton_clickHandler(event:MouseEvent):void
 			{
@@ -71,9 +85,14 @@
 				
 				var valArray:Array = new Array();
 				
-				valArray.push(dateFromValidator);
-				valArray.push(dateToValidator);
-				valArray.push(roomValidator);
+				if(filterByDateRangeAndRoom.selected){
+					valArray.push(dateFromValidator);
+					valArray.push(dateToValidator);
+					valArray.push(roomValidator);
+				}
+				else{
+					valArray.push(reservationFormsValidator);
+				}
 				
 				var validatorErrorArray:Array = Validator.validateAll(valArray);
 				var isValidForm:Boolean = validatorErrorArray.length == 0;
@@ -86,32 +105,48 @@
 			
 			
 			private function setEnabledValidators(enabled:Boolean):void{
-				dateFromValidator.enabled = enabled;
-				dateToValidator.enabled = enabled;
-				roomValidator.enabled = enabled;
+				if(filterByDateRangeAndRoom.selected){
+					dateFromValidator.enabled = enabled;
+					dateToValidator.enabled = enabled;
+					roomValidator.enabled = enabled;
+				}
+				else{
+					reservationFormsValidator.enabled = enabled;
+				}
 			}
 			
 			
 			private function retrieveConsumptions():void
 			{
-				var dateFrom:Date = null;
-				var dateTo:Date = null;
-				var room:Room = null;
-				
-				if(dateFromChooser.selectedDate != null){
-					dateFrom = dateFromChooser.selectedDate; 
-				}
-				if(dateToChooser.selectedDate != null){
-					dateTo = dateToChooser.selectedDate;
-				}
-				if(roomsCombo.selectedIndex > -1){
-					room = roomsCombo.selectedItem as Room;
-				}
-				
-				if(dateFrom != null && dateTo != null && room != null){
+				if(filterByDateRangeAndRoom.selected){
 					
-					new ConsumptionService().retrieveConsumptions(dateFrom, dateTo, room, retrieveConsumptions_resultHandler, FaultHandler.defaultFaultHandler);
+					var dateFrom:Date = null;
+					var dateTo:Date = null;
+					var room:Room = null;
+					
+					if(dateFromChooser.selectedDate != null){
+						dateFrom = dateFromChooser.selectedDate; 
+					}
+					if(dateToChooser.selectedDate != null){
+						dateTo = dateToChooser.selectedDate;
+					}
+					if(roomsCombo.selectedIndex > -1){
+						room = roomsCombo.selectedItem as Room;
+					}
+					
+					if(dateFrom != null && dateTo != null && room != null){
+						
+						new ConsumptionService().retrieveConsumptions(dateFrom, dateTo, room, retrieveConsumptions_resultHandler, FaultHandler.defaultFaultHandler);
+					}
 				}
+				else{
+					if(reservationFormsCombo.selectedIndex > -1){
+						var reservationForm:ReservationForm = reservationFormsCombo.selectedItem as ReservationForm;
+						
+						new ConsumptionService().retrieveConsumptionsByReservationForm(reservationForm, retrieveConsumptions_resultHandler, FaultHandler.defaultFaultHandler);
+					}
+				}
+				
 			}
 			
 			private function retrieveConsumptions_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -147,6 +182,8 @@
 				retrieveRooms();
 				refreshGrid();
 				createContextMenu();
+				filterByDateRangeAndRoom.selected = true;
+				filterSelected_itemClickHandler(null);
 			}
 			
 			private function retrieveRooms():void{
@@ -217,6 +254,50 @@
 				//adds event listener to menu item
 				refreshItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, refreshGrid);
 			}
+			
+			protected function filterSelected_itemClickHandler(event:ItemClickEvent):void
+			{
+				if(filterByDateRangeAndRoom.selected){
+					dateFromItem.enabled = true;
+					dateToItem.enabled = true;
+					roomItem.enabled = true;
+					reservationFormItem.enabled = false;
+				}else{
+					dateFromItem.enabled = false;
+					dateToItem.enabled = false;
+					roomItem.enabled = false;
+					reservationFormItem.enabled = true;
+				}
+			}
+			
+			//RESERVATION FORMS
+			private function retrieveReservationForms():void{
+				var serv:ReservationFormService = new ReservationFormService();
+				serv.retrieveActiveReservationForms(retrieveReservationForms_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			private function retrieveReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				reservationForms.removeAll();
+				reservationForms.addAll(event.result as ArrayCollection);
+			}
+			
+			private function searchReservationForm():void{
+				reservationFormSearcher = new ReservationFormSearcher();
+				reservationFormSearcher.loc = loc;
+				reservationFormSearcher.addEventListener("onSelect",reservationFormSelected);
+				reservationFormSearcher.addEventListener("onCancel",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.reservationForm.plural,reservationFormSearcher);
+			}
+			
+			private function reservationFormSelected(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+				WindowsUtils.autoSelectComboBox(reservationFormsCombo,reservationFormSearcher.reservationFormSelected);
+			}
+			
+			private function titleWindow_close(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -256,6 +337,16 @@
 							source="{roomsCombo}"
 							property="selectedIndex" 
 							/>
+		<mx:NumberValidator id="reservationFormsValidator"
+							enabled="false"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							minValue="0"
+							lowerThanMinError="{loc.validator.requiredFieldError}" 
+							source="{reservationFormsCombo}"
+							property="selectedIndex" 
+							/>
+		<s:RadioButtonGroup id="filterSelected" itemClick="filterSelected_itemClickHandler(event)"/>
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
 		<s:HGroup width="100%" height="60%">
@@ -269,33 +360,66 @@
 				</s:Rect>
 				<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
 					<s:VGroup width="100%" verticalAlign="top" gap="0">
-						<s:HGroup width="100%" horizontalAlign="center" gap="-50">
-							
-							<s:FormItem label="{loc.consumption.dateFrom}:">
-								<mx:DateField id="dateFromChooser" width="120"
-											  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
-											  formatString="{loc.dateFormat.toUpperCase()}"
-											  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
-							</s:FormItem>
-							
-							<s:FormItem label="{loc.consumption.dateTo}:">
-								<mx:DateField id="dateToChooser" width="120"
-											  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
-											  formatString="{loc.dateFormat.toUpperCase()}"
-											  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
-							</s:FormItem>
-							<s:FormItem id="roomItem" label="{loc.consumption.roomNumber}:" required="true">
-								<s:HGroup>
-									<s:ComboBox id="roomsCombo" dataProvider="{rooms}"
-												labelField="number" requireSelection="true"/>
-									<s:Button width="24" height="24" click="retrieveRooms();"
-									icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-									<!--
-									<s:Button width="24" height="24" click="addDocumentType();" icon="{Icons.add}"
-									toolTip="{loc.button.add}"/>
-									-->
-								</s:HGroup>
-							</s:FormItem>
+						<s:HGroup width="100%" horizontalAlign="right">
+							<s:VGroup horizontalAlign="right">
+								<s:Spacer height="15"/>
+								<s:RadioButton group="{filterSelected}" id="filterByDateRangeAndRoom"/>
+								<s:Spacer height="2"/>
+								<s:RadioButton group="{filterSelected}" id="filterByReservationForm"/>
+							</s:VGroup>
+							<s:Form>
+								<s:layout>
+									<s:FormLayout gap="-14"/>
+								</s:layout> 
+								
+								<s:FormItem id="dateFromItem" label="{loc.consumption.dateFrom}:">
+									<mx:DateField id="dateFromChooser" width="120"
+												  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+												  formatString="{loc.dateFormat.toUpperCase()}"
+												  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+								</s:FormItem>
+								<s:FormItem id="reservationFormItem" label="{loc.reservationForm.singular}:" required="true">
+									<s:HGroup>
+										<s:ComboBox id="reservationFormsCombo" dataProvider="{reservationForms}" 
+													labelField="name" requireSelection="true"
+													width="260"/>
+										<s:Button width="24" height="24" click="retrieveReservationForms();"
+												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+										<s:Button width="24" height="24" click="searchReservationForm();" icon="{Icons.search}"
+												  toolTip="{loc.button.search}"/>
+									</s:HGroup>
+								</s:FormItem>
+							</s:Form>
+							<s:Form>
+								<s:layout>
+									<s:FormLayout gap="-14"/>
+								</s:layout>
+								
+								<s:FormItem id="dateToItem" label="{loc.consumption.dateTo}:">
+									<mx:DateField id="dateToChooser" width="120"
+												  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+												  formatString="{loc.dateFormat.toUpperCase()}"
+												  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+								</s:FormItem>
+							</s:Form>
+							<s:Form>
+								<s:layout>
+									<s:FormLayout gap="-14"/>
+								</s:layout>
+								
+								<s:FormItem id="roomItem" label="{loc.consumption.roomNumber}:" required="true">
+									<s:HGroup>
+										<s:ComboBox id="roomsCombo" dataProvider="{rooms}"
+													labelField="number" requireSelection="true"/>
+										<s:Button width="24" height="24" click="retrieveRooms();"
+										icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+										<!--
+										<s:Button width="24" height="24" click="addDocumentType();" icon="{Icons.add}"
+										toolTip="{loc.button.add}"/>
+										-->
+									</s:HGroup>
+								</s:FormItem>
+							</s:Form>
 						</s:HGroup>
 						<s:HGroup width="100%" horizontalAlign="center">
 							<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
