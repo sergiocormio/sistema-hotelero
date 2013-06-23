@@ -24,6 +24,15 @@ public interface CleaningService extends CrudService<Cleaning, Long>{
 	public List<Cleaning> retrieveRoomsToClean(Date date) throws DaoException;
 	
 	/**
+	 * Regenerate the list of rooms to be cleaned according to the given date, 
+	 * ignoring previous modifications by user.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public List<Cleaning> regenerateRoomsToClean(Date date) throws DaoException;
+	
+	/**
 	 * Export to PDF the information given
 	 * 
 	 * @param cleanings
