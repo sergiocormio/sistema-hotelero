@@ -8,7 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import com.cdz.sh.dao.CleaningDao;
 import com.cdz.sh.dao.OccupationDao;
@@ -49,18 +48,26 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 	}
 	
 	
-//	@Override
-//	public List<Cleaning> retrieveRoomsToClean(Date date) throws DaoException {
-//		
-//		this.cleaningDao.retrieveRoomsToClean(date);
-//		
-//		
-//		return null;
-//	}
-	
-	
 	@Override
 	public List<Cleaning> retrieveRoomsToClean(Date date) throws DaoException {
+		
+		List<Cleaning> cleanings = this.cleaningDao.retrieveRoomsToClean(date);
+		
+		if(cleanings == null || cleanings.size()==0){
+			cleanings = generateCleanings(date);
+			//TODO save the new cleanings
+//			for(Cleaning c : cleanings){
+//				this.cleaningDao.createRecord(c);
+//			}
+		}else{
+			//TODO verifies if exists one cleaning object per existing room
+		}
+		
+		return cleanings;
+	}
+	
+	
+	public List<Cleaning> generateCleanings(Date date) throws DaoException {
 		
 		List<Cleaning> cleanings = new ArrayList<Cleaning>();
 		
@@ -70,27 +77,24 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 			
 			// check general cleaning type (first day)
 			if(DateUtil.sameDate(date, occupation.getId().getReservationForm().getDateFrom())){
-				Cleaning cleaning = new Cleaning();
-				cleaning.setOccupation(occupation);
-				cleaning.setCleaningType(CleaningType.GENERAL);
+				Cleaning cleaning = new Cleaning(occupation.getId().getDate(),occupation.getId().getRoom());
+				cleaning.addCleaningType(CleaningType.GENERAL);
 				cleanings.add(cleaning);
 			}
 			else{
 				// check basic cleaning type (every other day except from Sunday)
 				boolean needBasicCleaningType = needBasicCleaningType(occupation);
 				if(needBasicCleaningType){
-					Cleaning cleaning = new Cleaning();
-					cleaning.setOccupation(occupation);
-					cleaning.setCleaningType(CleaningType.BASIC);
+					Cleaning cleaning = new Cleaning(occupation.getId().getDate(),occupation.getId().getRoom());
+					cleaning.addCleaningType(CleaningType.BASIC);
 					cleanings.add(cleaning);
 				}
 				
 				// check bed clothe change cleaning type  
 				boolean needBedClotheChangeCleaningType = needBedClotheChangeCleaningType(occupation);
 				if(needBedClotheChangeCleaningType){
-					Cleaning cleaning = new Cleaning();
-					cleaning.setOccupation(occupation);
-					cleaning.setCleaningType(CleaningType.BED_CLOTHE_CHANGE);
+					Cleaning cleaning = new Cleaning(occupation.getId().getDate(),occupation.getId().getRoom());
+					cleaning.addCleaningType(CleaningType.BED_CLOTHE_CHANGE);
 					cleanings.add(cleaning);
 				}
 			}
@@ -179,7 +183,7 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 		
 		ExportCleaning exportCleaning = new ExportCleaning();
 		
-		Date date = cleanings.get(0).getOccupation().getId().getDate();
+		Date date = cleanings.get(0).getId().getDate();
 		Date utcDate = DateUtil.getDateUTC(date);
 		
 		exportCleaning.setDate(utcDate);
@@ -187,6 +191,13 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 		exportCleaning.setCleanings(cleanings);
 		
 		return exportCleaning;
+	}
+
+
+	@Override
+	public List<Cleaning> regenerateRoomsToClean(Date date) throws DaoException {
+		List<Cleaning> cleanings = generateCleanings(date);
+		return cleanings;
 	}
 
 	

@@ -32,7 +32,7 @@ public class CleaningDaoImpl extends AbstractCrudDao<Cleaning, Long> implements 
 		try {
 			entityManager.getTransaction().begin();
 			
-			String strQuery = "SELECT c FROM Cleaning c WHERE c.occupation.id.date = :date";
+			String strQuery = "SELECT c FROM Cleaning c WHERE c.id.date = :date";
 			
 			TypedQuery<Cleaning> query = entityManager.createQuery( strQuery, Cleaning.class);
 			
