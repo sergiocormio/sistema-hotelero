@@ -6,6 +6,7 @@ import java.util.List;
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Consumption;
+import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.Room;
 
 /**
@@ -26,4 +27,6 @@ public interface ConsumptionDao extends CrudDao<Consumption, Long> {
 	 */
 	public List<Consumption> retrieveConsumptions(Date dateFrom, Date dateTo, Room room) throws DaoException;
 	
+	
+	public List<Consumption> retrieveConsumptions(Occupation occupation) throws DaoException;
 }

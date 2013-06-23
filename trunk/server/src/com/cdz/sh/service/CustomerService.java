@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Customer;
-import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.Region;
 
 /**
@@ -13,7 +12,7 @@ import com.cdz.sh.model.Region;
  * @author fede
  *
  */
-public interface CustomerService extends CrudService<Customer, CustomerPK>{
+public interface CustomerService extends CrudService<Customer, Long>{
 	
 	
 

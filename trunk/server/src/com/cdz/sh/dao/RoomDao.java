@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 
 /**
@@ -15,5 +16,7 @@ import com.cdz.sh.model.Room;
 public interface RoomDao extends CrudDao<Room, Long> {
 
 	public List<Room> retrieveRoomsByCapacity(int adultQty, int childrenQty, boolean withMaritalBed) throws DaoException;
+	
+	public List<Room> retrieveDistinctRooms(ReservationForm reservationForm) throws DaoException;
 
 }

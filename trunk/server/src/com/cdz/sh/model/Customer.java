@@ -2,19 +2,29 @@ package com.cdz.sh.model;
 
 import java.util.Date;
 
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 
 @Entity
 public class Customer {
 	
-    @EmbeddedId
-	private CustomerPK id;
-    
+	@Id
+    @GeneratedValue
+    private long id;
+	
+  	@ManyToOne
+	@JoinColumn(name="DOCUMENT_TYPE_ID")
+	private DocumentType docType;
+	
+	private String idNumber;
+	
     private String firstName;
 
     private String lastName;
@@ -29,11 +39,17 @@ public class Customer {
 	@JoinColumn(name="LANGUAGE_ID")
     private Language language;
     
+    @OneToOne
+	@JoinColumn(name="ADDRESS_ID")
+    private Address address;
+    
+    @Column(name = "email", unique = true)
+    private String email;
+    
     private String phoneNumber;
     
     private String cellphoneNumber;
     
-    private String email;
     
     private String profession;
     
@@ -43,11 +59,11 @@ public class Customer {
     
 	
 
-	public CustomerPK getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(CustomerPK customerPK) {
+	public void setId(Long customerPK) {
 		this.id = customerPK;
 	}
 
@@ -160,11 +176,11 @@ public class Customer {
 		
 	@Transient
 	public String getDisplayableId(){
-		return this.getId().getDocType().getName() + " - " + this.getId().getIdNumber();
+		return this.getDocType().getName() + " - " + this.getIdNumber();
 	}
 	    
 	public int hashCode() {
-        return (int)this.getId().hashCode();
+        return this.getId().intValue();
 	}
 
     public boolean equals(Object obj) {
@@ -173,12 +189,40 @@ public class Customer {
         	
         	Customer anotherCustomer = (Customer) obj;
         	
-        	return anotherCustomer.getId().equals(id);
+        	return anotherCustomer.getId() == id;
         }
     	else{
     		return false;
     	}
     	
     }
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public DocumentType getDocType() {
+		return docType;
+	}
+
+	public void setDocType(DocumentType docType) {
+		this.docType = docType;
+	}
+
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
+	}
+    
+    
+
+	
 	    
 }

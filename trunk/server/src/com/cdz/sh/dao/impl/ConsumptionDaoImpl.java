@@ -58,4 +58,32 @@ public class ConsumptionDaoImpl extends AbstractCrudDao<Consumption, Long> imple
 	}
 
 	
+	@Override
+	public List<Consumption> retrieveConsumptions(Occupation occupation) throws DaoException {
+		
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			entityManager.getTransaction().begin();
+			
+			String strQuery = "SELECT c FROM Consumption c WHERE c.date = :date and c.room = :room";
+			
+			TypedQuery<Consumption> query = entityManager.createQuery(strQuery, Consumption.class);
+			
+			query = query.setParameter("date", occupation.getId().getDate());
+			query = query.setParameter("room", occupation.getId().getRoom());
+			
+			List<Consumption> consumptions = query.getResultList();
+			entityManager.getTransaction().commit();
+			return consumptions;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
+		}
+		
+		
+	}
 }

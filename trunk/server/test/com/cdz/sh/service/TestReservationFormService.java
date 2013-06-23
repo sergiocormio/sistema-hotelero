@@ -45,7 +45,6 @@ import com.cdz.sh.model.TransferModality;
 import com.cdz.sh.service.exception.InvalidOperationException;
 import com.cdz.sh.service.impl.ReservationFormServiceImpl;
 import com.cdz.sh.service.impl.ServiceTypesBuilder;
-import com.cdz.sh.service.impl.TransferServiceImpl;
 import com.cdz.sh.util.DateUtil;
 
 public class TestReservationFormService {
@@ -141,7 +140,7 @@ public class TestReservationFormService {
 		customerPKFede.setDocType(docTypeDNI);
 		customerPKFede.setIdNumber("33103189");
 		
-		reservationForm.setCustomer(this.customerDao.getRecordById(customerPKFede));
+		reservationForm.setCustomer(this.customerDao.getRecordById(1L));
 		reservationForm.setState(StateReservationForm.PRE_BOOKING);
 		
 		return reservationForm;
@@ -164,7 +163,7 @@ public class TestReservationFormService {
 		customerPKFede.setDocType(docTypeDNI);
 		customerPKFede.setIdNumber("33103189");
 		
-		reservationForm.setCustomer(this.customerDao.getRecordById(customerPKFede));
+		reservationForm.setCustomer(this.customerDao.getRecordById(1L));
 		reservationForm.setState(StateReservationForm.PRE_BOOKING);
 		
 		return reservationForm;

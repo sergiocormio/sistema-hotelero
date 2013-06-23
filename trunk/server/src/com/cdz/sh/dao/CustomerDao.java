@@ -5,7 +5,6 @@ import java.util.List;
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Customer;
-import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.Region;
 
 /**
@@ -14,7 +13,7 @@ import com.cdz.sh.model.Region;
  * @author fede
  *
  */
-public interface CustomerDao extends CrudDao<Customer, CustomerPK> {
+public interface CustomerDao extends CrudDao<Customer, Long> {
 
 	
 	public List<Customer> retrieveCustomers(List<Region> regions) throws DaoException;

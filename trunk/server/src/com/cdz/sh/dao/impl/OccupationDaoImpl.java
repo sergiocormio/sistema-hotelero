@@ -205,5 +205,7 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 			entityManager.close();
 		}
 	}
+
+	
 	
 }
