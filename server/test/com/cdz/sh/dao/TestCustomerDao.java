@@ -78,7 +78,6 @@ public class TestCustomerDao {
 		 * customer 1: Fede
 		 */
 		c1 = new Customer();
-		c1.setId(customerPK1);
 		c1.setFirstName("Federico");
 		c1.setLastName("De Seta");
 		c1.setDateOfBirth(new Date());
@@ -94,7 +93,6 @@ public class TestCustomerDao {
 		 */
 			
 		c2 = new Customer();
-		c2.setId(customerPK2);
 		c2.setFirstName("Sergio");
 		c2.setLastName("Cormio");
 		c2.setDateOfBirth(new Date());
@@ -105,9 +103,9 @@ public class TestCustomerDao {
 		this.customerDao.createRecord(c2);
 		
 		
-		Customer c1Found = this.customerDao.getRecordById(customerPK1);
+		Customer c1Found = this.customerDao.getRecordById(1L);
 		assertNotNull(c1Found);
-		Customer c2Found = this.customerDao.getRecordById(customerPK2);
+		Customer c2Found = this.customerDao.getRecordById(2L);
 		assertNotNull(c2Found);
 		
 		/**
@@ -120,7 +118,7 @@ public class TestCustomerDao {
 		
 		this.customerDao.updateRecord(c2Found);
 		
-		Customer c2FoundWithNewFirstName = this.customerDao.getRecordById(customerPK2);
+		Customer c2FoundWithNewFirstName = this.customerDao.getRecordById(2L);
 		assertNotNull(c2FoundWithNewFirstName);
 		assertEquals("Sergio Adrian", c2FoundWithNewFirstName.getFirstName());
 		
@@ -133,9 +131,9 @@ public class TestCustomerDao {
 	 */
 	private void testFindDeleteCustomers() throws DaoException {
 		
-		Customer c1Found = this.customerDao.getRecordById(this.customerPK1);
+		Customer c1Found = this.customerDao.getRecordById(1L);
 		assertNotNull(c1Found);
-		Customer c2Found = this.customerDao.getRecordById(this.customerPK2);
+		Customer c2Found = this.customerDao.getRecordById(2L);
 		assertNotNull(c2Found);
 		
 		System.out.println("First Name: " + c1Found.getFirstName());
@@ -149,16 +147,16 @@ public class TestCustomerDao {
 		/***********/
 		
 		Customer customerToDelete1 = new Customer();
-		customerToDelete1.setId(this.customerPK1);
+		customerToDelete1.setId(1L);
 		Customer customerToDelete2 = new Customer();
-		customerToDelete2.setId(this.customerPK2);
+		customerToDelete2.setId(2L);
 		
 		this.customerDao.deleteRecord(customerToDelete1);
 		this.customerDao.deleteRecord(customerToDelete2);
 		
-		Customer c1NotFound = this.customerDao.getRecordById(this.customerPK1);
+		Customer c1NotFound = this.customerDao.getRecordById(1L);
 		assertNull(c1NotFound);
-		Customer c2NotFound = this.customerDao.getRecordById(this.customerPK2);
+		Customer c2NotFound = this.customerDao.getRecordById(2L);
 		assertNull(c2NotFound);	
 		
 		//check that the DocumentType was not deleted

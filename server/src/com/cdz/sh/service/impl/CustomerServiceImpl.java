@@ -10,7 +10,6 @@ import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.model.Customer;
-import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.Region;
 import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.CustomerService;
@@ -21,12 +20,12 @@ import com.cdz.sh.service.CustomerService;
  * @author fede
  *
  */
-public class CustomerServiceImpl extends AbstractCrudService<Customer, CustomerPK> implements CustomerService {
+public class CustomerServiceImpl extends AbstractCrudService<Customer, Long> implements CustomerService {
 
 	private CustomerDao customerDao;
 	
 	@Override
-	protected CrudDao<Customer, CustomerPK> createDao() {
+	protected CrudDao<Customer, Long> createDao() {
 		this.customerDao = new CustomerDaoImpl();
 		return customerDao;
 	}

@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import com.cdz.sh.model.Country;
 import com.cdz.sh.model.Customer;
-import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.Region;
 
@@ -34,12 +33,10 @@ public class TestCustomersReport {
 		 * customer 1: Fede
 		 */
 		
-		CustomerPK customerPK1 = new CustomerPK();
-		customerPK1.setDocType(docType);
-		customerPK1.setIdNumber("33103189");
-		
 		Customer c1 = new Customer();
-		c1.setId(customerPK1);
+		c1.setDocType(docType);
+		c1.setIdNumber("33103189");
+		
 		c1.setFirstName("Federico");
 		c1.setLastName("De Seta");
 		c1.setDateOfBirth(new Date());
@@ -56,12 +53,10 @@ public class TestCustomersReport {
 		/**
 		 * customer 2: Sergio
 		 */
-		CustomerPK customerPK2 = new CustomerPK();
-		customerPK2.setDocType(docType);
-		customerPK2.setIdNumber("32XXXXXX");
-		
 		Customer c2 = new Customer();
-		c2.setId(customerPK2);
+		
+		c2.setDocType(docType);
+		c2.setIdNumber("32XXXXXX");
 		c2.setFirstName("Sergio");
 		c2.setLastName("Cormio");
 		c2.setDateOfBirth(new Date());

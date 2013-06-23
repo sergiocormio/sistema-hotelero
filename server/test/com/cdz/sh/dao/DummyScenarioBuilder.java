@@ -321,7 +321,7 @@ public class DummyScenarioBuilder {
 			
 			reservationForm1.setDateTo(calendar.getTime());
 	
-			reservationForm1.setCustomer(this.customerDao.getRecordById(this.customerPKFede));
+			reservationForm1.setCustomer(this.customerDao.getRecordById(1L));
 			reservationForm1.setState(StateReservationForm.PRE_BOOKING);
 			
 			this.reservationFormDao.createRecord(reservationForm1);
@@ -342,7 +342,7 @@ public class DummyScenarioBuilder {
 			
 			reservationForm2.setDateTo(calendar.getTime());
 	
-			reservationForm2.setCustomer(this.customerDao.getRecordById(this.customerPKFede));
+			reservationForm2.setCustomer(this.customerDao.getRecordById(1L));
 			reservationForm2.setState(StateReservationForm.CONFIRMED);
 			
 			this.reservationFormDao.createRecord(reservationForm2);
@@ -362,7 +362,7 @@ public class DummyScenarioBuilder {
 			
 			reservationForm3.setDateTo(calendar.getTime());
 	
-			reservationForm3.setCustomer(this.customerDao.getRecordById(this.customerPKSergio));
+			reservationForm3.setCustomer(this.customerDao.getRecordById(2L));
 			reservationForm3.setState(StateReservationForm.EXPIRED);
 			
 			this.reservationFormDao.createRecord(reservationForm3);
@@ -382,7 +382,7 @@ public class DummyScenarioBuilder {
 			
 			reservationForm4.setDateTo(calendar.getTime());
 	
-			reservationForm4.setCustomer(this.customerDao.getRecordById(this.customerPKSergio));
+			reservationForm4.setCustomer(this.customerDao.getRecordById(2L));
 			reservationForm4.setState(StateReservationForm.CANCELLED);
 			
 			this.reservationFormDao.createRecord(reservationForm4);
@@ -527,10 +527,9 @@ public class DummyScenarioBuilder {
 		Region region = this.regionDao.getRecordById(1L);
 		Language language = this.languageDao.getRecordById(1L);
 					
-		Customer customerFede = this.customerDao.getRecordById(customerPKFede);
+		Customer customerFede = this.customerDao.getRecordById(1L);
 		if(customerFede == null){
 			customerFede = new Customer();
-			customerFede.setId(customerPKFede);
 			customerFede.setFirstName("Federico");
 			customerFede.setLastName("De Seta");
 			customerFede.setDateOfBirth(new GregorianCalendar(1987, 5, 6).getTime());
@@ -539,10 +538,9 @@ public class DummyScenarioBuilder {
 			this.customerDao.createRecord(customerFede);
 		}
 		
-		Customer customerSergio = this.customerDao.getRecordById(customerPKSergio);
+		Customer customerSergio = this.customerDao.getRecordById(2L);
 		if(customerSergio == null){
 			customerSergio = new Customer();
-			customerSergio.setId(customerPKSergio);
 			customerSergio.setFirstName("Sergio");
 			customerSergio.setLastName("Cormio");
 			customerSergio.setDateOfBirth(new GregorianCalendar(1986, 5, 27).getTime());

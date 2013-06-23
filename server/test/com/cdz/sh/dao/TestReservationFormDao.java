@@ -18,7 +18,6 @@ import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Customer;
-import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
@@ -106,11 +105,7 @@ public class TestReservationFormDao {
 		
 		DocumentType docTypeDNI = this.documentTypeDao.getRecordById(1L);
 				
-		CustomerPK customerPKFede = new CustomerPK();
-		customerPKFede.setDocType(docTypeDNI);
-		customerPKFede.setIdNumber("33103189");
-				
-		Customer customer = this.customerDao.getRecordById(customerPKFede);
+		Customer customer = this.customerDao.getRecordById(1L);
 		
 		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(null, null, customer, null);
 		
@@ -160,11 +155,7 @@ public class TestReservationFormDao {
 		
 		DocumentType docTypeDNI = this.documentTypeDao.getRecordById(1L);
 		
-		CustomerPK customerPKFede = new CustomerPK();
-		customerPKFede.setDocType(docTypeDNI);
-		customerPKFede.setIdNumber("33103189");
-				
-		Customer customer = this.customerDao.getRecordById(customerPKFede);
+		Customer customer = this.customerDao.getRecordById(1L);
 		
 		
 		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(dateFrom, dateTo, customer, null);
@@ -185,12 +176,8 @@ public class TestReservationFormDao {
 		Date dateTo = calendar2.getTime();
 		
 		DocumentType docTypeDNI = this.documentTypeDao.getRecordById(1L);
-		
-		CustomerPK customerPKFede = new CustomerPK();
-		customerPKFede.setDocType(docTypeDNI);
-		customerPKFede.setIdNumber("33103189");
-				
-		Customer customer = this.customerDao.getRecordById(customerPKFede);
+						
+		Customer customer = this.customerDao.getRecordById(1L);
 		
 		List<ReservationForm> reservationForms = this.reservationFormDao.retrieveReservationForms(dateFrom, dateTo, customer, StateReservationForm.PRE_BOOKING);
 		

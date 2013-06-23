@@ -193,7 +193,7 @@ public class ScenarioBuilder_ValidRoomChangesTwoAlternatives_SameRoomType {
 			customerPKFede.setDocType(docTypeDNI);
 			customerPKFede.setIdNumber("33103189");
 			
-			reservationForm.setCustomer(this.customerDao.getRecordById(customerPKFede));
+			reservationForm.setCustomer(this.customerDao.getRecordById(1L));
 			reservationForm.setState(StateReservationForm.CONFIRMED);
 			
 			this.reservationFormDao.createRecord(reservationForm);
@@ -300,10 +300,9 @@ public class ScenarioBuilder_ValidRoomChangesTwoAlternatives_SameRoomType {
 		Region region = this.regionDao.getRecordById(1L);
 		Language language = this.languageDao.getRecordById(1L);
 					
-		Customer customerFede = this.customerDao.getRecordById(customerPKFede);
+		Customer customerFede = this.customerDao.getRecordById(1L);
 		if(customerFede == null){
 			customerFede = new Customer();
-			customerFede.setId(customerPKFede);
 			customerFede.setFirstName("Federico");
 			customerFede.setLastName("De Seta");
 			customerFede.setDateOfBirth(new GregorianCalendar(1987, 5, 6).getTime());
