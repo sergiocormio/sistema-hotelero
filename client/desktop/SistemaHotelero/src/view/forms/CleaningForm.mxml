@@ -108,7 +108,7 @@
 			private function getCleaningTypeGeneral(item:Object,column:GridColumn):String
 			{
 				var cleaning:Cleaning = item as Cleaning;
-				if(cleaning.cleaningType == CleaningType.GENERAL){
+				if(cleaning.assignedCleaning.contains(CleaningType.GENERAL)){
 					return "X";
 				}
 				else
@@ -120,7 +120,7 @@
 			private function getCleaningTypeBasic(item:Object,column:GridColumn):String
 			{
 				var cleaning:Cleaning = item as Cleaning;
-				if(cleaning.cleaningType == CleaningType.BASIC){
+				if(cleaning.assignedCleaning.contains(CleaningType.BASIC)){
 					return "X";
 				}
 				else
@@ -132,7 +132,7 @@
 			private function getCleaningTypeBedClotheChange(item:Object,column:GridColumn):String
 			{
 				var cleaning:Cleaning = item as Cleaning;
-				if(cleaning.cleaningType == CleaningType.BED_CLOTHE_CHANGE){
+				if(cleaning.assignedCleaning.contains(CleaningType.BED_CLOTHE_CHANGE)){
 					return "X";
 				}
 				else
@@ -220,7 +220,7 @@
 								alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
 						<s:columns>
 							<s:ArrayList>
-								<s:GridColumn dataField="occupation.id.room.number" headerText="{loc.cleaning.roomNumber}">
+								<s:GridColumn dataField="id.room.number" headerText="{loc.cleaning.roomNumber}">
 									<s:itemRenderer>
 										<fx:Component>
 											<s:DefaultGridItemRenderer textAlign="center"  fontWeight="bold"/>
