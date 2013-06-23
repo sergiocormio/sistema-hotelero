@@ -1,36 +1,37 @@
 package model
 {
+	import mx.collections.ArrayCollection;
+
 	[RemoteClass (alias="com.cdz.sh.model.Cleaning")]
 	public class Cleaning
 	{
-		private var _occupation : Occupation;
-		private var _cleaningType : String;
+		private var _id : CleaningPK;
+		private var _assignedCleaning : ArrayCollection;
 		
 		public function Cleaning()
 		{
 		}
-
 		 
-		public function get occupation():Occupation
+
+		public function get assignedCleaning():ArrayCollection
 		{
-			return _occupation;
+			return _assignedCleaning;
 		}
 
-		public function set occupation(value:Occupation):void
+		public function set assignedCleaning(value:ArrayCollection):void
 		{
-			_occupation = value;
-		}
-		
-		public function get cleaningType():String
-		{
-			return _cleaningType;
+			_assignedCleaning = value;
 		}
 
-		public function set cleaningType(value:String):void
+		public function get id():CleaningPK
 		{
-			_cleaningType = value;
+			return _id;
 		}
 
+		public function set id(value:CleaningPK):void
+		{
+			_id = value;
+		}
 
 	}
 }
