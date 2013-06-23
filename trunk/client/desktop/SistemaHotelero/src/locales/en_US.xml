@@ -140,6 +140,14 @@
 	    <profession>Profession</profession>
 	    <phoneNumber>Phone Number</phoneNumber>
 	    <cellphoneNumber>Cellphone Number</cellphoneNumber>
+	    <address>
+	    	<single>Address</single>
+	    	<street>Street</street>
+	    	<city>City</city>
+	    	<state>State</state>
+	    	<country>Country</country>
+	    	<zipCode>Zip Code</zipCode>
+	    </address>
     </customer>
     <customerPK>
     	<idNumber>Id Number</idNumber>
@@ -385,6 +393,7 @@
     		<pswSender>Password</pswSender>
     		<confirmPswSender>Confirm password</confirmPswSender>
     		<testEmail>Testing mailbox</testEmail>
+    		<pswDoNotMatch>The specified password does not match comparing both fields. You must specify the same password on both fields.</pswDoNotMatch>
     	</mail>
     	<plural>User Settings</plural>
     	<reservationFormExpirationDate>

@@ -41,6 +41,7 @@
 				emailSenderText.text = UserSettings.getInstance().getEmailSender();
 				
 				pswSenderText.text = UserSettings.getInstance().getPassword();
+				confirmPswText.text = UserSettings.getInstance().getPassword();
 				
 				testEmailText.text = UserSettings.getInstance().getEmailTest();
 
@@ -86,12 +87,21 @@
 				
 				valArray.push(emailSenderlValidator);
 				valArray.push(pswValidator);
+				valArray.push(confirmPswValidator);
 				valArray.push(emailTestlValidator);
 				
 				var validatorErrorArray:Array = Validator.validateAll(valArray);
 				var isValidForm:Boolean = validatorErrorArray.length == 0;
 				
 				setEnabledValidators(false);
+				
+				if(isValidForm){
+					//validate password
+					if(pswSenderText.text != confirmPswText.text){
+						isValidForm = false;
+						Alert.show(loc.userSetting.mail.pswDoNotMatch);
+					}
+				}
 				
 				return isValidForm;
 				
@@ -101,6 +111,7 @@
 			private function setEnabledValidators(enabled:Boolean):void{
 				emailSenderlValidator.enabled = enabled;
 				pswValidator.enabled = enabled;
+				confirmPswValidator.enabled = enabled;
 				emailTestlValidator.enabled = enabled;
 			}
 			
@@ -134,6 +145,13 @@
 							required="true"
 							requiredFieldError="{loc.validator.requiredFieldError}"
 							source="{pswSenderText}"
+							property="text"
+							/>
+		<mx:StringValidator id="confirmPswValidator"
+							enabled="false"
+							required="true"
+							requiredFieldError="{loc.validator.requiredFieldError}"
+							source="{confirmPswText}"
 							property="text"
 							/>
 		<mx:EmailValidator id="emailTestlValidator" 
@@ -197,12 +215,12 @@
 					</s:FormItem>
 					
 					<s:FormItem label="{loc.userSetting.mail.pswSender}:">
-						<s:TextInput id="pswSenderText" widthInChars="15"/>
+						<s:TextInput id="pswSenderText" widthInChars="15" displayAsPassword="true"/>
 					</s:FormItem>
 					
-					<!--<s:FormItem label="{loc.userSetting.mail.confirmPswSender}:">
-						<s:TextInput id="confirmPswText" widthInChars="15"/>
-					</s:FormItem>-->
+					<s:FormItem label="{loc.userSetting.mail.confirmPswSender}:">
+						<s:TextInput id="confirmPswText" widthInChars="15" displayAsPassword="true"/>
+					</s:FormItem>
 					
 					<s:FormItem label="{loc.userSetting.mail.testEmail}:">
 						<s:TextInput id="testEmailText" widthInChars="25"/>

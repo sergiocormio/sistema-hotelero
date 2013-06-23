@@ -141,6 +141,14 @@
 	    <profession>Profissão</profession>
 	    <phoneNumber>Telefone</phoneNumber>
 	    <cellphoneNumber>Telefone Celular</cellphoneNumber>
+	    <address>
+	    	<single>Endereço</single>
+	    	<street>Rua</street>
+	    	<city>Cidade</city>
+	    	<state>Estado</state>
+	    	<country>Pais</country>
+	    	<zipCode>CEP</zipCode>
+	    </address>
     </customer>
     <customerPK>
     	<idNumber>Número do Documento</idNumber>
@@ -387,6 +395,7 @@
     		<pswSender>Palavra-passe</pswSender>
     		<confirmPswSender>Confirmar Palavra-passe</confirmPswSender>
     		<testEmail>Teste Caixa de Correio</testEmail>
+    		<pswDoNotMatch>A senha não é válida. Você deve digitar a mesma senha nos dois campos.</pswDoNotMatch>
     	</mail>
     	<plural>Preferências do Usuário</plural>
     	<reservationFormExpirationDate>

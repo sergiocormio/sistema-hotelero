@@ -1,7 +1,9 @@
 package services.crud
 {
-	import services.RemoteObjectWrapperService;
+	import model.ReservationForm;
 	import model.Room;
+	
+	import services.RemoteObjectWrapperService;
 
 public class ConsumptionService extends CRUDService
 {
@@ -15,6 +17,14 @@ public class ConsumptionService extends CRUDService
 			remoteObject.retrieveConsumptions.addEventListener("fault", faultHandler);
 		}
 		remoteObject.retrieveConsumptions(dateFrom, dateTo, room);
+	}
+	
+	public function retrieveConsumptionsByReservationForm(reservationForm:ReservationForm, resultHandler:Function,faultHandler:Function=null):void{
+		remoteObject.retrieveConsumptions.addEventListener("result", resultHandler);
+		if(faultHandler!=null){
+			remoteObject.retrieveConsumptions.addEventListener("fault", faultHandler);
+		}
+		remoteObject.retrieveConsumptions(reservationForm);
 	}
                
 }

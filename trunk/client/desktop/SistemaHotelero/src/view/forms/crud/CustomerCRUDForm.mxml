@@ -124,17 +124,18 @@
 			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{customers}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
 				<s:columns>
 					<s:ArrayList>
-						<s:GridColumn dataField="id.docType.name" headerText="{loc.documentType.singular}"></s:GridColumn>
-						<s:GridColumn dataField="id.idNumber" headerText="{loc.customerPK.idNumber}"></s:GridColumn>
+						<s:GridColumn dataField="email" headerText="{loc.customer.email}"></s:GridColumn>
 						<s:GridColumn dataField="firstName" headerText="{loc.customer.firstName}"></s:GridColumn>
 						<s:GridColumn dataField="lastName" headerText="{loc.customer.lastName}"></s:GridColumn>
 						<s:GridColumn dataField="dateOfBirth" headerText="{loc.customer.dateOfBirth}" labelFunction="dateFormat"></s:GridColumn>
+						<s:GridColumn dataField="docType.name" headerText="{loc.documentType.singular}"></s:GridColumn>
+						<s:GridColumn dataField="idNumber" headerText="{loc.customerPK.idNumber}"></s:GridColumn>
+						<s:GridColumn dataField="addressAsText" headerText="{loc.customer.address.single}"></s:GridColumn>
 						<s:GridColumn dataField="region.country.name" headerText="{loc.country.singular}"></s:GridColumn>
 						<s:GridColumn dataField="region.name" headerText="{loc.region.singular}"></s:GridColumn>
 						<s:GridColumn dataField="language.name" headerText="{loc.language.singular}"></s:GridColumn>
 						<s:GridColumn dataField="lastLodgementDate" headerText="{loc.customer.lastLodgementDate}" labelFunction="dateFormat"></s:GridColumn>
 						<s:GridColumn dataField="profession" headerText="{loc.customer.profession}"></s:GridColumn>
-						<s:GridColumn dataField="email" headerText="{loc.customer.email}"></s:GridColumn>
 						<s:GridColumn dataField="phoneNumber" headerText="{loc.customer.phoneNumber}"></s:GridColumn>
 						<s:GridColumn dataField="cellphoneNumber" headerText="{loc.customer.cellphoneNumber}"></s:GridColumn>
 					</s:ArrayList>

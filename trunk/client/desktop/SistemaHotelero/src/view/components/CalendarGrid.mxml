@@ -123,9 +123,10 @@
 								 case StateReservationForm.PRE_BOOKING:
 									 qtyPreBooking++;
 									 break;
-								 case StateReservationForm.CANCELLED:
-									 qtyCancelled++;
-									 break;
+								 // do NOT display CANCELLED reservation forms
+								 //case StateReservationForm.CANCELLED:
+									// qtyCancelled++;
+									 //break;
 								 case StateReservationForm.EXPIRED:
 									 qtyExpired++;
 									 break;
@@ -140,10 +141,11 @@
 						if (result.length > 0 ) {result += ", "}
 						result += StateReservationForm.convertToLabel(StateReservationForm.PRE_BOOKING,loc);
 					}
-					if(qtyCancelled>0){
-						if (result.length > 0 ) {result += ", "}
-						result += StateReservationForm.convertToLabel(StateReservationForm.CANCELLED,loc);
-					}
+					// do NOT display CANCELLED reservation forms
+					//if(qtyCancelled>0){
+						//if (result.length > 0 ) {result += ", "}
+						//result += StateReservationForm.convertToLabel(StateReservationForm.CANCELLED,loc);
+					//}
 					if(qtyExpired>0){
 						if (result.length > 0 ) {result += ", "}
 						result += StateReservationForm.convertToLabel(StateReservationForm.EXPIRED,loc);
