@@ -13,6 +13,7 @@ import com.cdz.sh.dao.crud.AbstractCrudDao;
 import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Cleaning;
+import com.cdz.sh.model.CleaningPK;
 
 /**
  * The idea of each concrete class (like this one) is to ONLY add specific customer methods. CRUD operations are implemented 
@@ -21,7 +22,7 @@ import com.cdz.sh.model.Cleaning;
  * @author fede
  *
  */
-public class CleaningDaoImpl extends AbstractCrudDao<Cleaning, Long> implements CleaningDao {
+public class CleaningDaoImpl extends AbstractCrudDao<Cleaning, CleaningPK> implements CleaningDao {
 
 	
 	@Override

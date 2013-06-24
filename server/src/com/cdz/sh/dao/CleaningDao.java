@@ -6,6 +6,7 @@ import java.util.List;
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Cleaning;
+import com.cdz.sh.model.CleaningPK;
 
 /**
  * Declares specific functionality for customers access data, in addition to the CRUD methods.
@@ -13,8 +14,7 @@ import com.cdz.sh.model.Cleaning;
  * @author fede
  *
  */
-public interface CleaningDao extends CrudDao<Cleaning, Long> {
-
+public interface CleaningDao extends CrudDao<Cleaning, CleaningPK> {
 
 	public List<Cleaning> retrieveRoomsToClean(Date date) throws DaoException;
 
