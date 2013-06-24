@@ -14,6 +14,8 @@
 			import model.Transfer;
 			import model.TransferModality;
 			import model.TransferType;
+			import model.StateReservationForm;
+			
 			
 			import mx.collections.ArrayCollection;
 			import mx.containers.TitleWindow;
@@ -312,7 +314,12 @@
 			//RESERVATION FORMS
 			private function retrieveReservationForms():void{
 				var serv:ReservationFormService = new ReservationFormService();
-				serv.retrieveActiveReservationForms(retrieveReservationForms_resultHandler,FaultHandler.defaultFaultHandler);
+				
+				var states:ArrayCollection = new ArrayCollection();
+				states.addItem(StateReservationForm.PRE_BOOKING);
+				states.addItem(StateReservationForm.CONFIRMED);
+								
+				serv.retrieveReservationFormsByStates(states, retrieveReservationForms_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			private function retrieveReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
@@ -324,6 +331,13 @@
 			
 			private function searchReservationForm():void{
 				reservationFormSearcher = new ReservationFormSearcher();
+				
+				var states:ArrayCollection = new ArrayCollection();
+				states.addItem(StateReservationForm.PRE_BOOKING);
+				states.addItem(StateReservationForm.CONFIRMED);
+				
+				reservationFormSearcher.statesToQuery = states;
+				
 				reservationFormSearcher.loc = loc;
 				reservationFormSearcher.addEventListener("onSelect",reservationFormSelected);
 				reservationFormSearcher.addEventListener("onCancel",titleWindow_close);

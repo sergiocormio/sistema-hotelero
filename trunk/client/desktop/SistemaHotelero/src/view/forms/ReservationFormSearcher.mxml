@@ -17,6 +17,7 @@
 			import model.Customer;
 			import model.ReservationForm;
 			import model.Room;
+			import model.StateReservationForm;
 			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
@@ -35,6 +36,10 @@
 			
 			import utils.DateTimeUtils;
 			import utils.FaultHandler;
+			
+			/* if empty: query all states, otherwise, filter by the specified states */
+			[Bindable]
+			public var statesToQuery:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
 			public var loc:Object = Locale.getInstance().getCurrentLocale();
@@ -138,14 +143,14 @@
 				if(filterByRoom.selected){
 					if(dateChooser.selectedDate != null && roomsCombo.selectedIndex>-1){
 						var roomSelected:Room = roomsCombo.selectedItem as Room;
-						new ReservationFormService().retrieveActiveReservationFormsByDateAndRoom(dateChooser.selectedDate,roomSelected,retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
+						new ReservationFormService().retrieveReservationFormsByDateAndRoom(dateChooser.selectedDate,roomSelected, statesToQuery, retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
 					}
 				}else{
 					var customer:Customer = null;
 					
 					if(customersCombo.selectedIndex > -1){
 						customer = customersCombo.selectedItem as Customer;
-						new ReservationFormService().retrieveActiveReservationFormsByCustomer(customer, retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
+						new ReservationFormService().retrieveReservationFormsByCustomer(customer, statesToQuery, retrieveReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
 					}
 				}
 				

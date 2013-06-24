@@ -442,6 +442,7 @@
 			<invalidToEmail>Invalid destination mailboxes</invalidToEmail>
 			<invalidBody></invalidBody>
 			<invalidOperation>Invalid Operation</invalidOperation>
+			<noConfirmedReservationForm>There is no hosted customer for the specified day and room</noConfirmedReservationForm>
     	</server>
     </validator>
     <withh>Con</withh>
