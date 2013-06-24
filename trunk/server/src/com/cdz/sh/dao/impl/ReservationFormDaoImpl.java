@@ -1,5 +1,6 @@
 package com.cdz.sh.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.cdz.sh.dao.crud.AbstractCrudDao;
 import com.cdz.sh.dao.crud.EntityManagerFactorySingleton;
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.exception.InvalidParameterException;
+import com.cdz.sh.model.Consumption;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
@@ -116,14 +118,17 @@ public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Lon
 
 
 	@Override
-	public List<ReservationForm> retrieveActiveReservationForms(Date date, Room room)
+	public List<ReservationForm> retrieveReservationForms(Date date, Room room, List statesObj)
 			throws DaoException {
+		
+		// Flex does not support typed collections
+		List<StateReservationForm> states = getTypedList(statesObj);
 		
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
 		String strQuery = "SELECT DISTINCT oc.id.reservationForm FROM Occupation oc WHERE oc.id.date = :date and oc.id.room = :room";
-		strQuery = strQuery.concat(" and oc.id.reservationForm.state in (:preBooking, :confirmed)");
+		strQuery = strQuery.concat(" and oc.id.reservationForm.state in (:states)");
 		
 		try{
 			entityManager.getTransaction().begin();
@@ -131,8 +136,7 @@ public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Lon
 			
 			query = query.setParameter("date", date);
 			query = query.setParameter("room", room);
-			query = query.setParameter("preBooking", StateReservationForm.PRE_BOOKING);
-			query = query.setParameter("confirmed", StateReservationForm.CONFIRMED);
+			query = query.setParameter("states", states);
 			
 			List<ReservationForm> reservationForms = query.getResultList();
 			entityManager.getTransaction().commit();
@@ -146,24 +150,35 @@ public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Lon
 			entityManager.close();
 		}
 	}
+
+
+	private List<StateReservationForm> getTypedList(List statesObj) {
+		List<StateReservationForm> states = new ArrayList<StateReservationForm>();
+		for (Object stateReservationForm : statesObj) {
+			states.add(StateReservationForm.valueOf(stateReservationForm.toString()));
+		}
+		return states;
+	}
 	
 	
 	@Override
-	public List<ReservationForm> retrieveActiveReservationForms()
+	public List<ReservationForm> retrieveReservationForms(List statesObj)
 			throws DaoException {
+		
+		// Flex does not support typed collections
+		List<StateReservationForm> states = getTypedList(statesObj);
 		
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
-		String strQuery = "SELECT rf FROM ReservationForm rf WHERE rf.state in (:preBooking, :confirmed)";
+		String strQuery = "SELECT rf FROM ReservationForm rf WHERE rf.state in (:states)";
 		
 		try{
 			entityManager.getTransaction().begin();
 			TypedQuery<ReservationForm> query = entityManager.createQuery(strQuery, ReservationForm.class);
 			
-			query = query.setParameter("preBooking", StateReservationForm.PRE_BOOKING);
-			query = query.setParameter("confirmed", StateReservationForm.CONFIRMED);
-			
+			query = query.setParameter("states", states);
+						
 			List<ReservationForm> reservationForms = query.getResultList();
 			entityManager.getTransaction().commit();
 			
@@ -179,23 +194,55 @@ public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Lon
 
 	
 	@Override
-	public List<ReservationForm> retrieveActiveReservationForms(Customer customer)
+	public List<ReservationForm> retrieveReservationForms(Customer customer, List statesObj)
 			throws DaoException {
+		
+		// Flex does not support typed collections
+		List<StateReservationForm> states = getTypedList(statesObj);
 		
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
 		String strQuery = "SELECT rf FROM ReservationForm rf WHERE rf.customer = :customer";
-		strQuery = strQuery.concat(" and rf.state in (:preBooking, :confirmed)");
+		strQuery = strQuery.concat(" and rf.state in (:states)");
 		
 		try{
 			entityManager.getTransaction().begin();
 			TypedQuery<ReservationForm> query = entityManager.createQuery(strQuery, ReservationForm.class);
 			
 			query = query.setParameter("customer", customer);
-			query = query.setParameter("preBooking", StateReservationForm.PRE_BOOKING);
-			query = query.setParameter("confirmed", StateReservationForm.CONFIRMED);
+			query = query.setParameter("states", states);
 			
+			List<ReservationForm> reservationForms = query.getResultList();
+			entityManager.getTransaction().commit();
+			
+			return reservationForms;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
+		}
+	}
+	
+	
+	@Override
+	public List<ReservationForm> retrieveReservationForms(Consumption consumption)
+			throws DaoException {
+		
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
+		String strQuery = "SELECT oc.id.reservationForm FROM Occupation oc WHERE oc.id.date = :date and oc.id.room = :room";
+		
+		try{
+			entityManager.getTransaction().begin();
+			TypedQuery<ReservationForm> query = entityManager.createQuery(strQuery, ReservationForm.class);
+			
+			query = query.setParameter("date", consumption.getDate());
+			query = query.setParameter("room", consumption.getRoom());
+						
 			List<ReservationForm> reservationForms = query.getResultList();
 			entityManager.getTransaction().commit();
 			
