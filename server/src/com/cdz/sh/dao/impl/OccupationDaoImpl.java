@@ -205,6 +205,35 @@ public class OccupationDaoImpl extends AbstractCrudDao<Occupation, OccupationPK>
 			entityManager.close();
 		}
 	}
+	
+	@Override
+	public List<Occupation> retrieveConfirmedOccupations(Date date,Room room) throws DaoException {
+		
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			entityManager.getTransaction().begin();
+			
+			String strQuery = "SELECT oc FROM Occupation oc WHERE oc.id.date = :date and oc.id.reservationForm.state = :stateConfirmedId ";
+			strQuery += "oc.id.room = :room";
+			
+			TypedQuery<Occupation> query = entityManager.createQuery( strQuery, Occupation.class);
+			
+			query = query.setParameter("date", date);
+			query = query.setParameter("stateConfirmedId", StateReservationForm.CONFIRMED);
+			query = query.setParameter("room", room);
+					
+			List<Occupation> occupations = query.getResultList();
+			entityManager.getTransaction().commit();
+			return occupations;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
+		}
+	}
 
 	
 	

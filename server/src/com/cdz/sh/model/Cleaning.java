@@ -16,6 +16,7 @@ public class Cleaning {
 
 	@EmbeddedId
 	private CleaningPK id;
+	
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
 	private Set<CleaningType> assignedCleaning;
