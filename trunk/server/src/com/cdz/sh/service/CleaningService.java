@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.model.Cleaning;
+import com.cdz.sh.model.CleaningPK;
 
 /**
  * Facade for Cleaning entity
@@ -12,7 +13,7 @@ import com.cdz.sh.model.Cleaning;
  * @author fede
  *
  */
-public interface CleaningService extends CrudService<Cleaning, Long>{
+public interface CleaningService extends CrudService<Cleaning, CleaningPK>{
 	
 	
 	/**

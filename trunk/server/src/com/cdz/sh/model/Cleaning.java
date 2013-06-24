@@ -19,7 +19,7 @@ public class Cleaning {
 	
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
-	private Set<CleaningType> assignedCleaning;
+	private Set<CleaningType> assignedCleaning = new HashSet<CleaningType>();
 	
 	public Cleaning(){
 	}
@@ -28,7 +28,6 @@ public class Cleaning {
 		id = new CleaningPK();
 		id.setDate(date);
 		id.setRoom(room);
-		assignedCleaning = new HashSet<CleaningType>();
 	}
 	
 	public void setId(CleaningPK id) {

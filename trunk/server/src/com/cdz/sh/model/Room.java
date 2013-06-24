@@ -1,5 +1,7 @@
 package com.cdz.sh.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +11,14 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class Room {
+public class Room implements Serializable{
 	
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8887454772398420792L;
+
+	@Id
     @GeneratedValue
     private long id;
 

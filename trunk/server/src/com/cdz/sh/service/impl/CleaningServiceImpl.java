@@ -18,6 +18,7 @@ import com.cdz.sh.dao.impl.CleaningDaoImpl;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Cleaning;
+import com.cdz.sh.model.CleaningPK;
 import com.cdz.sh.model.CleaningType;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.Room;
@@ -27,13 +28,15 @@ import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.CleaningService;
 import com.cdz.sh.util.DateUtil;
 
+import flex.messaging.io.ArrayCollection;
+
 /**
  * Implementation of CleaningService facade
  * 
  * @author fede
  *
  */
-public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> implements CleaningService {
+public class CleaningServiceImpl extends AbstractCrudService<Cleaning, CleaningPK> implements CleaningService {
 
 	private static final String TEMPLATE_FILE_TYPE = ".jrxml";
 	private static final String CLEANING_TEMPLATE = "cleaning";
@@ -43,7 +46,7 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 	private RoomDao roomDao;
 	
 	@Override
-	protected CrudDao<Cleaning, Long> createDao() {
+	protected CrudDao<Cleaning, CleaningPK> createDao() {
 		
 		this.occupationDao = new OccupationDaoImpl();
 		this.cleaningDao = new CleaningDaoImpl();
@@ -60,9 +63,23 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 		if(cleanings == null || cleanings.size()==0){
 			cleanings = generateCleanings(date,rooms);
 		}else{
-			//TODO verifies if exists one cleaning object per existing room
+			//verifies if exists one cleaning object per existing room
 			if(cleanings.size() < rooms.size()){
-				//TODO generate missing cleaning objects
+				//generate missing cleaning objects
+				List<Room> missingRooms = new ArrayCollection();
+				for(Room r : rooms){
+					boolean isMissing = true;
+					for(Cleaning c :cleanings){
+						if(c.getId().getRoom().equals(r)){
+							isMissing = false;
+							break;
+						}
+					}
+					if(isMissing){
+						missingRooms.add(r);
+					}
+				}
+				cleanings.addAll(generateCleanings(date,missingRooms));
 			}
 		}
 		
@@ -73,7 +90,7 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, Long> imp
 	private List<Cleaning> generateCleanings(Date date,Collection<Room> rooms) throws DaoException {
 		Map<Room, Cleaning> roomToCleaningMap = new HashMap<Room, Cleaning>();
 		Cleaning cleaning = null;
-		//first of all, create one Cleaning object per Room
+		//first of all, creates one Cleaning object per Room
 		for(Room room : rooms){
 			cleaning = new Cleaning(date,room);
 			roomToCleaningMap.put(room, cleaning);
