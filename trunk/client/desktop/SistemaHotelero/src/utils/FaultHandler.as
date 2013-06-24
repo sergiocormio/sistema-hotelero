@@ -50,6 +50,9 @@ package utils
 				faultString = "";
 			}
 			
+			if(errMsg == null || errMsg == ""){
+				errMsg = loc.errorMessage.genericServerError;
+			}
 			
 			DebugLog.log(errMsg + " " + faultString);
 			Alert.show(errMsg, loc.validator.error);

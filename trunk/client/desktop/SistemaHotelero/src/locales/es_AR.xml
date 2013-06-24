@@ -200,6 +200,7 @@
     	<digitsquantity>Cantidad de dígitos</digitsquantity>
     </documentType>
     <errorMessage>
+   		<genericServerError>Se produjo un error inesperado</genericServerError>
     	<serverNotFound>No se encuentra la ruta del servidor</serverNotFound>
     	<javaHomeNotFound>No se encuentra la ruta de JAVAHOME</javaHomeNotFound>
     </errorMessage>
