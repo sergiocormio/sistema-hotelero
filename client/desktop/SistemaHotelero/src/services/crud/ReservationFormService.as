@@ -5,6 +5,8 @@ package services.crud
 	import model.ReservationForm;
 	import model.Room;
 	
+	import mx.collections.ArrayCollection;
+	
 	import view.forms.crud.individual.ReservationFormIndividualCRUDForm;
 
 	public class ReservationFormService extends CRUDService
@@ -38,28 +40,32 @@ package services.crud
 			remoteObject.retrieveReservationForms(dateFrom, dateTo, customer, state);
 		}
 		
-		public function retrieveActiveReservationFormsByDateAndRoom(date:Date, room:Room,resultHandler:Function,faultHandler:Function=null):void{
-			remoteObject.retrieveActiveReservationFormsByDateAndRoom.addEventListener("result", resultHandler);
+		
+		
+		public function retrieveReservationFormsByDateAndRoom(date:Date, room:Room, states:ArrayCollection, resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.retrieveReservationFormsByDateAndRoom.addEventListener("result", resultHandler);
 			if(faultHandler!=null){
-				remoteObject.retrieveActiveReservationFormsByDateAndRoom.addEventListener("fault", faultHandler);
+				remoteObject.retrieveReservationFormsByDateAndRoom.addEventListener("fault", faultHandler);
 			}
-			remoteObject.retrieveActiveReservationFormsByDateAndRoom(date, room);
+			remoteObject.retrieveReservationFormsByDateAndRoom(date, room, states);
 		}
 		
-		public function retrieveActiveReservationFormsByCustomer(customer:Customer, resultHandler:Function,faultHandler:Function=null):void{
-			remoteObject.retrieveActiveReservationFormsByCustomer.addEventListener("result", resultHandler);
+		public function retrieveReservationFormsByCustomer(customer:Customer, states:ArrayCollection, resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.retrieveReservationFormsByCustomer.addEventListener("result", resultHandler);
 			if(faultHandler!=null){
-				remoteObject.retrieveActiveReservationFormsByCustomer.addEventListener("fault", faultHandler);
+				remoteObject.retrieveReservationFormsByCustomer.addEventListener("fault", faultHandler);
 			}
-			remoteObject.retrieveActiveReservationFormsByCustomer(customer);
+			remoteObject.retrieveReservationFormsByCustomer(customer, states);
 		}
 		
-		public function retrieveActiveReservationForms(resultHandler:Function,faultHandler:Function=null):void{
-			remoteObject.retrieveActiveReservationForms.addEventListener("result", resultHandler);
+		
+		
+		public function retrieveReservationFormsByStates(states:ArrayCollection, resultHandler:Function,faultHandler:Function=null):void{
+			remoteObject.retrieveReservationForms.addEventListener("result", resultHandler);
 			if(faultHandler!=null){
-				remoteObject.retrieveActiveReservationForms.addEventListener("fault", faultHandler);
+				remoteObject.retrieveReservationForms.addEventListener("fault", faultHandler);
 			}
-			remoteObject.retrieveActiveReservationForms();
+			remoteObject.retrieveReservationForms(states);
 		}
 	}
 }

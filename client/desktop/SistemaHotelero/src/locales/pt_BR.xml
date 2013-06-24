@@ -444,7 +444,8 @@
 			<invalidToEmail>A lista de destino caixas de correio é inválido</invalidToEmail>
 			<invalidBody></invalidBody>
 			<invalidOperation>Operação inválida</invalidOperation>
-    	</server>
+			<noConfirmedReservationForm>Não há nenhum cliente hospedado para o dia eo quarto especificada</noConfirmedReservationForm>
+		</server>
     </validator>
     <withh>Com</withh>
 </locale>

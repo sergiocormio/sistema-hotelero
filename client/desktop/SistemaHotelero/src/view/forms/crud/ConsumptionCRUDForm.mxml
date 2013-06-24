@@ -10,6 +10,7 @@
 			import model.Consumption;
 			import model.ReservationForm;
 			import model.Room;
+			import model.StateReservationForm;
 			
 			import mx.collections.ArrayCollection;
 			import mx.containers.TitleWindow;
@@ -51,7 +52,7 @@
 			private var rooms:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
-			private var reservationForms:ArrayCollection = new ArrayCollection();
+			private var confirmedReservationForms:ArrayCollection = new ArrayCollection();
 			
 			private var reservationFormSearcher:ReservationFormSearcher;
 			
@@ -180,6 +181,7 @@
 			protected function init(event:FlexEvent):void
 			{
 				retrieveRooms();
+				retrieveConfirmedReservationForms();
 				refreshGrid();
 				createContextMenu();
 				filterByDateRangeAndRoom.selected = true;
@@ -196,6 +198,7 @@
 				rooms.addAll(event.result as ArrayCollection);
 			}
 			
+					
 			protected function refreshGrid(event:Event=null):void
 			{
 				individual.enabled = false;
@@ -271,19 +274,25 @@
 			}
 			
 			//RESERVATION FORMS
-			private function retrieveReservationForms():void{
-				var serv:ReservationFormService = new ReservationFormService();
-				serv.retrieveActiveReservationForms(retrieveReservationForms_resultHandler,FaultHandler.defaultFaultHandler);
+			private function retrieveConfirmedReservationForms():void{
+				// retrieve only CONFIRMED reservation forms
+				new ReservationFormService().retrieveReservationForms(null, null, null, StateReservationForm.CONFIRMED, retrieveConfirmedReservationForms_resultHandler, FaultHandler.defaultFaultHandler);
 			}
 			
-			private function retrieveReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
-				//fills the ComboBox
-				reservationForms.removeAll();
-				reservationForms.addAll(event.result as ArrayCollection);
+			private function retrieveConfirmedReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the reservation form ComboBox
+				confirmedReservationForms.removeAll();
+				confirmedReservationForms.addAll(event.result as ArrayCollection);
 			}
 			
 			private function searchReservationForm():void{
 				reservationFormSearcher = new ReservationFormSearcher();
+				
+				var states:ArrayCollection = new ArrayCollection();
+				states.addItem(StateReservationForm.CONFIRMED);
+				
+				reservationFormSearcher.statesToQuery = states;
+				
 				reservationFormSearcher.loc = loc;
 				reservationFormSearcher.addEventListener("onSelect",reservationFormSelected);
 				reservationFormSearcher.addEventListener("onCancel",titleWindow_close);
@@ -380,10 +389,10 @@
 								</s:FormItem>
 								<s:FormItem id="reservationFormItem" label="{loc.reservationForm.singular}:" required="true">
 									<s:HGroup>
-										<s:ComboBox id="reservationFormsCombo" dataProvider="{reservationForms}" 
+										<s:ComboBox id="reservationFormsCombo" dataProvider="{confirmedReservationForms}" 
 													labelField="name" requireSelection="true"
 													width="260"/>
-										<s:Button width="24" height="24" click="retrieveReservationForms();"
+										<s:Button width="24" height="24" click="retrieveConfirmedReservationForms();"
 												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 										<s:Button width="24" height="24" click="searchReservationForm();" icon="{Icons.search}"
 												  toolTip="{loc.button.search}"/>

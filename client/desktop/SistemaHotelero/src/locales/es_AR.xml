@@ -442,7 +442,8 @@
 			<invalidToEmail>La lista de casillas de correo destino es inválida</invalidToEmail>
 			<invalidBody></invalidBody>
 			<invalidOperation>Operación no válida</invalidOperation>
-    	</server>
+			<noConfirmedReservationForm>No hay ningún cliente hospedado para el día y la habitación especificados</noConfirmedReservationForm>
+		</server>
     </validator>
     <withh>Con</withh>
 </locale>
