@@ -50,6 +50,14 @@ public interface OccupationDao extends CrudDao<Occupation, OccupationPK> {
 	public List<Occupation> retrieveConfirmedOccupations(Date date) throws DaoException;
 	
 	/**
+	 * To be used from Cleaning report 
+	 * (Should be no more than one Occupation in the returned list)
+	 * @param date,room
+	 * @throws DaoException
+	 */
+	public List<Occupation> retrieveConfirmedOccupations(Date date,Room room) throws DaoException;
+	
+	/**
 	 * To be used for canceling overlaped occupations when updateing a reservation form
 	 * 
 	 * @param reservationForm
