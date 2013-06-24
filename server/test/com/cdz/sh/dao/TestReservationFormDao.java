@@ -3,6 +3,7 @@ package com.cdz.sh.dao;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -64,8 +65,11 @@ public class TestReservationFormDao {
 		
 		GregorianCalendar calendar = new GregorianCalendar(2012, 7, 1);
 		Room room = this.roomDao.getRecordById(1L);
-					
-		this.reservationFormDao.retrieveActiveReservationForms(calendar.getTime(), room);
+		
+		List<StateReservationForm> states = new ArrayList<StateReservationForm>();
+		states.add(StateReservationForm.PRE_BOOKING);
+		states.add(StateReservationForm.CONFIRMED);
+		this.reservationFormDao.retrieveReservationForms(calendar.getTime(), room, states);
 		
 	}
 	

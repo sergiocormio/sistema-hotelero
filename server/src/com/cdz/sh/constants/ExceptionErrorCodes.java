@@ -29,6 +29,9 @@ public class ExceptionErrorCodes {
 
 	public static final String NO_RATE = "noRate";
 	
+	public static final String NO_CONFIRMED_RESERVATION_FORM = "noConfirmedReservationForm";
+	
+	
 	
 	
 	/**
