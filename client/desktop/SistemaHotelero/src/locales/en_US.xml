@@ -200,6 +200,7 @@
     	<digitsquantity>Digits Quantity</digitsquantity>
     </documentType>
     <errorMessage>
+    	<genericServerError>An unexpected error has occurred</genericServerError>
     	<serverNotFound>Server not found</serverNotFound>
     	<javaHomeNotFound>JavaHome not found</javaHomeNotFound>
     </errorMessage>
