@@ -18,7 +18,7 @@ public class Cleaning {
 	@EmbeddedId
 	private CleaningPK id;
 	
-	@ElementCollection(fetch = FetchType.EAGER, targetClass = CleaningType.class)
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = String.class)
     @Enumerated(value = EnumType.STRING)
 	private Set<CleaningType> assignedCleaning = new HashSet<CleaningType>();
 	
