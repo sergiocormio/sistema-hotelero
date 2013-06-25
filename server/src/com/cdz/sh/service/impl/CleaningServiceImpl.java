@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.PersistenceException;
+
+import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.CleaningDao;
 import com.cdz.sh.dao.OccupationDao;
 import com.cdz.sh.dao.RoomDao;
@@ -17,6 +20,7 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.CleaningDaoImpl;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
+import com.cdz.sh.exception.SHException;
 import com.cdz.sh.model.Cleaning;
 import com.cdz.sh.model.CleaningPK;
 import com.cdz.sh.model.CleaningType;
@@ -131,8 +135,15 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, CleaningP
 		List<Cleaning> cleanings = new ArrayList<Cleaning>();
 		for(Cleaning c : roomToCleaningMap.values()){
 			cleanings.add(c);
-			//TODO save the cleaning object
-//			cleaningDao.createRecord(c);
+			//saves the cleaning object, overriding existing cleaning objects
+			try{
+				cleaningDao.createRecord(c);
+			}catch (DaoException e) {
+				//if already exists a cleaning for its PK, tries to update the record
+				if(e.getErrorCode()!=null && e.getErrorCode().equals(ExceptionErrorCodes.DUPLICATE_PK_VIOLATION_WHEN_CREATE)){
+					cleaningDao.updateRecord(c);
+				}
+			}
 		}
 		
 		return cleanings;

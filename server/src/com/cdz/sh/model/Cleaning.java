@@ -9,6 +9,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 
 
 @Entity
@@ -17,8 +18,8 @@ public class Cleaning {
 	@EmbeddedId
 	private CleaningPK id;
 	
-	@ElementCollection
-	@Enumerated(EnumType.STRING)
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = CleaningType.class)
+    @Enumerated(value = EnumType.STRING)
 	private Set<CleaningType> assignedCleaning = new HashSet<CleaningType>();
 	
 	public Cleaning(){
