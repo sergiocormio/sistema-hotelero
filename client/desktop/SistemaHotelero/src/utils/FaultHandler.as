@@ -54,7 +54,7 @@ package utils
 				errMsg = loc.errorMessage.genericServerError;
 			}
 			
-			DebugLog.log(errMsg + " " + faultString);
+			DebugLog.log(errMsg + " " + faultString +"\n" + event.fault.getStackTrace());
 			Alert.show(errMsg, loc.validator.error);
 		}
 	}

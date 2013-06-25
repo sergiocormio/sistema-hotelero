@@ -25,6 +25,7 @@
 			
 			import services.CleaningService;
 			
+			import spark.events.GridEvent;
 			import spark.events.GridSelectionEvent;
 			
 			import utils.DateTimeUtils;
@@ -75,7 +76,7 @@
 			}
 			
 			
-			private function retrieveRoomsToClean():void
+			private function retrieveRoomsToClean(event:Object = null):void
 			{
 				var date:Date = dateChooser.selectedDate; 
 				Mask.show();
@@ -167,6 +168,53 @@
 				retrieveRoomsToClean();
 			}
 			
+			protected function regenerateButton_clickHandler(event:MouseEvent):void
+			{
+				if(!initializedForm){
+					return;
+				}
+				var date:Date = dateChooser.selectedDate; 
+				Mask.show();
+				new CleaningService().regenerateRoomsToClean(date, retrieveRoomsToClean_resultHandler, FaultHandler.defaultFaultHandler);
+			}
+			
+			protected function grid_gridClickHandler(event:GridEvent):void
+			{
+				var cleaning:Cleaning = event.item as Cleaning;
+				if(cleaning==null){
+					return;
+				}
+				var cleaningType:String = null;
+				switch(event.columnIndex)
+				{
+					case 1:
+					{
+						cleaningType = CleaningType.GENERAL;
+						break;
+					}
+					case 2:
+					{
+						cleaningType = CleaningType.BASIC;
+						break;
+					}
+					case 3:
+					{
+						cleaningType = CleaningType.BED_CLOTHE_CHANGE;
+						break;
+					}
+					default:{
+						return;
+					}
+				} 
+				if(cleaning.assignedCleaning.contains(cleaningType)){
+					cleaning.removeAssignedCleaning(cleaningType);
+				}else{
+					cleaning.addAssignedCleaning(cleaningType);
+				}
+				
+				new CleaningService().updateRecord(cleaning, retrieveRoomsToClean, FaultHandler.defaultFaultHandler);
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -198,13 +246,15 @@
 					<s:Form>
 						<s:FormItem label="{loc.cleaning.date}:">
 							<mx:DateField id="dateChooser" width="120"
+										  change="consultButton_clickHandler(null)"
 										  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
 										  formatString="{loc.dateFormat.toUpperCase()}"
 										  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
 						</s:FormItem>
 					</s:Form>	
 					<s:HGroup height="100%" horizontalAlign="center" verticalAlign="middle">
-						<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+						<!--<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>-->
+						<s:Button id="regenerateButton" label="{loc.cleaning.buttons.regenerate}" icon="{Icons.refresh}" click="regenerateButton_clickHandler(event)"/>
 						<s:Button id="exportCleanings" click="exportCleaningsButton_clickHandler(event)" label="{loc.button.print}" 
 								  toolTip="{loc.button.print}" enabled="{cleanings.length > 0}"
 								  icon="{Icons.exportReservation}" iconPlacement="left"/>
@@ -217,7 +267,8 @@
 					</s:layout>	
 					
 					<s:DataGrid id="grid" width="80%" height="100%" dataProvider="{cleanings}"   
-								alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
+								alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin"
+								gridClick="grid_gridClickHandler(event)">
 						<s:columns>
 							<s:ArrayList>
 								<s:GridColumn dataField="id.room.number" headerText="{loc.cleaning.roomNumber}">

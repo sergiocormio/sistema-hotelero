@@ -104,6 +104,9 @@
     <cleaning>
     	<date>Fecha</date>
     	<roomNumber>Número de habitación</roomNumber>
+    	<buttons>
+    		<regenerate>Regenerar</regenerate>
+    	</buttons>
     </cleaning>
     <cleaningType>
     	<GENERAL>General</GENERAL>
