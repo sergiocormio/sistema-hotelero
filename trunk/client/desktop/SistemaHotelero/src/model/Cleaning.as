@@ -32,6 +32,18 @@ package model
 		{
 			_id = value;
 		}
+		
+		public function removeAssignedCleaning(cleaningType:String):void{
+			if(this.assignedCleaning.contains(cleaningType)){
+				assignedCleaning.removeItemAt(assignedCleaning.getItemIndex(cleaningType));
+			}
+		}
+		
+		public function addAssignedCleaning(cleaningType:String):void{
+			if(!this.assignedCleaning.contains(cleaningType)){
+				assignedCleaning.addItem(cleaningType);
+			}
+		}
 
 	}
 }
