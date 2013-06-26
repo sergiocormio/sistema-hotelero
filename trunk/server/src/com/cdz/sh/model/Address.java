@@ -3,6 +3,8 @@ package com.cdz.sh.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Address {
@@ -14,7 +16,11 @@ public class Address {
 	private String street;
 	private String city;
 	private String state;
-	private String country;
+	
+	@ManyToOne
+	@JoinColumn(name="REGION_ID")
+    private Region region;
+    
 	private String zipCode;
 	
 	public Long getId() {
@@ -48,15 +54,7 @@ public class Address {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	public String getCountry() {
-		return country;
-	}
-	
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	
+			
 	public String getZipCode() {
 		return zipCode;
 	}
@@ -64,7 +62,30 @@ public class Address {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
 	
-	
+
+
+	@Override
+	public String toString() {
+		
+		String toString = "Id: " + this.getId() + "\n" +
+				          "street: " + street + "\n" +
+				          "city: " + city + "\n" +
+				          "state: " + state + "\n" +
+				          "zipcode: " + zipCode + "\n";
+		if(region != null){
+			toString = toString.concat("Region: \n " + this.getRegion().toString() + "\n");
+		}
+		
+		return toString;
+	}
 		
 }

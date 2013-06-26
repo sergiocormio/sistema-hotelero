@@ -176,7 +176,7 @@ public class ScenarioBuilder_AllEmpty_SameRoomType {
 			customerFede.setFirstName("Federico");
 			customerFede.setLastName("De Seta");
 			customerFede.setDateOfBirth(new GregorianCalendar(1987, 5, 6).getTime());
-			customerFede.setRegion(region);
+			//customerFede.setRegion(region);
 			customerFede.setLanguage(language);
 			this.customerDao.createRecord(customerFede);
 		}

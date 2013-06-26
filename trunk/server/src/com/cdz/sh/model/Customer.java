@@ -30,11 +30,7 @@ public class Customer {
     private String lastName;
     
     private Date dateOfBirth;
-    
-    @ManyToOne
-	@JoinColumn(name="REGION_ID")
-    private Region region;
-    
+        
     @ManyToOne
 	@JoinColumn(name="LANGUAGE_ID")
     private Language language;
@@ -91,14 +87,7 @@ public class Customer {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
-	public Region getRegion() {
-		return region;
-	}
-	
-	public void setRegion(Region region) {
-		this.region = region;
-	}
-	
+		
 	
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -165,8 +154,8 @@ public class Customer {
 				"Date of birth: " + this.getDateOfBirth() + "\n" + 
 				"Profession: " + this.getProfession() + "\n" +
 				"Last lodgement date: " + this.getLastLodgementDate() + "\n";
-		if(this.getRegion() != null){
-			toString = toString.concat("Region: \n " + this.getRegion().toString() + "\n");
+		if(this.getAddress() != null){
+			toString = toString.concat("Address: \n " + this.getAddress().toString() + "\n");
 		}
 		if(this.getLanguage() != null){
 			toString = toString.concat("Language: \n " + this.getLanguage().toString());
