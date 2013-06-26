@@ -84,7 +84,9 @@
 			}
 			
 			private function retrieveRoomsToClean_resultHandler(event:ResultEvent,token:Object=null):void {
+				grid.selectedIndex = -1;
 				cleanings.removeAll();
+				cleanings.refresh();
 				cleanings.addAll(event.result as ArrayCollection);
 				Mask.close();
 				if(!initializedForm){
@@ -173,6 +175,7 @@
 				if(!initializedForm){
 					return;
 				}
+				//TODO: Alert User about possible missing of his changes
 				var date:Date = dateChooser.selectedDate; 
 				Mask.show();
 				new CleaningService().regenerateRoomsToClean(date, retrieveRoomsToClean_resultHandler, FaultHandler.defaultFaultHandler);
@@ -268,7 +271,7 @@
 					
 					<s:DataGrid id="grid" width="80%" height="100%" dataProvider="{cleanings}"   
 								alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin"
-								gridClick="grid_gridClickHandler(event)">
+								gridClick="grid_gridClickHandler(event)" selectionMode="singleCell">
 						<s:columns>
 							<s:ArrayList>
 								<s:GridColumn dataField="id.room.number" headerText="{loc.cleaning.roomNumber}">
