@@ -35,8 +35,9 @@
 			private var customers:ArrayCollection = new ArrayCollection();
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
-				grid.selectedItem = null;
+				grid.selectedIndex = -1;
 				customers.removeAll();
+				customers.refresh();
 				customers.addAll(event.result as ArrayCollection);
 			}
 
@@ -55,7 +56,8 @@
 			protected function refreshGrid(event:Event=null):void
 			{
 				individual.enabled = false;
-				grid.selectedItem = null;
+				
+				// grid.selectedItem = null; 
 				retrieveAllCustomers();
 			}
 			
