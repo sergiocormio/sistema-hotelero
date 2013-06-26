@@ -48,7 +48,7 @@ public class TestCustomersReport {
 		region.setName("Centro");
 		region.setCountry(country);
 		
-		c1.setRegion(region);
+		//c1.setRegion(region);
 		
 		/**
 		 * customer 2: Sergio

@@ -83,7 +83,7 @@ public class TestCustomerDao {
 		c1.setDateOfBirth(new Date());
 		
 		Region region = this.regionDao.getRecordById(1L);
-		c1.setRegion(region);
+		//c1.setRegion(region);
 		
 		Language language = this.languageDao.getRecordById(1L);
 		c1.setLanguage(language);
