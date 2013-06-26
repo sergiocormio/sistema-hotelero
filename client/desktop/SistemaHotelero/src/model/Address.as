@@ -7,7 +7,7 @@ package model
 		private var _street : String;
 		private var _city : String;
 		private var _state : String;
-		private var _country : String;
+		private var _region:Region;
 		private var _zipCode : String;
 		
 		public function Address()
@@ -56,16 +56,6 @@ package model
 			_state = value;
 		}
 
-		public function get country():String
-		{
-			return _country;
-		}
-
-		public function set country(value:String):void
-		{
-			_country = value;
-		}
-
 		public function get zipCode():String
 		{
 			return _zipCode;
@@ -74,6 +64,16 @@ package model
 		public function set zipCode(value:String):void
 		{
 			_zipCode = value;
+		}
+
+		public function get region():Region
+		{
+			return _region;
+		}
+
+		public function set region(value:Region):void
+		{
+			_region = value;
 		}
 
 		

@@ -46,6 +46,8 @@
 			
 			import utils.FaultHandler;
 			import utils.WindowsUtils;
+			
+			
 			[Bindable]
 			public var loc:Object;
 			
@@ -56,18 +58,13 @@
 			
 			[Bindable]
 			private var documentTypes:ArrayCollection = new ArrayCollection();
-			[Bindable]
-			private var countries:ArrayCollection = new ArrayCollection();
-			[Bindable]
-			private var regions:ArrayCollection = new ArrayCollection();
+			
 			[Bindable]
 			private var languages:ArrayCollection = new ArrayCollection();
 			
 			private var titleWindow:TitleWindow;
 			private var addressForm:AddressIndividualCRUDForm;
 			private var docTypeForm:DocumentTypeIndividualCRUDForm;
-			private var countryForm:CountryIndividualCRUDForm;
-			private var regionForm:RegionIndividualCRUDForm;
 			private var languageForm:LanguageIndividualCRUDForm;
 			
 			public function get currentCustomer():Customer
@@ -93,13 +90,7 @@
 				professionText.text = _currentCustomer.profession;
 				dateOfBirthChooser.selectedDate = _currentCustomer.dateOfBirth;
 				lastLodgementDateChooser.selectedDate = _currentCustomer.lastLodgementDate;
-				if(_currentCustomer.region!=null){
-					WindowsUtils.autoSelectComboBox(countriesCombo,_currentCustomer.region.country);
-					WindowsUtils.autoSelectComboBox(regionsCombo,_currentCustomer.region);
-				}else{
-					countriesCombo.selectedIndex = -1;
-					regionsCombo.selectedIndex = -1;
-				}
+				
 				if(_currentCustomer.language!=null){
 					WindowsUtils.autoSelectComboBox(languagesCombo,_currentCustomer.language);
 				}else{
@@ -122,8 +113,6 @@
 			
 			private function autoloadCombos():void{
 				retrieveDocumentTypes();
-				retrieveCountries();
-				retrieveRegions();
 				retrieveLanguages();
 			}
 			
@@ -151,20 +140,7 @@
 				PopUpManager.removePopUp(titleWindow);
 			}
 			
-			private function addCountry():void{
-				countryForm = new CountryIndividualCRUDForm();
-				countryForm.loc = loc;
-				countryForm.isUpdate = false;
-				countryForm.addEventListener("saveSuccess",country_saveSuccess);
-				countryForm.addEventListener("cancelClicked",titleWindow_close);
-				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.country.singular,countryForm,this);
-			}
 			
-			private function country_saveSuccess(evt:Object):void {
-				countries.addItem(countryForm.currentCountry);
-				WindowsUtils.autoSelectComboBox(countriesCombo, countryForm.currentCountry);
-				PopUpManager.removePopUp(titleWindow);
-			}
 			
 			private function addLanguage():void{
 				languageForm = new LanguageIndividualCRUDForm();
@@ -181,22 +157,6 @@
 				PopUpManager.removePopUp(titleWindow);
 			}
 			
-			private function addRegion():void{
-				regionForm = new RegionIndividualCRUDForm();
-				regionForm.countryPreSelected = countriesCombo.selectedItem;
-				regionForm.loc = loc;
-				regionForm.isUpdate = false;
-				regionForm.addEventListener("saveSuccess",region_saveSuccess);
-				regionForm.addEventListener("cancelClicked",titleWindow_close);
-				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.region.singular,regionForm,this);
-			}
-			
-			private function region_saveSuccess(evt:Object):void {
-				regions.addItem(regionForm.currentRegion);
-				WindowsUtils.autoSelectComboBox(regionsCombo, regionForm.currentRegion);
-				PopUpManager.removePopUp(titleWindow);
-			}
-
 				
 			private function retrieveDocumentTypes_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the documentTypes ComboBox
@@ -208,31 +168,7 @@
 				dispatchEvent(new Event("saveSuccess"));
 			}
 			
-			private function retrieveCountries():void{
-				var countryServ:CountryService = new CountryService();
-				countryServ.retrieveAll(retrieveCountries_resultHandler,FaultHandler.defaultFaultHandler);
-			}
 			
-			private function retrieveCountries_resultHandler(event:ResultEvent,token:Object=null):void {
-				//fills the ComboBox
-				countries.removeAll();
-				countries.addAll(event.result as ArrayCollection);
-			}
-			
-			private function retrieveRegions(country:Country = null):void{
-				var regionServ:RegionService = new RegionService();
-				if(country==null){
-					regionServ.retrieveAll(retrieveRegions_resultHandler,FaultHandler.defaultFaultHandler);
-				}else{
-					regionServ.retrieveRegions(country,retrieveRegions_resultHandler,FaultHandler.defaultFaultHandler);
-				}
-			}
-			
-			private function retrieveRegions_resultHandler(event:ResultEvent,token:Object=null):void {
-				//fills the ComboBox
-				regions.removeAll();
-				regions.addAll(event.result as ArrayCollection);
-			}
 			
 			//LANGUAGES
 			private function retrieveLanguages():void{
@@ -254,14 +190,13 @@
 				
 				var valArray:Array = new Array();
 				
-				valArray.push(docTypeValidator);
-				valArray.push(regExpValidator);
 				valArray.push(firstNameValidator);
 				valArray.push(lastNameValidator);
+				valArray.push(emailValidator);
+				valArray.push(docTypeValidator);
+				valArray.push(regExpValidator);
 				valArray.push(dateOfBirthValidator);
 				valArray.push(lastLodgementDateValidator);
-				valArray.push(countryValidator);
-				valArray.push(regionValidator);
 				valArray.push(langValidator);
 				
 				var validatorErrorArray:Array = Validator.validateAll(valArray);
@@ -269,9 +204,15 @@
 				
 				setEnabledValidators(false);
 				
+				/* 
+				
+				now the email is mandatory, so we do not need to validate that at least should be specified 
+				the email or any phone number...
+				
 				if(isValidForm){
 					isValidForm = validateEmailAndPhones();
 				}
+				*/
 				return isValidForm;
 				
 			}
@@ -302,14 +243,13 @@
 			}
 			
 			private function setEnabledValidators(enabled:Boolean):void{
-				docTypeValidator.enabled = enabled;
-				regExpValidator.enabled = enabled;
 				firstNameValidator.enabled = enabled;
 				lastNameValidator.enabled = enabled;
+				emailValidator.enabled = enabled;
+				docTypeValidator.enabled = enabled;
+				regExpValidator.enabled = enabled;
 				dateOfBirthValidator.enabled = enabled;
 				lastLodgementDateValidator.enabled = enabled;
-				countryValidator.enabled = enabled;
-				regionValidator.enabled = enabled;
 				langValidator.enabled = enabled;
 			}
 			
@@ -324,6 +264,8 @@
 				if(currentCustomer.id == null){
 					currentCustomer.id = new CustomerPK();
 				}
+				// TODO check optional fields...
+				
 				currentCustomer.idNumber = idNumberText.text;
 				currentCustomer.docType = documentTypesCombo.selectedItem;
 				currentCustomer.firstName = firstNameText.text;
@@ -333,7 +275,6 @@
 				currentCustomer.dateOfBirth = dateOfBirthChooser.selectedDate;
 				currentCustomer.profession = professionText.text;
 				currentCustomer.language = languagesCombo.selectedItem;
-				currentCustomer.region = regionsCombo.selectedItem;
 				currentCustomer.phoneNumber = phoneNumberText.text;
 				currentCustomer.cellphoneNumber = cellphoneNumberText.text;
 				
@@ -352,19 +293,6 @@
 			}
 			
 						
-			protected function countriesCombo_changeHandler(event:IndexChangeEvent):void
-			{
-				//Loads regions to selected country
-				retrieveRegions(countriesCombo.selectedItem as Country);
-			}
-			
-			protected function regionsCombo_changeHandler(event:IndexChangeEvent):void
-			{
-				// selects automatically its country
-				var region:Region = regionsCombo.selectedItem as Region;
-				countriesCombo.selectedItem = region.country;
-			}
-			
 			protected function setInitialFocus():void
 			{
 				if(enabled){
@@ -402,7 +330,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<mx:NumberValidator id="docTypeValidator" 
 							enabled="false"
-							required="true"
+							required="false"
 							requiredFieldError="{loc.validator.requiredFieldError}"
 							minValue="0"
 							lowerThanMinError="{loc.validator.requiredFieldError}" 
@@ -411,7 +339,7 @@
 							/>
 		<mx:RegExpValidator id="regExpValidator"
 							enabled="false"
-							required="true"
+							required="false"
 							requiredFieldError="{loc.validator.requiredFieldError}"
 							flags="g"
 							noMatchError="{loc.validator.regExp.noMatchError}"
@@ -433,27 +361,9 @@
 							source="{lastNameText}"
 							property="text"
 							/>
-		<mx:NumberValidator id="countryValidator"
-							enabled="false"
-							required="true"
-							requiredFieldError="{loc.validator.requiredFieldError}"
-							minValue="0"
-							lowerThanMinError="{loc.validator.requiredFieldError}" 
-							source="{countriesCombo}"
-							property="selectedIndex" 
-							/>
-		<mx:NumberValidator id="regionValidator"
-							enabled="false"
-							required="true"
-							requiredFieldError="{loc.validator.requiredFieldError}"
-							minValue="0"
-							lowerThanMinError="{loc.validator.requiredFieldError}" 
-							source="{regionsCombo}"
-							property="selectedIndex" 
-							/>
 		<mx:NumberValidator id="langValidator"
 							enabled="false"
-							required="true"
+							required="false"
 							requiredFieldError="{loc.validator.requiredFieldError}"
 							minValue="0"
 							lowerThanMinError="{loc.validator.requiredFieldError}" 
@@ -488,6 +398,8 @@
 						  />
 		<mx:EmailValidator id="emailValidator" 
 						   enabled="false"
+						   required="true"
+						   requiredFieldError="{loc.validator.requiredFieldError}"
 						   invalidCharError="{loc.validator.invalidFieldValueError}"
 						   invalidPeriodsInDomainError="{loc.validator.invalidFieldValueError}"
 						   missingAtSignError="{loc.validator.invalidFieldValueError}"
@@ -517,10 +429,10 @@
 				<s:FormItem label="{loc.customer.lastName}:" required="true">
 					<s:TextInput id="lastNameText"/>
 				</s:FormItem>
-				<s:FormItem label="{loc.customer.email}:">
+				<s:FormItem label="{loc.customer.email}:" required="true">
 					<s:TextInput id="emailText" widthInChars="15"/>
 				</s:FormItem>
-				<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:" required="true">
+				<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:">
 					<s:HGroup>
 						<s:ComboBox id="documentTypesCombo" dataProvider="{documentTypes}"
 									labelField="name" requireSelection="true"/>
@@ -530,7 +442,7 @@
 								  toolTip="{loc.button.add}"/>
 					</s:HGroup>
 				</s:FormItem>
-				<s:FormItem label="{loc.customerPK.idNumber}:" required="true">
+				<s:FormItem label="{loc.customerPK.idNumber}:">
 					<s:TextInput id="idNumberText"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.customer.profession}:">
@@ -554,27 +466,7 @@
 								  formatString="{loc.dateFormat.toUpperCase()}"
 								  monthNames="{Locale.getInstance().monthNames}"/>
 				</s:FormItem>
-				<s:FormItem id="countryItem" label="{loc.country.singular}:" required="true">
-					<s:HGroup>
-						<s:ComboBox id="countriesCombo" dataProvider="{countries}" labelField="name" 
-							change="countriesCombo_changeHandler(event)" requireSelection="true"/>
-						<s:Button width="24" height="24" click="retrieveCountries();"
-								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-						<s:Button width="24" height="24" click="addCountry();" icon="{Icons.add}"
-								  toolTip="{loc.button.add}"/>
-					</s:HGroup>
-				</s:FormItem>
-				<s:FormItem id="regionItem" label="{loc.region.singular}:" required="true">
-					<s:HGroup>
-						<s:ComboBox id="regionsCombo" dataProvider="{regions}" labelField="name" 
-							change="regionsCombo_changeHandler(event)" requireSelection="true"/>
-						<s:Button width="24" height="24" click="retrieveRegions();"
-								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-						<s:Button width="24" height="24" click="addRegion();" icon="{Icons.add}"
-								  toolTip="{loc.button.add}"/>
-					</s:HGroup>
-				</s:FormItem>
-				<s:FormItem id="languageItem" label="{loc.language.singular}:" required="true">
+				<s:FormItem id="languageItem" label="{loc.language.singular}:" >
 					<s:HGroup>
 						<s:ComboBox id="languagesCombo" dataProvider="{languages}" labelField="name" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveLanguages();"
@@ -589,9 +481,9 @@
 				<s:FormItem label="{loc.customer.cellphoneNumber}:">
 					<s:TextInput id="cellphoneNumberText"/>
 				</s:FormItem>
-				<s:FormItem id="addressItem" label="{loc.customer.address.single}:" required="true">
+				<s:FormItem id="addressItem" label="{loc.customer.address.single}:" >
 					<s:HGroup>
-						<s:TextArea id="addressText" height="50" editable="false"/>
+						<s:TextArea id="addressText" height="80" editable="false"/>
 						<s:Button width="24" height="24" click="editAddress();"
 								  icon="{Icons.modify}" toolTip="{loc.button.modify}"/>
 						
