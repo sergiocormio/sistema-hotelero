@@ -14,8 +14,6 @@ public class Customer
 	
 	private var _address:Address;
 	
-	private var _region:Region;
-	
 	private var _language:Language;
 	
 	private var _email:String;
@@ -102,16 +100,7 @@ public class Customer
 		_language = value;
 	}
 
-	public function get region():Region
-	{
-		return _region;
-	}
-
-	public function set region(value:Region):void
-	{
-		_region = value;
-	}
-
+	
 	public function get dateOfBirth():Date
 	{
 		return _dateOfBirth;
@@ -187,8 +176,8 @@ public class Customer
 	{
 		if(_address != null){
 			return _address.street + ", " + _address.city + ",\n" +
-				   _address.zipCode + ", " + _address.state + ",\n" + 
-				   _address.country;
+				   _address.zipCode + ", " + _address.state + ",\n" +
+				   _address.region.country.name;
 		}
 		else{
 			return "";
