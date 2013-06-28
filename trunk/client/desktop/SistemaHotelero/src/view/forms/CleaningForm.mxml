@@ -32,6 +32,7 @@
 			import utils.FaultHandler;
 			import utils.PdfDisplayer;
 			
+			import view.components.ConfirmDialog;
 			import view.components.Mask;
 			
 			[Bindable]
@@ -175,10 +176,19 @@
 				if(!initializedForm){
 					return;
 				}
-				//TODO: Alert User about possible missing of his changes
-				var date:Date = dateChooser.selectedDate; 
-				Mask.show();
-				new CleaningService().regenerateRoomsToClean(date, retrieveRoomsToClean_resultHandler, FaultHandler.defaultFaultHandler);
+				//Alert User about possible missing of his changes
+				var question:String = loc.messages.areYouSure;
+				var sentence:String = loc.messages.anyChangesWillBeLost;
+				ConfirmDialog.show(loc.messages.confirm, question + " " + sentence  +".", alertEventHandler,loc.boolean.trueValue,loc.boolean.falseValue);
+			}
+			
+			private function alertEventHandler(event:Object):void {
+				if(event.detail == Alert.YES) {
+					// pressed yes.
+					var date:Date = dateChooser.selectedDate; 
+					Mask.show();
+					new CleaningService().regenerateRoomsToClean(date, retrieveRoomsToClean_resultHandler, FaultHandler.defaultFaultHandler);
+				}
 			}
 			
 			protected function grid_gridClickHandler(event:GridEvent):void

@@ -240,6 +240,9 @@
     	<singular>Servicio de Camarera</singular>
     </maintenance>
     <messages>
+    	<areYouSure>¿Está seguro?</areYouSure>
+    	<anyChangesWillBeLost>Cualquier cambio se perderá</anyChangesWillBeLost>
+    	<confirm>Confirmación</confirm>
     	<creatingMasterData>Creando datos maestros...</creatingMasterData>
     	<clickForMoreInfo>Click para más información</clickForMoreInfo>
 	    <pleaseWait>Por favor espere...</pleaseWait>
