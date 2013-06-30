@@ -16,7 +16,7 @@ import com.cdz.sh.model.Region;
 public interface CustomerDao extends CrudDao<Customer, Long> {
 
 	
-	public List<Customer> retrieveCustomers(List<Region> regions) throws DaoException;
+	public List<Customer> retrieveCustomers(List<Region> regions, boolean includeCustomersWithoutRegion) throws DaoException;
 
 	
 

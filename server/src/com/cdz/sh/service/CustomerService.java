@@ -16,5 +16,7 @@ public interface CustomerService extends CrudService<Customer, Long>{
 	
 	
 
-	public List<Customer> retrieveCustomers(List<Region> region, List<Integer> months) throws DaoException;
+	public List<Customer> retrieveCustomers(List<Region> region, List<Integer> months,
+											boolean includeCustomersWithoutRegion,
+											boolean includeCustomersWithoutBirthdate) throws DaoException;
 }

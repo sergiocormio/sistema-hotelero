@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,6 +17,7 @@ import com.cdz.sh.dao.impl.CustomerDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
 import com.cdz.sh.dao.impl.LanguageDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
+import com.cdz.sh.model.Address;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.CustomerPK;
 import com.cdz.sh.model.DocumentType;
@@ -49,15 +52,6 @@ public class TestCustomerDao {
 		
 		this.customerDao = new CustomerDaoImpl();
 
-				
-		this.customerPK1 = new CustomerPK();
-		this.customerPK1.setDocType(docTypeDNI);
-		this.customerPK1.setIdNumber("33333333");
-		
-		this.customerPK2 = new CustomerPK();
-		this.customerPK2.setDocType(docTypeDNI);
-		this.customerPK2.setIdNumber("32XXXXXX");
-	
 	}
 
 	@After
@@ -165,4 +159,49 @@ public class TestCustomerDao {
 	}
 
 
+	@Test
+	public  void testRetrieveCustomersByRegion() throws DaoException {
+		/**
+		 * customer 1: Fede WITH ADDRESS
+		 */
+		c1 = new Customer();
+		c1.setFirstName("Federico");
+		c1.setLastName("De Seta");
+		c1.setEmail("fede@f.com");
+		c1.setDateOfBirth(new Date());
+		
+		Region region = this.regionDao.getRecordById(1L);
+		Address address = new Address();
+		address.setRegion(region);
+		
+		c1.setAddress(address);
+		
+		/**
+		 * customer 2: Sergio WITHOUT ADDRESS
+		 */
+			
+		c2 = new Customer();
+		c2.setFirstName("Sergio");
+		c2.setLastName("Cormio");
+		c2.setEmail("sergio@s.com");
+				
+		this.customerDao.createRecord(c1);
+		this.customerDao.createRecord(c2);
+		
+		
+		Customer c1Found = this.customerDao.getRecordById(1L);
+		assertNotNull(c1Found);
+		Customer c2Found = this.customerDao.getRecordById(2L);
+		assertNotNull(c2Found);
+		
+		List<Region> regions = new ArrayList<Region>();
+		regions.add(region);
+		
+		boolean includeCustomersWithoutRegion = true;
+		
+		List<Customer> customers = this.customerDao.retrieveCustomers(regions, includeCustomersWithoutRegion);
+		
+		assertEquals(2, customers.size());
+	
+	}
 }
