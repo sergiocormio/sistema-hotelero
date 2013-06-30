@@ -25,10 +25,14 @@ package model
 		private var _id:String;
 		private var _label:String;
 		
+		/* January = 0, February = 1 and so on... */
+		private var _monthNumberInCalendar:int;
+		
 		public function Month(id:String,loc:Object)
 		{
 			_id = id;
 			_label = loc.month[id];
+			_monthNumberInCalendar = monthIds.getItemIndex(id);
 		}
 		
 		public static function convertToLabel(id:String,loc:Object):String{
@@ -59,5 +63,11 @@ package model
 		{
 			return _label;
 		}
+
+		public function get monthNumberInCalendar():int
+		{
+			return _monthNumberInCalendar;
+		}
+
 	}
 }

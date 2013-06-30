@@ -15,6 +15,7 @@
 		<emailSent>A mensagem foi enviada para os destinatários selecionados.</emailSent>
 		<emailTestSent>A mensagem de teste foi enviado a</emailTestSent>
 		<images>Imagens</images>
+		<noRegion>Sem região</noRegion>
 		<error>
 			<noRegionSelected>Você deve escolher pelo menos uma região</noRegionSelected>
 			<noMonthSelected>Você deve escolher pelo menos um mês de nascimento</noMonthSelected>
@@ -258,7 +259,8 @@
     	<zipfiles>Arquivo Zip</zipfiles>
     </migration>
     <month>
-    	<january>Janeiro</january>
+    	<noBirthdate>Sem data de nascimento</noBirthdate>
+		<january>Janeiro</january>
     	<february>Fevereiro</february>
     	<march>Março</march>
     	<april>Abril</april>
