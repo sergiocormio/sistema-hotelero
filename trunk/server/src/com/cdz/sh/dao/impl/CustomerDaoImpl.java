@@ -33,18 +33,41 @@ public class CustomerDaoImpl extends AbstractCrudDao<Customer, Long> implements 
 	
 	
 	@Override
-	public List<Customer> retrieveCustomers(List<Region> regions) throws DaoException {
+	public List<Customer> retrieveCustomers(List<Region> regions, boolean includeCustomersWithoutRegion) throws DaoException {
 
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		try {
 			entityManager.getTransaction().begin();
 			
-			String strQuery = "SELECT c FROM Customer c WHERE c.region in (:regions)";
+			String strQuery = "SELECT c FROM Customer c "; 
+			
+			if(regions != null && !regions.isEmpty()){
+				/**
+				 * LEFT JOIN to keep all customers and eventually be able to retrieve customers with address = null.
+				 * If we do not use a LEFT JOIN, the WHERE will act as an INNER JOIN and filter customers with address = null
+				 * before-hand. 
+				 */
+				strQuery += "LEFT JOIN c.address.region WHERE c.address.region in (:regions) ";
+			}
+						
+			if(includeCustomersWithoutRegion){
+				//if we have filtered by region
+				if(regions != null && !regions.isEmpty()){
+					strQuery += " OR ";
+				}
+				else{
+					strQuery += "WHERE ";
+				}
+				
+				strQuery += "(c.address IS NULL)"; //if the address is null, the region is null
+			}
 			
 			TypedQuery<Customer> query = entityManager.createQuery(strQuery, Customer.class);
 			
-			query = query.setParameter("regions", regions);
+			if(regions != null && !regions.isEmpty()){
+				query = query.setParameter("regions", regions);
+			}
 			
 			List<Customer> customers = query.getResultList();
 			entityManager.getTransaction().commit();

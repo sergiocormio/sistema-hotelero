@@ -31,9 +31,11 @@ public class CustomerServiceImpl extends AbstractCrudService<Customer, Long> imp
 	}
 
 	@Override
-	public List<Customer> retrieveCustomers(List<Region> regions, List<Integer> months) throws DaoException {
+	public List<Customer> retrieveCustomers(List<Region> regions, List<Integer> months,
+											boolean includeCustomersWithoutRegion,
+											boolean includeCustomersWithoutBirthdate) throws DaoException {
 		
-		List<Customer> customersByRegion = this.customerDao.retrieveCustomers(regions);
+		List<Customer> customersByRegion = this.customerDao.retrieveCustomers(regions, includeCustomersWithoutRegion);
 		
 		List<Customer> customers = new ArrayList<Customer>();
 		
@@ -41,14 +43,18 @@ public class CustomerServiceImpl extends AbstractCrudService<Customer, Long> imp
 		for (Customer customer : customersByRegion) {
 			
 			Date dateOfBirth = customer.getDateOfBirth();
-			if(dateOfBirth == null){
+			
+			if(includeCustomersWithoutBirthdate && dateOfBirth == null){
 				customers.add(customer);
 			}
 			else{
-				calendar.setTime(dateOfBirth);
-				
-				if(months.contains(calendar.get(Calendar.MONTH))){
-					customers.add(customer);
+				if(dateOfBirth != null){
+					
+					calendar.setTime(dateOfBirth);
+					
+					if(months.contains(calendar.get(Calendar.MONTH))){
+						customers.add(customer);
+					}
 				}
 			}
 		}
