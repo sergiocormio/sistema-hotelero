@@ -13,12 +13,15 @@ public class CustomerService extends CRUDService
 	}
 	
 	
-	public function retrieveCustomers(regions:ArrayCollection, months:ArrayCollection, resultHandler:Function, faultHandler:Function=null):void{
+	public function retrieveCustomers(regions:ArrayCollection, months:ArrayCollection, 
+									  includeCustomersWithoutRegion:Boolean,
+									  includeCustomersWithoutBirthdate:Boolean,
+									  resultHandler:Function, faultHandler:Function=null):void{
 		remoteObject.retrieveCustomers.addEventListener("result", resultHandler);
 		if(faultHandler!=null){
 			remoteObject.retrieveCustomers.addEventListener("fault", faultHandler);
 		}
-		remoteObject.retrieveCustomers(regions, months);
+		remoteObject.retrieveCustomers(regions, months, includeCustomersWithoutRegion, includeCustomersWithoutBirthdate);
 	}
                
 }

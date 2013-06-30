@@ -49,6 +49,9 @@
 			import utils.config.UserSettings;
 			
 			import view.components.Mask;
+
+			private var NO_REGION_ID, NO_BIRTHDATE_ID = -1;
+			private var NO_BIRTHDATE:String = "noBirthdate";
 			
 			[Bindable]
 			public var loc:Object;
@@ -60,7 +63,7 @@
 			private var regions:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
-			private var months:ArrayCollection;
+			private var months:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
 			private var imageIds:ArrayCollection = new ArrayCollection();
@@ -114,11 +117,13 @@
 				else
 				{
 					monthsMultiList.selectedIndices = null;
-				}
+				} 
 			}
 			
 			private function loadMonths():void{
 				months = new ArrayCollection();
+				months.addItem(new Month(NO_BIRTHDATE, loc)); //monthNumberInCalendar = -1 because NO_BIRTHDATE is not in monthIds collection;
+				
 				for each (var id:String in Month.monthIds){
 					months.addItem(new Month(id, loc));
 				}
@@ -131,10 +136,18 @@
 			private function retrieveRegions_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the rooms ComboBox
 				regions.removeAll();
+				
+				var noRegion:Region = new Region();
+				noRegion.id = NO_REGION_ID;
+				noRegion.name = loc.advertisement.noRegion;
+				
+				regions.addItem(noRegion);
+				
 				regions.addAll(event.result as ArrayCollection);
 				
-				// we should not take into account countries without regions because when a customer is created,
-				// the region field is mandatory (we do not support customers without regions)
+				// we should not take into account countries without regions because when a customer address is created,
+				// the region and country fields are mandatory. 
+				// So if the customer has an address it will have both region and country fields. 
 				//retrieveCountriesWithoutRegions();
 			}
 			
@@ -190,20 +203,40 @@
 					return;
 				}
 				
+				// COLLECT SELECTED REGIONS
 				var selectedRegions:ArrayCollection = new ArrayCollection();
+				var includeCustomersWithoutRegion:Boolean = false;
 				
 				for each (var selectedRegionIndex:int in regionsMultiList.selectedIndices){
-					selectedRegions.addItem(regions.getItemAt(selectedRegionIndex));
+					var selectedRegion:Region = regions.getItemAt(selectedRegionIndex) as Region;
+					if(selectedRegion.id == NO_REGION_ID){
+						includeCustomersWithoutRegion = true;
+					}
+					else{
+						selectedRegions.addItem(selectedRegion);
+					}
+					
 				}
 				
+				// COLLECT SELECTED MONTHS
 				var selectedMonths:ArrayCollection = new ArrayCollection();
+				var includeCustomersWithoutBirthdate:Boolean = false;
 				
 				// set months indices (e.g: January=0, February=1 and so on)
 				for each (var selectedMonthIndex:int in monthsMultiList.selectedIndices){
-					selectedMonths.addItem(selectedMonthIndex);
+					var selectedMonth:Month = months.getItemAt(selectedMonthIndex) as Month;
+					if(selectedMonth.monthNumberInCalendar == NO_BIRTHDATE_ID){
+						includeCustomersWithoutBirthdate = true;
+					}
+					else{
+						selectedMonths.addItem(selectedMonth.monthNumberInCalendar);
+					}
 				}
+				
 							
-				new CustomerService().retrieveCustomers(selectedRegions, selectedMonths, retrieveCustomers_resultHandler, FaultHandler.defaultFaultHandler);
+				new CustomerService().retrieveCustomers(selectedRegions, selectedMonths, 
+														includeCustomersWithoutRegion,
+														includeCustomersWithoutBirthdate, retrieveCustomers_resultHandler, FaultHandler.defaultFaultHandler);
 			}		
 			
 			
@@ -271,7 +304,13 @@
 			}
 			
 			public function refreshForm():void{
+				//to have latest countries and regions (and also to clean the previous user selection)
 				loadPlaces();
+				//mainly to clean the previous user selection (this info is static)
+				loadMonths();
+				//to clean the previous user selection
+				allRegions.selected = false;
+				allMonths.selected = false;
 			}
 			
 		]]>

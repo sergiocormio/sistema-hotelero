@@ -7,7 +7,7 @@ package model
 	public interface IPlace
 	{
 		/**
-		 * Name to be displayed is AdvertisementForm MultiList
+		 * Name to be displayed in AdvertisementForm MultiList
 		 */
 		function get qualifiedName():String;
 	}

@@ -25,7 +25,12 @@ public class Region implements IPlace
 	
 	public function get qualifiedName():String
 	{
-		return _country.name + " - " + _name;
+		if(_country != null){
+			return _country.name + " - " + _name;
+		}
+		else{	// tu support "noRegion"
+			return _name;
+		}
 	}
 
 	public function set name(value:String):void
