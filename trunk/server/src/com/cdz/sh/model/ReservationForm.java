@@ -180,7 +180,7 @@ public class ReservationForm implements Comparable {
     
     @Transient
     public int getNightsQuantity(){
-    	return DateUtil.getDaysQuantity(this.dateFrom, this.dateTo) - 1;
+    	return DateUtil.getDaysQuantity(this.dateFrom, this.dateTo);
     }
     
     @Transient

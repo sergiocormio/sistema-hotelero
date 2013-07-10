@@ -9,4 +9,21 @@ public enum CleaningType {
 	public String getName(){
 		return this.name();
 	}
+	
+	@Override
+	public String toString() {
+		String result = "UNKNOWN";
+		switch(this){
+		case GENERAL:
+			result = "GENERAL";
+			break;
+		case BASIC:
+			result = "BASIC";
+			break;
+		case BED_CLOTHE_CHANGE:
+			result = "BED_CLOTHE_CHANGE";
+			break;
+		}
+		return result;
+	}
 }

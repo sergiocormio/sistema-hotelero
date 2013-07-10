@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.PersistenceException;
-
 import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.CleaningDao;
 import com.cdz.sh.dao.OccupationDao;
@@ -20,7 +18,6 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.CleaningDaoImpl;
 import com.cdz.sh.dao.impl.OccupationDaoImpl;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
-import com.cdz.sh.exception.SHException;
 import com.cdz.sh.model.Cleaning;
 import com.cdz.sh.model.CleaningPK;
 import com.cdz.sh.model.CleaningType;
@@ -65,6 +62,7 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, CleaningP
 		List<Cleaning> cleanings = this.cleaningDao.retrieveRoomsToClean(date);
 		Collection<Room> rooms = this.roomDao.retrieveAll();
 		if(cleanings == null || cleanings.size()==0){
+			//TODO SC: Maybe "cleaning objects" should be generated when user confirms a reservationForm. 
 			cleanings = generateCleanings(date,rooms);
 		}else{
 			//verifies if exists one cleaning object per existing room
@@ -149,9 +147,6 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, CleaningP
 		return cleanings;
 	}
 
-	
-
-
 	private boolean needBasicCleaningType(Occupation occupation) {
 		Date dateFrom = occupation.getId().getReservationForm().getDateFrom();
 		
@@ -166,11 +161,12 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, CleaningP
 		calendar.setTime(occupation.getId().getDate());
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 		
+		//FIXME SC: If it's sunday, this algorithm waits until the next tuesday, instead of doing a basic
+		//cleaning on monday.
 		// every other day except from Sunday
 		if(remainder == 0 && dayOfWeek != Calendar.SUNDAY){
 			return true;
-		}
-		else{
+		}else{
 			return false;
 		}
 	}
@@ -181,23 +177,30 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, CleaningP
 		boolean needBedClotheChangeCleaningType = false;
 		/**
 		 *    a las cuarta noche si son 7 dias
-			  a la 5 noche si son 8 dias
-			  a la 5 noche si son 9,dias
-			  10 y 11 idem, para 8 y 9
-			  a partir de 12 noches, falta definir
+			  a la 4 y a la 8va noche si son 8
+			  a la 4 y a la 9na noche si son 9
+			  a la 5 y a la 10ma noche si son 10,dias
+			  a la 5 y a la 11ava noche si son 11,dias
+			  a partir de 12 noches, no hay definicion el usuario decide
 		 */
 		Date dateFrom = occupation.getId().getReservationForm().getDateFrom();
 		int nightsQuantity = occupation.getId().getReservationForm().getNightsQuantity();
 		
 		int daysDifference = DateUtil.getDaysDifference(dateFrom, occupation.getId().getDate());
-		int nightNumber = daysDifference++; //add the first night
+		int nightNumber = ++daysDifference; //adds the first night
 		
 		if(nightsQuantity == 7 && nightNumber == 4){
 			needBedClotheChangeCleaningType = true;
-		}
-		
-		if((nightsQuantity >= 8 && nightsQuantity <= 11)  && nightNumber == 5){
+		}else if((nightsQuantity == 8) && (nightNumber == 4 || nightNumber == 8)){
 			needBedClotheChangeCleaningType = true;
+		}else if((nightsQuantity == 9) && (nightNumber == 4 || nightNumber == 9)){
+			needBedClotheChangeCleaningType = true;
+		}else if((nightsQuantity == 10) && (nightNumber == 5 || nightNumber == 10)){
+			needBedClotheChangeCleaningType = true;
+		}else if((nightsQuantity == 11) && (nightNumber == 5 || nightNumber == 11)){
+			needBedClotheChangeCleaningType = true;
+		}else if(nightsQuantity >= 12){
+			//Lack of definition
 		}
 		
 		return needBedClotheChangeCleaningType;
