@@ -223,6 +223,12 @@
 	    	<symbol>R$</symbol>
     	</defaultCurrency>
     </exchangeRate>
+    <grid>
+    	<next>Siguiente</next>
+    	<previous>Anterior</previous>
+    	<page>Página</page>
+    	<of>de</of>
+    </grid>
     <language>
    		<singular>Idioma</singular>
 	    <plural>Idiomas</plural>

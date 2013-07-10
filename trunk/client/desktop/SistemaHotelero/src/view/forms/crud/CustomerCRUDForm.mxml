@@ -35,10 +35,10 @@
 			private var customers:ArrayCollection = new ArrayCollection();
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
-				grid.selectedIndex = -1;
 				customers.removeAll();
 				customers.refresh();
 				customers.addAll(event.result as ArrayCollection);
+				pagedGrid.refresh();
 			}
 
 			
@@ -67,7 +67,7 @@
 			
 			protected function modifyCustomer():void
 			{
-				individual.currentCustomer = grid.selectedItem as Customer;
+				individual.currentCustomer = pagedGrid.grid.selectedItem as Customer;
 				individual.isUpdate = true;
 				individual.enabled=true;
 				
@@ -75,21 +75,21 @@
 			
 			protected function deleteCustomer():void
 			{
-				new CustomerService().deleteRecord(grid.selectedItem as Customer,delete_resultHandler,FaultHandler.defaultFaultHandler);
+				new CustomerService().deleteRecord(pagedGrid.grid.selectedItem as Customer,delete_resultHandler,FaultHandler.defaultFaultHandler);
 			}
 			
 			protected function addCustomer():void
 			{
-				grid.selectedItem = null;
+				pagedGrid.grid.selectedItem = null;
 				individual.currentCustomer = new Customer();
 				individual.isUpdate = false;
 				individual.enabled = true;
 			}
 			
-			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
+			protected function grid_selectionChangeHandler():void
 			{
-				if(grid.selectedItem !=null){
-					individual.currentCustomer = grid.selectedItem as Customer;
+				if(pagedGrid.grid.selectedItem !=null){
+					individual.currentCustomer = pagedGrid.grid.selectedItem as Customer;
 				}
 				individual.enabled = false;
 			}
@@ -123,8 +123,9 @@
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
 		<s:HGroup width="100%" height="50%">
-			<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{customers}" selectionChange="grid_selectionChangeHandler(event)" alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
-				<s:columns>
+			<components:paginatedDataGrid id="pagedGrid" width="100%" height="100%" dataProvider="{customers}" loc="{loc}" 
+										  pageSize="10" itemSelected="grid_selectionChangeHandler()">
+				<components:columns>
 					<s:ArrayList>
 						<s:GridColumn dataField="email" headerText="{loc.customer.email}"></s:GridColumn>
 						<s:GridColumn dataField="firstName" headerText="{loc.customer.firstName}"></s:GridColumn>
@@ -143,13 +144,13 @@
 						<s:GridColumn dataField="phoneNumber" headerText="{loc.customer.phoneNumber}"></s:GridColumn>
 						<s:GridColumn dataField="cellphoneNumber" headerText="{loc.customer.cellphoneNumber}"></s:GridColumn>
 					</s:ArrayList>
-				</s:columns>
-			</s:DataGrid>
+				</components:columns>
+			</components:paginatedDataGrid>
 			<!-- BUTTONS -->
 			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addCustomer()"
 									modifyClicked="modifyCustomer()" removeClicked="deleteCustomer()"
-									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-									removeButtonEnabled="{grid.selectedItem!=null}"/>
+									loc="{loc}" modifyButtonEnabled="{pagedGrid.grid.selectedItem!=null}"
+									removeButtonEnabled="{pagedGrid.grid.selectedItem!=null}"/>
 		</s:HGroup>
 		<individual:CustomerIndividualCRUDForm id="individual" height="50%" width="100%" 
 										 loc="{loc}" enabled="false" 
