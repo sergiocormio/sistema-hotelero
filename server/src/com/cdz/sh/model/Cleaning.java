@@ -20,7 +20,7 @@ public class Cleaning {
 	
 	@ElementCollection(fetch = FetchType.EAGER, targetClass = String.class)
     @Enumerated(value = EnumType.STRING)
-	private Set<CleaningType> assignedCleaning = new HashSet<CleaningType>();
+	private Set<String> assignedCleaning = new HashSet<String>();
 	
 	public Cleaning(){
 	}
@@ -37,17 +37,17 @@ public class Cleaning {
 	public CleaningPK getId() {
 		return id;
 	}
-	public void setAssignedCleaning(Set<CleaningType> assignedCleaning) {
+	public void setAssignedCleaning(Set<String> assignedCleaning) {
 		this.assignedCleaning = assignedCleaning;
 	}
-	public Set<CleaningType> getAssignedCleaning() {
+	public Set<String> getAssignedCleaning() {
 		return assignedCleaning;
 	}
 	public void addCleaningType(CleaningType cleaningType) {
 		if(assignedCleaning == null){
-			assignedCleaning = new HashSet<CleaningType>();
+			assignedCleaning = new HashSet<String>();
 		}
-		assignedCleaning.add(cleaningType);
+		assignedCleaning.add(cleaningType.toString());
 	}
 	
 	@Override
