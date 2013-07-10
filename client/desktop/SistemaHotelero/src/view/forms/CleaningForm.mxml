@@ -266,8 +266,8 @@
 						</s:FormItem>
 					</s:Form>	
 					<s:HGroup height="100%" horizontalAlign="center" verticalAlign="middle">
-						<!--<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>-->
-						<s:Button id="regenerateButton" label="{loc.cleaning.buttons.regenerate}" icon="{Icons.refresh}" click="regenerateButton_clickHandler(event)"/>
+						<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="regenerateButton_clickHandler(event)"/>
+						<!--<s:Button id="regenerateButton" label="{loc.cleaning.buttons.regenerate}" icon="{Icons.refresh}" click="regenerateButton_clickHandler(event)"/>-->
 						<s:Button id="exportCleanings" click="exportCleaningsButton_clickHandler(event)" label="{loc.button.print}" 
 								  toolTip="{loc.button.print}" enabled="{cleanings.length > 0}"
 								  icon="{Icons.exportReservation}" iconPlacement="left"/>
