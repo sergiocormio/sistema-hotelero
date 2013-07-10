@@ -180,6 +180,15 @@ package resources.icons
 		public static var saveData:Class;
 		
 		[Bindable]
+		[Embed(source='resources/icons/next_arrow.png')]
+		public static var nextArrow:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/previous_arrow.png')]
+		public static var previousArrow:Class;
+		
+		
+		[Bindable]
 		[Embed(source='resources/icons/arrow_up.png')]
 		public static var loadData:Class;
 		
