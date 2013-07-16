@@ -59,6 +59,7 @@
 			private function retrieveReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
 				_reservationFormSelected = null;
 				reservationForms.removeAll();
+				reservationForms.refresh();
 				reservationForms.addAll(event.result as ArrayCollection);
 			}
 			
@@ -96,6 +97,7 @@
 			private function retrieveCustomers_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				customers.removeAll();
+				customers.refresh();
 				customers.addAll(event.result as ArrayCollection);
 			}
 			
@@ -107,6 +109,7 @@
 			private function retrieveRooms_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				rooms.removeAll();
+				rooms.refresh();
 				rooms.addAll(event.result as ArrayCollection);
 			}
 			

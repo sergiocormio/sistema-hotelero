@@ -28,8 +28,8 @@
 			private var roomTypes:ArrayCollection = new ArrayCollection();
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
-				grid.selectedItem = null;
 				roomTypes.removeAll();
+				roomTypes.refresh();
 				roomTypes.addAll(event.result as ArrayCollection);
 			}
 			
@@ -47,7 +47,6 @@
 			protected function refreshGrid(event:Event=null):void
 			{
 				individual.enabled = false;
-				grid.selectedItem = null;
 				retriveAllRoomTypes();
 			}
 			

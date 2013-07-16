@@ -96,6 +96,7 @@
 				// remove the previous result just in case !allFieldsAreValid...
 				// the idea is not to confuse the user with the displayed results
 				alternatives.removeAll();
+				alternatives.refresh();
 				outOfPeriodAlternatives.removeAll();
 				outOfPeriodAlternatives.refresh();
 				
@@ -190,6 +191,7 @@
 			//-------- IN PERIOD -------
 			private function consult_resultHandler(event:ResultEvent,token:Object=null):void {
 				alternatives.removeAll();
+				alternatives.refresh();
 				if(event!=null){
 					alternatives.addAll(AlternativeWrapper.wrapAlternatives(event.result as ArrayCollection));
 				}
@@ -218,6 +220,7 @@
 			{
 				alternativeSelected = null;
 				alternatives.removeAll();
+				alternatives.refresh();
 				outOfPeriodAlternatives.removeAll();
 				outOfPeriodAlternatives.refresh();
 			}

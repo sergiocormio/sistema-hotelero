@@ -105,6 +105,7 @@
 			{
 				//fills the exchangeRates ComboBox
 				exchangeRates.removeAll();
+				exchangeRates.refresh();
 				exchangeRates.addAll(event.result as ArrayCollection);
 				
 			}

@@ -82,7 +82,7 @@
 					var col:GridColumn = DateTimeUtils.getColumnForDate(auxDate,DAY_PREFIX_COLUMN + i);
 					col.labelFunction = calendarFormat;
 					col.itemRendererFunction = selectRenderer;
-					
+					col.sortable = false;
 					grid.columns.addItem(col);
 					i++;
 				}

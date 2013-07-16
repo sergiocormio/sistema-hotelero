@@ -156,6 +156,7 @@
 			private function retrieveSeasons_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				seasons.removeAll();
+				seasons.refresh();
 				seasons.addAll(event.result as ArrayCollection);
 				//preselects a season
 				if(seasonPreSelected != null){
@@ -192,6 +193,7 @@
 			private function retrieveRoomTypes_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				roomTypes.removeAll();
+				roomTypes.refresh();
 				roomTypes.addAll(event.result as ArrayCollection);
 				//preselects a roomType
 				if(roomTypePreSelected != null){

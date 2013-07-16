@@ -57,6 +57,7 @@
 			
 			private function retrieveOccupations_resultHandler(event:ResultEvent,token:Object=null):void {
 				occupations.removeAll();
+				occupations.refresh();
 				occupations.addAll(event.result as ArrayCollection);
 				grid.dateFrom = calendarNavigationBar.dateFrom;
 				grid.dateTo = calendarNavigationBar.dateTo;
