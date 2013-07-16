@@ -146,6 +146,7 @@
 			private function retrieveCountries_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				countries.removeAll();
+				countries.refresh();
 				countries.addAll(event.result as ArrayCollection);
 				//preselects a country
 				if(countryPreSelected != null){

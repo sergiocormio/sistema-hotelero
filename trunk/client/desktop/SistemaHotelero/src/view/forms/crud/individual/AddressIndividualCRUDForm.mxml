@@ -166,6 +166,7 @@
 			private function retrieveCountries_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				countries.removeAll();
+				countries.refresh();
 				countries.addAll(event.result as ArrayCollection);
 				
 				if(_currentAddress != null && _currentAddress.region != null){
@@ -192,6 +193,7 @@
 			private function retrieveRegions_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				regions.removeAll();
+				regions.refresh();
 				regions.addAll(event.result as ArrayCollection);
 				
 				if(_currentAddress != null && _currentAddress.region != null){

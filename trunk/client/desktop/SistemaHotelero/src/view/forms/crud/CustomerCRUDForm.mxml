@@ -56,8 +56,6 @@
 			protected function refreshGrid(event:Event=null):void
 			{
 				individual.enabled = false;
-				
-				// grid.selectedItem = null; 
 				retrieveAllCustomers();
 			}
 			
@@ -80,7 +78,6 @@
 			
 			protected function addCustomer():void
 			{
-				pagedGrid.grid.selectedItem = null;
 				individual.currentCustomer = new Customer();
 				individual.isUpdate = false;
 				individual.enabled = true;

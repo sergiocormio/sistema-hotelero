@@ -186,6 +186,7 @@
 			private function retrieveRoomTypes_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				roomTypes.removeAll();
+				roomTypes.refresh();
 				roomTypes.addAll(event.result as ArrayCollection);
 				//preselects a roomType
 				if(roomTypePreSelected != null){

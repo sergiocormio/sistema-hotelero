@@ -50,7 +50,7 @@
 			
 			import view.components.Mask;
 
-			private var NO_REGION_ID, NO_BIRTHDATE_ID = -1;
+			private var NO_REGION_ID:int, NO_BIRTHDATE_ID:int = -1;
 			private var NO_BIRTHDATE:String = "noBirthdate";
 			
 			[Bindable]
@@ -136,6 +136,7 @@
 			private function retrieveRegions_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the rooms ComboBox
 				regions.removeAll();
+				regions.refresh();
 				
 				var noRegion:Region = new Region();
 				noRegion.id = NO_REGION_ID;

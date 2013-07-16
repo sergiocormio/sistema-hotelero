@@ -241,6 +241,7 @@
 			private function retrieveCustomers_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				customers.removeAll();
+				customers.refresh();
 				customers.addAll(event.result as ArrayCollection);
 			}
 			
@@ -290,6 +291,7 @@
 			private function retrieveBanks_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				banks.removeAll();
+				banks.refresh();
 				banks.addAll(event.result as ArrayCollection);
 			}
 			

@@ -161,6 +161,7 @@
 			private function retrieveDocumentTypes_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the documentTypes ComboBox
 				documentTypes.removeAll();
+				documentTypes.refresh();
 				documentTypes.addAll(event.result as ArrayCollection);
 			}
 			
@@ -179,6 +180,7 @@
 			private function retrieveLanguages_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				languages.removeAll();
+				languages.refresh();
 				languages.addAll(event.result as ArrayCollection);
 			}
 			

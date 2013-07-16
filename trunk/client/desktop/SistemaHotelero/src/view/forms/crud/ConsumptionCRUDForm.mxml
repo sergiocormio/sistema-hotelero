@@ -151,8 +151,8 @@
 			}
 			
 			private function retrieveConsumptions_resultHandler(event:ResultEvent,token:Object=null):void {
-				grid.selectedItem = null;
 				consumptions.removeAll();
+				consumptions.refresh();
 				consumptions.addAll(event.result as ArrayCollection);
 				
 				calculateTotal(event.result as ArrayCollection);
@@ -169,6 +169,7 @@
 				totalCons.price = totalPrice;
 				
 				totalConsumption.removeAll();
+				totalConsumption.refresh();
 				totalConsumption.addItem(totalCons);
 			}
 			
@@ -195,6 +196,7 @@
 			private function retrieveRooms_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the rooms ComboBox
 				rooms.removeAll();
+				rooms.refresh();
 				rooms.addAll(event.result as ArrayCollection);
 			}
 			
@@ -202,7 +204,6 @@
 			protected function refreshGrid(event:Event=null):void
 			{
 				individual.enabled = false;
-				grid.selectedItem = null;
 				retrieveConsumptions();
 			}
 			
@@ -282,6 +283,7 @@
 			private function retrieveConfirmedReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the reservation form ComboBox
 				confirmedReservationForms.removeAll();
+				confirmedReservationForms.refresh();
 				confirmedReservationForms.addAll(event.result as ArrayCollection);
 			}
 			

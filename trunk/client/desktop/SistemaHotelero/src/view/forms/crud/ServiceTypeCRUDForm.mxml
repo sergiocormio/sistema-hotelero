@@ -32,8 +32,8 @@
 			private var _removeButtonEnabled:Boolean;
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
-				grid.selectedItem = null;
 				serviceTypes.removeAll();
+				serviceTypes.refresh();
 				serviceTypes.addAll(event.result as ArrayCollection);
 			}
 			
@@ -49,7 +49,6 @@
 			protected function refreshGrid(event:Event=null):void
 			{
 				individual.enabled = false;
-				grid.selectedItem = null;
 				retrieveServiceTypes();
 			}
 			

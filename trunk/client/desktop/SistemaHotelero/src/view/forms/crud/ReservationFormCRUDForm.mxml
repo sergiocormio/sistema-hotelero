@@ -60,8 +60,8 @@
 			private var reservationFormStates:ArrayCollection;
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
-				grid.selectedItem = null;
 				reservationForms.removeAll();
+				reservationForms.refresh();
 				reservationForms.addAll(event.result as ArrayCollection);
 			}
 			
@@ -94,6 +94,7 @@
 			private function retrieveCustomers_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				customers.removeAll();
+				customers.refresh();
 				customers.addAll(event.result as ArrayCollection);
 			}
 			
@@ -126,7 +127,6 @@
 			protected function refreshGrid(event:Event=null,token:Object=null):void
 			{
 				individual.enabled = false;
-				grid.selectedItem = null;
 				enabledActionButtons(false);
 				retrieveAllReservationForms();
 			}

@@ -308,6 +308,7 @@
 			private function retrieveServiceTypes_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				serviceTypes.removeAll();
+				serviceTypes.refresh();
 				serviceTypes.addAll(event.result as ArrayCollection);
 			}
 			
@@ -325,6 +326,7 @@
 			private function retrieveReservationForms_resultHandler(event:ResultEvent,token:Object=null):void {
 				//fills the ComboBox
 				reservationForms.removeAll();
+				reservationForms.refresh();
 				reservationForms.addAll(event.result as ArrayCollection);
 				serviceTypesCombo_changeHandler(null);
 			}
