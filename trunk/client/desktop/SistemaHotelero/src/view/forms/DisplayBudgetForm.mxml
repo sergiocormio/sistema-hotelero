@@ -230,7 +230,7 @@
 		
 		<!-- BUTTONS -->
 		<s:HGroup width="100%" height="10%" horizontalAlign="center" verticalAlign="middle">
-			<s:Button label="{loc.button.print}" click="exportBudgetButton_clickHandler(event)" icon="{Icons.exportReservation}"/>
+			<s:Button label="{loc.button.print}" click="exportBudgetButton_clickHandler(event)" icon="{Icons.export}"/>
 			<s:Button label="{loc.button.cancel}" click="cancel()" icon="{Icons.cancel}"/>
 		</s:HGroup>
 		<s:Spacer height="5"/>

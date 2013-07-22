@@ -169,7 +169,7 @@ package resources.icons
 		
 		[Bindable]
 		[Embed(source='resources/icons/icon-pdf.png')]
-		public static var exportReservation:Class;
+		public static var export:Class;
 		
 		[Bindable]
 		[Embed(source='resources/icons/arrow_up_down.png')]
