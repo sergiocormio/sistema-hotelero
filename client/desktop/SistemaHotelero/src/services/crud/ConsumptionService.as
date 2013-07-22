@@ -4,6 +4,7 @@ package services.crud
 	import model.Room;
 	
 	import services.RemoteObjectWrapperService;
+	import mx.collections.ArrayCollection;
 
 public class ConsumptionService extends CRUDService
 {
@@ -25,6 +26,14 @@ public class ConsumptionService extends CRUDService
 			remoteObject.retrieveConsumptions.addEventListener("fault", faultHandler);
 		}
 		remoteObject.retrieveConsumptions(reservationForm);
+	}
+	
+	public function exportData(consumptions:ArrayCollection, selectedLocale:String, resultHandler:Function, faultHandler:Function=null):void{
+		remoteObject.exportData.addEventListener("result", resultHandler);
+		if(faultHandler!=null){
+			remoteObject.exportData.addEventListener("fault", faultHandler);
+		}
+		remoteObject.exportData(consumptions, selectedLocale);
 	}
                
 }

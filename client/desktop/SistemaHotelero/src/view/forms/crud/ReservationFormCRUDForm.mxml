@@ -482,7 +482,7 @@
 								  icon="{Icons.taxi}" iconPlacement="top"/>
 						<s:Button id="exportReservationButton" click="exportReservationButton_clickHandler(event)" label="{loc.reservationForm.buttons.print}" 
 								  toolTip="{loc.reservationForm.buttons.print} {loc.reservationForm.singular}" enabled="false"
-								  icon="{Icons.exportReservation}" iconPlacement="top"/>
+								  icon="{Icons.export}" iconPlacement="top"/>
 					</s:VGroup>
 				</s:Group>
 			</s:VGroup>

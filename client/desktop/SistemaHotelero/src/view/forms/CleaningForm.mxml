@@ -270,7 +270,7 @@
 						<!--<s:Button id="regenerateButton" label="{loc.cleaning.buttons.regenerate}" icon="{Icons.refresh}" click="regenerateButton_clickHandler(event)"/>-->
 						<s:Button id="exportCleanings" click="exportCleaningsButton_clickHandler(event)" label="{loc.button.print}" 
 								  toolTip="{loc.button.print}" enabled="{cleanings.length > 0}"
-								  icon="{Icons.exportReservation}" iconPlacement="left"/>
+								  icon="{Icons.export}" iconPlacement="left"/>
 					</s:HGroup>	
 				</s:HGroup>
 				       
