@@ -51,6 +51,7 @@
 			
 			protected function refreshGrid(event:Event=null):void
 			{
+				grid.selectedIndex = -1;
 				individual.enabled = false;
 				retrieveAllTransfers();
 			}
@@ -61,7 +62,7 @@
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
-				if(grid.selectedItem !=null){
+				if(grid.selectedIndex >= 0){
 					individual.currentTransfer = grid.selectedItem as Transfer;
 				}
 				individual.enabled = false;
@@ -82,7 +83,7 @@
 			
 			protected function addTransfer():void
 			{
-				grid.selectedItem = null;
+				grid.selectedIndex = -1;
 				individual.currentTransfer = new Transfer();
 				individual.isUpdate = false;
 				individual.enabled = true;
@@ -151,8 +152,8 @@
 			<!-- BUTTONS -->
 			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addTransfer()"
 									modifyClicked="modifyTransfer()" removeClicked="deleteTransfer()"
-									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-									removeButtonEnabled="{grid.selectedItem!=null}"/>
+									loc="{loc}" modifyButtonEnabled="{grid.selectedIndex >= 0}"
+									removeButtonEnabled="{grid.selectedIndex >= 0}"/>
 		</s:HGroup>
 		<individual:TransferIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="individual_saveSuccessHandler(event)" cancelClicked="individual.enabled=false;" height="40%"/>
 	</mx:VDividedBox>

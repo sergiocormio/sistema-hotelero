@@ -55,6 +55,7 @@
 			
 			protected function refreshGrid(event:Event=null):void
 			{
+				pagedGrid.grid.selectedIndex = -1;
 				individual.enabled = false;
 				retrieveAllCustomers();
 			}
@@ -85,7 +86,7 @@
 			
 			protected function grid_selectionChangeHandler():void
 			{
-				if(pagedGrid.grid.selectedItem !=null){
+				if(pagedGrid.grid.selectedIndex >= 0){
 					individual.currentCustomer = pagedGrid.grid.selectedItem as Customer;
 				}
 				individual.enabled = false;
@@ -146,8 +147,8 @@
 			<!-- BUTTONS -->
 			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addCustomer()"
 									modifyClicked="modifyCustomer()" removeClicked="deleteCustomer()"
-									loc="{loc}" modifyButtonEnabled="{pagedGrid.grid.selectedItem!=null}"
-									removeButtonEnabled="{pagedGrid.grid.selectedItem!=null}"/>
+									loc="{loc}" modifyButtonEnabled="{pagedGrid.grid.selectedIndex >= 0}"
+									removeButtonEnabled="{pagedGrid.grid.selectedIndex >= 0}"/>
 		</s:HGroup>
 		<individual:CustomerIndividualCRUDForm id="individual" height="50%" width="100%" 
 										 loc="{loc}" enabled="false" 

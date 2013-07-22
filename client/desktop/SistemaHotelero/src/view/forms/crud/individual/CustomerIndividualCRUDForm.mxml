@@ -185,7 +185,7 @@
 			}
 			
 			private function allFieldsAreValid():Boolean{
-				if(documentTypesCombo.selectedItem != null){
+				if(documentTypesCombo.selectedIndex >= 0){
 					regExpValidator.expression = documentTypesCombo.selectedItem.regExp;
 				}
 				setEnabledValidators(true);
