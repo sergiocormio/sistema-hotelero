@@ -46,6 +46,7 @@
 			
 			protected function refreshGrid(event:Event=null):void
 			{
+				grid.selectedIndex = -1;
 				individual.enabled = false;
 				retrieveBanks();
 			}
@@ -56,7 +57,7 @@
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
-				if(grid.selectedItem !=null){
+				if(grid.selectedIndex >= 0){
 					individual.currentBank = grid.selectedItem as Bank;
 				}
 				individual.enabled = false;
@@ -77,7 +78,7 @@
 			
 			protected function addBank():void
 			{
-				grid.selectedItem = null;
+				grid.selectedIndex = -1;
 				individual.currentBank = new Bank();
 				individual.isUpdate = false;
 				individual.enabled = true;
@@ -115,8 +116,8 @@
 			<!-- BUTTONS -->
 			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addBank()"
 									modifyClicked="modifyBank()" removeClicked="deleteBank()"
-									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-									removeButtonEnabled="{grid.selectedItem!=null}"/>
+									loc="{loc}" modifyButtonEnabled="{grid.selectedIndex >= 0}"
+									removeButtonEnabled="{grid.selectedIndex >= 0}"/>
 		</s:HGroup>
 		<individual:BankIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="30%"/>
 	</mx:VDividedBox>

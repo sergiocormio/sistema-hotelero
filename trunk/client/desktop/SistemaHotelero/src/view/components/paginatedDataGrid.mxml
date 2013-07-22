@@ -65,7 +65,7 @@
 			{
 				if(currentPageNumber > 1)
 				{
-					grid.selectedItem = null;
+					grid.selectedIndex = -1;
 					
 					currentPageNumber--;
 					minBound = minBound - pageSize;
@@ -96,7 +96,7 @@
 			{
 				if(currentPageNumber < getNumberOfPages())
 				{
-					grid.selectedItem = null;
+					grid.selectedIndex = -1;
 					
 					currentPageNumber++;
 					if(dataProvider.length > 0){
@@ -171,7 +171,7 @@
 			
 			public function refresh():void
 			{
-				grid.selectedItem = null;
+				grid.selectedItem = -1;
 				setFirstPage();
 			}
 			

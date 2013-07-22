@@ -211,6 +211,7 @@
 					
 			protected function refreshGrid(event:Event=null):void
 			{
+				grid.selectedIndex = -1;
 				individual.enabled = false;
 				retrieveConsumptions();
 			}
@@ -225,7 +226,7 @@
 			
 			protected function addConsumption():void
 			{
-				grid.selectedItem = null;
+				grid.selectedIndex = -1;
 				individual.currentConsumption = new Consumption();
 				individual.isUpdate = false;
 				individual.enabled = true;
@@ -238,7 +239,7 @@
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
-				if(grid.selectedItem !=null){
+				if(grid.selectedIndex >= 0){
 					individual.currentConsumption = grid.selectedItem as Consumption;
 				}
 				//individual.enabled = false;
@@ -505,7 +506,7 @@
 				<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addConsumption()"
 										modifyClicked="modifyConsumption()" removeClicked="deleteConsumption()"
 										loc="{loc}" modifyButtonEnabled="{false}"
-										removeButtonEnabled="{grid.selectedItem!=null}"/>
+										removeButtonEnabled="{grid.selectedIndex >= 0}"/>
 				<s:Group width="100%" height="100%">
 					<s:Rect width="100%" height="100%" radiusX="5">
 						<s:stroke>

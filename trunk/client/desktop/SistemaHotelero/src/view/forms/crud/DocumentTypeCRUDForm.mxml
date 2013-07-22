@@ -48,6 +48,7 @@
 			
 			protected function refreshGrid(event:Event=null):void
 			{
+				grid.selectedIndex = -1;
 				individual.enabled = false;
 				retrieveDocumentTypes();
 			}
@@ -58,7 +59,7 @@
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
-				if(grid.selectedItem !=null){
+				if(grid.selectedIndex >= 0){
 					individual.currentDocType = grid.selectedItem as DocumentType;
 				}
 				individual.enabled = false;
@@ -79,7 +80,7 @@
 			
 			protected function addDocumentType():void
 			{
-				grid.selectedItem = null;
+				grid.selectedIndex = -1;
 				var newDocType:DocumentType = new DocumentType();
 				//Adds Default RegExp
 				newDocType.regExp = DocumentType.DEFAULT_REGEXP;
@@ -122,9 +123,9 @@
 			</s:DataGrid>
 			<!-- BUTTONS -->
 			<components:CRUDButtons height="100%" addClicked="addDocumentType()" loc="{loc}"
-									modifyButtonEnabled="{grid.selectedItem!=null}"
+									modifyButtonEnabled="{grid.selectedIndex >= 0}"
 									modifyClicked="modifyDocumentType()" refreshClicked="refreshGrid()"
-									removeButtonEnabled="{grid.selectedItem!=null}"
+									removeButtonEnabled="{grid.selectedIndex >= 0}"
 									removeClicked="deleteDocumentType()"/>
 		</s:HGroup>
 		<individual:DocumentTypeIndividualCRUDForm id="individual" height="30%"

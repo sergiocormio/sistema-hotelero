@@ -48,6 +48,8 @@
 			
 			protected function refreshGrid(event:Event=null):void
 			{
+				grid.selectedIndex = -1;
+				_removeButtonEnabled = false;
 				individual.enabled = false;
 				retrieveServiceTypes();
 			}
@@ -59,7 +61,7 @@
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
 				_removeButtonEnabled = false;
-				if(grid.selectedItem !=null){
+				if(grid.selectedIndex >= 0){
 					individual.currentServiceType = grid.selectedItem as ServiceType;
 					var transferType:String = (grid.selectedItem as ServiceType).transferType;
 					if(transferType == null || transferType == ""){
@@ -84,7 +86,8 @@
 			
 			protected function addServiceType():void
 			{
-				grid.selectedItem = null;
+				grid.selectedIndex = -1;
+				_removeButtonEnabled = false;
 				individual.currentServiceType = new ServiceType();
 				individual.isUpdate = false;
 				individual.enabled = true;
@@ -145,7 +148,7 @@
 			<!-- BUTTONS -->
 			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addServiceType()"
 									modifyClicked="modifyServiceType()" removeClicked="deleteServiceType()"
-									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
+									loc="{loc}" modifyButtonEnabled="{grid.selectedIndex >= 0}"
 									removeButtonEnabled="{_removeButtonEnabled}"/>
 		</s:HGroup>
 		<individual:ServiceTypeIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="40%"/>

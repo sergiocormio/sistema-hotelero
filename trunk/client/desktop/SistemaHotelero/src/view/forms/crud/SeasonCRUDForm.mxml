@@ -47,6 +47,7 @@
 			
 			protected function refreshGrid(event:Event=null):void
 			{
+				grid.selectedIndex = -1;
 				individual.enabled = false;
 				retrieveAllSeasons();
 			}
@@ -57,7 +58,7 @@
 			
 			protected function grid_selectionChangeHandler(event:GridSelectionEvent):void
 			{
-				if(grid.selectedItem !=null){
+				if(grid.selectedIndex >= 0){
 					individual.currentSeason = grid.selectedItem as Season;
 				}
 				individual.enabled = false;
@@ -78,7 +79,7 @@
 			
 			protected function addSeason():void
 			{
-				grid.selectedItem = null;
+				grid.selectedIndex = -1;
 				individual.currentSeason = new Season();
 				individual.isUpdate = false;
 				individual.enabled = true;
@@ -124,8 +125,8 @@
 			<!-- BUTTONS -->
 			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addSeason()"
 									modifyClicked="modifySeason()" removeClicked="deleteSeason()"
-									loc="{loc}" modifyButtonEnabled="{grid.selectedItem!=null}"
-									removeButtonEnabled="{grid.selectedItem!=null}"/>
+									loc="{loc}" modifyButtonEnabled="{grid.selectedIndex >= 0}"
+									removeButtonEnabled="{grid.selectedIndex >= 0}"/>
 		</s:HGroup>
 		<individual:SeasonIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="refreshGrid();" cancelClicked="individual.enabled=false;" height="40%"/>
 	</mx:VDividedBox>
