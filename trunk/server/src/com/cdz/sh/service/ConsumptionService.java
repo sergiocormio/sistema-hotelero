@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.model.Cleaning;
 import com.cdz.sh.model.Consumption;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
@@ -36,4 +37,13 @@ public interface ConsumptionService extends CrudService<Consumption, Long>{
 	 */
 	public List<Consumption> retrieveConsumptions(ReservationForm reservationForm) throws DaoException;
 
+	
+	/**
+	 * Export to PDF the information given
+	 * 
+	 * @param cleanings
+	 * @return the absolute path to the report generated
+	 */
+	public byte[] exportData(List<Consumption> consumptions, String selectecLocale);
+	
 }

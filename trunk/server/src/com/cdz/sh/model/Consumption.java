@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+import com.cdz.sh.util.PriceFormater;
 
 @Entity
 public class Consumption {
@@ -95,5 +98,8 @@ public class Consumption {
 	}
     	
 
-	
+	@Transient
+	public String getPriceFormatted() {
+		return PriceFormater.formatPrice(price);
+	}
 }

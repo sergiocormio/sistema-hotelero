@@ -1,8 +1,11 @@
 package com.cdz.sh.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cdz.sh.constants.ExceptionErrorCodes;
 import com.cdz.sh.dao.ConsumptionDao;
@@ -18,9 +21,12 @@ import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.Room;
 import com.cdz.sh.model.StateReservationForm;
+import com.cdz.sh.model.export.ExportConsumption;
+import com.cdz.sh.report.PDFReportManager;
 import com.cdz.sh.service.AbstractCrudService;
 import com.cdz.sh.service.ConsumptionService;
 import com.cdz.sh.service.exception.InvalidOperationException;
+import com.cdz.sh.util.DateUtil;
 
 /**
  * Implementation of ConsumptionService facade
@@ -30,6 +36,9 @@ import com.cdz.sh.service.exception.InvalidOperationException;
  */
 public class ConsumptionServiceImpl extends AbstractCrudService<Consumption, Long> implements ConsumptionService {
 
+	private static final String TEMPLATE_FILE_TYPE = ".jrxml";
+	private static final String CONSUMPTION_TEMPLATE = "consumption";
+	
 	private ConsumptionDao consumptionDao;
 	private ReservationFormDao reservationFormDao;
 	private OccupationDao occupationDao;
@@ -113,6 +122,53 @@ public class ConsumptionServiceImpl extends AbstractCrudService<Consumption, Lon
 	}
 	
 	
-	
+
+	@Override
+	public byte[] exportData(List<Consumption> consumptions, String selectedLocale) {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		String filename = CONSUMPTION_TEMPLATE + "_" + selectedLocale + TEMPLATE_FILE_TYPE;
+		
+		PDFReportManager pdfReportManager = new PDFReportManager(filename, params);
+		
+		ExportConsumption exportConsumption = createExportConsumption(consumptions);
+		
+		Collection<ExportConsumption> collection = new ArrayList<ExportConsumption>();
+		collection.add(exportConsumption);
+		
+		
+		byte[] report = pdfReportManager.createReport(collection);
+		
+		return report;
+	}
+
+
+	private ExportConsumption createExportConsumption(List<Consumption> consumptions) {
+		
+		ExportConsumption exportConsumption = new ExportConsumption();
+		
+		exportConsumption.setDateFrom(DateUtil.getDateUTC(consumptions.get(0).getDate()));
+		exportConsumption.setDateTo(DateUtil.getDateUTC(consumptions.get(consumptions.size()-1).getDate()));
+		
+		exportConsumption.setTotalPrice(calculateTotalPrice(consumptions));
+		
+		exportConsumption.setConsumptions(consumptions);
+		
+		return exportConsumption;
+	}
+
+
+
+
+	private double calculateTotalPrice(List<Consumption> consumptions) {
+		
+		double totalPrice = 0;
+		for (Consumption consumption : consumptions) {
+			
+			totalPrice += consumption.getPrice();
+		}
+		return totalPrice;
+	}
 
 }
