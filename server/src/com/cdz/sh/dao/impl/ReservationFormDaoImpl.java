@@ -30,6 +30,33 @@ import com.cdz.sh.model.StateReservationForm;
  */
 public class ReservationFormDaoImpl extends AbstractCrudDao<ReservationForm, Long> implements ReservationFormDao {
 
+	
+	@Override
+	public synchronized List<ReservationForm> retrieveAll() throws DaoException {
+
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
+		String jpql = "SELECT rf from ReservationForm rf ORDER BY id ASC";
+		try{
+			entityManager.getTransaction().begin();
+			TypedQuery<ReservationForm> query = entityManager.createQuery(jpql, ReservationForm.class);
+			
+			List<ReservationForm> reservationForms = query.getResultList();
+			entityManager.getTransaction().commit();
+			
+			return reservationForms;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
+		}
+
+	}
+	
+	
 	@Override
 	public synchronized List<ReservationForm> retrieveReservationForms(Date dateFrom, Date dateTo, Customer customer, StateReservationForm state) throws InvalidParameterException, DaoException {
 
