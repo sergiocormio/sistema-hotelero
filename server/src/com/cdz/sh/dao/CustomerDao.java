@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.dao.exception.InvalidParameterException;
+import com.cdz.sh.model.Country;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.Region;
 
@@ -15,6 +17,9 @@ import com.cdz.sh.model.Region;
  */
 public interface CustomerDao extends CrudDao<Customer, Long> {
 
+	
+	public List<Customer> retrieveCustomers(String email, String firstName, String lastName, Country country) throws InvalidParameterException, DaoException;
+	
 	
 	public List<Customer> retrieveCustomers(List<Region> regions, boolean includeCustomersWithoutRegion) throws DaoException;
 

@@ -8,7 +8,9 @@ import java.util.List;
 import com.cdz.sh.dao.CustomerDao;
 import com.cdz.sh.dao.crud.CrudDao;
 import com.cdz.sh.dao.exception.DaoException;
+import com.cdz.sh.dao.exception.InvalidParameterException;
 import com.cdz.sh.dao.impl.CustomerDaoImpl;
+import com.cdz.sh.model.Country;
 import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.Region;
 import com.cdz.sh.service.AbstractCrudService;
@@ -29,6 +31,8 @@ public class CustomerServiceImpl extends AbstractCrudService<Customer, Long> imp
 		this.customerDao = new CustomerDaoImpl();
 		return customerDao;
 	}
+	
+	
 
 	@Override
 	public List<Customer> retrieveCustomers(List<Region> regions, List<Integer> months,
@@ -60,6 +64,16 @@ public class CustomerServiceImpl extends AbstractCrudService<Customer, Long> imp
 		}
 		
 		return customers;
+	}
+
+
+
+	@Override
+	public List<Customer> retrieveCustomers(String email, String firstName,
+			String lastName, Country country) throws InvalidParameterException,
+			DaoException {
+		
+		return this.customerDao.retrieveCustomers(email, firstName, lastName, country);
 	}
 
 	
