@@ -5,6 +5,8 @@
 		  width="100%" height="100%" creationComplete="init(event)" xmlns:ns="http://www.adobe.com/2006/fc" xmlns:crud="view.forms.crud.*" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*" >
 	<fx:Script>
 		<![CDATA[
+			import model.Country;
+			import services.crud.CountryService;
 			import locales.Locale;
 			
 			import model.Customer;
@@ -29,10 +31,28 @@
 			import utils.FaultHandler;
 			
 			[Bindable]
+			private var countries:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
 			public var loc:Object;
 			
 			[Bindable]
 			private var customers:ArrayCollection = new ArrayCollection();
+			
+			
+			private function retrieveCountries():void{
+				var countryServ:CountryService = new CountryService();
+				countryServ.retrieveAll(retrieveCountries_resultHandler,FaultHandler.defaultFaultHandler);
+			}
+			
+			private function retrieveCountries_resultHandler(event:ResultEvent,token:Object=null):void {
+				//fills the ComboBox
+				countries.removeAll();
+				countries.refresh();
+				countries.addAll(event.result as ArrayCollection);
+				countriesComboSearch.selectedIndex = -1;
+			}
+			
 			
 			private function retrieveAll_resultHandler(event:ResultEvent,token:Object=null):void {
 				customers.removeAll();
@@ -49,6 +69,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				retrieveCountries();
 				refreshGrid();
 				createContextMenu();
 			}
@@ -114,36 +135,160 @@
 				//adds event listener to menu item
 				refreshItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, refreshGrid);
 			}
+			
+			protected function cleanButton_clickHandler(event:MouseEvent):void
+			{
+				cleanFilterForm();
+				refreshGrid();
+			}
+			
+			private function cleanFilterForm():void
+			{
+				emailSearch.text = null;
+				firstNameSearch.text = null;
+				lastNameSearch.text = null;
+				countriesComboSearch.selectedIndex = -1;
+			}
+			
+			protected function consultButton_clickHandler(event:MouseEvent):void
+			{
+				if(!validFilters()){
+					return;
+				}
+				
+				filterCustomers();						
+			}
+			
+			private function validFilters():Boolean
+			{
+				var validFilters:Boolean = false;
+				
+				if(emailSearch.text != null && emailSearch.text != ""){				
+					if(emailSearchValidator.validate().type == ("valid")){
+						validFilters = true;
+					}
+					else{
+						return false; //invalid email
+					}
+				}
+				if(firstNameSearch.text != null && firstNameSearch.text != ""){
+					validFilters = true;
+				}
+				if(lastNameSearch.text != null && lastNameSearch.text != ""){
+					validFilters = true;
+				}
+				if(countriesComboSearch.selectedIndex > -1){
+					validFilters = true;
+				}
+				return validFilters;
+			}
+			
+			private function filterCustomers():void
+			{
+				var email:String = null;
+				var firstName:String = null;
+				var lastName:String  = null;
+				var country:Country = null;
+				
+				if(emailSearch.text != null && emailSearch.text != ""){
+					email = emailSearch.text; 
+				}
+				if(firstNameSearch.text != null && firstNameSearch.text != ""){
+					firstName = firstNameSearch.text;
+				}
+				if(lastNameSearch.text != null && lastNameSearch.text != ""){
+					lastName = lastNameSearch.text;
+				}
+				if(countriesComboSearch.selectedIndex > -1){
+					country = countriesComboSearch.selectedItem as Country;
+				}
+				
+				new CustomerService().retrieveCustomersBySearch(email, firstName, lastName, country, retrieveAll_resultHandler, FaultHandler.defaultFaultHandler);
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:EmailValidator id="emailSearchValidator" 
+						   enabled="true"
+						   required="false"
+					 	   invalidCharError="{loc.validator.invalidFieldValueError}"
+						   invalidPeriodsInDomainError="{loc.validator.invalidFieldValueError}"
+						   missingAtSignError="{loc.validator.invalidFieldValueError}"
+						   missingPeriodInDomainError="{loc.validator.invalidFieldValueError}"
+						   missingUsernameError="{loc.validator.invalidFieldValueError}"
+						   tooManyAtSignsError="{loc.validator.invalidFieldValueError}"  
+				    	   source="{emailSearch}"
+						   property="text" 
+						   />
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
-		<s:HGroup width="100%" height="50%">
-			<components:paginatedDataGrid id="pagedGrid" width="100%" height="100%" dataProvider="{customers}" loc="{loc}" 
-										  pageSize="15" itemSelected="grid_selectionChangeHandler()">
-				<components:columns>
-					<s:ArrayList>
-						<s:GridColumn dataField="email" headerText="{loc.customer.email}"></s:GridColumn>
-						<s:GridColumn dataField="firstName" headerText="{loc.customer.firstName}"></s:GridColumn>
-						<s:GridColumn dataField="lastName" headerText="{loc.customer.lastName}"></s:GridColumn>
-						<s:GridColumn dataField="dateOfBirth" headerText="{loc.customer.dateOfBirth}" labelFunction="dateFormat"></s:GridColumn>
-						<s:GridColumn dataField="docType.name" headerText="{loc.documentType.singular}"></s:GridColumn>
-						<s:GridColumn dataField="idNumber" headerText="{loc.customerPK.idNumber}"></s:GridColumn>
-						<s:GridColumn dataField="addressAsText" headerText="{loc.customer.address.single}"></s:GridColumn>
-						<!--
-							<s:GridColumn dataField="address.region.country.name" headerText="{loc.country.singular}"></s:GridColumn>
-							<s:GridColumn dataField="address.region.name" headerText="{loc.region.singular}"></s:GridColumn>
-						-->
-						<s:GridColumn dataField="language.name" headerText="{loc.language.singular}"></s:GridColumn>
-						<s:GridColumn dataField="lastLodgementDate" headerText="{loc.customer.lastLodgementDate}" labelFunction="dateFormat"></s:GridColumn>
-						<s:GridColumn dataField="profession" headerText="{loc.customer.profession}"></s:GridColumn>
-						<s:GridColumn dataField="phoneNumber" headerText="{loc.customer.phoneNumber}"></s:GridColumn>
-						<s:GridColumn dataField="cellphoneNumber" headerText="{loc.customer.cellphoneNumber}"></s:GridColumn>
-					</s:ArrayList>
-				</components:columns>
-			</components:paginatedDataGrid>
+		<s:HGroup width="100%" height="53%">
+			<s:Group width="100%" height="100%">
+				<s:Rect width="100%" height="100%">
+					<s:stroke>
+						<s:SolidColorStroke color="{Colors.YELLOW_COLOR}" weight="1"/>
+					</s:stroke>
+					<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
+				</s:Rect>
+				<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
+					<s:VGroup width="100%" verticalAlign="top" gap="0">
+						<s:HGroup width="100%" horizontalAlign="center" gap="-50">
+							<s:Form>
+								<s:FormItem label="{loc.customer.email}:">
+									<s:TextInput id="emailSearch"/>
+								</s:FormItem>
+							</s:Form>
+							<s:Form>
+								<s:FormItem label="{loc.customer.firstName}:">
+									<s:TextInput id="firstNameSearch"/>
+								</s:FormItem>
+							</s:Form>
+							<s:Form>	
+								<s:FormItem label="{loc.customer.lastName}:">
+									<s:TextInput id="lastNameSearch"/>
+								</s:FormItem>
+							</s:Form>
+							<s:Form>	
+								<s:FormItem id="countryItem" label="{loc.customer.address.country}:">
+									<s:HGroup>
+										<s:ComboBox id="countriesComboSearch" dataProvider="{countries}" labelField="name" width="200"/>
+										<s:Button width="24" height="24" click="retrieveCountries();"
+												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+									</s:HGroup>
+								</s:FormItem>
+							</s:Form>	
+						</s:HGroup>
+						<s:HGroup width="100%" horizontalAlign="center">
+							<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
+							<s:Button id="cleanButton" label="{loc.button.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
+						</s:HGroup>
+					</s:VGroup>
+					<components:paginatedDataGrid id="pagedGrid" width="100%" height="100%" dataProvider="{customers}" loc="{loc}" 
+												  pageSize="15" itemSelected="grid_selectionChangeHandler()" lineColor="{Colors.RED_COLOR}" bgColor="{Colors.GRAY_COLOR}">
+						<components:columns>
+							<s:ArrayList>
+								<s:GridColumn dataField="email" headerText="{loc.customer.email}"></s:GridColumn>
+								<s:GridColumn dataField="firstName" headerText="{loc.customer.firstName}"></s:GridColumn>
+								<s:GridColumn dataField="lastName" headerText="{loc.customer.lastName}"></s:GridColumn>
+								<s:GridColumn dataField="dateOfBirth" headerText="{loc.customer.dateOfBirth}" labelFunction="dateFormat"></s:GridColumn>
+								<s:GridColumn dataField="docType.name" headerText="{loc.documentType.singular}"></s:GridColumn>
+								<s:GridColumn dataField="idNumber" headerText="{loc.customerPK.idNumber}"></s:GridColumn>
+								<s:GridColumn dataField="addressAsText" headerText="{loc.customer.address.single}"></s:GridColumn>
+								<!--
+									<s:GridColumn dataField="address.region.country.name" headerText="{loc.country.singular}"></s:GridColumn>
+									<s:GridColumn dataField="address.region.name" headerText="{loc.region.singular}"></s:GridColumn>
+								-->
+								<s:GridColumn dataField="language.name" headerText="{loc.language.singular}"></s:GridColumn>
+								<s:GridColumn dataField="lastLodgementDate" headerText="{loc.customer.lastLodgementDate}" labelFunction="dateFormat"></s:GridColumn>
+								<s:GridColumn dataField="profession" headerText="{loc.customer.profession}"></s:GridColumn>
+								<s:GridColumn dataField="phoneNumber" headerText="{loc.customer.phoneNumber}"></s:GridColumn>
+								<s:GridColumn dataField="cellphoneNumber" headerText="{loc.customer.cellphoneNumber}"></s:GridColumn>
+							</s:ArrayList>
+						</components:columns>
+					</components:paginatedDataGrid>
+				</mx:VDividedBox>
+			</s:Group>
 			<!-- BUTTONS -->
 			<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addCustomer()"
 									modifyClicked="modifyCustomer()" removeClicked="deleteCustomer()"
