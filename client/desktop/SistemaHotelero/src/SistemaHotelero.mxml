@@ -186,10 +186,10 @@
 	</s:Group>
 	<s:Group width="100%" height="100%">
 		<!-- HEADER PANEL -->
-		<view:HeaderPanel width="100%" id="headerPanel" />
+		<view:HeaderPanel width="100%" id="headerPanel" mainPanel="{mainPanel}"/>
 
 		<!-- MAIN PANEL -->
-		<view:MainPanel height="100%" width="100%" loc="{headerPanel.loc}"/>
+		<view:MainPanel id="mainPanel" height="100%" width="100%" loc="{headerPanel.loc}"/>
 	</s:Group>
 	
 </s:WindowedApplication>

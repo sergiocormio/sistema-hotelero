@@ -256,6 +256,8 @@
 	    <pleaseWaitLong>Esto puede llevar unos minutos. Por favor espere...</pleaseWaitLong>
 	    <startingServer>Iniciando el Servidor...</startingServer>
 	    <stoppingServer>Deteniendo el Servidor...</stoppingServer>
+	    <reservationFormInsertOk>Se ha creado exitosamente la ficha de reserva con número</reservationFormInsertOk>
+	    <confirmRemove>¿Desea eliminar este registro?</confirmRemove>
     </messages>
     <migration>
     	<destFile>Archivo destino</destFile>

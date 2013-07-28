@@ -13,6 +13,8 @@
 			import resources.icons.Icons;
 			import resources.Colors;
 			
+			import mx.controls.Alert;
+			
 			[Bindable]
 			public var loc:Object;
 			
@@ -21,6 +23,20 @@
 			
 			[Bindable]
 			public var removeButtonEnabled:Boolean = false;
+			
+			private function confirmRemove():void{
+				ConfirmDialog.show(loc.messages.confirm, loc.messages.confirmRemove, alertEventHandler,loc.boolean.trueValue,loc.boolean.falseValue);
+			}
+			
+			private function alertEventHandler(event:Object):void {
+				if(event.detail == Alert.YES) {
+					// pressed yes.
+					dispatchEvent(new Event('removeClicked'));
+				}
+			}
+			
+			
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -36,7 +52,7 @@
 			<!--<s:Button id="refresh" label="{loc.button.refresh}" icon="{Icons.refresh}" iconPlacement="top" click="dispatchEvent(new Event('refreshClicked'))"/>-->
 			<s:Button id="add" label="{loc.button.add}" icon="{Icons.add}" iconPlacement="top" click="dispatchEvent(new Event('addClicked'))"/>
 			<s:Button id="modify" label="{loc.button.modify}" enabled="{modifyButtonEnabled}" icon="{Icons.modify}" iconPlacement="top" click="dispatchEvent(new Event('modifyClicked'))"/>
-			<s:Button id="remove" label="{loc.button.remove}" enabled="{removeButtonEnabled}" icon="{Icons.remove}" iconPlacement="top" click="dispatchEvent(new Event('removeClicked'))"/>
+			<s:Button id="remove" label="{loc.button.remove}" enabled="{removeButtonEnabled}" icon="{Icons.remove}" iconPlacement="top" click="confirmRemove()"/>
 		</s:VGroup>
 	</s:Group>
 </s:VGroup>
