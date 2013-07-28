@@ -33,6 +33,31 @@ public class CustomerDaoImpl extends AbstractCrudDao<Customer, Long> implements 
 	
 	
 	@Override
+	public List<Customer> retrieveAll() throws DaoException {
+
+		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			entityManager.getTransaction().begin();
+			
+			String strQuery = "SELECT c FROM Customer c ORDER BY email ASC"; 
+			
+			TypedQuery<Customer> query = entityManager.createQuery(strQuery, Customer.class);
+			List<Customer> customers = query.getResultList();
+			entityManager.getTransaction().commit();
+			return customers;
+		}
+		catch(PersistenceException persistenceException){
+			throw new DaoException(persistenceException.getMessage());
+		}
+		finally{
+			entityManager.close();
+		}
+
+	}
+	
+	
+	@Override
 	public List<Customer> retrieveCustomers(List<Region> regions, boolean includeCustomersWithoutRegion) throws DaoException {
 
 		EntityManagerFactory entityManagerFactory = EntityManagerFactorySingleton.getInstance();
