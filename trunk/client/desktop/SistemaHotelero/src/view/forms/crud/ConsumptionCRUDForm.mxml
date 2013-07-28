@@ -228,6 +228,7 @@
 			{
 				grid.selectedIndex = -1;
 				individual.currentConsumption = new Consumption();
+				individual.dateChooser.selectedDate = new Date();
 				individual.isUpdate = false;
 				individual.enabled = true;
 			}

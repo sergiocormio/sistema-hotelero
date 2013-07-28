@@ -257,6 +257,8 @@
 	    <pleaseWaitLong>Isso pode demorar alguns minutos. Aguarde por favor...</pleaseWaitLong>
 	    <startingServer>Iniciando o Servidor...</startingServer>
 	    <stoppingServer>Parando o Servidor...</stoppingServer>
+	    <reservationFormInsertOk>O registro foi criado com sucesso. Formulario de Reserva</reservationFormInsertOk>
+	    <confirmRemove>¿Remover este registro?</confirmRemove>
     </messages>
     <migration>
     	<destFile>Arquivo de Destino</destFile>

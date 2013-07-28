@@ -10,6 +10,10 @@
 			import mx.rpc.events.ResultEvent;
 			
 			import services.MasterDataService;
+			
+			[Bindable]
+			public var mainPanel:MainPanel;
+			
 			[Bindable]
 			public var loc:Object = Locale.getInstance().getCurrentLocale();
 			
@@ -20,6 +24,11 @@
 			
 			private function createMasterData_success(event:ResultEvent,token:Object=null):void {
 				Alert.show("success!");
+			}
+			
+			private function updateLocale():void{
+				loc = Locale.getInstance().getCurrentLocale();
+				mainPanel.refreshForm()
 			}
 			
 		]]>
@@ -41,6 +50,6 @@
 		
 		<!-- <s:Button label="create Master Data" click="createMasterData()"/> -->
 		
-		<components:LocaleChooser loc="{loc}" localeChanged="loc = Locale.getInstance().getCurrentLocale();"/>
+		<components:LocaleChooser loc="{loc}" localeChanged="updateLocale()"/>
 	</s:HGroup>
 </s:Group>

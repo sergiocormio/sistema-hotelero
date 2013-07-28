@@ -256,7 +256,7 @@
 					<mx:DateField id="dateChooser" width="120"
 								  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
 								  formatString="{loc.dateFormat.toUpperCase()}"
-								  monthNames="{Locale.getInstance().monthNames}"/>
+								  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.consumption.price}:" required="true" enabled="{!isUpdate}">

@@ -18,7 +18,7 @@
 			[Bindable]
 			public var loc:Object;
 			
-			protected function refreshForm():void
+			public function refreshForm():void
 			{
 				var content:NavigatorContent = mainViewStack.selectedChild as NavigatorContent;
 				var element:IVisualElement = content.getElementAt(0);
@@ -38,6 +38,8 @@
 					configurationForm.refreshForm();
 				}
 			}
+			
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>

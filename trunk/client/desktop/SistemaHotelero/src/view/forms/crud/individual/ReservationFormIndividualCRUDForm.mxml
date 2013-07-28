@@ -212,6 +212,9 @@
 			
 			private function reservationFormSaved_resultHandler(event:ResultEvent,token:Object=null):void {
 				_currentReservationForm = event.result as ReservationForm;
+				if(!isUpdate){
+					Alert.show(loc.messages.reservationFormInsertOk + ": " + _currentReservationForm.id, "", Alert.OK);
+				}
 				dispatchEvent(new Event("saveSuccess"));
 			}
 			

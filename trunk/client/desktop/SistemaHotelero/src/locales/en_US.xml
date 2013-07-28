@@ -249,13 +249,15 @@
     <messages>
     	<areYouSure>Are you sure?</areYouSure>
     	<anyChangesWillBeLost>Any changes will be lost</anyChangesWillBeLost>
-    	<confirm>Confirm</confirm>
+    	<confirm>Please Confirm</confirm>
     	<creatingMasterData>Creating master data...</creatingMasterData>
     	<clickForMoreInfo>Click for more information</clickForMoreInfo>
 	    <pleaseWait>Please wait...</pleaseWait>
 	    <pleaseWaitLong>This may take some minutes. Please wait...</pleaseWaitLong>
 	    <startingServer>Starting server...</startingServer>
 	    <stoppingServer>Stopping server...</stoppingServer>
+	    <reservationFormInsertOk>The record has been successfully created. Reservation form number</reservationFormInsertOk>
+	    <confirmRemove>Are you sure you want to delete this record?</confirmRemove>
     </messages>
     <migration>
     	<destFile>Destination file</destFile>
