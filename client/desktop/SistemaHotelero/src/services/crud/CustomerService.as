@@ -23,6 +23,17 @@ public class CustomerService extends CRUDService
 		}
 		remoteObject.retrieveCustomers(regions, months, includeCustomersWithoutRegion, includeCustomersWithoutBirthdate);
 	}
+	
+	
+	public function retrieveCustomersBySearch(email:String, firstName:String, 
+									  lastName:String, country:Country,
+									  resultHandler:Function, faultHandler:Function=null):void{
+		remoteObject.retrieveCustomers.addEventListener("result", resultHandler);
+		if(faultHandler!=null){
+			remoteObject.retrieveCustomers.addEventListener("fault", faultHandler);
+		}
+		remoteObject.retrieveCustomers(email, firstName, lastName, country);
+	}
                
 }
 
