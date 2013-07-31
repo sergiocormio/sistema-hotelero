@@ -246,9 +246,19 @@ public class CleaningServiceImpl extends AbstractCrudService<Cleaning, CleaningP
 
 	@Override
 	public List<Cleaning> regenerateRoomsToClean(Date date) throws DaoException {
+		//first of all, removes all saved cleaning objects
+		deleteCleanings(date);
 		Collection<Room> rooms = this.roomDao.retrieveAll();
 		List<Cleaning> cleanings = generateCleanings(date,rooms);
 		return cleanings;
+	}
+
+
+	private void deleteCleanings(Date date) throws DaoException {
+		List<Cleaning> savedCleanings = this.cleaningDao.retrieveRoomsToClean(date);
+		for(Cleaning cleaning : savedCleanings){
+			this.cleaningDao.deleteRecord(cleaning);
+		}
 	}
 
 	
