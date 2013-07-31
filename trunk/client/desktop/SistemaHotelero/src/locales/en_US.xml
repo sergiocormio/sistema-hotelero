@@ -258,6 +258,8 @@
 	    <stoppingServer>Stopping server...</stoppingServer>
 	    <reservationFormInsertOk>The record has been successfully created. Reservation form number</reservationFormInsertOk>
 	    <confirmRemove>Are you sure you want to delete this record?</confirmRemove>
+	    <confirmReservationFormConfirm>Are you sure you want to confirm this Reservation Form?</confirmReservationFormConfirm>
+	    <confirmReservationFormCancel>Are you sure you want to cancel this Reservation Form?</confirmReservationFormCancel>
     </messages>
     <migration>
     	<destFile>Destination file</destFile>

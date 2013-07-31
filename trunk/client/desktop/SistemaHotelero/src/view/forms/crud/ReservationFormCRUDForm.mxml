@@ -39,6 +39,7 @@
 			import utils.WindowsUtils;
 			import utils.log.DebugLog;
 			
+			import view.components.ConfirmDialog;
 			import view.components.Mask;
 			import view.forms.crud.individual.CustomerIndividualCRUDForm;
 			import view.forms.crud.individual.TransferIndividualCRUDForm;
@@ -226,7 +227,14 @@
 			
 			protected function confirmReservationButton_clickHandler(event:MouseEvent):void
 			{
-				updateCurrentReservationForm(StateReservationForm.CONFIRMED);		
+				ConfirmDialog.show(loc.messages.confirm, loc.messages.confirmReservationFormConfirm, confirmReservationEventHandler,loc.boolean.trueValue,loc.boolean.falseValue);
+			}
+			
+			private function confirmReservationEventHandler(event:Object):void {
+				if(event.detail == Alert.YES) {
+					// pressed yes.
+					updateCurrentReservationForm(StateReservationForm.CONFIRMED);		
+				}
 			}
 			
 			private function updateCurrentReservationForm(stateId:String):void{
@@ -242,7 +250,14 @@
 			
 			protected function cancelReservationButton_clickHandler(event:MouseEvent):void
 			{
-				updateCurrentReservationForm(StateReservationForm.CANCELLED);				
+				ConfirmDialog.show(loc.messages.confirm, loc.messages.confirmReservationFormCancel, cancelReservationEventHandler,loc.boolean.trueValue,loc.boolean.falseValue);
+			}
+			
+			private function cancelReservationEventHandler(event:Object):void {
+				if(event.detail == Alert.YES) {
+					// pressed yes.
+					updateCurrentReservationForm(StateReservationForm.CANCELLED);				
+				}
 			}
 			
 			protected function exportReservationButton_clickHandler(event:MouseEvent):void
