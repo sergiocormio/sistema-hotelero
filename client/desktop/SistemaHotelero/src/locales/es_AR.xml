@@ -258,6 +258,8 @@
 	    <stoppingServer>Deteniendo el Servidor...</stoppingServer>
 	    <reservationFormInsertOk>Se ha creado exitosamente la ficha de reserva con número</reservationFormInsertOk>
 	    <confirmRemove>¿Desea eliminar este registro?</confirmRemove>
+	    <confirmReservationFormConfirm>¿Está seguro que desea confirmar la Ficha de Reserva?</confirmReservationFormConfirm>
+	    <confirmReservationFormCancel>¿Está seguro que desea cancelar la Ficha de Reserva?</confirmReservationFormCancel>
     </messages>
     <migration>
     	<destFile>Archivo destino</destFile>

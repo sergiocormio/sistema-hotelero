@@ -259,6 +259,8 @@
 	    <stoppingServer>Parando o Servidor...</stoppingServer>
 	    <reservationFormInsertOk>O registro foi criado com sucesso. Formulario de Reserva</reservationFormInsertOk>
 	    <confirmRemove>¿Remover este registro?</confirmRemove>
+	    <confirmReservationFormConfirm>¿Tem certeza que deseja confirmar este Formulário de Reserva?</confirmReservationFormConfirm>
+	    <confirmReservationFormCancel>¿Tem certeza que deseja cancelar esta Formulário de Reserva?</confirmReservationFormCancel>
     </messages>
     <migration>
     	<destFile>Arquivo de Destino</destFile>
