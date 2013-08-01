@@ -39,6 +39,8 @@ import com.cdz.sh.util.DateUtil;
  */
 public class ReservationFormServiceImpl extends AbstractCrudService<ReservationForm, Long> implements ReservationFormService {
 
+	private static final double MONETARY_RESERVE_PERCENT_AT_CONFIRM = 0.3;
+
 	private Trigger checkReservationFormsExpirationTrigger;
 	
 	private static final String RESERVATION_FORM_TEMPLATE = "reservationForm";
@@ -128,7 +130,8 @@ public class ReservationFormServiceImpl extends AbstractCrudService<ReservationF
 		//Assumption: when we confirm a reservationForm, we have to update the monetary reserve
 		//that is the 30% of the total price
 		if(reservationForm.getState().equals(StateReservationForm.CONFIRMED)){
-			reservationForm.setMonetaryReserve(reservationForm.getTotalPrice() * 0.3);
+			reservationForm.setMonetaryReserve(reservationForm.getTotalPrice() * MONETARY_RESERVE_PERCENT_AT_CONFIRM);
+			reservationForm.setRemainingAmount(reservationForm.getTotalPrice() - reservationForm.getMonetaryReserve());
 		}
 		super.updateRecord(reservationForm);
 	}
