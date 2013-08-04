@@ -261,6 +261,8 @@
 	    <confirmRemove>¿Remover este registro?</confirmRemove>
 	    <confirmReservationFormConfirm>¿Tem certeza que deseja confirmar este Formulário de Reserva?</confirmReservationFormConfirm>
 	    <confirmReservationFormCancel>¿Tem certeza que deseja cancelar esta Formulário de Reserva?</confirmReservationFormCancel>
+	    <importOk>Os dados foram carregados corretamente.</importOk>
+	    <exportOk>Os dados foram armazenados corretamente.</exportOk>
     </messages>
     <migration>
     	<destFile>Arquivo de Destino</destFile>
@@ -444,6 +446,7 @@
     	</reservationFormCreation>
     	<server>
     		<PkViolationWhenCreate>Já existe um registro com o mesmo identificador</PkViolationWhenCreate>
+    		<dupCustomerEmail>Já existe um cliente com a mesma caixa de correio.</dupCustomerEmail>
     		<PkViolationWhenUpdate>Já existe um registro com o mesmo identificador</PkViolationWhenUpdate>
 			<entityToUpdateNotFound>O registro que você deseja atualizar não existe</entityToUpdateNotFound>
 			<entityToDeleteNotFound>O registro que você deseja limpar não existe</entityToDeleteNotFound>
