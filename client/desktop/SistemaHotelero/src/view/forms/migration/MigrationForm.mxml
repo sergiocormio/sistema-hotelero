@@ -39,9 +39,16 @@
 			}
 			
 			
-			private function resultHandler(event:ResultEvent,token:Object=null):void {
+			private function load_resultHandler(event:ResultEvent,token:Object=null):void {
 				
 				Mask.close();
+				Alert.show(loc.messages.importOk, "", Alert.OK);
+			}
+			
+			private function save_resultHandler(event:ResultEvent,token:Object=null):void {
+				
+				Mask.close();
+				Alert.show(loc.messages.exportOk, "", Alert.OK);
 			}
 			
 			private function chooseToSave():void{
@@ -57,7 +64,7 @@
 				Mask.show();
 				var destZipFile:String = e.target.nativePath + ".zip";
 				
-				new MigrationService().backupDatabase(destZipFile, resultHandler, faultHandler);
+				new MigrationService().backupDatabase(destZipFile, save_resultHandler, faultHandler);
 			}
 			
 			private function chooseToLoad():void{
@@ -73,7 +80,7 @@
 			{
 				Mask.show(loc.messages.pleaseWaitLong);
 				var sourceZipFile:String = e.target.nativePath;
-				new MigrationService().restoreDatabase(sourceZipFile, resultHandler, faultHandler);
+				new MigrationService().restoreDatabase(sourceZipFile, load_resultHandler, faultHandler);
 			}
 			
 			public function refreshForm():void{

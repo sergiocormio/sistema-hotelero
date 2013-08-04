@@ -52,7 +52,13 @@ public class Customer
 	
 	public function get name():String
 	{
-		var name:String = _lastName + ", " + firstName;
+		var name:String  = "";
+		if(_lastName != null && _lastName != ""){
+			name += _lastName;
+		}
+		if(_firstName != null && _firstName != ""){
+			name += ", " + _firstName;
+		}
 		if(email != null && email != ""){
 			name += " [" + email + "]";
 		}

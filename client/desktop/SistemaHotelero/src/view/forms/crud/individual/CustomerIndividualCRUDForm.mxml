@@ -192,8 +192,6 @@
 				
 				var valArray:Array = new Array();
 				
-				valArray.push(firstNameValidator);
-				valArray.push(lastNameValidator);
 				valArray.push(emailValidator);
 				valArray.push(docTypeValidator);
 				valArray.push(regExpValidator);
@@ -245,8 +243,6 @@
 			}
 			
 			private function setEnabledValidators(enabled:Boolean):void{
-				firstNameValidator.enabled = enabled;
-				lastNameValidator.enabled = enabled;
 				emailValidator.enabled = enabled;
 				docTypeValidator.enabled = enabled;
 				regExpValidator.enabled = enabled;
@@ -349,24 +345,9 @@
 							source="{idNumberText}" 
 							property="text"
 							/>
-		<mx:StringValidator id="firstNameValidator"
-							enabled="false"
-							required="true"
-							requiredFieldError="{loc.validator.requiredFieldError}"
-							source="{firstNameText}"
-							property="text"
-							/>
-		<mx:StringValidator id="lastNameValidator" 
-							enabled="false"
-							required="true"
-							requiredFieldError="{loc.validator.requiredFieldError}"
-							source="{lastNameText}"
-							property="text"
-							/>
 		<mx:NumberValidator id="langValidator"
 							enabled="false"
 							required="false"
-							requiredFieldError="{loc.validator.requiredFieldError}"
 							minValue="0"
 							lowerThanMinError="{loc.validator.requiredFieldError}" 
 							source="{languagesCombo}"
@@ -425,14 +406,14 @@
 					<s:FormLayout gap="-14"/>
 				</s:layout>  
 		
-				<s:FormItem label="{loc.customer.firstName}:" required="true">
-					<s:TextInput id="firstNameText"/>
-				</s:FormItem>
-				<s:FormItem label="{loc.customer.lastName}:" required="true">
-					<s:TextInput id="lastNameText"/>
-				</s:FormItem>
 				<s:FormItem label="{loc.customer.email}:" required="true">
 					<s:TextInput id="emailText" widthInChars="15"/>
+				</s:FormItem>
+				<s:FormItem label="{loc.customer.firstName}:" >
+					<s:TextInput id="firstNameText"/>
+				</s:FormItem>
+				<s:FormItem label="{loc.customer.lastName}:" >
+					<s:TextInput id="lastNameText"/>
 				</s:FormItem>
 				<s:FormItem id="docTypeItem" label="{loc.documentType.singular}:">
 					<s:HGroup>

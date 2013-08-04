@@ -22,6 +22,12 @@ package utils
 			if(event == null){
 				return;
 			}
+			
+			if (event.fault != null && event.fault.faultCode == "Server.Processing.DuplicateSessionDetected")
+			{
+				return;
+			}
+
 			var loc:Object = Locale.getInstance().getCurrentLocale();
 			var errMsg:String;
 			var faultString:String;
