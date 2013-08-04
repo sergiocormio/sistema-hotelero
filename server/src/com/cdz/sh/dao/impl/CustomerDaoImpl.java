@@ -205,7 +205,16 @@ public class CustomerDaoImpl extends AbstractCrudDao<Customer, Long> implements 
 		if(e.getAddress() != null){
 			this.addressDao.createRecord(e.getAddress());
 		}
-		return super.createRecord(e);
+		try{
+			return super.createRecord(e);
+		}
+		catch (DaoException ex) {
+			if(ex.getErrorCode().equalsIgnoreCase(ExceptionErrorCodes.INVALID_OPERATION))
+			{
+				ex.setErrorCode(ExceptionErrorCodes.DUP_CUSTOMER_EMAIL);
+			}
+			throw ex;
+		}
 	}
 
 	@Override
@@ -221,7 +230,16 @@ public class CustomerDaoImpl extends AbstractCrudDao<Customer, Long> implements 
 			}
 			
 		}
-		super.updateRecord(e);
+		try{
+			super.updateRecord(e);
+		}
+		catch (DaoException ex) {
+			if(ex.getErrorCode().equalsIgnoreCase(ExceptionErrorCodes.INVALID_OPERATION))
+			{
+				ex.setErrorCode(ExceptionErrorCodes.DUP_CUSTOMER_EMAIL);
+			}
+			throw ex;
+		}
 	}
 
 	@Override

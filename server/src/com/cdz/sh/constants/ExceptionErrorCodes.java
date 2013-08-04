@@ -9,6 +9,9 @@ public class ExceptionErrorCodes {
 	 * CRUD errors
 	 */
 	public static final String DUPLICATE_PK_VIOLATION_WHEN_CREATE = "PkViolationWhenCreate";
+	
+	public static final String DUP_CUSTOMER_EMAIL = "dupCustomerEmail";
+	
 	public static final String DUPLICATE_PK_VIOLATION_WHEN_UPDATE = "PkViolationWhenCreate";
 	
 	public static final String ENTITY_TO_UPDATE_NOT_FOUND = "entityToUpdateNotFound";

@@ -204,4 +204,29 @@ public class TestCustomerDao {
 		assertEquals(2, customers.size());
 	
 	}
+	
+	
+	@Test(expected=DaoException.class)
+	public void testUniqueEmail() throws DaoException {
+		/**
+		 * customer 1: Fede
+		 */
+		c1 = new Customer();
+		c1.setFirstName("Federico");
+		c1.setLastName("De Seta");
+		c1.setEmail("1@1.com");
+		
+		/**
+		 * customer 2: Sergio
+		 */
+			
+		c2 = new Customer();
+		c2.setFirstName("Sergio");
+		c2.setLastName("Cormio");
+		c2.setEmail("1@1.com");
+		
+		this.customerDao.createRecord(c1);
+		this.customerDao.createRecord(c2);
+			
+	}
 }

@@ -39,7 +39,7 @@ public class Customer {
 	@JoinColumn(name="ADDRESS_ID")
     private Address address;
     
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable=false)
     private String email;
     
     private String phoneNumber;
