@@ -31,9 +31,9 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:HGroup width="100%" height="100%">
+	<s:VGroup width="100%" height="100%">
 		<s:Image source="{Icons.es_AR}" useHandCursor="true" buttonMode="true" click="changeLocale('es_AR')" toolTip="{loc.language.spanish}" />
 		<s:Image source="{Icons.pt_BR}" useHandCursor="true" buttonMode="true" click="changeLocale('pt_BR')" toolTip="{loc.language.portuguese}"/>
 		<s:Image source="{Icons.en_US}" useHandCursor="true" buttonMode="true" click="changeLocale('en_US')" toolTip="{loc.language.english}"/>
-	</s:HGroup>
+	</s:VGroup>
 </s:Group>
