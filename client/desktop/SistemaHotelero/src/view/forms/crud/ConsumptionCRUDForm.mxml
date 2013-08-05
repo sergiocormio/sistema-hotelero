@@ -387,7 +387,7 @@
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
 		<s:HGroup width="100%" height="60%">
-			
+			<!-- FILTERS AND GRID -->
 			<s:Group width="100%" height="100%">
 				<s:Rect width="100%" height="100%">
 					<s:stroke>
@@ -396,74 +396,67 @@
 					<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 				</s:Rect>
 				<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
+					<!-- FILTERS -->
 					<s:VGroup width="100%" verticalAlign="top" gap="0">
-						<s:HGroup width="100%" horizontalAlign="right">
+						<s:HGroup width="100%" horizontalAlign="right" gap="0">
+							<!-- RADIO BUTTONS -->
 							<s:VGroup horizontalAlign="right">
 								<s:Spacer height="15"/>
 								<s:RadioButton group="{filterSelected}" id="filterByDateRangeAndRoom"/>
 								<s:Spacer height="2"/>
 								<s:RadioButton group="{filterSelected}" id="filterByReservationForm"/>
 							</s:VGroup>
-							<s:Form>
+							<!-- COMBOS AND DATE CHOOSERS -->
+							<s:Form width="100%">
 								<s:layout>
-									<s:FormLayout gap="-14"/>
+									<s:FormLayout gap="-14" />
 								</s:layout> 
-								
-								<s:FormItem id="dateFromItem" label="{loc.consumption.dateFrom}:">
-									<mx:DateField id="dateFromChooser" width="120"
-												  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
-												  formatString="{loc.dateFormat.toUpperCase()}"
-												  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
-								</s:FormItem>
-								<s:FormItem id="reservationFormItem" label="{loc.reservationForm.singular}:" required="true">
-									<s:HGroup>
-										<s:ComboBox id="reservationFormsCombo" dataProvider="{confirmedReservationForms}" 
-													labelField="name" requireSelection="true"
-													width="260"/>
-										<s:Button width="24" height="24" click="retrieveConfirmedReservationForms();"
-												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-										<s:Button width="24" height="24" click="searchReservationForm();" icon="{Icons.search}"
-												  toolTip="{loc.button.search}"/>
-									</s:HGroup>
-								</s:FormItem>
-							</s:Form>
-							<s:Form>
-								<s:layout>
-									<s:FormLayout gap="-14"/>
-								</s:layout>
-								
-								<s:FormItem id="dateToItem" label="{loc.consumption.dateTo}:">
-									<mx:DateField id="dateToChooser" width="120"
-												  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
-												  formatString="{loc.dateFormat.toUpperCase()}"
-												  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
-								</s:FormItem>
-							</s:Form>
-							<s:Form>
-								<s:layout>
-									<s:FormLayout gap="-14"/>
-								</s:layout>
-								
-								<s:FormItem id="roomItem" label="{loc.consumption.roomNumber}:" required="true">
-									<s:HGroup>
-										<s:ComboBox id="roomsCombo" dataProvider="{rooms}"
-													labelField="number" requireSelection="true"/>
-										<s:Button width="24" height="24" click="retrieveRooms();"
-										icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-										<!--
-										<s:Button width="24" height="24" click="addDocumentType();" icon="{Icons.add}"
-										toolTip="{loc.button.add}"/>
-										-->
-									</s:HGroup>
-								</s:FormItem>
+								<s:HGroup width="100%" horizontalAlign="left" gap="0" paddingLeft="-20" verticalAlign="middle">
+									<s:FormItem id="dateFromItem" label="{loc.consumption.dateFrom}:" listAutoPadding="0">
+										<mx:DateField id="dateFromChooser" width="120"
+													  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+													  formatString="{loc.dateFormat.toUpperCase()}"
+													  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+									</s:FormItem>
+									<s:FormItem id="dateToItem" label="{loc.consumption.dateTo}:" listAutoPadding="0">
+										<mx:DateField id="dateToChooser" width="120"
+													  dayNames="{Locale.getInstance().dayNamesAbbr}" editable="true"
+													  formatString="{loc.dateFormat.toUpperCase()}"
+													  monthNames="{Locale.getInstance().monthNames}" selectedDate="{new Date()}"/>
+									</s:FormItem>
+									<s:FormItem id="roomItem" label="{loc.consumption.roomNumber}:" required="true">
+										<s:HGroup>
+											<s:ComboBox id="roomsCombo" dataProvider="{rooms}"
+														labelField="number" requireSelection="true"
+														width="100"/>
+											<s:Button width="24" height="24" click="retrieveRooms();"
+													  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+										</s:HGroup>
+									</s:FormItem>
+								</s:HGroup>
+								<s:HGroup width="100%" horizontalAlign="left" gap="0" paddingLeft="-20" verticalAlign="middle">
+									<s:FormItem id="reservationFormItem" label="{loc.reservationForm.singular}:" required="true">
+										<s:HGroup>
+											<s:ComboBox id="reservationFormsCombo" dataProvider="{confirmedReservationForms}" 
+														labelField="name" requireSelection="true"
+														width="260"/>
+											<s:Button width="24" height="24" click="retrieveConfirmedReservationForms();"
+													  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+											<s:Button width="24" height="24" click="searchReservationForm();" icon="{Icons.search}"
+													  toolTip="{loc.button.search}"/>
+										</s:HGroup>
+									</s:FormItem>
+								</s:HGroup>
 							</s:Form>
 						</s:HGroup>
+						<!-- FILTER BUTTONS -->
 						<s:HGroup width="100%" horizontalAlign="center">
 							<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
 							<s:Button id="cleanButton" label="{loc.button.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
 						</s:HGroup>
 					</s:VGroup>
 					
+					<!-- GRID -->
 					<mx:VBox height="100%" width="100%" verticalGap="0">
 						<s:DataGrid id="grid" width="100%" height="100%" dataProvider="{consumptions}" selectionChange="grid_selectionChangeHandler(event)" 
 									alternatingRowColors="{Colors.ALTERNATING_ROW_COLORS}" skinClass="view.skins.CustomDataGridSkin">
@@ -477,6 +470,7 @@
 							</s:columns>
 						</s:DataGrid>
 						
+						<!-- TOTAL GRID -->
 						<mx:DataGrid id="totalGrid" width="100%" height="5%" dataProvider="{totalConsumption}"  
 									rowCount="1" showHeaders="false" alternatingItemColors="{Colors.ALTERNATING_ROW_COLORS}" >
 							<mx:columns>
