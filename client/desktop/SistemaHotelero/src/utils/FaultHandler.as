@@ -23,7 +23,10 @@ package utils
 				return;
 			}
 			
-			if (event.fault != null && event.fault.faultCode == "Server.Processing.DuplicateSessionDetected")
+			if (event.fault != null && ((event.fault.faultDetail != null &&
+				 	(event.fault.faultDetail.indexOf("Detected duplicate HTTP-based FlexSessions") != -1 ||
+				  	 event.fault.faultDetail.indexOf("The FlexClient is invalid") != -1))
+				|| event.fault.faultCode == "Server.Processing.DuplicateSessionDetected"))
 			{
 				return;
 			}
