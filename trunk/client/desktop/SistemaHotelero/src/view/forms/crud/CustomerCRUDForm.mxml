@@ -259,7 +259,7 @@
 						</s:HGroup>
 					</s:VGroup>
 					<mx:VBox height="100%" width="100%" verticalGap="0">
-						<components:paginatedDataGrid id="pagedGrid" width="100%" height="100%" dataProvider="{customers}" loc="{loc}" 
+						<components:PaginatedDataGrid id="pagedGrid" width="100%" height="100%" dataProvider="{customers}" loc="{loc}" 
 													  pageSize="15" itemSelected="grid_selectionChangeHandler()" lineColor="{Colors.RED_COLOR}" bgColor="{Colors.GRAY_COLOR}">
 							<components:columns>
 								<s:ArrayList>
@@ -281,7 +281,7 @@
 									<s:GridColumn dataField="cellphoneNumber" headerText="{loc.customer.cellphoneNumber}"></s:GridColumn>
 								</s:ArrayList>
 							</components:columns>
-						</components:paginatedDataGrid>
+						</components:PaginatedDataGrid>
 					</mx:VBox>
 				</mx:VDividedBox>
 			</s:Group>
