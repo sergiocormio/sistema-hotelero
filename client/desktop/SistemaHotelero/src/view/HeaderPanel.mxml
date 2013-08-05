@@ -46,10 +46,8 @@
 		</s:fill>
 	</s:Rect>
 	-->
-	<s:HGroup width="100%" horizontalAlign="right" verticalAlign="middle">
-		
+	<s:HGroup width="100%" horizontalAlign="right" verticalAlign="middle" paddingTop="4">
 		<!-- <s:Button label="create Master Data" click="createMasterData()"/> -->
-		
 		<components:LocaleChooser loc="{loc}" localeChanged="updateLocale()"/>
 	</s:HGroup>
 </s:Group>
