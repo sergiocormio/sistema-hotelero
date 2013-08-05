@@ -407,7 +407,7 @@
 						  />
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
-		<s:HGroup width="100%" height="53%">
+		<s:HGroup width="100%" height="58%">
 			<s:Group width="100%" height="100%">
 				<s:Rect width="100%" height="100%">
 					<s:stroke>
@@ -509,7 +509,7 @@
 				</s:Group>
 			</s:VGroup>
 		</s:HGroup>
-		<individual:ReservationFormIndividualCRUDForm id="individual" enabled="false" loc="{loc}" saveSuccess="individual_saveSuccessHandler(event)" cancelClicked="individual.enabled=false;" height="47%"/>
+		<individual:ReservationFormIndividualCRUDForm id="individual" height="42%" enabled="false" loc="{loc}" saveSuccess="individual_saveSuccessHandler(event)" cancelClicked="individual.enabled=false;"/>
 	</mx:VDividedBox>
 </s:VGroup>
 

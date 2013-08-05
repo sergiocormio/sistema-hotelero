@@ -223,7 +223,7 @@
 						   />
 	</fx:Declarations>
 	<mx:VDividedBox height="100%" width="100%">
-		<s:HGroup width="100%" height="50%">
+		<s:HGroup width="100%" height="60%">
 			<s:Group width="100%" height="100%">
 				<s:Rect width="100%" height="100%">
 					<s:stroke>
@@ -231,33 +231,28 @@
 					</s:stroke>
 					<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 				</s:Rect>
-				<mx:VDividedBox height="100%" width="100%" paddingLeft="10" paddingRight="10" paddingBottom="10">
-					<s:VGroup width="100%" verticalAlign="top" gap="0">
-						<s:HGroup width="100%" horizontalAlign="center" gap="0">
-							<s:Form width="100%">
-								<s:layout>
-									<s:FormLayout gap="-14" />
-								</s:layout>
-								<s:HGroup width="100%" horizontalAlign="left" gap="0" paddingLeft="-20" verticalAlign="middle">
-									<s:FormItem label="{loc.customer.email}:" listAutoPadding="0">
-										<s:TextInput id="emailSearch"/>
-									</s:FormItem>
-									<s:FormItem label="{loc.customer.firstName}:" listAutoPadding="0">
-										<s:TextInput id="firstNameSearch"/>
-									</s:FormItem>
-									<s:FormItem label="{loc.customer.lastName}:" listAutoPadding="0">
-										<s:TextInput id="lastNameSearch"/>
-									</s:FormItem>
-									<s:FormItem id="countryItem" label="{loc.customer.address.country}:" listAutoPadding="0">
-										<s:HGroup>
-											<s:ComboBox id="countriesComboSearch" dataProvider="{countries}" labelField="name" width="200"/>
-											<s:Button width="24" height="24" click="retrieveCountries();"
-													  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
-										</s:HGroup>
-									</s:FormItem>
+				<mx:VDividedBox height="100%" width="100%" paddingLeft="5" paddingRight="5" paddingBottom="5">
+					<s:VGroup width="100%" verticalAlign="middle" gap="-5" paddingTop="2">
+						<!--FILTERS-->
+						<s:HGroup width="100%" horizontalAlign="center" gap="-40" paddingTop="-8" verticalAlign="middle">
+							<s:FormItem label="{loc.customer.email}:">
+								<s:TextInput id="emailSearch" widthInChars="15"/>
+							</s:FormItem>
+							<s:FormItem label="{loc.customer.firstName}:">
+								<s:TextInput id="firstNameSearch"/>
+							</s:FormItem>
+							<s:FormItem label="{loc.customer.lastName}:">
+								<s:TextInput id="lastNameSearch"/>
+							</s:FormItem>
+							<s:FormItem id="countryItem" label="{loc.customer.address.country}:">
+								<s:HGroup>
+									<s:ComboBox id="countriesComboSearch" dataProvider="{countries}" labelField="name" width="120"/>
+									<s:Button width="24" height="24" click="retrieveCountries();"
+											  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 								</s:HGroup>
-							</s:Form>	
+							</s:FormItem>
 						</s:HGroup>
+						<!--FILTERS BUTTONS-->
 						<s:HGroup width="100%" horizontalAlign="center">
 							<s:Button id="consultButton" label="{loc.button.consult}" icon="{Icons.go}" click="consultButton_clickHandler(event)"/>
 							<s:Button id="cleanButton" label="{loc.button.clean}" icon="{Icons.clean}" click="cleanButton_clickHandler(event)"/>
@@ -290,7 +285,7 @@
 					</mx:VBox>
 				</mx:VDividedBox>
 			</s:Group>
-			<!-- BUTTONS -->
+			<!-- CRUD BUTTONS -->
 			<s:VGroup height="100%">
 				<components:CRUDButtons height="100%" refreshClicked="refreshGrid()" addClicked="addCustomer()"
 										modifyClicked="modifyCustomer()" removeClicked="deleteCustomer()"
@@ -298,7 +293,7 @@
 										removeButtonEnabled="{pagedGrid.grid.selectedIndex >= 0}"/>
 			</s:VGroup>
 		</s:HGroup>
-		<individual:CustomerIndividualCRUDForm id="individual" height="50%" width="100%" 
+		<individual:CustomerIndividualCRUDForm id="individual" height="40%" width="100%" 
 										 loc="{loc}" enabled="false" 
 										 cancelClicked="individual.enabled=false;"
 										 saveSuccess="refreshGrid();"/>
