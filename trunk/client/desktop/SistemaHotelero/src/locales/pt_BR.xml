@@ -310,8 +310,8 @@
 	    <name>Nome</name>
     </region>
     <reservationForm>
-    	<singular>Formulario de Reserva</singular>
-	    <plural>Formularios de Reserva</plural>
+    	<singular>Forma de Reserva</singular>
+	    <plural>Formas de Reserva</plural>
 	    <id>Id</id>
 	    <state>
 	    	<singular>Estado</singular>
