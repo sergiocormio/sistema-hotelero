@@ -41,6 +41,7 @@
 			
 			import view.components.ConfirmDialog;
 			import view.components.Mask;
+			import view.forms.searchers.CustomerSearcher;
 			import view.forms.crud.individual.CustomerIndividualCRUDForm;
 			import view.forms.crud.individual.TransferIndividualCRUDForm;
 			
@@ -377,6 +378,21 @@
 				//adds event listener to menu item
 				refreshItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, refreshGrid);
 			}
+			private var customerSearcher:CustomerSearcher;
+			
+			private function searchCustomer():void{
+				customerSearcher = new CustomerSearcher();
+				
+				customerSearcher.loc = loc;
+				customerSearcher.addEventListener("onSelect",customerSelected);
+				customerSearcher.addEventListener("onCancel",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.customer.plural,customerSearcher);
+			}
+			
+			private function customerSelected(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+				WindowsUtils.autoSelectComboBox(customersCombo,customerSearcher.customerSelected);
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -436,9 +452,11 @@
 						<s:HGroup width="100%" horizontalAlign="center" gap="5" paddingTop="-8" paddingBottom="-5" paddingLeft="-15" paddingRight="-15">
 								<s:FormItem id="customerItem" label="{loc.customer.singular}:">
 									<s:HGroup>
-										<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="300"/>
+										<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="280"/>
 										<s:Button width="24" height="24" click="retrieveCustomers();"
 												  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
+										<s:Button width="24" height="24" click="searchCustomer();" icon="{Icons.search}"
+												  toolTip="{loc.button.search}"/>
 									</s:HGroup>
 								</s:FormItem>
 								<s:FormItem label="{loc.reservationForm.state.singular}:">
