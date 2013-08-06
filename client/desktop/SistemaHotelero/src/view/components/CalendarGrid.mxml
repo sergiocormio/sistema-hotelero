@@ -29,7 +29,7 @@
 			import utils.DateTimeUtils;
 			import utils.WindowsUtils;
 			
-			import view.forms.ReservationFormSummary;
+			import view.forms.summaries.ReservationFormSummary;
 
 			
 			[Bindable]

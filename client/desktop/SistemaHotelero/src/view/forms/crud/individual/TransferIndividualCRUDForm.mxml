@@ -37,7 +37,7 @@
 			import utils.FaultHandler;
 			import utils.WindowsUtils;
 			
-			import view.forms.ReservationFormSearcher;
+			import view.forms.searchers.ReservationFormSearcher;
 			
 			private var titleWindow:TitleWindow;
 			

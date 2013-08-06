@@ -42,6 +42,7 @@
 			import utils.log.DebugLog;
 			
 			import view.components.ManualAlternativeForm;
+			import view.forms.searchers.CustomerSearcher;
 			import view.forms.DisplayBudgetForm;
 			
 			[Bindable]
@@ -68,6 +69,8 @@
 			private var bankForm:BankIndividualCRUDForm;
 			private var manualAlternativeForm:ManualAlternativeForm;
 			private var budgetForm:DisplayBudgetForm;
+			
+			private var customerSearcher:CustomerSearcher;
 			
 			public function get alternative():Alternative
 			{
@@ -500,6 +503,19 @@
 				}
 			}
 			
+			private function searchCustomer():void{
+				customerSearcher = new CustomerSearcher();
+				
+				customerSearcher.loc = loc;
+				customerSearcher.addEventListener("onSelect",customerSelected);
+				customerSearcher.addEventListener("onCancel",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.customer.plural,customerSearcher);
+			}
+			
+			private function customerSelected(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+				WindowsUtils.autoSelectComboBox(customersCombo,customerSearcher.customerSelected);
+			}
 		]]>
 		
 	</fx:Script>
@@ -560,17 +576,19 @@
 				</s:FormItem>
 				
 				<s:FormItem id="customerItem" label="{loc.customer.singular}:" required="true">
-					<s:HGroup>
-						<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="200" requireSelection="true"/>
+					<s:HGroup verticalAlign="middle" gap = "1">
+						<s:ComboBox id="customersCombo" dataProvider="{customers}" labelField="name" width="180" requireSelection="true"/>
 						<s:Button width="24" height="24" click="retrieveCustomers();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 						<s:Button width="24" height="24" click="addCustomer();" icon="{Icons.add}"
 								  toolTip="{loc.button.add}"/>
+						<s:Button width="24" height="24" click="searchCustomer();" icon="{Icons.search}"
+								  toolTip="{loc.button.search}"/>
 					</s:HGroup>
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.reservationForm.state.singular}:" required="true" enabled="false">
-					<s:HGroup verticalAlign="middle">
+					<s:HGroup verticalAlign="middle" gap = "1">
 						<s:DropDownList id="stateList" dataProvider="{reservationFormStates}" width="150"/>
 						<s:Button width="24" height="24" id="refreshStates" click="loadStates();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
@@ -627,7 +645,7 @@
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.reservationForm.totalPrice}:" required="true">
-					<s:HGroup verticalAlign="middle">
+					<s:HGroup verticalAlign="middle" gap = "1">
 						<s:TextInput id="totalPriceText"/>
 						<s:Label id="amountOfNights" fontWeight="bold"/>
 						<s:Button width="24" height="24" click="preLoadPrices();"
@@ -636,7 +654,7 @@
 				</s:FormItem>
 				
 				<s:FormItem id="bankItem" label="{loc.bank.singular}:" required="false">
-					<s:HGroup verticalAlign="middle">
+					<s:HGroup verticalAlign="middle" gap = "1">
 						<s:ComboBox id="banksCombo" dataProvider="{banks}" labelField="name" width="200"/>
 						<s:Button width="24" height="24" click="retrieveBanks();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
@@ -650,7 +668,7 @@
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.reservationForm.remainingAmount}:"  required="true">
-					<s:HGroup verticalAlign="middle">
+					<s:HGroup verticalAlign="middle" gap = "1">
 						<s:TextInput id="remainingAmountText"/>
 						<s:Button width="24" height="24" click="calculateRemainingAmount();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
