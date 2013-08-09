@@ -563,9 +563,8 @@
 		</s:stroke>
 		<s:fill><s:SolidColor color="{Colors.GRAY_COLOR}"/></s:fill>
 	</s:Rect>
-	<s:VGroup width="100%" height="100%" gap="0" paddingTop="-10" paddingBottom="-10" paddingLeft="-10" paddingRight="-10">
-		<s:HGroup width="100%" horizontalAlign="center" paddingTop="0" paddingBottom="0" 
-				  paddingLeft="0" paddingRight="0">
+	<s:VGroup width="100%" height="100%" gap="0" paddingTop="0" paddingBottom="0" paddingLeft="0" paddingRight="0">
+		<s:HGroup width="100%" horizontalAlign="center" paddingTop="-10" paddingBottom="-10"  paddingLeft="-10" paddingRight="-10">
 			<s:Form>
 				<s:layout>
 					<s:FormLayout gap="-14"/>
@@ -677,12 +676,11 @@
 			</s:Form>
 		</s:HGroup>
 		<!-- BUTTONS -->
-		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle" paddingTop="0" paddingBottom="0">
+		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle" paddingTop="0" paddingBottom="10">
 			<s:Button label="{loc.button.save}" icon="{Icons.save}" click="save()"/>
 			<s:Button label="{loc.button.cancel}" icon="{Icons.cancel}" click="cancel()"/>
 			<s:Button label="{loc.alternative.buttons.budget}" visible="false" 
 					  id="displayBudgetButton" click="displayBudget()" icon="{Icons.moneyBag}"/>
 		</s:HGroup>
-		<!--<s:Spacer height="5"/>-->
 	</s:VGroup>
 </s:Group>
