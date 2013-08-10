@@ -47,7 +47,7 @@
     	<bed>
     		<singular>Cama</singular>
     		<plural>Camas</plural>
-	    	<single>Simple</single>
+	    	<single>Soltero</single>
 	    	<marital>Matrimonial</marital>
     	</bed>
 	</availability>
@@ -343,8 +343,13 @@
 	    <description>Descripción</description>
 	    <number>Número</number>
 	    <peopleQuantity>Cantidad de Personas</peopleQuantity>
-	    <withMaritalBed>Con Cama Matrimonial</withMaritalBed>
-	    <withExtraBed>Con Cama Extra</withExtraBed>
+	    <bed>
+	    	<singular>Cama</singular>
+	    	<plural>Camas</plural>
+		    <withMaritalBed>Con Cama Matrimonial</withMaritalBed>
+		    <withExtraBed>Con Cama Extra</withExtraBed>
+		    <withSingleBed>Camas Solteros</withSingleBed>
+	    </bed>
     </room>
     <roomType>
    		<singular>Tipo de Habitación</singular>
