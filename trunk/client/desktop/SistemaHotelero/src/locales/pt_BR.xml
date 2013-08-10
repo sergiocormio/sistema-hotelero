@@ -345,8 +345,13 @@
 	    <description>Descrição</description>
 	    <number>Número</number>
 	    <peopleQuantity>Número de Pessoas</peopleQuantity>
-	    <withMaritalBed>Com Cama de Casal</withMaritalBed>
-	    <withExtraBed>Com Cama Extra</withExtraBed>
+	     <bed>
+	    	<singular>Cama</singular>
+	    	<plural>Camas</plural>
+		    <withMaritalBed>Com Cama de Casal</withMaritalBed>
+		    <withExtraBed>Com Cama Extra</withExtraBed>
+		    <withSingleBed>Camas de Solteiro</withSingleBed>
+	    </bed>
     </room>
     <roomType>
    		<singular>Tipo de Quarto</singular>

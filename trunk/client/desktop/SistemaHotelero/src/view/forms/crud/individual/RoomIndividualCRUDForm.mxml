@@ -55,9 +55,9 @@
 				WindowsUtils.autoSelectComboBox(roomTypesCombo,_currentRoom.roomType);
 				
 				if(_currentRoom.withMaritalBed){
-					maritalOrExtraBed.selectedValue = loc.room.withMaritalBed;
+					maritalOrExtraBed.selectedValue = loc.room.bed.withMaritalBed;
 				}else{
-					maritalOrExtraBed.selectedValue = loc.room.withExtraBed;
+					maritalOrExtraBed.selectedValue = loc.room.bed.withSingleBed;
 				}
 				
 				peopleQuantityStepper.value = _currentRoom.peopleQuantity;
@@ -119,7 +119,7 @@
 				_currentRoom.roomType = roomTypesCombo.selectedItem;
 				_currentRoom.withExtraBed = false;
 				_currentRoom.withMaritalBed = false;
-				if(maritalOrExtraBed.selectedValue == loc.room.withMaritalBed){
+				if(maritalOrExtraBed.selectedValue == loc.room.bed.withMaritalBed){
 					_currentRoom.withMaritalBed = true;
 				}else{
 					_currentRoom.withExtraBed = true;
@@ -198,9 +198,9 @@
 				<s:FormItem label="{loc.room.peopleQuantity}:" required="true">
 					<s:NumericStepper id="peopleQuantityStepper" minimum="1" maximum="{Number.MAX_VALUE}" width="50"/>
 				</s:FormItem>
-				<s:FormItem label="{loc.room.withExtraBed}:" required="true">
-					<s:RadioButton id="marital" groupName="maritalOrExtraBed" label="{loc.room.withMaritalBed}" selected="true"/>
-					<s:RadioButton id="extra" groupName="maritalOrExtraBed" label="{loc.room.withExtraBed}"/>
+				<s:FormItem label="{loc.room.bed.plural}:" required="true">
+					<s:RadioButton id="marital" groupName="maritalOrExtraBed" label="{loc.room.bed.withMaritalBed}" selected="true"/>
+					<s:RadioButton id="extra" groupName="maritalOrExtraBed" label="{loc.room.bed.withSingleBed}"/>
 				</s:FormItem>
 			</s:Form>
 			<s:Form>

@@ -146,8 +146,8 @@
 						<s:GridColumn dataField="number" headerText="{loc.room.number}"></s:GridColumn>
 						<s:GridColumn dataField="roomType.name" headerText="{loc.roomType.singular}"></s:GridColumn>
 						<s:GridColumn dataField="peopleQuantity" headerText="{loc.room.peopleQuantity}"></s:GridColumn>
-						<s:GridColumn dataField="withMaritalBed" headerText="{loc.room.withMaritalBed}" labelFunction="booleanFormat"></s:GridColumn>
-						<s:GridColumn dataField="withExtraBed" headerText="{loc.room.withExtraBed}" labelFunction="booleanFormat"></s:GridColumn>
+						<s:GridColumn dataField="withMaritalBed" headerText="{loc.room.bed.withMaritalBed}" labelFunction="booleanFormat"></s:GridColumn>
+						<s:GridColumn dataField="withExtraBed" headerText="{loc.room.bed.withSingleBed}" labelFunction="booleanFormat"></s:GridColumn>
 						<s:GridColumn dataField="description" headerText="{loc.room.description}"></s:GridColumn>
 					</s:ArrayList>
 				</s:columns>
