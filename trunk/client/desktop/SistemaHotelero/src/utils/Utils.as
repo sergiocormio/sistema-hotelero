@@ -11,6 +11,8 @@ package utils
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	
+	import flashx.textLayout.operations.InsertTextOperation;
+	
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	import mx.collections.SortField;
@@ -21,6 +23,7 @@ package utils
 	import spark.components.TextInput;
 	import spark.components.WindowedApplication;
 	import spark.components.gridClasses.GridColumn;
+	import spark.events.TextOperationEvent;
 	import spark.globalization.SortingCollator;
 
 	/**
@@ -376,6 +379,22 @@ package utils
 			}else{
 				return false;
 			}
+		}
+		
+		/**
+		 * Converts ',' in '.'.
+		 * Use in textInput as changingEvent in order to allow only valid decimal numbers
+		 */  
+		public static function convertsToDecimalCharacterChangingEvent(event:TextOperationEvent):void
+		{
+			if(	event.operation is InsertTextOperation ){
+				var insertEvent:InsertTextOperation = event.operation as InsertTextOperation;
+				//converts ',' in '.'
+				if(insertEvent.text==','){
+					insertEvent.text = '.';
+				}
+			}
+			
 		}
 	}
 }

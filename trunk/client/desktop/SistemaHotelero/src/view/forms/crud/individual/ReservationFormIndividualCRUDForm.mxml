@@ -10,6 +10,8 @@
 		<![CDATA[
 			import flash.sampler.NewObjectSample;
 			
+			import flashx.textLayout.operations.InsertTextOperation;
+			
 			import locales.Locale;
 			
 			import model.Alternative;
@@ -36,14 +38,17 @@
 			import services.crud.CustomerService;
 			import services.crud.ReservationFormService;
 			
+			import spark.events.TextOperationEvent;
+			
 			import utils.DateTimeUtils;
 			import utils.FaultHandler;
+			import utils.Utils;
 			import utils.WindowsUtils;
 			import utils.log.DebugLog;
 			
 			import view.components.ManualAlternativeForm;
-			import view.forms.searchers.CustomerSearcher;
 			import view.forms.DisplayBudgetForm;
+			import view.forms.searchers.CustomerSearcher;
 			
 			[Bindable]
 			public var loc:Object;
@@ -373,7 +378,9 @@
 			private function calculateRemainingAmount():void{
 				var totalPrice:Number = Number(totalPriceText.text);
 				var reserve:Number = Number(monetaryReserveText.text);
-				remainingAmountText.text = (totalPrice - reserve).toString();
+				if(!isNaN(reserve)){
+					remainingAmountText.text = (totalPrice - reserve).toString();
+				}
 			}
 			
 			//calculates amount of nights
@@ -516,6 +523,9 @@
 				PopUpManager.removePopUp(titleWindow);
 				WindowsUtils.autoSelectComboBox(customersCombo,customerSearcher.customerSelected);
 			}
+			
+		
+			
 		]]>
 		
 	</fx:Script>
@@ -616,7 +626,7 @@
 				</s:FormItem>
 			
 				<s:FormItem label="{loc.reservationForm.monetaryReserve}:" required="false">
-					<s:TextInput id="monetaryReserveText"/>
+					<s:TextInput id="monetaryReserveText" focusOut="calculateRemainingAmount()" change="calculateRemainingAmount()" restrict="., 0-9" changing="Utils.convertsToDecimalCharacterChangingEvent(event)"/>
 				</s:FormItem>
 												
 			</s:Form>
@@ -640,12 +650,12 @@
 					<s:NumericStepper id="childrenQtyStepper" maximum="{Number.MAX_VALUE}" width="50" change="quantityOfPeopleChanged(event)"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.reservationForm.pricePerDay}:" required="true">
-					<s:TextInput id="pricePerDayText"/>
+					<s:TextInput id="pricePerDayText" restrict="., 0-9" changing="Utils.convertsToDecimalCharacterChangingEvent(event)"/>
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.reservationForm.totalPrice}:" required="true">
 					<s:HGroup verticalAlign="middle" gap = "1">
-						<s:TextInput id="totalPriceText"/>
+						<s:TextInput id="totalPriceText" restrict="., 0-9" changing="Utils.convertsToDecimalCharacterChangingEvent(event)"/>
 						<s:Label id="amountOfNights" fontWeight="bold"/>
 						<s:Button width="24" height="24" click="preLoadPrices();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
@@ -668,7 +678,7 @@
 				
 				<s:FormItem label="{loc.reservationForm.remainingAmount}:"  required="true">
 					<s:HGroup verticalAlign="middle" gap = "1">
-						<s:TextInput id="remainingAmountText"/>
+						<s:TextInput id="remainingAmountText" restrict="., 0-9" changing="Utils.convertsToDecimalCharacterChangingEvent(event)"/>
 						<s:Button width="24" height="24" click="calculateRemainingAmount();"
 								  icon="{Icons.refresh}" toolTip="{loc.button.refresh}"/>
 					</s:HGroup>
