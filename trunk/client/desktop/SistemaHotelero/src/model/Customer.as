@@ -177,17 +177,51 @@ public class Customer
 		_address = value;
 	}
 
-
+	/**
+	 * Returns an address representation in multiple lines
+	 */ 
 	public function get addressAsText():String
 	{
 		if(_address != null){
-			return _address.street + ", " + _address.city + ",\n" +
-				   _address.zipCode + ", " + _address.state + ",\n" +
-				   _address.region.country.name;
+			return defaultString(_address.street) + defaultString(_address.city,true,true) +
+				defaultString(_address.zipCode,true,true,true) + defaultString(_address.state,true,true) +
+				defaultString(_address.region.country.name,false);
 		}
 		else{
 			return "";
 		}
+	}
+	
+	/**
+	 * Idem that addressAsText but fits in a line
+	 */
+	public function get addressAsTextOneLine():String
+	{
+		if(_address != null){
+			return defaultString(_address.street) + defaultString(_address.city) +
+				defaultString(_address.zipCode,true,false,true) + defaultString(_address.state) +
+				defaultString(_address.region.country.name,false);
+		}
+		else{
+			return "";
+		}
+	}
+	
+	private function defaultString(value:String,addComma:Boolean=true,addEnter:Boolean=false,inParentheses:Boolean=false):String{
+		if(value == null || value == ""){
+			return "";
+		}
+		var result:String = value;
+		if(inParentheses){
+			result = "("+result+")";
+		}
+		if(addComma){
+			result += ", ";
+		}
+		if(addEnter){
+			result += "\n";
+		}
+		return result
 	}
 }
 

@@ -127,7 +127,7 @@
 				docTypeForm.isUpdate = false;
 				docTypeForm.addEventListener("saveSuccess",docType_saveSuccess);
 				docTypeForm.addEventListener("cancelClicked",titleWindow_close);
-				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.documentType.singular,docTypeForm,this);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.documentType.singular,docTypeForm,this.owner);
 			}
 			
 			private function titleWindow_close(evt:Object):void {
@@ -140,15 +140,13 @@
 				PopUpManager.removePopUp(titleWindow);
 			}
 			
-			
-			
 			private function addLanguage():void{
 				languageForm = new LanguageIndividualCRUDForm();
 				languageForm.loc = loc;
 				languageForm.isUpdate = false;
 				languageForm.addEventListener("saveSuccess",language_saveSuccess);
 				languageForm.addEventListener("cancelClicked",titleWindow_close);
-				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.language.singular,languageForm,this);
+				titleWindow = WindowsUtils.openDialog(loc.button.newLabel + ": " + loc.language.singular,languageForm,this.owner);
 			}
 			
 			private function language_saveSuccess(evt:Object):void {
@@ -312,7 +310,7 @@
 				addressForm.currentAddress = _currentCustomer.address;
 				addressForm.addEventListener("saveSuccess",address_saveSuccess);
 				addressForm.addEventListener("cancelClicked",titleWindow_close);
-				titleWindow = WindowsUtils.openDialog(loc.button.modify + ": " + loc.customer.address.single, addressForm, this);
+				titleWindow = WindowsUtils.openDialog(loc.button.modify + ": " + loc.customer.address.single, addressForm, this.owner);
 			}
 			
 			
