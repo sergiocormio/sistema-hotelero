@@ -340,7 +340,7 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<mx:DateValidator id="dateFromValidator"
-						  required="true"
+						  required="false"
 						  requiredFieldError="{loc.validator.requiredFieldError}"
 						  inputFormat="{loc.date.format}"
 						  formatError="{loc.validator.invalidFieldValueError}"
@@ -353,7 +353,7 @@
 						  property="text"
 						  />
 		<mx:DateValidator id="dateToValidator"
-						  required="true"
+						  required="false"
 						  requiredFieldError="{loc.validator.requiredFieldError}"
 						  inputFormat="{loc.date.format}"
 						  formatError="{loc.validator.invalidFieldValueError}"
