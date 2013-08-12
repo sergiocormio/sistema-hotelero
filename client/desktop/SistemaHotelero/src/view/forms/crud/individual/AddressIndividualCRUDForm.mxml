@@ -228,31 +228,31 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<mx:StringValidator id="streetValidator" 
 							enabled="false"
-							required="true"
+							required="false"
 							requiredFieldError="{loc.validator.requiredFieldError}" 
 							source="{streetText}"
 							property="text"/>
 		<mx:StringValidator id="cityValidator" 
 							enabled="false"
-							required="true"
+							required="false"
 							requiredFieldError="{loc.validator.requiredFieldError}" 
 							source="{cityText}"
 							property="text"/>
 		<mx:StringValidator id="zipCodeValidator" 
 							enabled="false"
-							required="true"
+							required="false"
 							requiredFieldError="{loc.validator.requiredFieldError}" 
 							source="{zipCodeText}"
 							property="text"/>
 		<mx:StringValidator id="stateValidator" 
 							enabled="false"
-							required="true"
+							required="false"
 							requiredFieldError="{loc.validator.requiredFieldError}" 
 							source="{stateText}"
 							property="text"/>
 		<mx:NumberValidator id="countryValidator"
 							enabled="false"
-							required="true"
+							required="false"
 							requiredFieldError="{loc.validator.requiredFieldError}"
 							minValue="0"
 							lowerThanMinError="{loc.validator.requiredFieldError}" 
@@ -261,7 +261,7 @@
 							/>
 		<mx:NumberValidator id="regionValidator"
 							enabled="false"
-							required="true"
+							required="false"
 							requiredFieldError="{loc.validator.requiredFieldError}"
 							minValue="0"
 							lowerThanMinError="{loc.validator.requiredFieldError}" 
@@ -282,16 +282,16 @@
 					<s:FormLayout gap="-14"/>
 				</s:layout>  
 				
-				<s:FormItem label="{loc.customer.address.street}:" required="true">
-					<s:TextInput id="streetText"/>
+				<s:FormItem label="{loc.customer.address.street}:" required="false">
+					<s:TextInput id="streetText" width="210"/>
 				</s:FormItem>
-				<s:FormItem label="{loc.customer.address.city}:" required="true">
+				<s:FormItem label="{loc.customer.address.city}:" required="false">
 					<s:TextInput id="cityText"/>
 				</s:FormItem>
-				<s:FormItem label="{loc.customer.address.zipCode}:" required="true">
+				<s:FormItem label="{loc.customer.address.zipCode}:" required="false">
 					<s:TextInput id="zipCodeText"/>
 				</s:FormItem>
-				<s:FormItem label="{loc.customer.address.state}:" required="true">
+				<s:FormItem label="{loc.customer.address.state}:" required="false">
 					<s:TextInput id="stateText"/>
 				</s:FormItem>
 				<s:FormItem id="countryItem" label="{loc.country.singular}:" required="true">

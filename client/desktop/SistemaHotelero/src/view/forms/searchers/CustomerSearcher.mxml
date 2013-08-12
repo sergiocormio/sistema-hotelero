@@ -205,7 +205,7 @@
 					<s:GridColumn dataField="dateOfBirth" headerText="{loc.customer.dateOfBirth}" labelFunction="dateFormat"></s:GridColumn>
 					<s:GridColumn dataField="docType.name" headerText="{loc.documentType.singular}"></s:GridColumn>
 					<s:GridColumn dataField="idNumber" headerText="{loc.customerPK.idNumber}"></s:GridColumn>
-					<s:GridColumn dataField="addressAsText" headerText="{loc.customer.address.single}"></s:GridColumn>
+					<s:GridColumn dataField="addressAsTextOneLine" headerText="{loc.customer.address.single}"></s:GridColumn>
 					<s:GridColumn dataField="language.name" headerText="{loc.language.singular}"></s:GridColumn>
 					<s:GridColumn dataField="lastLodgementDate" headerText="{loc.customer.lastLodgementDate}" labelFunction="dateFormat"></s:GridColumn>
 					<s:GridColumn dataField="profession" headerText="{loc.customer.profession}"></s:GridColumn>
