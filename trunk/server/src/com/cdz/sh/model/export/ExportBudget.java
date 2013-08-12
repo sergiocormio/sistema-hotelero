@@ -1,12 +1,19 @@
 package com.cdz.sh.model.export;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.cdz.sh.model.ExchangeRate;
+import com.cdz.sh.model.RoomType;
 
 public class ExportBudget {
 	
+	private Date dateFrom;
+	private Date dateTo;
+	private RoomType roomType;
+	private String pricePerDay;
+	private int daysQuantity;
 	private String basePrice;
 	
 	private List<ExportServiceAddedInBasePrice> servicePricesAddedInBasePrice;
@@ -63,6 +70,48 @@ public class ExportBudget {
 	public void setExchangeRate(ExchangeRate exchangeRate) {
 		this.exchangeRate = exchangeRate;
 	}
+
+	public String getPricePerDay() {
+		return pricePerDay;
+	}
+
+	public void setPricePerDay(String pricePerDay) {
+		this.pricePerDay = pricePerDay;
+	}
+
+	public int getDaysQuantity() {
+		return daysQuantity;
+	}
+
+	public void setDaysQuantity(int daysQuantity) {
+		this.daysQuantity = daysQuantity;
+	}
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+
+	public Date getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(Date dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public Date getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(Date dateTo) {
+		this.dateTo = dateTo;
+	}
+	
+
 	
 	
 }

@@ -7,7 +7,11 @@ public class Budget {
 	
 	private Alternative relatedAlternative;
 	
+	private RoomType roomType;
+	
 	private Double pricePerDay;
+	
+	private int daysQuantity;
 	
 	private Double basePrice;
 		
@@ -169,6 +173,24 @@ public class Budget {
 	public void setPricePerDay(Double pricePerDay) {
 		this.pricePerDay = pricePerDay;
 	}
+
+	public int getDaysQuantity() {
+		return daysQuantity;
+	}
+
+	public void setDaysQuantity(int daysQuantity) {
+		this.daysQuantity = daysQuantity;
+	}
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+
+
 	
 	
 }

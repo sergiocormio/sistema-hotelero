@@ -48,16 +48,20 @@ public class BudgetServiceImpl implements BudgetService {
 		
 		Budget budget = new Budget(alternative);
 		
+		RoomType roomType = null;
 		Double basePricePerDay = new Double(0);
+		int daysQuantity = 0;
 		boolean firstOccupation = true;
 		Double basePrice = new Double(0);
-		RoomType roomType = null;
 		Rate rate = null;
 		
+		daysQuantity = DateUtil.getDaysQuantity(alternative.getDateFrom(), alternative.getDateTo());
 		if(alternative.hasPromotion()){
+			
+			roomType = alternative.getPromotion().getRoomType();
+			
 			basePrice = alternative.getPromotion().getPrice();
 		
-			int daysQuantity = DateUtil.getDaysQuantity(alternative.getDateFrom(), alternative.getDateTo());
 			basePricePerDay = basePrice / daysQuantity;
 		}
 		else{
@@ -73,6 +77,10 @@ public class BudgetServiceImpl implements BudgetService {
 				}
 				
 				if(firstOccupation){
+					// the price per day ad roomtype will be the ones related to
+					// the first occupation
+					// see what to do with alternatives that have different rates/prices/roomtypes...
+					roomType = rate.getId().getRoomType();
 					basePricePerDay = rate.getPrice();
 					firstOccupation = false;
 				}
@@ -80,7 +88,9 @@ public class BudgetServiceImpl implements BudgetService {
 			}
 		}
 		
+		budget.setRoomType(roomType);
 		budget.setPricePerDay(basePricePerDay);
+		budget.setDaysQuantity(daysQuantity);
 		budget.setBasePrice(basePrice);
 		
 		
@@ -133,6 +143,11 @@ public class BudgetServiceImpl implements BudgetService {
 		
 		ExportBudget exportBudget = new ExportBudget();
 		
+		exportBudget.setDateFrom(DateUtil.getDateUTC(budget.getRelatedAlternative().getDateFrom()));
+		exportBudget.setDateTo(DateUtil.getDateUTC(budget.getRelatedAlternative().getDateTo()));
+		exportBudget.setRoomType(budget.getRoomType());
+		exportBudget.setPricePerDay( PriceFormater.formatPrice(budget.getPricePerDay(), exchangeRate) );
+		exportBudget.setDaysQuantity( budget.getDaysQuantity() );
 		exportBudget.setBasePrice( PriceFormater.formatPrice(budget.getBasePrice(), exchangeRate) );
 		
 		exportBudget.setBasePricePlusAllServicesIncludedInBasePrice(PriceFormater.formatPrice(budget.getBasePricePlusAllServicesIncludedInBasePrice(), exchangeRate));

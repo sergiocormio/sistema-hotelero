@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb22989f-db85-46ba-977d-8bb124583fbf">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="71"/>
+	<property name="ireport.y" value="576"/>
 	<style name="table" fill="Solid">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -35,41 +35,22 @@
 	<field name="basePricePlusAllServicesIncludedInBasePrice" class="java.lang.String"/>
 	<field name="additionalServices" class="java.util.Collection"/>
 	<field name="servicePricesAddedInBasePrice" class="java.util.Collection"/>
+	<field name="roomType.name" class="java.lang.String"/>
+	<field name="roomType.description" class="java.lang.String"/>
+	<field name="pricePerDay" class="java.lang.String"/>
+	<field name="daysQuantity" class="java.lang.Integer"/>
+	<field name="dateFrom" class="java.util.Date"/>
+	<field name="dateTo" class="java.util.Date"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="64" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="c2fd3b19-aed5-4f3f-871c-c6347c017bcb" x="20" y="32" width="468" height="31"/>
-				<textElement verticalAlignment="Middle">
-					<font size="20" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[Orçamento]]></text>
-			</staticText>
-			<line>
-				<reportElement uuid="81116860-fd16-48b7-91fc-94353e2888e5" x="0" y="63" width="555" height="1"/>
-			</line>
-		</band>
-	</title>
 	<pageHeader>
-		<band height="37" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="ada6e749-c8eb-4103-83a3-e6d6979788e9" x="48" y="17" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[Preço Base:]]></text>
-			</staticText>
-			<textField pattern="###0.00">
-				<reportElement uuid="d4270066-88c4-4bfc-bb44-71653caf8baa" x="248" y="17" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{basePrice}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<detail>
-		<band height="365" splitType="Stretch">
+		<band height="762" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="1c7b8e7d-b80e-4435-994d-51006b180a05" key="table" style="table" positionType="Float" isPrintRepeatedValues="false" x="48" y="42" width="440" height="66"/>
+				<reportElement uuid="1c7b8e7d-b80e-4435-994d-51006b180a05" key="table" style="table" positionType="Float" isPrintRepeatedValues="false" x="48" y="398" width="440" height="48"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="servicePricesAddedInBasePrice" uuid="e1add205-9a54-4644-a4dd-9d265dffbe30">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{servicePricesAddedInBasePrice})]]></dataSourceExpression>
@@ -81,7 +62,7 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Com]]></text>
+								<text><![CDATA[Con]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="20" rowSpan="1">
@@ -112,22 +93,22 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
-			<staticText>
-				<reportElement uuid="e672e229-1a55-48e1-92ef-9f062eb74b35" positionType="Float" mode="Transparent" x="48" y="12" width="130" height="20"/>
-				<textElement>
+			<textField hyperlinkType="RemotePage" hyperlinkTarget="Blank">
+				<reportElement uuid="409d85a0-9123-486d-9ea3-053d1c9b4720" positionType="Float" mode="Transparent" x="48" y="378" width="130" height="20"/>
+				<textElement markup="none">
 					<font isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Subtotais com serviços:]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA["Subtotales con Servicios"]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement uuid="e672e229-1a55-48e1-92ef-9f062eb74b35" positionType="Float" mode="Transparent" x="48" y="170" width="130" height="20"/>
+				<reportElement uuid="e672e229-1a55-48e1-92ef-9f062eb74b35" positionType="Float" mode="Transparent" x="48" y="486" width="167" height="20"/>
 				<textElement>
-					<font isUnderline="true"/>
+					<font isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Serviços Adicionais:]]></text>
+				<text><![CDATA[Estos valores no incluyen:]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement uuid="1c7b8e7d-b80e-4435-994d-51006b180a05" key="table" style="table" positionType="Float" isPrintRepeatedValues="false" x="48" y="202" width="440" height="140"/>
+				<reportElement uuid="1c7b8e7d-b80e-4435-994d-51006b180a05" key="table" style="table" positionType="Float" isPrintRepeatedValues="false" x="48" y="506" width="440" height="33"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="additionalServices" uuid="e1add205-9a54-4644-a4dd-9d265dffbe30">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{additionalServices})]]></dataSourceExpression>
@@ -139,7 +120,7 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Detalhe]]></text>
+								<text><![CDATA[Detalle]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="20" rowSpan="1">
@@ -157,7 +138,7 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Preço]]></text>
+								<text><![CDATA[Precio]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="20" rowSpan="1">
@@ -171,14 +152,139 @@
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement uuid="c9d43277-a20f-4b6b-a7ed-547d9f0cc8c2" positionType="Float" x="48" y="122" width="180" height="20"/>
+				<reportElement uuid="c9d43277-a20f-4b6b-a7ed-547d9f0cc8c2" positionType="Float" x="48" y="454" width="180" height="20"/>
 				<textElement/>
-				<text><![CDATA[Preço com todos os serviços:]]></text>
+				<text><![CDATA[Precio con todos los servicios:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="b9e9b2e3-ce0d-4614-b90a-631a4dedcfce" positionType="Float" x="248" y="122" width="240" height="20"/>
+				<reportElement uuid="b9e9b2e3-ce0d-4614-b90a-631a4dedcfce" positionType="Float" x="228" y="454" width="240" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{basePricePlusAllServicesIncludedInBasePrice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ada6e749-c8eb-4103-83a3-e6d6979788e9" positionType="Float" x="48" y="337" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Valor total:]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement uuid="d4270066-88c4-4bfc-bb44-71653caf8baa" positionType="Float" x="178" y="337" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{basePrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="62f95c12-0b51-45af-b5a9-637427016fd5" x="48" y="142" width="119" height="20"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Paquete solicitado del"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="db9b1942-134c-4341-a9ad-21301073de06" x="131" y="200" width="399" height="20"/>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{roomType.name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="80f917f3-19ce-4aad-8250-57ab73fe3853" x="148" y="162" width="9" height="20"/>
+				<textElement markup="none"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="3f206883-0206-4b38-b6c9-312fbe142472" positionType="Float" isPrintRepeatedValues="false" x="48" y="220" width="482" height="67"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{roomType.description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="29d0b314-14a6-46e7-90df-22404bb3bd3a" positionType="Float" x="48" y="298" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Valor diario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b14d506d-e8fd-4a3b-89ec-058666882935" positionType="Float" x="178" y="298" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pricePerDay}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ec48c9c8-cf7b-402b-b5af-df1c4c6ff2b8" positionType="Float" x="48" y="318" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Número de días:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9d8460f9-a952-41ae-b936-d2cfba228b31" positionType="Float" x="178" y="318" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{daysQuantity}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a6519f5b-e2ac-4984-a922-8d3c2bd8ad36" positionType="Float" x="48" y="554" width="482" height="102"/>
+				<textElement markup="none"/>
+				<text><![CDATA[Para realizar su reserva lea atentamente nuestras disposiciones generales: (Lea con atención para no ocurrir engaños) Las reservas son confirmadas únicamente con un depósito (valor a combinar). Para Argentina el mismo será realizado vía pagamento on line o con tarjeta de credito. para otros países será por transferencia vía WESTER UNION a nuestra cuenta  del Banco do Brasil. El saldo deberá ser pagado en la posada por anticipado (sin excepción) para recibir las llaves de la unidad  reservada.  Caso ocurra algún imprevisto con menos de 30 días antes del check-in y tenga que cancelar la reserva o, teniendo que retirarse antes del final de la estadía por motivos personales,   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cdcb7b26-979f-4f06-81a3-4b027464e92f" x="48" y="162" width="482" height="20"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nuestras acomodaciones disponibles:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="55ebcf8d-a906-42d2-98f6-ad71d9482d46" positionType="Float" x="48" y="656" width="482" height="29"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO efectuamos devolución de valores ya pagos, estos  pueden ser acreditados
+para una futura visita.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="69ed405a-a0e1-4b79-93e5-97a70ff2db32" positionType="Float" x="48" y="685" width="482" height="42"/>
+				<textElement markup="none"/>
+				<text><![CDATA[Muchas gracias por la consulta, estamos a disposición para otros esclarecimientos.
+Recuerde siempre continuar nuestra comunicación sobre este cuerpo de mail.
+Gracias y cordiales saludos.]]></text>
+			</staticText>
+			<textField hyperlinkType="Reference" hyperlinkTarget="Blank">
+				<reportElement uuid="a3f0f64c-b49e-43bd-9d03-172e9fdbc84c" positionType="Float" x="48" y="727" width="358" height="20"/>
+				<textElement markup="none"/>
+				<textFieldExpression><![CDATA["IMPRIMA mapa de localizaçaõ da POUSADA na  Praia de INGLESES"]]></textFieldExpression>
+				<hyperlinkReferenceExpression><![CDATA["http://www.dellosky.com/#!mapa/c8xe"]]></hyperlinkReferenceExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="25463f66-f521-4095-82e1-59e9288d221b" x="167" y="142" width="63" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateFrom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e6637e06-9d3e-41ba-a252-a63909ca2aaa" positionType="Float" x="230" y="142" width="23" height="20"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="7b112860-9e34-43ee-a669-bf9c528290e1" x="253" y="142" width="63" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateTo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="62f95c12-0b51-45af-b5a9-637427016fd5" x="48" y="200" width="83" height="20"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Departamento"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="519ac71e-1d28-4c24-b70b-f03079b6c2c7" positionType="Float" isPrintRepeatedValues="false" x="48" y="34" width="161" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Hola gracias por la consulta."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="68fa62d2-45dc-4d80-9cf4-36a408f0220d" x="48" y="54" width="482" height="78"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["La posada Dell´Osky está localizada en el balneario GAIVOTAS, barrio playa de INGLESES al norte de la isla distante 150 mtr del mar y próximo a supermercados, farmacia y lavandería. A 600 mtr de la posada encontramos el centro comercial y nocturno de Ingleses donde las opciones de gastronomía y diversión están a tu disposición. La posada ofrece a sus visitantes una linda área social con piscina, parrilla común, lounge, WI-FI y estacionamiento sin costo adicional."]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -189,6 +295,62 @@
 		<band height="10" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="12" splitType="Stretch"/>
+		<band height="215" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a0e09fa8-7ae7-40f3-970e-605563db8227" positionType="Float" x="48" y="65" width="420" height="15"/>
+				<textElement markup="none">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Atenciosamente,
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0e09fa8-7ae7-40f3-970e-605563db8227" positionType="Float" x="48" y="0" width="420" height="30"/>
+				<textElement markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[--------------------------------------------------------------------------------
+Entrada de las 14hs a las  20hs  -  Salida   hasta las 11h]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0e09fa8-7ae7-40f3-970e-605563db8227" positionType="Float" x="48" y="30" width="420" height="20"/>
+				<textElement markup="none">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Por favor para INGRESOS fuera de  ESTE HORARIO consulte !!]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0e09fa8-7ae7-40f3-970e-605563db8227" positionType="Float" x="48" y="80" width="420" height="15"/>
+				<textElement markup="none">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Dell´Osky Pousada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0e09fa8-7ae7-40f3-970e-605563db8227" positionType="Float" x="48" y="95" width="420" height="55"/>
+				<textElement markup="none">
+					<font isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Travessa do Marisco 188
+(esquina de la Rua do marisco N° 800 entrar a la derecha)
+Florianópolis - Ingleses
+Telefono :048-3369-0733
+Mail:   dellosky@yahoo.com.br]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0e09fa8-7ae7-40f3-970e-605563db8227" positionType="Float" x="48" y="170" width="420" height="45"/>
+				<textElement markup="none">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[GPS-48.39928150177002/-27.43093727472
+ESQUINA RUA DO MARISCO 800,  ENTRAR A LA DERECHA 80 METROS]]></text>
+			</staticText>
+			<textField hyperlinkType="Reference" hyperlinkTarget="Blank">
+				<reportElement uuid="f16bb7de-44bc-4baf-9ea7-930e3c8b9cc0" x="48" y="150" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Facebook"]]></textFieldExpression>
+				<hyperlinkReferenceExpression><![CDATA["http://www.facebook.com/pages/DellOsky-Pousada-FLorianopolis/187620471311951"]]></hyperlinkReferenceExpression>
+			</textField>
+		</band>
 	</summary>
 </jasperReport>

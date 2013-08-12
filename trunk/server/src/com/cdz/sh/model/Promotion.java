@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 public class Promotion {
 
@@ -21,6 +23,7 @@ public class Promotion {
 	
 	private String name;
 	
+	@Type(type="text")
 	private String description;
 	
 	private Date dateFrom;
