@@ -290,7 +290,7 @@
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.promotion.description}:" required="false">
-					<s:TextArea id="descriptionText"/>
+					<s:TextArea id="descriptionText" horizontalScrollPolicy="auto" verticalScrollPolicy="auto" />
 				</s:FormItem>
 				
 			</s:Form>

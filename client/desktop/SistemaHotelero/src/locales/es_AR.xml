@@ -71,6 +71,12 @@
 		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
 		<convertPricesTo>Convertir precios a</convertPricesTo>
 		<valuesIn>Valores expresados en</valuesIn>
+		<apartment>Departamento</apartment>
+		<pricePerDay>Valor diario</pricePerDay>
+		<daysQuantity>Días</daysQuantity>
+		<totalValue>Valor Total</totalValue>
+		<from>De</from>
+		<to>A</to>
 	</budget>
     <button>
     	<add>Agregar</add>
