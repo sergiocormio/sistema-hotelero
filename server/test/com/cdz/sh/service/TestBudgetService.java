@@ -3,6 +3,10 @@ package com.cdz.sh.service;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,6 +24,7 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.RoomDaoImpl;
 import com.cdz.sh.model.Alternative;
 import com.cdz.sh.model.Budget;
+import com.cdz.sh.model.ExchangeRate;
 import com.cdz.sh.model.Occupation;
 import com.cdz.sh.model.OccupationPK;
 import com.cdz.sh.model.ServiceAddedInBasePrice;
@@ -312,7 +317,28 @@ public class TestBudgetService {
 				
 		Budget budget = this.budgetService.populateBudget(alternative).getBudget();
 		
-		//this.budgetService.exportData(budget, "es_AR");
+		ExchangeRate exchangeRate = new ExchangeRate();
+		exchangeRate.setValueAgainstReal(new Double(1));
 		
+		byte[] data = this.budgetService.exportData(budget, "es_AR", exchangeRate);
+		
+		executeReport(data);
+		
+	}
+	
+	private void executeReport(byte[] output) {
+		OutputStream out;
+		try {
+			out = new FileOutputStream("C:\\pdf\\out_es_AR_Presup.pdf");
+			out.write(output);
+			out.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

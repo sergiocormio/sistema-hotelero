@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Type;
+
 
 @Entity
 public class Room implements Serializable{
@@ -25,6 +27,7 @@ public class Room implements Serializable{
     @Column(name = "number", unique = true) 
     private int number;
 
+    @Type(type="text")
 	private String description;
     
 	@ManyToOne

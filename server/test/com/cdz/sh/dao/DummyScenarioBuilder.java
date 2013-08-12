@@ -212,10 +212,13 @@ public class DummyScenarioBuilder {
 		RoomType roomTypeCostao = this.roomTypeDao.getRecordById(1L);
 		if (roomTypeCostao == null){
 			roomTypeCostao = new RoomType();
-			roomTypeCostao.setName("Costão");
-			roomTypeCostao.setDescription(" Térreo, ideal para 4 pessoas ou família.﻿"
-										 + "﻿﻿﻿ Sala / cozinha conjugada com sofa cama, quarto com cama casal, patio privativo com churrasqueira."
-									 	 + " Oferece café da manhã e roupas de cama. ");
+			roomTypeCostao.setName("Monoambiente Estudio");
+			roomTypeCostao.setDescription("Para 2  personas\n"+
+											"Localizado en el 1°piso, monoambiente con aire acondicionado SPLIT, vent de techo,\n"+
+											"cocina-americana, heladera, TV, cofre, cama matrimonial y/o soltero,\n"+
+											"CAMA EXTRA adulto R$ 50,00 diário,\n"+
+											"niño 0 a 3 años sin cargo,\n"+
+											"niño de 4 a 12 años R$ 30,00");
 			this.roomTypeDao.createRecord(roomTypeCostao);
 		}
 		roomTypes.put(1L, roomTypeCostao);
@@ -530,6 +533,7 @@ public class DummyScenarioBuilder {
 		Customer customerFede = this.customerDao.getRecordById(1L);
 		if(customerFede == null){
 			customerFede = new Customer();
+			customerFede.setEmail("fede@fede.com");
 			customerFede.setFirstName("Federico");
 			customerFede.setLastName("De Seta");
 			customerFede.setDateOfBirth(new GregorianCalendar(1987, 5, 6).getTime());
@@ -541,6 +545,7 @@ public class DummyScenarioBuilder {
 		Customer customerSergio = this.customerDao.getRecordById(2L);
 		if(customerSergio == null){
 			customerSergio = new Customer();
+			customerSergio.setEmail("sergio@sergio.com");
 			customerSergio.setFirstName("Sergio");
 			customerSergio.setLastName("Cormio");
 			customerSergio.setDateOfBirth(new GregorianCalendar(1986, 5, 27).getTime());

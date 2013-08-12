@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Type;
+
 
 @Entity
 public class RoomType {
@@ -14,6 +16,7 @@ public class RoomType {
 
     private String name;
 
+    @Type(type="text")
 	private String description;
 
 	public Long getId() {

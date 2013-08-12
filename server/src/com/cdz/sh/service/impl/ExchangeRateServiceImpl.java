@@ -32,6 +32,10 @@ public class ExchangeRateServiceImpl extends AbstractCrudService<ExchangeRate, S
 		
 		Budget convertedBudget = new Budget();
 		
+		convertedBudget.setRelatedAlternative(budget.getRelatedAlternative());
+		convertedBudget.setRoomType(budget.getRoomType());
+		convertedBudget.setPricePerDay(budget.getPricePerDay() * exchangeRate.getValueAgainstReal());
+		convertedBudget.setDaysQuantity(budget.getDaysQuantity());
 		convertedBudget.setBasePrice(budget.getBasePrice() * exchangeRate.getValueAgainstReal());
 		
 		convertedBudget.setBasePricePlusAllServicesIncludedInBasePrice(budget.getBasePricePlusAllServicesIncludedInBasePrice() * exchangeRate.getValueAgainstReal());
