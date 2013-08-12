@@ -10,7 +10,6 @@
 	<fx:Script>
 		<![CDATA[
 			import locales.Locale;
-			import utils.FaultHandler;
 			
 			import model.Consumption;
 			
@@ -37,6 +36,8 @@
 			
 			import spark.events.IndexChangeEvent;
 			
+			import utils.FaultHandler;
+			import utils.Utils;
 			import utils.WindowsUtils;
 			[Bindable]
 			public var loc:Object;
@@ -260,7 +261,7 @@
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.consumption.price}:" required="true" enabled="{!isUpdate}">
-					<s:TextInput id="priceText"/>
+					<s:TextInput id="priceText" restrict="., 0-9" changing="Utils.convertsToDecimalCharacterChangingEvent(event)"/>
 				</s:FormItem>
 				
 			</s:Form>

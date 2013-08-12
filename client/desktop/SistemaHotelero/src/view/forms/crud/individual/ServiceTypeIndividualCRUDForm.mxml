@@ -23,6 +23,7 @@
 			import services.crud.ServiceTypeService;
 			
 			import utils.FaultHandler;
+			import utils.Utils;
 			import utils.WindowsUtils;
 			
 			[Bindable]
@@ -191,7 +192,7 @@
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.serviceType.price}:" required="true">
-					<s:TextInput id="priceText"/>
+					<s:TextInput id="priceText" restrict="., 0-9" changing="Utils.convertsToDecimalCharacterChangingEvent(event)"/>
 				</s:FormItem>
 			
 				<s:FormItem label="{loc.serviceType.modality.singular}:" required="true">

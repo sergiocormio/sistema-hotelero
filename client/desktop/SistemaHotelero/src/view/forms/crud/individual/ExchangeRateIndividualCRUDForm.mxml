@@ -179,7 +179,7 @@
 					<s:TextInput id="currencySymbolText"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.exchangeRate.valueAgainstReal}:" required="true">
-					<s:TextInput id="valueAgainstRealText" />
+					<s:TextInput id="valueAgainstRealText" restrict="., 0-9" changing="Utils.convertsToDecimalCharacterChangingEvent(event)"/>
 				</s:FormItem>
 			</s:Form>
 		</s:HGroup>

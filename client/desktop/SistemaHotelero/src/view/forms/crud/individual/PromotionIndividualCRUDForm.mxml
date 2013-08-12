@@ -29,6 +29,7 @@
 			import services.crud.SeasonService;
 			
 			import utils.FaultHandler;
+			import utils.Utils;
 			import utils.WindowsUtils;
 			
 			[Bindable]
@@ -324,7 +325,7 @@
 				</s:FormItem>
 				
 				<s:FormItem label="{loc.promotion.totalPrice}:" required="true">
-					<s:TextInput id="priceText"/>
+					<s:TextInput id="priceText" restrict="., 0-9" changing="Utils.convertsToDecimalCharacterChangingEvent(event)"/>
 				</s:FormItem>
 			</s:Form>
 		</s:HGroup>
