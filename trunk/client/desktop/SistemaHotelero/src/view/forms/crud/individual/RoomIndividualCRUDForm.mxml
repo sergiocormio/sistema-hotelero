@@ -205,7 +205,7 @@
 			</s:Form>
 			<s:Form>
 				<s:FormItem label="{loc.room.description}:">
-					<s:TextArea id="descriptionText"/>
+					<s:TextArea id="descriptionText" horizontalScrollPolicy="auto" verticalScrollPolicy="auto" />
 				</s:FormItem>
 				
 			</s:Form>

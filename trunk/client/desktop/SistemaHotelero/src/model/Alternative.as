@@ -1,5 +1,6 @@
 package model
 {
+	import utils.DateTimeUtils;
 	import mx.collections.ArrayCollection;
 
 	[RemoteClass (alias="com.cdz.sh.model.Alternative")]
@@ -101,6 +102,23 @@ package model
 		public function set peopleQuantity(value:int):void
 		{
 			_peopleQuantity = value;
+		}
+		
+		public function get dateFrom():String {
+			if(occupations != null && occupations.length != 0){
+				var dateFrom:Date = (occupations.getItemAt(0) as Occupation).id.date;
+				return DateTimeUtils.formatDate(dateFrom);
+			}
+			return null;
+		}
+		
+		
+		public function get dateTo():String {
+			if(occupations != null && occupations.length != 0){
+				var dateTo:Date = (occupations.getItemAt(occupations.length-1) as Occupation).id.date;
+				return DateTimeUtils.formatDate(dateTo);
+			}
+			return null;
 		}
 
 	}

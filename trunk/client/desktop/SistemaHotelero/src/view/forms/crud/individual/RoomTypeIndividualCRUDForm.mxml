@@ -116,7 +116,7 @@
 					<s:TextInput id="roomTypeText"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.roomType.description}:" required="true">
-					<s:TextArea id="descriptionText"/>
+					<s:TextArea id="descriptionText"  horizontalScrollPolicy="auto" verticalScrollPolicy="auto" />
 				</s:FormItem>
 				
 			</s:Form>

@@ -4,6 +4,7 @@
 					xmlns:mx="library://ns.adobe.com/flex/mx" clipAndEnableScrolling="true">
 	<fx:Script>
 		<![CDATA[
+			import resources.icons.Icons;
 			import model.ReservationForm;
 			import model.StateReservationForm;
 			
@@ -21,8 +22,13 @@
 			// Write String to labelDisplay component. 
 			override public function set label(value:String):void 
 			{ 
-				super.label = value; 
-				lblData.text = label; 
+				super.label = value;
+				
+				// this is to show the label only for room numbers (first column)
+				if (!isNaN(Number(value))) // if it is a number
+				{
+					lblData.text = label; 
+				}
 				
 				// Determine the RGB color value from the data item.
 // 				if (label == "red")
@@ -41,7 +47,7 @@
 				}
 				
 				//all cells must be centered
-				lblData.horizontalCenter = 0;
+				//lblData.horizontalCenter = 0;
 				background.color = Colors.WHITE_COLOR;
 				if(column.columnIndex == 0){
 					background.color = Colors.GRAY_COLOR;
@@ -84,21 +90,27 @@
 				//Calculate result based on quantities
 				if(qtyConfirmed>0){
 					background.color = Colors.RED_COLOR;
-					lblData.setStyle("color",Colors.WHITE_COLOR);
+					//lblData.setStyle("color",Colors.WHITE_COLOR);
+					stateIcon.source = Icons.tick;
 				}
 				else if(qtyAlternative>0){
 					background.color = Colors.GREEN_COLOR;
-					lblData.setStyle("color",Colors.WHITE_COLOR);
+					//lblData.setStyle("color",Colors.WHITE_COLOR);
 				}else if(qtyPreBooking>0){
 					background.color = Colors.YELLOW_COLOR;
+					stateIcon.source = Icons.reservations;
 				}
 				// do NOT display CANCELLED reservation forms
 				else if(qtyCancelled>0){
-					lblData.setStyle("color",Colors.BLACK_COLOR);
+					//lblData.setStyle("color",Colors.BLACK_COLOR);
 					//background.color = Colors.YELLOW_COLOR;
 				}
 				else if(qtyExpired>0){
 					background.color = Colors.YELLOW_COLOR;
+					stateIcon.source = Icons.expired;
+				}
+				else{
+					stateIcon.source = Icons.transparent;
 				}
 				
 				
@@ -112,5 +124,15 @@
 			<s:SolidColor id="background" color="{Colors.WHITE_COLOR}"/>
 		</s:fill>
 	</s:Rect>
-	<s:Label id="lblData" top="9" left="7" fontWeight="bold"/>
+
+	<s:Group width="100%">
+		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="bottom" >
+			<s:Label id="lblData" fontWeight="bold" paddingTop="10"/>
+		</s:HGroup>
+		<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle" > 
+			<s:Image id="stateIcon" />
+		</s:HGroup>
+	</s:Group>
+
+	
 </s:GridItemRenderer>

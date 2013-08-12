@@ -18,7 +18,11 @@ package model
 		
 		private var _relatedAlternative:Alternative;
 		
+		private var _roomType:RoomType;
+		
 		private var _pricePerDay:Number;
+		
+		private var _daysQuantity:Number;
 		
 		private var _basePrice:Number;
 		
@@ -102,6 +106,12 @@ package model
 		
 		
 		/* availability screen */
+		
+		public function get pricePerDayWithDefaultCurrency():String
+		{
+			return "R$ " + _pricePerDay.toFixed(2);
+		}
+		
 		public function get basePriceWithDefaultCurrency():String
 		{
 			return "R$ " + _basePrice.toFixed(2);
@@ -130,6 +140,11 @@ package model
 			}
 		}
 		
+		public function get pricePerDayWithCurrency():String
+		{
+			return _exchangeRate.currencySymbol + " " + _pricePerDay.toFixed(2);
+		}
+		
 		public function get basePriceWithCurrency():String
 		{
 			return _exchangeRate.currencySymbol + " " + _basePrice.toFixed(2);
@@ -138,6 +153,26 @@ package model
 		public function get basePricePlusAllServicesIncludedInBasePriceWithCurrency():String
 		{
 			return _exchangeRate.currencySymbol + " " + _basePricePlusAllServicesIncludedInBasePrice..toFixed(2);
+		}
+
+		public function get roomType():RoomType
+		{
+			return _roomType;
+		}
+
+		public function set roomType(value:RoomType):void
+		{
+			_roomType = value;
+		}
+
+		public function get daysQuantity():Number
+		{
+			return _daysQuantity;
+		}
+
+		public function set daysQuantity(value:Number):void
+		{
+			_daysQuantity = value;
 		}
 
 		

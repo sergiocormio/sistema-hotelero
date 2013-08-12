@@ -32,6 +32,10 @@ package resources.icons
 		public static var ok:Class;
 		
 		[Bindable]
+		[Embed(source='resources/icons/tick24x24.png')]
+		public static var tick:Class;
+		
+		[Bindable]
 		[Embed(source='resources/icons/magnifier.png')]
 		public static var search:Class;
 		//------- Flag Icons -----------
@@ -286,6 +290,10 @@ package resources.icons
 		[Bindable]
 		[Embed(source='resources/icons/insert_image32x32.png')]
 		public static var insertImage:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/transparent24x24.png')]
+		public static var transparent:Class;
 		
 		public function Icons()
 		{
