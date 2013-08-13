@@ -10,6 +10,7 @@ package model
 			public function RoomType(){
 			}
 			
+			[Bindable]
 			public function get name():String
 			{
 				return _name;
