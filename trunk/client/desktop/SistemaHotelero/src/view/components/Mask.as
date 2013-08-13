@@ -1,5 +1,6 @@
 package view.components
 {
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	
 	import locales.Locale;
@@ -37,9 +38,14 @@ package view.components
 			}else{
 				_mask._message = msg;
 			}
-			PopUpManager.addPopUp(_mask, parent||Sprite(FlexGlobals.topLevelApplication), true);
-			PopUpManager.centerPopUp(_mask);
 			
+			//if there is no Parent, display in the middle of the screen
+			if(parent == null){
+				parent = FlexGlobals.topLevelApplication as Sprite;
+			}
+			
+			PopUpManager.addPopUp(_mask, parent, true);
+			PopUpManager.centerPopUp(_mask);
 			return _mask;	
 		}
 		
