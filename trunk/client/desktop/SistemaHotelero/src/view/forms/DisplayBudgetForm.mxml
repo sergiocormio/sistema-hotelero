@@ -22,6 +22,7 @@
 			import mx.events.CloseEvent;
 			import mx.events.FlexEvent;
 			import mx.events.ValidationResultEvent;
+			import mx.formatters.DateFormatter;
 			import mx.managers.PopUpManager;
 			import mx.rpc.AsyncResponder;
 			import mx.rpc.AsyncToken;
@@ -39,6 +40,7 @@
 			
 			import spark.events.IndexChangeEvent;
 			
+			import utils.DateTimeUtils;
 			import utils.FaultHandler;
 			import utils.PdfDisplayer;
 			import utils.WindowsUtils;
@@ -76,9 +78,6 @@
 				dispatchEvent(new Event("cancelClicked"));
 			}
 			
-			
-			
-			
 			protected function init(event:FlexEvent):void
 			{
 				retrieveExchangeRates();
@@ -87,6 +86,9 @@
 				selectedExchangeRate = ExchangeRate.getDefault(loc);
 				budgetToShow.exchangeRate = selectedExchangeRate;
 				
+				var alternativeWrapper:AlternativeWrapper = new AlternativeWrapper(budgetToShow.relatedAlternative);
+				dateFromLabel.text = DateTimeUtils.formatDate(alternativeWrapper.dateFrom);
+				dateToLabel.text = DateTimeUtils.formatDate(alternativeWrapper.dateTo);
 				roomTypeLabel.text = budgetToShow.roomType.name;
 				pricePerDayLabel.text = budgetToShow.pricePerDayWithCurrency;
 				daysQtyLabel.text = budgetToShow.daysQuantity.toString();
@@ -127,6 +129,10 @@
 			{
 				budgetToShow = event.result as Budget;
 				budgetToShow.exchangeRate = selectedExchangeRate;
+				
+				var alternativeWrapper:AlternativeWrapper = new AlternativeWrapper(budgetToShow.relatedAlternative);
+				dateFromLabel.text = DateTimeUtils.formatDate(alternativeWrapper.dateFrom);
+				dateToLabel.text = DateTimeUtils.formatDate(alternativeWrapper.dateTo);
 				
 				roomTypeLabel.text = budgetToShow.roomType.name;
 				pricePerDayLabel.text = budgetToShow.pricePerDayWithCurrency;
@@ -195,10 +201,10 @@
 						<s:Label id="roomTypeLabel" text="{budgetToShow.roomType.name}" />
 					</s:FormItem>
 					<s:FormItem label="{loc.budget.from}:">	
-						<s:Label id="dateFromLabel" text="{budgetToShow.relatedAlternative.dateFrom}" />
+						<s:Label id="dateFromLabel"/>
 					</s:FormItem>
 					<s:FormItem label="{loc.budget.to}:">
-						<s:Label id="dateToLabel" text="{budgetToShow.relatedAlternative.dateTo}" />
+						<s:Label id="dateToLabel"/>
 					</s:FormItem>
 					
 				</s:HGroup>

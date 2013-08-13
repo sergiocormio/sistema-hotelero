@@ -155,6 +155,7 @@ package model
 			return _exchangeRate.currencySymbol + " " + _basePricePlusAllServicesIncludedInBasePrice..toFixed(2);
 		}
 
+		[Bindable]
 		public function get roomType():RoomType
 		{
 			return _roomType;
@@ -165,6 +166,7 @@ package model
 			_roomType = value;
 		}
 
+		[Bindable]
 		public function get daysQuantity():Number
 		{
 			return _daysQuantity;
