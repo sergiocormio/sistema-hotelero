@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="cb22989f-db85-46ba-977d-8bb124583fbf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table" fill="Solid">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#C0C0C0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF" fill="Solid">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="consumptions" uuid="b1ed383d-ba62-4957-9f0f-f8f3c8163659">
+		<field name="room.number" class="java.lang.Integer"/>
+		<field name="date" class="java.util.Date"/>
+		<field name="description" class="java.lang.String"/>
+		<field name="priceFormatted" class="java.lang.String"/>
+	</subDataset>
+	<field name="dateFrom" class="java.util.Date"/>
+	<field name="consumptions" class="java.util.Collection"/>
+	<field name="dateTo" class="java.util.Date"/>
+	<field name="totalPriceFormatted" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c2fd3b19-aed5-4f3f-871c-c6347c017bcb" x="20" y="32" width="182" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Consumption from]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="81116860-fd16-48b7-91fc-94353e2888e5" x="0" y="63" width="555" height="1"/>
+			</line>
+			<textField evaluationTime="Report" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="d4270066-88c4-4bfc-bb44-71653caf8baa" x="202" y="32" width="134" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateFrom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c2fd3b19-aed5-4f3f-871c-c6347c017bcb" x="336" y="32" width="31" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[to]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="4063bdff-e644-44c2-b5d3-bafd811356f1" x="367" y="32" width="124" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateTo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="44" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="156" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="1c7b8e7d-b80e-4435-994d-51006b180a05" key="table" style="table" positionType="Float" isPrintRepeatedValues="false" x="48" y="12" width="440" height="111"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="consumptions" uuid="e1add205-9a54-4644-a4dd-9d265dffbe30">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{consumptions})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column uuid="5d03d633-d929-429c-ba31-b471d44f45fd" width="130">
+						<jr:columnHeader style="table_TH" height="36" rowSpan="1">
+							<staticText>
+								<reportElement uuid="7c59785f-f21f-43dc-b4f9-0126e203ae85" positionType="Float" stretchType="RelativeToTallestObject" x="20" y="0" width="90" height="30" backcolor="#C0C0C0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Date]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+								<reportElement uuid="c915e5dc-8099-43e2-80cb-d9fdfaa101b8" x="0" y="0" width="130" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="2870ba63-79fe-4a5c-9632-ca9910f83eae" width="110">
+						<jr:columnHeader style="table_TH" height="36" rowSpan="1">
+							<staticText>
+								<reportElement uuid="dcc10f7c-faa6-4a3b-9018-788089ed5492" x="10" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Room]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField>
+								<reportElement uuid="76dee853-8507-469b-955f-b135ffbc89d3" x="0" y="0" width="110" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{room.number}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="ed9b1f70-40ff-4a17-b121-75ab2fac0b3e" width="106">
+						<jr:columnHeader style="table_TH" height="36" rowSpan="1">
+							<staticText>
+								<reportElement uuid="dcc10f7c-faa6-4a3b-9018-788089ed5492" x="8" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Description]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="54875167-d16e-4950-a308-94973cbb53b8" x="0" y="0" width="106" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="fec447cf-2c8d-4f14-8d42-202a0fdaaea8" width="107">
+						<jr:columnHeader style="table_TH" height="36" rowSpan="1">
+							<staticText>
+								<reportElement uuid="dcc10f7c-faa6-4a3b-9018-788089ed5492" x="12" y="0" width="82" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="d89f4151-a8e0-4f14-8ddf-2c2dbd30c6d9" x="0" y="0" width="107" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{priceFormatted}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="dcd198bd-2b7f-4d42-bd5e-70af0e4e20da" positionType="Float" x="48" y="136" width="79" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Price:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d5cc4ce8-1bef-4a6b-b1f2-171115ffaa9f" positionType="Float" x="127" y="136" width="137" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalPriceFormatted}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e3b730ed-d72c-4cf4-b38a-4d4984b8856c" x="48" y="14" width="54" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Signature:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="31481dc8-fb32-46ca-b1af-6a51e67b6beb" x="102" y="33" width="198" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="7989ae13-370f-4fad-9e56-24d2fdaa1b9a" x="388" y="14" width="29" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="bcf39774-f4ed-4671-a275-1b94845b24e7" x="417" y="14" width="10" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement uuid="9ccae855-5d0b-46da-9bb5-3a7dbfd3c1b3" x="428" y="14" width="29" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="10" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="12" splitType="Stretch"/>
+	</summary>
+</jasperReport>
