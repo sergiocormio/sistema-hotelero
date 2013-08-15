@@ -188,8 +188,10 @@ public class MailSender {
 			String styleValue = "";
 			
 			Node fontSizeAttr = fontNode.getAttributes().getNamedItem("SIZE");
-			styleValue += "font-size:" + fontSizeAttr.getTextContent() + "px; ";
-			fontNode.getAttributes().removeNamedItem("SIZE");			
+			if(fontSizeAttr != null){
+				styleValue += "font-size:" + fontSizeAttr.getTextContent() + "px; ";
+				fontNode.getAttributes().removeNamedItem("SIZE");
+			}
 			
 			Node fontFamilyAttr = fontNode.getAttributes().getNamedItem("FACE");
 			if(fontFamilyAttr != null){
