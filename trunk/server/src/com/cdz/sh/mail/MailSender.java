@@ -69,6 +69,7 @@ public class MailSender {
 				host = HOST_YAHOO;
 			}
 			
+			props.setProperty("mail.smtp.ssl.trust", "*");
 			props.setProperty("mail.smtp.host", host);
 			props.setProperty("mail.smtp.starttls.enable", "true");
 			props.setProperty("mail.smtp.port", HOST_PORT);
