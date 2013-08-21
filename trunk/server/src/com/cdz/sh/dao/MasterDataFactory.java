@@ -1,5 +1,6 @@
 package com.cdz.sh.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,19 +8,27 @@ import com.cdz.sh.dao.exception.DaoException;
 import com.cdz.sh.dao.impl.BankDaoImpl;
 import com.cdz.sh.dao.impl.CountryDaoImpl;
 import com.cdz.sh.dao.impl.DocumentTypeDaoImpl;
+import com.cdz.sh.dao.impl.EmailTemplateDaoImpl;
 import com.cdz.sh.dao.impl.ExchangeRateDaoImpl;
 import com.cdz.sh.dao.impl.LanguageDaoImpl;
 import com.cdz.sh.dao.impl.MasterDataFlagDaoImpl;
 import com.cdz.sh.dao.impl.RegionDaoImpl;
+import com.cdz.sh.dao.impl.ReservationFormDaoImpl;
 import com.cdz.sh.dao.impl.ReservationFormExpirationDaysDaoImpl;
 import com.cdz.sh.model.Bank;
 import com.cdz.sh.model.Country;
+import com.cdz.sh.model.Customer;
 import com.cdz.sh.model.DocumentType;
+import com.cdz.sh.model.EmailTemplate;
+import com.cdz.sh.model.EmailTemplatePK;
 import com.cdz.sh.model.ExchangeRate;
 import com.cdz.sh.model.Language;
 import com.cdz.sh.model.MasterDataFlag;
 import com.cdz.sh.model.Region;
+import com.cdz.sh.model.ReservationForm;
 import com.cdz.sh.model.ReservationFormExpirationDays;
+import com.cdz.sh.service.exception.InvalidOperationException;
+import com.cdz.sh.service.impl.CustomerServiceImpl;
 
 /**
  * Creates all master data. 
@@ -39,6 +48,7 @@ public class MasterDataFactory {
 	private BankDao bankDao;
 	private ExchangeRateDao exchangeRateDao;
 	private ReservationFormExpirationDaysDao expirationDaysDao;
+	private EmailTemplateDao emailTemplateDao;
 	
 	public MasterDataFactory() {
 	
@@ -50,6 +60,7 @@ public class MasterDataFactory {
 		this.bankDao = new BankDaoImpl();
 		this.exchangeRateDao = new ExchangeRateDaoImpl();
 		this.expirationDaysDao = new ReservationFormExpirationDaysDaoImpl();
+		this.emailTemplateDao = new EmailTemplateDaoImpl();
 	}
 
 	public void  createMasterData() {
@@ -60,11 +71,41 @@ public class MasterDataFactory {
 				
 				createData();
 				
+				//only for testing purposes
+				//createDummyData();
+				
 				setMasterDataCreated();
 			}
 		}
 		catch (DaoException daoException) {
 			daoException.printStackTrace();
+		} 
+//		catch (InvalidOperationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+	}
+
+	private void createDummyData() throws DaoException, InvalidOperationException {
+		
+		for(int i = 1; i <= 5000; i++){
+			String iStr = Integer.toString(i);
+			String email = iStr + "@" + iStr + ".com";
+			
+			Customer ci = new Customer();
+			ci.setEmail(email);
+			
+			new CustomerServiceImpl().createRecord(ci);
+		}
+		for(int i = 1; i <= 5000; i++){
+			
+			ReservationForm form = new ReservationForm();
+			form.setDateFrom(new Date());
+			form.setDateTo(new Date());
+			form.setCustomer(new CustomerServiceImpl().getRecordById(new Integer(i).longValue()));
+			
+			new ReservationFormDaoImpl().createRecord(form);
 		}
 		
 	}
@@ -110,6 +151,8 @@ public class MasterDataFactory {
 		// create record for checking reservation forms expiration
 		createReserrvationFormExpirationRecord();
 		
+		createEmailTemplates();
+		
 	}
 
 
@@ -134,6 +177,49 @@ public class MasterDataFactory {
 //			this.cleanigTypeDao.createRecord(typeBedClothe);
 //		}
 //	}
+
+	private void createEmailTemplates() throws DaoException {
+
+		EmailTemplatePK emailTemplatePK = new EmailTemplatePK();
+		emailTemplatePK.setTemplateId(EmailTemplatePK.BUDGET_RESPONSE);
+		emailTemplatePK.setLocale("es_AR");
+		
+		EmailTemplate budgetResponse_esAR = emailTemplateDao.getRecordById(emailTemplatePK);
+		if(budgetResponse_esAR == null){
+			budgetResponse_esAR = new EmailTemplate();
+			
+			budgetResponse_esAR.setId(emailTemplatePK);
+			budgetResponse_esAR.setHeader("<HTML><BODY><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">Hola gracias por la consulta.</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"><FONT COLOR=\"#0000ff\"><A HREF=\"http://www.dellosky.com/\" TARGET=\"_self\"><U>La posada Dell'Osky</U></A></FONT> está localizada en el balneario GAIVOTAS, barrio playa de INGLESES al norte de la isla distante 150 mtr del mar y próximo a supermercados, farmacia y lavandería. A 600 mtr de la posada encontramos el centro comercial y nocturno de Ingleses donde las opciones de gastronomía y diversión están a tu disposición. La posada ofrece a sus visitantes una linda área social con piscina, parrilla común, lounge, WI-FI y estacionamiento sin costo adicional.</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"></FONT></P></BODY></HTML>");
+			budgetResponse_esAR.setFooter("<HTML><BODY><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">Para realizar su reserva lea atentamente nuestras disposiciones generales: (Lea con atención para no ocurrir engaños) Las reservas son confirmadas únicamente con un depósito (valor a combinar). Para Argentina el mismo será realizado vía pagamento on line o con tarjeta de credito. para otros países será por transferencia vía WESTER UNION a nuestra cuenta del Banco do Brasil. El saldo deberá ser pagado en la posada por anticipado (sin excepción) para recibir las llaves de la unidad reservada. Caso ocurra algún imprevisto con menos de 30 días antes del check-in y tenga que cancelar la reserva o, teniendo que retirarse antes del final de la estadía por motivos personales.</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"><B>NO efectuamos devolución de valores ya pagos, estos pueden ser acreditados para una futura visita.</B></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">Muchas gracias por la consulta, estamos a disposición para otros esclarecimientos.</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">Recuerde siempre continuar nuestra comunicación sobre este cuerpo de mail.</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">Gracias y cordiales saludos.</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"><FONT COLOR=\"#0000ff\"><A HREF=\"http://www.dellosky.com/#!mapa/c8xe\" TARGET=\"_self\"><U>IMPRIMA mapa de localizaçaõ da POUSADA na Praia de INGLESES</U></A></FONT></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"><B>----------------------------------------------------------------------------------------------------</B></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"><B>Entrada de las 14hs a las 20hs - Salida hasta las 11h</B></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"><B><U>Por favor para INGRESOS fuera de ESTE HORARIO consulte !!</U></B></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">Atenciosamente,</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"><B><U>Dell´Osky Pousada</U></B></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">Travessa do Marisco 188</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">(esquina de la Rua do marisco N° 800 entrar a la derecha)</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">Florianópolis - Ingleses</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">Telefono :048-3369-0733</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"><FONT COLOR=\"#0000ff\"><A HREF=\"http://www.facebook.com/pages/DellOsky-Pousada-FLorianopolis/187620471311951\" TARGET=\"_self\"><U>Facebook</U></A></FONT></FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">GPS-48.39928150177002/-27.43093727472</FONT></P><P ALIGN=\"left\"><FONT FACE=\"Arial\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">ESQUINA RUA DO MARISCO 800, ENTRAR A LA DERECHA 80 METROS</FONT></P></BODY></HTML>");
+			
+			emailTemplateDao.createRecord(budgetResponse_esAR);
+		}
+		
+		emailTemplatePK.setLocale("en_US");
+		EmailTemplate budgetResponse_enUS = emailTemplateDao.getRecordById(emailTemplatePK);
+		if(budgetResponse_enUS == null){
+			budgetResponse_enUS = new EmailTemplate();
+			
+			budgetResponse_enUS.setId(emailTemplatePK);
+			budgetResponse_enUS.setHeader("");
+			budgetResponse_enUS.setFooter("");
+			
+			emailTemplateDao.createRecord(budgetResponse_enUS);
+		}
+		
+		emailTemplatePK.setLocale("pt_BR");
+		EmailTemplate budgetResponse_ptBR = emailTemplateDao.getRecordById(emailTemplatePK);
+		if(budgetResponse_ptBR == null){
+			budgetResponse_ptBR = new EmailTemplate();
+			
+			budgetResponse_ptBR.setId(emailTemplatePK);
+			budgetResponse_ptBR.setHeader("");
+			budgetResponse_ptBR.setFooter("");
+			
+			emailTemplateDao.createRecord(budgetResponse_ptBR);
+		}
+		
+	}
 
 	private void createReserrvationFormExpirationRecord() throws DaoException {
 		

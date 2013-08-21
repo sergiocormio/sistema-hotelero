@@ -10,7 +10,15 @@
         <channel ref="my-amf"/>
     </default-channels>
 
+
    
+   <destination id="emailTemplate">
+		<properties>
+			<source>com.cdz.sh.service.impl.EmailTemplateServiceImpl</source>
+			<scope>application</scope>
+		</properties>
+    </destination>
+    
    <destination id="promotionService">
 		<properties>
 			<source>com.cdz.sh.service.impl.PromotionServiceImpl</source>
