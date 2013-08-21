@@ -69,6 +69,7 @@
 		<modality>Modalidad</modality>
 		<price>Precio</price>
 		<basePricePlusAddServices>Precio Base con servicios</basePricePlusAddServices>
+		<subtotalsWithServices>Subtotales con servicios</subtotalsWithServices>
 		<convertPricesTo>Convertir precios a</convertPricesTo>
 		<valuesIn>Valores expresados en</valuesIn>
 		<apartment>Departamento</apartment>
@@ -78,6 +79,17 @@
 		<from>De</from>
 		<to>A</to>
 	</budget>
+	<budgetEmailResponse>
+		<responseTo>Responder a</responseTo>
+		<subject>Asunto</subject>
+		<message>Mensaje</message>
+		<emailSent>El mail ha sido enviado</emailSent>
+		<template>
+			<requestedPackage>Paquete Solicitado</requestedPackage>
+			<ourAvailableRooms>Nuestras habitaciones disponibles</ourAvailableRooms>
+			<theseValuesDoNotInclude>Estos valores no incluyen</theseValuesDoNotInclude>
+		</template>
+	</budgetEmailResponse>
     <button>
     	<add>Agregar</add>
     	<accept>Aceptar</accept>
@@ -95,6 +107,8 @@
     	<insertImage>Insertar imagen</insertImage>
 		<preview>Vista Previa</preview>
 		<consult>Consultar</consult>
+		<addUrl>Insertar enlace</addUrl>
+		<answerViaEmail>Responder via e-mail</answerViaEmail>
     </button>
     <calendar>
     	<singular>Calendario</singular>
@@ -414,6 +428,10 @@
 		<ONE_WAY_FLIGHT>Aeropuerto ida</ONE_WAY_FLIGHT>
 		<ROUND_TRIP_FLIGHT>Aeropuerto ida y vuelta</ROUND_TRIP_FLIGHT>
     </transferType>
+    <url>
+    	<single>Url</single>
+    	<textToShow>Texto a mostrar</textToShow>
+    </url>
 	<userSetting>
     	<calendar>
     		<single>Calendario</single>
@@ -434,6 +452,13 @@
 	    	<days>días</days>
     		<changesSaved>Los cambios han sido guardados.</changesSaved>
     	</reservationFormExpirationDate>
+    	<emailtemplate>
+    		<budgetresponse>
+    			<single>Consulta de Presupuesto - Plantillas de respuesta</single>
+    			<header>Encabezado</header>
+    			<footer>Pie de Página</footer>
+    		</budgetresponse>
+    	</emailtemplate>
     </userSetting>
     <validator>
     	<error>Error</error>

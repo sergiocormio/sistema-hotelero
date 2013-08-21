@@ -2,13 +2,17 @@
 <s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:individual="view.forms.crud.individual.*" xmlns:components="view.components.*"
-		  creationComplete="init()" focusInEffect="init()">
+		  creationComplete="init()" focusInEffect="init()" >
 	<fx:Script>
 		<![CDATA[
 			import flash.sampler.getInvocationCount;
 			
 			import flashx.textLayout.operations.PasteOperation;
 			
+			import locales.Locale;
+			
+			import model.EmailTemplate;
+			import model.EmailTemplatePK;
 			import model.ReservationFormExpirationDays;
 			
 			import mx.collections.ArrayCollection;
@@ -23,6 +27,7 @@
 			import resources.images.Images;
 			
 			import services.MigrationService;
+			import services.crud.EmailTemplateService;
 			import services.crud.ReservationFormExpirationDaysService;
 			
 			import utils.FaultHandler;
@@ -30,12 +35,18 @@
 			
 			import view.components.Mask;
 			
+			import flashx.textLayout.*;
+			import flashx.textLayout.conversion.ConversionType;
+			import flashx.textLayout.conversion.TextConverter;
+			
 			[Bindable]
 			public var loc:Object;
 			
 			
 			protected function init():void
 			{
+				Mask.show();
+				
 				daysToExpire.value = UserSettings.getInstance().getReservationFormExpDays();
 				
 				emailSenderText.text = UserSettings.getInstance().getEmailSender();
@@ -47,8 +58,25 @@
 
 				daysToShow.value = UserSettings.getInstance().getDefaultQuantityOfDaysToShow();
 			
+				var emailTplPk:EmailTemplatePK = new EmailTemplatePK();
+				emailTplPk.templateId = EmailTemplatePK.BUDGET_RESPONSE;
+				emailTplPk.locale = Locale.getInstance().getLocaleName();
+				
+				new EmailTemplateService().getRecordById(emailTplPk, getEmailTpl_resultHandler, FaultHandler.defaultFaultHandler);
+				
 			}
 			
+			private function getEmailTpl_resultHandler(event:ResultEvent,token:Object=null):void
+			{
+				var emailTemaplate:EmailTemplate = event.result as EmailTemplate;
+				
+				
+				budgetResponseHeaderEditor.editor.textFlow = TextConverter.importToFlow(emailTemaplate.header, TextConverter.TEXT_FIELD_HTML_FORMAT);
+				budgetResponseHeaderEditor.editor.textFlow.flowComposer.updateAllControllers();
+				budgetResponseFooterEditor.editor.textFlow = TextConverter.importToFlow(emailTemaplate.footer, TextConverter.TEXT_FIELD_HTML_FORMAT);
+				budgetResponseFooterEditor.editor.textFlow.flowComposer.updateAllControllers();
+				Mask.close();
+			}
 			
 			
 			
@@ -118,6 +146,20 @@
 			
 			private function reservationFormExpDays_resultHandler(event:Event):void
 			{
+				var emailTplPk:EmailTemplatePK = new EmailTemplatePK();
+				emailTplPk.templateId = EmailTemplatePK.BUDGET_RESPONSE;
+				emailTplPk.locale = Locale.getInstance().getLocaleName();
+				
+				var emailTpl:EmailTemplate = new EmailTemplate();
+				emailTpl.id = emailTplPk;
+				emailTpl.header = TextConverter.export(budgetResponseHeaderEditor.editor.textFlow, TextConverter.TEXT_FIELD_HTML_FORMAT, ConversionType.STRING_TYPE).toString();
+				emailTpl.footer = TextConverter.export(budgetResponseFooterEditor.editor.textFlow, TextConverter.TEXT_FIELD_HTML_FORMAT, ConversionType.STRING_TYPE).toString();
+				
+				new EmailTemplateService().updateRecord(emailTpl, updateEmailTpl_resultHandler, FaultHandler.defaultFaultHandler);
+			}
+			
+			private function updateEmailTpl_resultHandler(event:Event):void
+			{
 				Mask.close();
 			}
 			
@@ -169,7 +211,7 @@
 						   />
 	</fx:Declarations>
 	
-	<s:Group width="100%" height="100%" horizontalCenter="0" verticalCenter="0">
+	<s:Group width="100%" height="100%" horizontalCenter="0" verticalCenter="0" >
 		
 		<s:Rect width="100%" height="100%" horizontalCenter="0" verticalCenter="0">
 			<s:stroke>
@@ -256,7 +298,37 @@
 					</s:stroke>
 				</s:Line>
 			</s:VGroup>
+			
+			<s:VGroup width="100%">
+				<s:Form width="100%">
+					<s:layout>
+						<s:FormLayout gap="0"/>
+					</s:layout> 
+					
+					<s:FormHeading label="- {loc.userSetting.emailtemplate.budgetresponse.single}:"
+								   fontWeight="bold" fontStyle="italic" fontSize="12" />
+					
+					<s:FormItem label="" >
+						<!-- BODY -->
+						<s:HGroup width="100%" verticalAlign="middle">
+							<components:RichTextEditor id="budgetResponseHeaderEditor" width="100%" height="100%" title="{loc.userSetting.emailtemplate.budgetresponse.header}" loc="{loc}"/>
+						</s:HGroup>
+					</s:FormItem>
+					<s:FormItem label="" >
+						<!-- BODY -->
+						<s:HGroup width="100%" verticalAlign="middle">
+							<components:RichTextEditor id="budgetResponseFooterEditor" width="100%" height="100%" title="{loc.userSetting.emailtemplate.budgetresponse.footer}" loc="{loc}"/>
+						</s:HGroup>
+					</s:FormItem>
+				</s:Form>
 				
+				<s:Line width="90%">
+					<s:stroke>
+						<s:SolidColorStroke color="{Colors.RED_COLOR}" weight="2"/>
+					</s:stroke>
+				</s:Line>
+			</s:VGroup>
+			
 			<s:Spacer height="5"/>
 			
 			<s:HGroup verticalAlign="bottom" paddingBottom="30">

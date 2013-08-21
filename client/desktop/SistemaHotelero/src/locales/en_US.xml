@@ -69,6 +69,7 @@
 		<modality>Modality</modality>
 		<price>Price</price>
 		<basePricePlusAddServices>Base Price with services</basePricePlusAddServices>
+		<subtotalsWithServices>Subtotals with services</subtotalsWithServices>
 		<convertPricesTo>Convert prices to</convertPricesTo>
 		<valuesIn>Values in</valuesIn>
 		<apartment>Apartment</apartment>
@@ -78,6 +79,17 @@
 		<from>From</from>
 		<to>To</to>
 	</budget>
+	<budgetEmailResponse>
+		<responseTo>Answer to</responseTo>
+		<subject>Subject</subject>
+		<message>Message</message>
+		<emailSent>The email has been sent.</emailSent>
+		<template>
+			<requestedPackage>Requested Package</requestedPackage>
+			<ourAvailableRooms>Our available rooms</ourAvailableRooms>
+			<theseValuesDoNotInclude>These values do not include</theseValuesDoNotInclude>
+		</template>
+	</budgetEmailResponse>
     <button>
     	<add>Add</add>
     	<accept>Accept</accept>
@@ -95,6 +107,8 @@
     	<insertImage>Insert Image</insertImage>
 		<preview>Preview</preview>
 		<consult>Consult</consult>
+		<addUrl>Add Link</addUrl>
+		<answerViaEmail>Answer via e-mail</answerViaEmail>
     </button>
     <calendar>
     	<singular>Calendar</singular>
@@ -414,6 +428,10 @@
 		<ONE_WAY_FLIGHT>One way airport</ONE_WAY_FLIGHT>
 		<ROUND_TRIP_FLIGHT>Round trip airport</ROUND_TRIP_FLIGHT>
     </transferType>
+    <url>
+    	<single>Url</single>
+    	<textToShow>Text to show</textToShow>
+    </url>
 	<userSetting>
     	<calendar>
     		<single>Calendar</single>
@@ -434,6 +452,13 @@
 	    	<days>days</days>
     		<changesSaved>Your changes have been saved.</changesSaved>
     	</reservationFormExpirationDate>
+    	<emailtemplate>
+    		<budgetresponse>
+    			<single>Budget Request - Response Templates</single>
+    			<header>Header</header>
+    			<footer>Footer</footer>
+    		</budgetresponse>
+    	</emailtemplate>
     </userSetting>
     <validator>
     	<error>Error</error>

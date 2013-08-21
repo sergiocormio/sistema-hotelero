@@ -288,12 +288,20 @@ package resources.icons
 		public static var sendEmail:Class;
 		
 		[Bindable]
+		[Embed(source='resources/icons/send_email16x16.png')]
+		public static var sendEmailSmall:Class;
+				
+		[Bindable]
 		[Embed(source='resources/icons/insert_image32x32.png')]
 		public static var insertImage:Class;
 		
 		[Bindable]
 		[Embed(source='resources/icons/transparent24x24.png')]
 		public static var transparent:Class;
+		
+		[Bindable]
+		[Embed(source='resources/icons/addLink.png')]
+		public static var addLink:Class;
 		
 		public function Icons()
 		{

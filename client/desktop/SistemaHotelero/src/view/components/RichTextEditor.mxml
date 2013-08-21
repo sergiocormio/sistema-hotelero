@@ -11,17 +11,41 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import flashx.textLayout.conversion.ConversionType;
-			import flashx.textLayout.conversion.TextConverter;
 			import flash.text.engine.FontPosture;
 			import flash.text.engine.FontWeight;
+			import flash.text.engine.TextElement;
+			
+			import flashx.textLayout.conversion.ConversionType;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.LinkElement;
+			import flashx.textLayout.elements.ParagraphElement;
 			import flashx.textLayout.formats.TextAlign;
 			import flashx.textLayout.formats.TextDecoration;
 			import flashx.textLayout.formats.TextLayoutFormat;
+			
+			import model.Url;
+			
+			import mx.containers.TitleWindow;
 			import mx.events.ColorPickerEvent;
 			import mx.events.FlexEvent;
-			import spark.events.IndexChangeEvent;
+			
 			import resources.icons.Icons;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import utils.WindowsUtils;
+			import mx.managers.PopUpManager;
+			
+			import view.forms.UrlForm;
+			
+			
+			[Bindable]
+			public var loc:Object;
+			
+			private var titleWindow:TitleWindow;
+			private var urlForm:UrlForm;
+			
+			
 			
 			protected function editor_selectionChangeHandler(evt:FlexEvent):void {
 				var txtLayFmt:TextLayoutFormat = editor.getFormatOfRange(null,
@@ -143,6 +167,37 @@
 					editor.selectionActivePosition);
 				editor.setFocus();
 			}
+			
+			
+			
+			private function openUrlForm():void{
+				urlForm = new UrlForm();
+				urlForm.loc = loc;
+				urlForm.addEventListener("saveSuccess",url_saveSuccess);
+				urlForm.addEventListener("cancelClicked",titleWindow_close);
+				titleWindow = WindowsUtils.openDialog(loc.button.addUrl, urlForm, this.owner);
+			}
+			
+			
+			protected function url_saveSuccess(evt:Object):void {
+				
+				var url:Url = urlForm.currentUrl;
+				 
+				if(url.value != "" && url.value != urlForm.defaultLinkProtocol){
+					
+					var link:String = "<a href=\"" + url.value + "\">" + url.label + "</a>";
+					
+					editor.textFlow.addChild(TextConverter.importToFlow(link, TextConverter.TEXT_FIELD_HTML_FORMAT).getChildAt(0));
+					editor.textFlow.flowComposer.updateAllControllers();
+				}
+				
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
+			private function titleWindow_close(evt:Object):void {
+				PopUpManager.removePopUp(titleWindow);
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -209,6 +264,9 @@
 					</s:ArrayList>
 				</s:dataProvider>
 			</s:ButtonBar>
+						
+			<s:Button width="30" click="openUrlForm();"
+					  icon="{Icons.addLink}" toolTip="{loc.button.addLink}"/>
 		</mx:ToolBar>
 	</mx:ControlBar>
 	
