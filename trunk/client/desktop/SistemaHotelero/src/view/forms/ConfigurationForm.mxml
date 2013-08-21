@@ -42,7 +42,9 @@
 					languageCRUDForm.refreshForm();
 				}else if(element==bankCRUDForm){
 					bankCRUDForm.refreshForm();
-				}else if(element==userSettingsForm){
+				}
+				//the first element is the scroller that contains the form, but we refresh the related inner form
+				else if(element==userSettingsFormScroller){ 
 					userSettingsForm.refreshForm();
 				}else if(element==migrationForm){
 					migrationForm.refreshForm();
@@ -110,7 +112,12 @@
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="expirationDays" label="{loc.userSetting.plural}" icon="{Icons.user}" width="100%" height="100%">
-			<forms:UserSettingsForm id="userSettingsForm" loc="{loc}" width="100%" height="100%" />
+			<s:Scroller id="userSettingsFormScroller" width="100%" height="100%">
+				<s:Group>               
+					<!-- Your component(s) here! -->
+					<forms:UserSettingsForm id="userSettingsForm" loc="{loc}" width="100%" height="100%" />
+				</s:Group>
+			</s:Scroller>
 		</s:NavigatorContent>
 		
 		<s:NavigatorContent id="migration" label="{loc.saveLoadData}" icon="{Icons.saveLoadData}" width="100%" height="100%">

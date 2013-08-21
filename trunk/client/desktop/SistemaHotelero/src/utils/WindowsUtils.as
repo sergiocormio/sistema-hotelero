@@ -16,11 +16,19 @@ package utils
 		{
 		}
 		
-		public static function openDialog(title:String,componentInside:DisplayObject,parent:DisplayObject=null):TitleWindow{
+		public static function openDialog(title:String,componentInside:DisplayObject,parent:DisplayObject=null, minWidth:Number=-1, minHeight:Number=-1):TitleWindow{
 			var titleWindow:TitleWindow = new TitleWindow();
 			titleWindow.title = title;
 			titleWindow.showCloseButton = false;
 			titleWindow.addChild(componentInside);
+			
+			if(minWidth != -1){
+				titleWindow.minWidth = minWidth;
+			}
+			if(minHeight != -1){
+				titleWindow.minHeight = minHeight;
+			}
+			
 			//if there is no Parent, display in the middle of the screen
 			if(parent == null){
 				parent = FlexGlobals.topLevelApplication as DisplayObject;
