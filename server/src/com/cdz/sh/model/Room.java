@@ -24,7 +24,7 @@ public class Room implements Serializable{
     @GeneratedValue
     private long id;
 
-    @Column(name = "number", unique = true) 
+    @Column(name = "number", unique = true, nullable = false) 
     private int number;
 
     @Type(type="text")

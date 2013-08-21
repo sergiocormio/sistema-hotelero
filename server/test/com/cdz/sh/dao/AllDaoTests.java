@@ -12,7 +12,8 @@ import org.junit.runners.Suite;
         TestRateDao.class,
         TestReservationFormDao.class,
         TestSeasonDao.class,
-        TestServiceTypeDao.class
+        TestServiceTypeDao.class,
+        TestMasterDataFactory.class
 })
 public class AllDaoTests {
 

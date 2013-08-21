@@ -120,7 +120,6 @@ public class MailSender {
 		Multipart multipart = new MimeMultipart("related");
 		try 
 		{
-			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			InputSource is = new InputSource();
@@ -134,14 +133,14 @@ public class MailSender {
 				BodyPart imgBodyPart = createImageBodyPart(imgNodeList.item(i));
 				imgBodyParts.add(imgBodyPart);
 			}
-			
-			
+						
 			doc = convertFontTagToSpanTag(doc);
 			
 			String docString = toString(doc);
 			
-			
-			
+			// replaces '\t' with &emsp; that is HTML compliance
+			docString = docString.replace("\t", "&emsp;&emsp;&emsp;");
+
 			System.out.println(docString);
 			
 			BodyPart htmlPart = new MimeBodyPart();
