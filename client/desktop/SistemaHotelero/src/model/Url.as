@@ -7,6 +7,8 @@ package model
 		
 		public function Url()
 		{
+			_label = "";
+			_value = "";
 		}
 		
 		public function get label():String

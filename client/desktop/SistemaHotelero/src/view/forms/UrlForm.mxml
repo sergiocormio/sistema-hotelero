@@ -95,7 +95,9 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				labelText.text = _currentUrl.label;
 				valueText.text = defaultLinkProtocol;	
+				labelText.setFocus();
 			}
 			
 			private function titleWindow_close(evt:Object):void {
@@ -137,7 +139,7 @@
 					<s:TextInput id="labelText" width="210"/>
 				</s:FormItem>
 				<s:FormItem label="{loc.url.single}:" required="true">
-					<s:TextInput id="valueText" width="210"/>
+					<s:TextInput id="valueText" width="210" enter="save()"/>
 				</s:FormItem>
 			</s:Form>
 		</s:HGroup>

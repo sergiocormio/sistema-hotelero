@@ -11,6 +11,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import flashx.textLayout.elements.FlowElement;
 			import flash.text.engine.FontPosture;
 			import flash.text.engine.FontWeight;
 			import flash.text.engine.TextElement;
@@ -171,8 +172,27 @@
 			
 			
 			private function openUrlForm():void{
+				
+				
 				urlForm = new UrlForm();
 				urlForm.loc = loc;
+				
+				var url:Url = new Url();
+				
+				/*
+				I have disabled the user text selection to pre-set the link label because 
+				the only way to replace a user selection is to replace the entire element.
+				Thay way if we select text we could possibly remove some chars of the current element that have
+				not been selected. I'd prefer not to be able to preselect the link label and insert links as 
+				the next element of the one that contains the current cursor position. 
+				*/
+				
+//				var selectedText:String = editor.text.substring(editor.selectionAnchorPosition, editor.selectionActivePosition);
+//				if(selectedText != null && selectedText != ""){
+//					url.label = selectedText;
+//				 }
+				
+				urlForm.currentUrl = url;
 				urlForm.addEventListener("saveSuccess",url_saveSuccess);
 				urlForm.addEventListener("cancelClicked",titleWindow_close);
 				titleWindow = WindowsUtils.openDialog(loc.button.addUrl, urlForm, this.owner);
@@ -182,12 +202,35 @@
 			protected function url_saveSuccess(evt:Object):void {
 				
 				var url:Url = urlForm.currentUrl;
-				 
+				
+				// if there is a link to add
 				if(url.value != "" && url.value != urlForm.defaultLinkProtocol){
 					
 					var link:String = "<a href=\"" + url.value + "\">" + url.label + "</a>";
+					var linkElement:FlowElement = TextConverter.importToFlow(link, TextConverter.TEXT_FIELD_HTML_FORMAT).getChildAt(0);
+															
+					/*
+					I have disabled the user text selection because we have to replace the selected text with the 
+					created link, however the only way to replace a user selection is to replace the entire element.
+					Thay way if we select text we could possibly remove some chars of the current element that have
+					not been selected. I'd prefer not to be able to preselect the link label and insert links as 
+					the next element of the one that contains the current cursor position. 
+					*/
 					
-					editor.textFlow.addChild(TextConverter.importToFlow(link, TextConverter.TEXT_FIELD_HTML_FORMAT).getChildAt(0));
+					// if there was a user selection, remove selected text to them simulate a replacement
+//					var selectedText:String = editor.text.substring(editor.selectionAnchorPosition, editor.selectionActivePosition);
+//					if(selectedText != ""){
+//						editor.textFlow.removeChildAt(childIndex);						
+//						editor.textFlow.addChildAt(childIndex, linkElement);
+//					}
+//					else{
+//						editor.textFlow.addChildAt(childIndex+1, linkElement);
+//					}
+					
+					// insert the link next to the element that contains the current cursor position
+					var childIndex:int = editor.textFlow.findChildIndexAtPosition(editor.selectionAnchorPosition);
+					editor.textFlow.addChildAt(childIndex+1, linkElement);
+					
 					editor.textFlow.flowComposer.updateAllControllers();
 				}
 				
