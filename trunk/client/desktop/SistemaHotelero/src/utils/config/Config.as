@@ -114,7 +114,7 @@ package utils.config
 			if(_configXML!=null){
 				return _configXML.hotelWebSite;
 			}else{
-				return "www.dellosky.com";
+				return "";
 			}
 		}
 		
