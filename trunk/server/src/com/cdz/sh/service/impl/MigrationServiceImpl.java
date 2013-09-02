@@ -8,7 +8,7 @@ public class MigrationServiceImpl implements MigrationService {
 
 	
 	private static final String CURRENT_PATH = "./";
-	private static final String DB_FOLDER_NAME = "dellosky";
+	private static final String DB_FOLDER_NAME = "shdb"; //"dellosky" is only for Dell'Osky
 
 	@Override
 	public void backupDatabase(String destZipFile) {
