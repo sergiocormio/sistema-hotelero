@@ -16,7 +16,7 @@ import javax.persistence.Persistence;
  */
 public class EntityManagerFactorySingleton {
 
-	private static final String PROVIDER_UNIT_NAME = "dellosky";
+	private static final String PROVIDER_UNIT_NAME = "shdb"; //"dellosky" is only for Dell'Osky;
 		
 	private static EntityManagerFactory entityManagerFactory;
 		
