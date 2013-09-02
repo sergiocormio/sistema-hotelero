@@ -30,7 +30,7 @@ public class EntityManagerFactorySingleton {
 	
 	public static synchronized void shutDown() {
         try {
-            DriverManager.getConnection("jdbc:derby:dellosky;shutdown=true").close();
+            DriverManager.getConnection("jdbc:derby:"+PROVIDER_UNIT_NAME+";shutdown=true").close();
         } 
         /*
          * Derby actually throws an exception when the shutdown is successful. Code 08006 (with SQLCODE 45000) actually means
@@ -69,7 +69,7 @@ public class EntityManagerFactorySingleton {
 		if(entityManagerFactory == null){
 				
 			Map<String, Object> configuration = new HashMap<String, Object>();
-		    configuration.put("hibernate.connection.url", "jdbc:derby:dellosky;create=true");
+		    configuration.put("hibernate.connection.url", "jdbc:derby:"+PROVIDER_UNIT_NAME+";create=true");
 		    configuration.put("hibernate.connection.driver_class", "org.apache.derby.jdbc.EmbeddedDriver");
 		    configuration.put("hibernate.connection.dialect", "org.hibernate.dialect.DerbyDialect");
 		    configuration.put("hibernate.connection.username", "");
