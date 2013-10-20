@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexProperties enableServiceManager="false" flexServerFeatures="4" flexServerType="2" fmlDataModelLocation=".model/SistemaHotelero.fml" serverContextRoot="/SistemaHotelero" serverRoot="C:/Users/Sergio Cormio/Proyectos/Java/SistemaHotelero/WebContent" serverRootURL="http://localhost:8400/SistemaHotelero" toolCompile="true" useServerFlexSDK="false" version="2"/>
