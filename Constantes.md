@@ -1,0 +1,10 @@
+  * Desayuno (es por dia por persona)
+  * Estacionamineto (es por persona)
+  * Las toallas (por unidad, toalla individual, por vez
+  * el transporte es por vez
+  * ropa de cama, por unidad (juego) por vez
+  * limpieza extra, por vez
+
+  * Frecuencia de limpieza basica (en dias)
+
+  * Frecuencia de cambio de ropa de cama (en dias). Esta ultima puede no ser una cantidad fija de dias. **VER**

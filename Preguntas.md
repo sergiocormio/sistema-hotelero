@@ -1,0 +1,102 @@
+## Generales ##
+
+  * Definir dia y horario de reuniones en persona (útiles al ppio)
+> > Martes desp del trabajo
+
+  * Definir dia y horario de trabajo semanal (c/u desde su casa)
+> > 8 hs semanales en ppio
+
+  * Tomar nota de la cantidad de hs que se trabaja en esto (para luego poder sacar un costo aproximado).
+
+  * Definir duracion del proyecto, segun el scope que tenemos (esto es, para hacerlo seriamente y tomar compromiso)
+> > En ocvtubre deberia estar andando/cocinado//
+
+  * Definir "arquitectura" y tecnologias.
+> > Java con Swing y (SQLite o Derby)
+
+  * Definir WBS
+
+  * Definir entregas incrementales
+
+  * Asignar tareas a recursos.
+
+  * Definir calendario.
+
+  * Definir metodos y frecuencia de comunicacion con el cliente.
+> > Cada 2 semanas mandarle un status y/o preguntas. Si es necesario, armar una call por skype
+
+  * Patentamiento de la idea? (antes de arrancar con el proceso de desarrollo)
+> > Hablar con Gerardo
+
+## Estado de las Habitaciones ##
+
+  * ¿La grilla es solo a nivel informativo? No veo que tenga ninguna funcionalidad a nivel de interaccion con el usuario.
+S: Sí,por lo pronto sí, es sólo para tener la visión del estado general del Hotel.
+
+  * ¿Sobre la barra lateral izquierda deberia haber un boton para visualizar esa grilla?
+F: Sí, ya lo puse.
+
+  * Cuando se presiona sobre "consultar disponibilidad, aparece una pantalla para ingresar un rango de fechas y cantidad de personas. Esto va en una popup o se actualiza el frame principal?
+F: Lo agregué como un frame, actualicé el frame en la misma ventana.
+
+  * Cuando se ejecuta esta consulta, se corre el algoritmo y se despliega el resultado. El boton de reservar, iria en esta pantalla
+S: Sí y también debería poder acceder al botón Reservar desde el menú de la izquierda para hacer reservas manuales.
+
+  * Al presionar sobre Reservar, tiene que aparecer una pantalla con un formulario que refleje la "ficha de la reserva".
+S: Si
+
+  * La ficha de la reserva debe tener los botones de guardar e imprimir.
+S: guardar, cancelar, imprimir.
+
+  * La ficha de reserva se hace cuando se "pre-reserva" o cuando se CONFIRMA?
+S: Cuando se pre-reserva, pero el formulario de Reserva va a tener un radioButton donde podés elegir: Pre-Reservar ó Reservar(Confirmada)
+
+  * La ficha de reserva tiene estados? (en pre-reserva, confirmada)
+S: sí, explicada en el punto anterior.
+
+
+
+## Presupuesto ##
+
+  * Cuando el algoritmo de Disponibilidad de habitaciones, devuelve el resultado, cada alternativa podria tener un boton de "Presupuestar". Al hacer click, cambiariamos a la solapa de Presupuesto, y mostramos el presupuesto de esa determinada alternativa elegida.
+
+  * Otra opcion seria, en la solapa de Presupuesto, generar un formulario para ingresar:
+    1. cantidad de noche (o rango de fechas)
+    1. cantidad de personas
+    1. Numero de habitacion
+    1. Tipo de moneda
+
+  * Se pueden implementar las dos cosas.
+S: Si y que sea la misma pantalla.
+
+  * En la primera opcion, el tipo de moneda seria el default?.
+S: Sí. O sea que en el abm de tipos de moneda una tiene que poder ser elegida como la default (o la base desde la cual se calculan todas)
+
+  * Deberia poder mofificarse el tipo de moneda en el resultado del presupuesto (para no ingresar todos los datos de nuevo).
+S: Si, que buen feature.
+
+  * Ver si se puede meter un boton para el envio de mail, desde la misma aplicacion. Sino, que haga copy paste a gmail o yahoo.
+S: Se ve sobre la marcha, si es facil se hace lo del mail, sino se deja copy pastear.
+
+
+## Mantenimiento de habitaciones ##
+
+  * Se puede tener un date picker, para poder seleccionar el dia. Al seleccionar el dia, mostrar por pantala el reporte.
+
+  * o
+
+  * Al tocar en esta solapa, que se despliegue el reporte por pantalla, con la informacion asociada a cada habitacion, para ese dia en cuestion.
+S: Elegimos una y se lo podemos preguntar al cliente.
+
+  * Boton de Imprimir.
+
+
+
+## Configuracion ##
+
+  * De que forma vamos a mostrar las constantes asociadas al precio de las habitaciones? Se podria armar una tabla con:
+    * Numero de habitacion, como fila
+    * Mes, como columna
+
+  * De que forma vamos a mostrar las demas constantes?
+S: ABMs.

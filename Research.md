@@ -1,0 +1,58 @@
+# Instalador ( desktop app with DB ) #
+
+  * NOTA: SQLJet no sirve porque si bien la API que provee es simple de usar, tiene muchas limitaciones para consulta y manejo del lenguaje SQL standard.
+
+  * _Hibernate con embebed Derby!!!_ *** http://practicinggeek.blogspot.com.ar/2008/12/using-apache-derby-with-hibernate.html**
+
+  * _Derby_
+
+  * What is Derby?: http://db.apache.org/derby/
+
+  * Derby manuales: http://db.apache.org/derby/manuals/index.html
+
+  * Derby en memoria, muy util para JUnit!: http://wiki.apache.org/db-derby/InMemoryBackEndPrimer
+
+  * Hole Mundo de Derby en Java(jdbc): http://db.apache.org/derby/integrate/plugin_help/derby_app.html
+
+  * _SQLJet (SQLite Java implementation)_ 
+
+  * SQLJet: http://sqljet.com/
+
+
+
+# Trial versions and Licensing #
+
+  * True License: http://truelicense.java.net/tutorial.html
+
+
+# Reportes #
+
+  * Jasper Report: http://chuwiki.chuidiang.org/index.php?title=Ejemplo_b%C3%A1sico_con_Jasper_Report
+  * IReports (jrxml designer UI): http://www.adictosaltrabajo.com/tutoriales/tutoriales.php?pagina=ireport
+  * JR Data Source Samples: http://jasperforge.org/uploads/publish/jasperreportswebsite/trunk/sample.reference/datasource/index.html
+
+# Java UI #
+
+  * http://stackoverflow.com/questions/7358775/java-gui-frameworks-what-to-choose-swing-swt-awt-swingx-jgoodies-javafx
+
+# AIR con BlazeDS #
+  * http://www.brightworks.com/flex_ability/?p=74
+  * Buen Ejemplo: http://www.adobe.com/devnet/flex/articles/flashbuilder_blazeds.html
+  * Buenas slides, cortita y al pie: http://www.slideshare.net/Priyank/blaze-ds
+
+# Java Email #
+
+  * jar: http://www.oracle.com/technetwork/java/javamail/index.html
+  * doc: http://javamail.kenai.com/nonav/javadocs/index.html
+  * e.g: http://usuarios.multimania.es/manualesjava/manuales/javamail/javamail.pdf
+
+
+# Internacionalización #
+
+  * http://stackoverflow.com/questions/3321768/what-are-the-best-practices-for-internationalizing-a-java-swing-desktop-applicat
+  * Internacionalización en Adobe Flex/Air de todas las formas que leí la alternativa 2 me pareció la mejor: http://mannu.livejournal.com/300260.html
+
+
+# Imprimir #
+
+  * Si usamos Jasper Report, al pasar la info a pdf, ya tenemos la posibilidad de imprimir el pdf.
